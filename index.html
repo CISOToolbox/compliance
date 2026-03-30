@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi de Conformité</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/cisotoolbox.css">
+<link rel="stylesheet" href="css/Compliance.css">
+</head>
+<body>
+
+<div class="toolbar">
+    <button class="btn-hamburger" data-click="_toggleSidebarMobile">&#9776;</button>
+    <span class="app-title" data-i18n="comp.title">Suivi de Conformité</span>
+    <span class="flex-spacer"></span>
+    <span class="app-subtitle" id="header-subtitle"></span>
+    <div class="toolbar-menu">
+        <button class="btn-menu" data-click="toggleMenu" data-i18n="menu_file">Fichier</button>
+        <div class="toolbar-dropdown" id="io-menu">
+            <div class="toolbar-dropdown-item" data-click="_menuAction" data-args='["openFile"]' data-i18n="menu_open">Ouvrir</div>
+            <div class="toolbar-dropdown-item" id="menu-item-save" data-click="_menuAction" data-args='["quickSaveJSON"]' data-i18n="menu_save">Enregistrer</div>
+            <div class="toolbar-dropdown-item" data-click="_menuAction" data-args='["saveJSON"]' data-i18n="menu_save_as">Enregistrer sous</div>
+            <div class="toolbar-dropdown-sep"></div>
+            <div class="toolbar-dropdown-item" data-click="_menuAction" data-args='["importEbiosRM"]' data-i18n="comp.menu.import_ebios">Import EBIOS RM</div>
+            <div class="toolbar-dropdown-sep"></div>
+            <div class="toolbar-dropdown-item" data-click="_menuAction" data-args='["newAnalysis"]' data-i18n="comp.menu.new_assessment">Nouvelle évaluation</div>
+        </div>
+    </div>
+    <input type="file" id="file-input" accept=".json,.enc" class="hidden" data-change="loadJSON" data-pass-event>
+    <input type="file" id="ebios-input" accept=".json" class="hidden" data-change="_doImportEbiosRM" data-pass-event>
+    <span class="status" id="status-msg"></span>
+    <span class="toolbar-right" id="toolbar-right"></span>
+</div>
+
+<div class="app-layout">
+<nav class="sidebar">
+    <div class="sidebar-collapse" data-click="toggleSidebar" data-i18n-title="sidebar_hide" title="Masquer le menu">&#10005;</div>
+    <div class="sidebar-section" data-i18n="comp.sidebar.global">Suivi global</div>
+    <div class="sidebar-item active" data-click="selectPanel" data-args='["context"]' data-i18n="comp.sidebar.context">Contexte</div>
+    <div class="sidebar-item" data-click="selectPanel" data-args='["dashboard"]' data-i18n="comp.sidebar.dashboard">Tableau de bord</div>
+    <div class="sidebar-item" data-click="selectPanel" data-args='["plan"]' data-i18n="comp.sidebar.plan">Plan d'action</div>
+    <div class="sidebar-item" data-click="selectPanel" data-args='["controles"]' data-i18n="comp.sidebar.controles">Contrôles</div>
+    <div id="sidebar-frameworks"></div>
+    <div class="sidebar-section" data-i18n="comp.sidebar.history_section">Historique</div>
+    <div class="sidebar-item" data-click="selectPanel" data-args='["history"]' data-i18n="comp.sidebar.snapshots">Snapshots</div>
+    <div style="display:flex;gap:6px;padding:6px 14px 8px">
+        <button id="btn-undo" class="btn-undo" style="opacity:0.3" data-click="undo" data-i18n-title="btn_undo_title" title="Annuler (Ctrl+Z)">&#8630;</button>
+        <button id="btn-redo" class="btn-redo" style="opacity:0.3" data-click="redo" data-i18n-title="btn_redo_title" title="Rétablir (Ctrl+Y)">&#8631;</button>
+    </div>
+    <div class="flex-spacer"></div>
+    <a href="https://www.cisotoolbox.org" target="_blank" rel="noopener noreferrer" class="sidebar-brand">cisotoolbox.org</a>
+</nav>
+
+<div class="sidebar-expand" id="sidebar-expand" data-click="toggleSidebar" data-i18n-title="sidebar_show" title="Afficher le menu">&#8250;</div>
+<main class="main-content">
+<div class="container">
+<div class="tab-panel active" id="panel-dashboard"><div class="panel-desc" data-i18n="comp.panel.dashboard_desc">Vue d'ensemble de la conformité.</div><div id="dashboard-content"></div></div>
+<div class="tab-panel" id="panel-context"><div class="panel-desc" data-i18n="comp.panel.context_desc">Informations sur l'évaluation et sélection des référentiels.</div><div id="context-content"></div></div>
+<div class="tab-panel" id="panel-fw"><div class="panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
+<div class="tab-panel" id="panel-plan"><div class="panel-desc" data-i18n="comp.panel.plan_desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
+<div class="tab-panel" id="panel-controles"><div class="panel-desc" data-i18n="comp.panel.controles_desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
+<div class="tab-panel" id="panel-history"><div class="panel-desc" data-i18n="comp.panel.history_desc">Points de sauvegarde et historique des modifications.</div><div id="history-content"></div></div>
+</div>
+</main>
+</div>
+
+<footer style="display:none" data-i18n="comp.footer">Suivi de Conformité — Données modifiables, sauvegarde JSON</footer>
+
+<!-- Dialog mot de passe -->
+<div class="pwd-overlay" id="pwd-overlay">
+<div class="pwd-panel">
+    <div class="pwd-title" id="pwd-title">Mot de passe</div>
+    <input type="password" class="pwd-input" id="pwd-input" data-i18n-placeholder="pwd_placeholder" placeholder="Mot de passe" autocomplete="off">
+    <input type="password" class="pwd-input hidden" id="pwd-input2" data-i18n-placeholder="pwd_confirm_placeholder" placeholder="Confirmer le mot de passe" autocomplete="off">
+    <div class="pwd-error" id="pwd-error"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+        <button class="pwd-btn pwd-cancel" id="pwd-cancel" data-i18n="btn_cancel">Annuler</button>
+        <button class="pwd-btn pwd-ok" id="pwd-ok" data-i18n="btn_ok">OK</button>
+    </div>
+</div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/cisotoolbox.js"></script>
+<script src="js/referentiels_catalog.js"></script>
+<script src="js/Compliance_data.js"></script>
+<script src="js/Compliance_i18n_fr.js"></script>
+<script src="js/Compliance_app.js"></script>
+<script src="js/ai_common.js"></script>
+<script src="js/Compliance_ai_assistant.js"></script>
+</body>
+</html>

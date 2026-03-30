@@ -1,0 +1,3119 @@
+{
+  "meta": {
+    "societe": "MedSecure",
+    "date_evaluation": "2026-03-15",
+    "evaluateur": "RSSI",
+    "perimetre": "Infrastructure cloud (AWS/Azure), dispositifs IoMT, plateforme de télésurveillance, systèmes internes",
+    "commentaires": "Évaluation de conformité initiale — préparation certification ISO 27001 et conformité NIS2"
+  },
+  "referentiels_actifs": [
+    "anssi",
+    "iso",
+    "soc2",
+    "nis2"
+  ],
+  "referentiels": {
+    "anssi": [
+      {
+        "thematique": "Sensibiliser et former",
+        "mesure": "Former les équipes opérationnelles à la sécurité des SI",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001",
+          "M-003"
+        ],
+        "thematique_en": "Awareness and training",
+        "mesure_en": "Train operational teams in IS security",
+        "ref": "1"
+      },
+      {
+        "thematique": "Sensibiliser et former",
+        "mesure": "Sensibiliser les utilisateurs aux bonnes pratiques élémentaires de sécurité",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001",
+          "M-003"
+        ],
+        "thematique_en": "Awareness and training",
+        "mesure_en": "Raise user awareness of basic security best practices",
+        "ref": "2"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Connaître les SI et les cartographier",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003",
+          "M-018"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Know information systems and map them",
+        "ref": "3"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Gérer les actifs",
+        "applicable": "",
+        "conformite": 90,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016",
+          "M-018"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Manage assets",
+        "ref": "4"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Identifier et classer les informations et les serveurs les plus sensibles",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Identify and classify the most sensitive information and servers",
+        "ref": "5"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Disposer d'un inventaire exhaustif des comptes privilégiés",
+        "applicable": "",
+        "conformite": 70,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010",
+          "M-016"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Maintain a comprehensive inventory of privileged accounts",
+        "ref": "6"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Organiser les procédures d'arrivée, de mutation et de départ des collaborateurs",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Organize procedures for staff arrival, transfer and departure",
+        "ref": "7"
+      },
+      {
+        "thematique": "Connaître le SI",
+        "mesure": "Autoriser l'accès aux outils d'administration du SI qu'aux personnels habilités",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ],
+        "thematique_en": "Know your information system",
+        "mesure_en": "Allow access to IS administration tools only to authorized personnel",
+        "ref": "8"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Définir et vérifier des règles de choix et de dimensionnement des mots de passe",
+        "applicable": "",
+        "conformite": 55,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Define and enforce rules for password selection and strength",
+        "ref": "9"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Protéger les mots de passe stockés sur les systèmes",
+        "applicable": "",
+        "conformite": 60,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Protect passwords stored on systems",
+        "ref": "10"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Mettre en place une authentification forte (MFA)",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Implement multi-factor authentication (MFA)",
+        "ref": "11"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Ne pas conserver les mots de passe en clair dans les fichiers ou scripts",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Do not store passwords in clear text in files or scripts",
+        "ref": "12"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Changer les éléments d'authentification par défaut",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Change default authentication credentials",
+        "ref": "13"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Privilégier une authentification centrale sur le SI",
+        "applicable": "",
+        "conformite": 60,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Prefer centralized authentication on the IS",
+        "ref": "14"
+      },
+      {
+        "thematique": "Authentifier et contrôler les accès",
+        "mesure": "Mettre en place des règles de contrôle d'accès selon le principe du moindre privilège",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "Authenticate and control access",
+        "mesure_en": "Implement access control rules based on the principle of least privilege",
+        "ref": "15"
+      },
+      {
+        "thematique": "Sécuriser les postes",
+        "mesure": "Mettre à niveau les logiciels",
+        "applicable": "",
+        "conformite": 70,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008"
+        ],
+        "thematique_en": "Secure workstations",
+        "mesure_en": "Upgrade software",
+        "ref": "16"
+      },
+      {
+        "thematique": "Sécuriser les postes",
+        "mesure": "Mettre en œuvre un niveau de sécurité minimum sur l'ensemble du parc informatique",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008"
+        ],
+        "thematique_en": "Secure workstations",
+        "mesure_en": "Implement a minimum security level across the entire IT fleet",
+        "ref": "17"
+      },
+      {
+        "thematique": "Sécuriser les postes",
+        "mesure": "Chiffrer les données sensibles stockées sur les postes",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008"
+        ],
+        "thematique_en": "Secure workstations",
+        "mesure_en": "Encrypt sensitive data stored on workstations",
+        "ref": "18"
+      },
+      {
+        "thematique": "Sécuriser les postes",
+        "mesure": "Installer un logiciel de protection contre les codes malveillants (antivirus/EDR)",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-019"
+        ],
+        "thematique_en": "Secure workstations",
+        "mesure_en": "Install anti-malware protection software (antivirus/EDR)",
+        "ref": "19"
+      },
+      {
+        "thematique": "Sécuriser les postes",
+        "mesure": "Maîtriser l'utilisation des supports amovibles",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-019"
+        ],
+        "thematique_en": "Secure workstations",
+        "mesure_en": "Control the use of removable media",
+        "ref": "20"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Segmenter le réseau et contrôler les flux",
+        "applicable": "",
+        "conformite": 90,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006",
+          "M-017"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Segment the network and control traffic flows",
+        "ref": "21"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "S'assurer de la sécurité des réseaux d'accès Wi-Fi",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006",
+          "M-017"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Ensure the security of Wi-Fi access networks",
+        "ref": "22"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Utiliser des protocoles réseaux sécurisés",
+        "applicable": "",
+        "conformite": 55,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Use secure network protocols",
+        "ref": "23"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Mettre en place une passerelle sécurisée vers Internet",
+        "applicable": "",
+        "conformite": 70,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Implement a secure Internet gateway",
+        "ref": "24"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Sécuriser les interconnexions réseau avec les partenaires",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Secure network interconnections with partners",
+        "ref": "25"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Contrôler les accès distants",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Control remote access",
+        "ref": "26"
+      },
+      {
+        "thematique": "Sécuriser le réseau",
+        "mesure": "Superviser les flux réseaux",
+        "applicable": "",
+        "conformite": 90,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "Secure the network",
+        "mesure_en": "Monitor network traffic",
+        "ref": "27"
+      },
+      {
+        "thematique": "Sécuriser l'administration",
+        "mesure": "Dédier les postes d'administration",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "Secure administration",
+        "mesure_en": "Dedicate administration workstations",
+        "ref": "28"
+      },
+      {
+        "thematique": "Sécuriser l'administration",
+        "mesure": "Limiter et sécuriser les outils d'administration à distance",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ],
+        "thematique_en": "Secure administration",
+        "mesure_en": "Limit and secure remote administration tools",
+        "ref": "29"
+      },
+      {
+        "thematique": "Sécuriser l'administration",
+        "mesure": "Mettre en place un réseau dédié à l'administration",
+        "applicable": "",
+        "conformite": 60,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ],
+        "thematique_en": "Secure administration",
+        "mesure_en": "Set up a dedicated administration network",
+        "ref": "30"
+      },
+      {
+        "thematique": "Sécuriser l'administration",
+        "mesure": "Tracer les opérations d'administration",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-015"
+        ],
+        "thematique_en": "Secure administration",
+        "mesure_en": "Log administration operations",
+        "ref": "31"
+      },
+      {
+        "thematique": "Sécuriser l'administration",
+        "mesure": "Limiter au strict besoin opérationnel les droits d'administration",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-015"
+        ],
+        "thematique_en": "Secure administration",
+        "mesure_en": "Limit administration rights to strict operational needs",
+        "ref": "32"
+      },
+      {
+        "thematique": "Gérer le nomadisme",
+        "mesure": "Sécuriser physiquement les terminaux nomades",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ],
+        "thematique_en": "Manage mobile working",
+        "mesure_en": "Physically secure mobile devices",
+        "ref": "33"
+      },
+      {
+        "thematique": "Gérer le nomadisme",
+        "mesure": "Chiffrer les données sensibles des terminaux nomades",
+        "applicable": "",
+        "conformite": 70,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ],
+        "thematique_en": "Manage mobile working",
+        "mesure_en": "Encrypt sensitive data on mobile devices",
+        "ref": "34"
+      },
+      {
+        "thematique": "Gérer le nomadisme",
+        "mesure": "Sécuriser la connexion réseau des postes nomades",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ],
+        "thematique_en": "Manage mobile working",
+        "mesure_en": "Secure the network connection of mobile devices",
+        "ref": "35"
+      },
+      {
+        "thematique": "Maintenir le SI à jour",
+        "mesure": "Définir une politique de mise à jour des composants du SI",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ],
+        "thematique_en": "Keep the IS up to date",
+        "mesure_en": "Define an update policy for IS components",
+        "ref": "36"
+      },
+      {
+        "thematique": "Maintenir le SI à jour",
+        "mesure": "Anticiper la fin de la maintenance des logiciels et systèmes",
+        "applicable": "",
+        "conformite": 55,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ],
+        "thematique_en": "Keep the IS up to date",
+        "mesure_en": "Anticipate end of software and system support",
+        "ref": "37"
+      },
+      {
+        "thematique": "Maintenir le SI à jour",
+        "mesure": "Appliquer les correctifs de sécurité dans un délai adapté au risque",
+        "applicable": "",
+        "conformite": 60,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ],
+        "thematique_en": "Keep the IS up to date",
+        "mesure_en": "Apply security patches within a timeframe appropriate to the risk",
+        "ref": "38"
+      },
+      {
+        "thematique": "Superviser, auditer, réagir",
+        "mesure": "Activer et configurer les journaux des composants les plus importants du SI",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ],
+        "thematique_en": "Monitor, audit, react",
+        "mesure_en": "Enable and configure logging on the most critical IS components",
+        "ref": "39"
+      },
+      {
+        "thematique": "Superviser, auditer, réagir",
+        "mesure": "Définir et appliquer une politique de sauvegarde des composants critiques",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ],
+        "thematique_en": "Monitor, audit, react",
+        "mesure_en": "Define and apply a backup policy for critical components",
+        "ref": "40"
+      },
+      {
+        "thematique": "Superviser, auditer, réagir",
+        "mesure": "Procéder à des contrôles et audits de sécurité réguliers",
+        "applicable": "",
+        "conformite": 70,
+        "ecart": "Processus en cours de formalisation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ],
+        "thematique_en": "Monitor, audit, react",
+        "mesure_en": "Conduct regular security checks and audits",
+        "ref": "41"
+      },
+      {
+        "thematique": "Superviser, auditer, réagir",
+        "mesure": "Désigner un référent en sécurité des SI et le faire connaître",
+        "applicable": "",
+        "conformite": 45,
+        "ecart": "Action corrective nécessaire",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ],
+        "thematique_en": "Monitor, audit, react",
+        "mesure_en": "Designate an IS security officer and make them known",
+        "ref": "42"
+      }
+    ],
+    "iso": [
+      {
+        "ref": "4.1",
+        "theme": "Contexte de l'organisation",
+        "mesure": "Compréhension de l'organisation et de son contexte",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Understanding the organization and its context",
+        "theme_en": "Context of the organization"
+      },
+      {
+        "ref": "4.2",
+        "theme": "Contexte de l'organisation",
+        "mesure": "Compréhension des besoins et attentes des parties intéressées",
+        "applicable": "",
+        "conformite": 68,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Understanding the needs and expectations of interested parties",
+        "theme_en": "Context of the organization"
+      },
+      {
+        "ref": "4.3",
+        "theme": "Contexte de l'organisation",
+        "mesure": "Détermination du domaine d'application du SMSI",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Determining the scope of the information security management system",
+        "theme_en": "Context of the organization"
+      },
+      {
+        "ref": "4.4",
+        "theme": "Contexte de l'organisation",
+        "mesure": "Système de management de la sécurité de l'information",
+        "applicable": "",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security management system",
+        "theme_en": "Context of the organization"
+      },
+      {
+        "ref": "5.1",
+        "theme": "Leadership",
+        "mesure": "Leadership et engagement de la direction",
+        "applicable": "",
+        "conformite": 73,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Leadership and commitment",
+        "theme_en": "Leadership"
+      },
+      {
+        "ref": "5.2",
+        "theme": "Leadership",
+        "mesure": "Politique de sécurité de l'information",
+        "applicable": "",
+        "conformite": 72,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security policy",
+        "theme_en": "Leadership"
+      },
+      {
+        "ref": "5.3",
+        "theme": "Leadership",
+        "mesure": "Rôles, responsabilités et autorités au sein de l'organisation",
+        "applicable": "",
+        "conformite": 72,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Organizational roles, responsibilities and authorities",
+        "theme_en": "Leadership"
+      },
+      {
+        "ref": "6.1.1",
+        "theme": "Planification",
+        "mesure": "Actions liées aux risques et opportunités — Généralités",
+        "applicable": "",
+        "conformite": 69,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Actions to address risks and opportunities — General",
+        "theme_en": "Planning"
+      },
+      {
+        "ref": "6.1.2",
+        "theme": "Planification",
+        "mesure": "Appréciation des risques de sécurité de l'information",
+        "applicable": "",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security risk assessment",
+        "theme_en": "Planning"
+      },
+      {
+        "ref": "6.1.3",
+        "theme": "Planification",
+        "mesure": "Traitement des risques de sécurité de l'information",
+        "applicable": "",
+        "conformite": 68,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security risk treatment",
+        "theme_en": "Planning"
+      },
+      {
+        "ref": "6.2",
+        "theme": "Planification",
+        "mesure": "Objectifs de sécurité de l'information et plans pour les atteindre",
+        "applicable": "",
+        "conformite": 86,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security objectives and planning to achieve them",
+        "theme_en": "Planning"
+      },
+      {
+        "ref": "6.3",
+        "theme": "Planification",
+        "mesure": "Planification des modifications du SMSI",
+        "applicable": "",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Planning of changes",
+        "theme_en": "Planning"
+      },
+      {
+        "ref": "7.1",
+        "theme": "Support",
+        "mesure": "Ressources",
+        "applicable": "",
+        "conformite": 93,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Resources",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.2",
+        "theme": "Support",
+        "mesure": "Compétences",
+        "applicable": "",
+        "conformite": 82,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Competence",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.3",
+        "theme": "Support",
+        "mesure": "Sensibilisation",
+        "applicable": "",
+        "conformite": 67,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Awareness",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.4",
+        "theme": "Support",
+        "mesure": "Communication",
+        "applicable": "",
+        "conformite": 83,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Communication",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.5.1",
+        "theme": "Support",
+        "mesure": "Informations documentées — Généralités",
+        "applicable": "",
+        "conformite": 78,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Documented information — General",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.5.2",
+        "theme": "Support",
+        "mesure": "Création et mise à jour des informations documentées",
+        "applicable": "",
+        "conformite": 66,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Creating and updating",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "7.5.3",
+        "theme": "Support",
+        "mesure": "Maîtrise des informations documentées",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Control of documented information",
+        "theme_en": "Support"
+      },
+      {
+        "ref": "8.1",
+        "theme": "Réalisation des activités opérationnelles",
+        "mesure": "Planification et contrôle opérationnels",
+        "applicable": "",
+        "conformite": 67,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Operational planning and control",
+        "theme_en": "Operation"
+      },
+      {
+        "ref": "8.2",
+        "theme": "Réalisation des activités opérationnelles",
+        "mesure": "Appréciation des risques de sécurité de l'information",
+        "applicable": "",
+        "conformite": 71,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security risk assessment",
+        "theme_en": "Operation"
+      },
+      {
+        "ref": "8.3",
+        "theme": "Réalisation des activités opérationnelles",
+        "mesure": "Traitement des risques de sécurité de l'information",
+        "applicable": "",
+        "conformite": 72,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security risk treatment",
+        "theme_en": "Operation"
+      },
+      {
+        "ref": "9.1",
+        "theme": "Évaluation des performances",
+        "mesure": "Surveillance, mesures, analyse et évaluation",
+        "applicable": "",
+        "conformite": 81,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Monitoring, measurement, analysis and evaluation",
+        "theme_en": "Performance evaluation"
+      },
+      {
+        "ref": "9.2",
+        "theme": "Évaluation des performances",
+        "mesure": "Audit interne",
+        "applicable": "",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Internal audit",
+        "theme_en": "Performance evaluation"
+      },
+      {
+        "ref": "9.3",
+        "theme": "Évaluation des performances",
+        "mesure": "Revue de direction",
+        "applicable": "",
+        "conformite": 65,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Management review",
+        "theme_en": "Performance evaluation"
+      },
+      {
+        "ref": "10.1",
+        "theme": "Amélioration",
+        "mesure": "Amélioration continue",
+        "applicable": "",
+        "conformite": 82,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Continual improvement",
+        "theme_en": "Improvement"
+      },
+      {
+        "ref": "10.2",
+        "theme": "Amélioration",
+        "mesure": "Non-conformité et actions correctives",
+        "applicable": "",
+        "conformite": 71,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Nonconformity and corrective action",
+        "theme_en": "Improvement"
+      },
+      {
+        "ref": "A.5.1",
+        "theme": "Organisationnelles",
+        "mesure": "Politiques de sécurité de l'information",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001",
+          "M-003"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Policies for information security",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.2",
+        "theme": "Organisationnelles",
+        "mesure": "Rôles et responsabilités en sécurité",
+        "applicable": "",
+        "conformite": 81,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security roles and responsibilities",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.3",
+        "theme": "Organisationnelles",
+        "mesure": "Séparation des tâches",
+        "applicable": "",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-018"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Segregation of duties",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.4",
+        "theme": "Organisationnelles",
+        "mesure": "Responsabilités de la direction",
+        "applicable": "",
+        "conformite": 74,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-018"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Management responsibilities",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.5",
+        "theme": "Organisationnelles",
+        "mesure": "Relations avec les autorités",
+        "applicable": "",
+        "conformite": 66,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Contact with authorities",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.6",
+        "theme": "Organisationnelles",
+        "mesure": "Relations avec les groupes spécialisés",
+        "applicable": "",
+        "conformite": 54,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Contact with special interest groups",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.7",
+        "theme": "Organisationnelles",
+        "mesure": "Renseignement sur les menaces",
+        "applicable": "",
+        "conformite": 68,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Threat intelligence",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.8",
+        "theme": "Organisationnelles",
+        "mesure": "Sécurité dans la gestion de projet",
+        "applicable": "",
+        "conformite": 77,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security in project management",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.9",
+        "theme": "Organisationnelles",
+        "mesure": "Inventaire des informations et actifs",
+        "applicable": "",
+        "conformite": 57,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Inventory of information and other associated assets",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.10",
+        "theme": "Organisationnelles",
+        "mesure": "Utilisation correcte des informations et actifs",
+        "applicable": "",
+        "conformite": 91,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Acceptable use of information and other associated assets",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.11",
+        "theme": "Organisationnelles",
+        "mesure": "Restitution des actifs",
+        "applicable": "",
+        "conformite": 95,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Return of assets",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.12",
+        "theme": "Organisationnelles",
+        "mesure": "Classification de l'information",
+        "applicable": "",
+        "conformite": 40,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Classification of information",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.13",
+        "theme": "Organisationnelles",
+        "mesure": "Marquage de l'information",
+        "applicable": "",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Labelling of information",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.14",
+        "theme": "Organisationnelles",
+        "mesure": "Transfert d'information",
+        "applicable": "",
+        "conformite": 91,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information transfer",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.15",
+        "theme": "Organisationnelles",
+        "mesure": "Contrôle d'accès",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Access control",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.16",
+        "theme": "Organisationnelles",
+        "mesure": "Gestion des identités",
+        "applicable": "",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Identity management",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.17",
+        "theme": "Organisationnelles",
+        "mesure": "Informations d'authentification",
+        "applicable": "",
+        "conformite": 67,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Authentication information",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.18",
+        "theme": "Organisationnelles",
+        "mesure": "Droits d'accès",
+        "applicable": "",
+        "conformite": 61,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Access rights",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.19",
+        "theme": "Organisationnelles",
+        "mesure": "Sécurité dans les relations avec les fournisseurs",
+        "applicable": "",
+        "conformite": 57,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security in supplier relationships",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.20",
+        "theme": "Organisationnelles",
+        "mesure": "Sécurité dans les accords avec les fournisseurs",
+        "applicable": "",
+        "conformite": 49,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Addressing information security within supplier agreements",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.21",
+        "theme": "Organisationnelles",
+        "mesure": "Gestion de la sécurité dans la chaîne d'approvisionnement TIC",
+        "applicable": "",
+        "conformite": 53,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Managing information security in the ICT supply chain",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.22",
+        "theme": "Organisationnelles",
+        "mesure": "Surveillance et revue des services fournisseurs",
+        "applicable": "",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Monitoring, review and change management of supplier services",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.23",
+        "theme": "Organisationnelles",
+        "mesure": "Sécurité de l'information dans l'utilisation de services cloud",
+        "applicable": "",
+        "conformite": 61,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security for use of cloud services",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.24",
+        "theme": "Organisationnelles",
+        "mesure": "Planification et préparation de la gestion des incidents",
+        "applicable": "",
+        "conformite": 46,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security incident management planning and preparation",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.25",
+        "theme": "Organisationnelles",
+        "mesure": "Évaluation des événements de sécurité et prise de décision",
+        "applicable": "",
+        "conformite": 45,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Assessment and decision on information security events",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.26",
+        "theme": "Organisationnelles",
+        "mesure": "Réponse aux incidents de sécurité",
+        "applicable": "",
+        "conformite": 64,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Response to information security incidents",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.27",
+        "theme": "Organisationnelles",
+        "mesure": "Apprentissage des incidents de sécurité",
+        "applicable": "",
+        "conformite": 46,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Learning from information security incidents",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.28",
+        "theme": "Organisationnelles",
+        "mesure": "Collecte de preuves",
+        "applicable": "",
+        "conformite": 62,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Collection of evidence",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.29",
+        "theme": "Organisationnelles",
+        "mesure": "Sécurité pendant une perturbation",
+        "applicable": "",
+        "conformite": 94,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security during disruption",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.30",
+        "theme": "Organisationnelles",
+        "mesure": "Préparation des TIC pour la continuité d'activité",
+        "applicable": "",
+        "conformite": 62,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ],
+        "thematique_en": "",
+        "mesure_en": "ICT readiness for business continuity",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.31",
+        "theme": "Organisationnelles",
+        "mesure": "Exigences légales, statutaires, réglementaires et contractuelles",
+        "applicable": "",
+        "conformite": 78,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Legal, statutory, regulatory and contractual requirements",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.32",
+        "theme": "Organisationnelles",
+        "mesure": "Droits de propriété intellectuelle",
+        "applicable": "",
+        "conformite": 56,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Intellectual property rights",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.33",
+        "theme": "Organisationnelles",
+        "mesure": "Protection des enregistrements",
+        "applicable": "",
+        "conformite": 91,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Protection of records",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.34",
+        "theme": "Organisationnelles",
+        "mesure": "Vie privée et protection des données personnelles",
+        "applicable": "",
+        "conformite": 42,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010",
+          "M-016"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Privacy and protection of personal identifiable information",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.35",
+        "theme": "Organisationnelles",
+        "mesure": "Revue indépendante de la sécurité de l'information",
+        "applicable": "",
+        "conformite": 86,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Independent review of information security",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.36",
+        "theme": "Organisationnelles",
+        "mesure": "Conformité aux politiques et normes de sécurité",
+        "applicable": "",
+        "conformite": 69,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Compliance with policies, rules and standards for information security",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.5.37",
+        "theme": "Organisationnelles",
+        "mesure": "Procédures opérationnelles documentées",
+        "applicable": "",
+        "conformite": 74,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Documented operating procedures",
+        "theme_en": "Organizational controls"
+      },
+      {
+        "ref": "A.6.1",
+        "theme": "Personnes",
+        "mesure": "Vérification des antécédents",
+        "applicable": "",
+        "conformite": 47,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Screening",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.2",
+        "theme": "Personnes",
+        "mesure": "Conditions d'emploi",
+        "applicable": "",
+        "conformite": 64,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Terms and conditions of employment",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.3",
+        "theme": "Personnes",
+        "mesure": "Sensibilisation, éducation et formation à la sécurité",
+        "applicable": "",
+        "conformite": 45,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Information security awareness, education and training",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.4",
+        "theme": "Personnes",
+        "mesure": "Processus disciplinaire",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Disciplinary process",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.5",
+        "theme": "Personnes",
+        "mesure": "Responsabilités après la fin ou le changement d'emploi",
+        "applicable": "",
+        "conformite": 58,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Responsibilities after termination or change of employment",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.6",
+        "theme": "Personnes",
+        "mesure": "Accords de confidentialité ou de non-divulgation",
+        "applicable": "",
+        "conformite": 93,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Confidentiality or non-disclosure agreements",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.7",
+        "theme": "Personnes",
+        "mesure": "Travail à distance",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Remote working",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.6.8",
+        "theme": "Personnes",
+        "mesure": "Signalement des événements de sécurité",
+        "applicable": "",
+        "conformite": 79,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information security event reporting",
+        "theme_en": "People controls"
+      },
+      {
+        "ref": "A.7.1",
+        "theme": "Physiques",
+        "mesure": "Périmètres de sécurité physique",
+        "applicable": "",
+        "conformite": 95,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Physical security perimeters",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.2",
+        "theme": "Physiques",
+        "mesure": "Contrôles physiques des accès",
+        "applicable": "",
+        "conformite": 63,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Physical entry",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.3",
+        "theme": "Physiques",
+        "mesure": "Sécurisation des bureaux, salles et équipements",
+        "applicable": "",
+        "conformite": 76,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Securing offices, rooms and facilities",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.4",
+        "theme": "Physiques",
+        "mesure": "Surveillance de la sécurité physique",
+        "applicable": "",
+        "conformite": 52,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Physical security monitoring",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.5",
+        "theme": "Physiques",
+        "mesure": "Protection contre les menaces physiques et environnementales",
+        "applicable": "",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Protecting against physical and environmental threats",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.6",
+        "theme": "Physiques",
+        "mesure": "Travail dans les zones sécurisées",
+        "applicable": "",
+        "conformite": 44,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Working in secure areas",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.7",
+        "theme": "Physiques",
+        "mesure": "Bureau propre et écran verrouillé",
+        "applicable": "",
+        "conformite": 42,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Clear desk and clear screen",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.8",
+        "theme": "Physiques",
+        "mesure": "Emplacement et protection des matériels",
+        "applicable": "",
+        "conformite": 82,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-019"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Equipment siting and protection",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.9",
+        "theme": "Physiques",
+        "mesure": "Sécurité des actifs hors site",
+        "applicable": "",
+        "conformite": 54,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008",
+          "M-019"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Security of assets off-premises",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.10",
+        "theme": "Physiques",
+        "mesure": "Supports de stockage",
+        "applicable": "",
+        "conformite": 89,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008",
+          "M-025"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Storage media",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.11",
+        "theme": "Physiques",
+        "mesure": "Services généraux",
+        "applicable": "",
+        "conformite": 58,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-025"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Supporting utilities",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.12",
+        "theme": "Physiques",
+        "mesure": "Sécurité du câblage",
+        "applicable": "",
+        "conformite": 45,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-024"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Cabling security",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.13",
+        "theme": "Physiques",
+        "mesure": "Maintenance des matériels",
+        "applicable": "",
+        "conformite": 94,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-024"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Equipment maintenance",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.7.14",
+        "theme": "Physiques",
+        "mesure": "Mise au rebut ou réutilisation sécurisée des matériels",
+        "applicable": "",
+        "conformite": 54,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006",
+          "M-017"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Secure disposal or re-use of equipment",
+        "theme_en": "Physical controls"
+      },
+      {
+        "ref": "A.8.1",
+        "theme": "Technologiques",
+        "mesure": "Terminaux utilisateurs",
+        "applicable": "",
+        "conformite": 95,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006",
+          "M-017"
+        ],
+        "thematique_en": "",
+        "mesure_en": "User endpoint devices",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.2",
+        "theme": "Technologiques",
+        "mesure": "Droits d'accès privilégiés",
+        "applicable": "",
+        "conformite": 46,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Privileged access rights",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.3",
+        "theme": "Technologiques",
+        "mesure": "Restriction d'accès à l'information",
+        "applicable": "",
+        "conformite": 64,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information access restriction",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.4",
+        "theme": "Technologiques",
+        "mesure": "Accès au code source",
+        "applicable": "",
+        "conformite": 57,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Access to source code",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.5",
+        "theme": "Technologiques",
+        "mesure": "Authentification sécurisée",
+        "applicable": "",
+        "conformite": 69,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-015"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Secure authentication",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.6",
+        "theme": "Technologiques",
+        "mesure": "Dimensionnement",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-015"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Capacity management",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.7",
+        "theme": "Technologiques",
+        "mesure": "Protection contre les programmes malveillants",
+        "applicable": "",
+        "conformite": 93,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Protection against malware",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.8",
+        "theme": "Technologiques",
+        "mesure": "Gestion des vulnérabilités techniques",
+        "applicable": "",
+        "conformite": 63,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Management of technical vulnerabilities",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.9",
+        "theme": "Technologiques",
+        "mesure": "Gestion de la configuration",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Configuration management",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.10",
+        "theme": "Technologiques",
+        "mesure": "Suppression d'information",
+        "applicable": "",
+        "conformite": 63,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information deletion",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.11",
+        "theme": "Technologiques",
+        "mesure": "Masquage des données",
+        "applicable": "",
+        "conformite": 62,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Data masking",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.12",
+        "theme": "Technologiques",
+        "mesure": "Prévention de la fuite de données",
+        "applicable": "",
+        "conformite": 53,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Data leakage prevention",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.13",
+        "theme": "Technologiques",
+        "mesure": "Sauvegarde des informations",
+        "applicable": "",
+        "conformite": 82,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Information backup",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.14",
+        "theme": "Technologiques",
+        "mesure": "Redondance des moyens de traitement",
+        "applicable": "",
+        "conformite": 57,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ],
+        "thematique_en": "",
+        "mesure_en": "Redundancy of information processing facilities",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.15",
+        "theme": "Technologiques",
+        "mesure": "Journalisation",
+        "applicable": "",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Logging",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.16",
+        "theme": "Technologiques",
+        "mesure": "Activités de surveillance",
+        "applicable": "",
+        "conformite": 83,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Monitoring activities",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.17",
+        "theme": "Technologiques",
+        "mesure": "Synchronisation des horloges",
+        "applicable": "",
+        "conformite": 81,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Clock synchronization",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.18",
+        "theme": "Technologiques",
+        "mesure": "Utilisation de programmes utilitaires privilégiés",
+        "applicable": "",
+        "conformite": 44,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Use of privileged utility programs",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.19",
+        "theme": "Technologiques",
+        "mesure": "Installation de logiciels sur les systèmes en production",
+        "applicable": "",
+        "conformite": 78,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Installation of software on operational systems",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.20",
+        "theme": "Technologiques",
+        "mesure": "Sécurité des réseaux",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Networks security",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.21",
+        "theme": "Technologiques",
+        "mesure": "Sécurité des services réseau",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Security of network services",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.22",
+        "theme": "Technologiques",
+        "mesure": "Séparation des réseaux",
+        "applicable": "",
+        "conformite": 74,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Segregation of networks",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.23",
+        "theme": "Technologiques",
+        "mesure": "Filtrage web",
+        "applicable": "",
+        "conformite": 86,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Web filtering",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.24",
+        "theme": "Technologiques",
+        "mesure": "Utilisation de la cryptographie",
+        "applicable": "",
+        "conformite": 55,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Use of cryptography",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.25",
+        "theme": "Technologiques",
+        "mesure": "Cycle de vie du développement sécurisé",
+        "applicable": "",
+        "conformite": 50,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Secure development life cycle",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.26",
+        "theme": "Technologiques",
+        "mesure": "Exigences de sécurité des applications",
+        "applicable": "",
+        "conformite": 69,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Application security requirements",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.27",
+        "theme": "Technologiques",
+        "mesure": "Architecture système sécurisée et principes d'ingénierie",
+        "applicable": "",
+        "conformite": 64,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Secure system architecture and engineering principles",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.28",
+        "theme": "Technologiques",
+        "mesure": "Codage sécurisé",
+        "applicable": "",
+        "conformite": 57,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Secure coding",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.29",
+        "theme": "Technologiques",
+        "mesure": "Tests de sécurité dans le développement et l'acceptation",
+        "applicable": "",
+        "conformite": 80,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Security testing in development and acceptance",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.30",
+        "theme": "Technologiques",
+        "mesure": "Développement externalisé",
+        "applicable": "",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Outsourced development",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.31",
+        "theme": "Technologiques",
+        "mesure": "Séparation des environnements de développement, de test et de production",
+        "applicable": "",
+        "conformite": 75,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Separation of development, test and production environments",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.32",
+        "theme": "Technologiques",
+        "mesure": "Gestion des changements",
+        "applicable": "",
+        "conformite": 54,
+        "ecart": "Gap identifié — action corrective requise",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Change management",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.33",
+        "theme": "Technologiques",
+        "mesure": "Informations relatives aux tests",
+        "applicable": "",
+        "conformite": 83,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Test information",
+        "theme_en": "Technological controls"
+      },
+      {
+        "ref": "A.8.34",
+        "theme": "Technologiques",
+        "mesure": "Protection des systèmes d'information pendant les tests d'audit",
+        "applicable": "",
+        "conformite": 60,
+        "ecart": "En cours d'implémentation",
+        "mesures_prevues": "",
+        "mesures_ids": [],
+        "thematique_en": "",
+        "mesure_en": "Protection of information systems during audit testing",
+        "theme_en": "Technological controls"
+      }
+    ],
+    "soc2": [
+      {
+        "ref": "CC1.1",
+        "conformite": 90,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001"
+        ]
+      },
+      {
+        "ref": "CC1.2",
+        "conformite": 57,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001",
+          "M-021"
+        ]
+      },
+      {
+        "ref": "CC1.3",
+        "conformite": 51,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ]
+      },
+      {
+        "ref": "CC1.4",
+        "conformite": 67,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ]
+      },
+      {
+        "ref": "CC1.5",
+        "conformite": 65,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ]
+      },
+      {
+        "ref": "CC2.1",
+        "conformite": 64,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ]
+      },
+      {
+        "ref": "CC2.2",
+        "conformite": 58,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001"
+        ]
+      },
+      {
+        "ref": "CC2.3",
+        "conformite": 56,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ]
+      },
+      {
+        "ref": "CC3.1",
+        "conformite": 93,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ]
+      },
+      {
+        "ref": "CC3.2",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-008"
+        ]
+      },
+      {
+        "ref": "CC3.3",
+        "conformite": 55,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-009"
+        ]
+      },
+      {
+        "ref": "CC3.4",
+        "conformite": 87,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ]
+      },
+      {
+        "ref": "CC4.1",
+        "conformite": 77,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006",
+          "M-017"
+        ]
+      },
+      {
+        "ref": "CC4.2",
+        "conformite": 52,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007"
+        ]
+      },
+      {
+        "ref": "CC5.1",
+        "conformite": 51,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ]
+      },
+      {
+        "ref": "CC5.2",
+        "conformite": 55,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ]
+      },
+      {
+        "ref": "CC5.3",
+        "conformite": 63,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ]
+      },
+      {
+        "ref": "CC6.1",
+        "conformite": 64,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016"
+        ]
+      },
+      {
+        "ref": "CC6.2",
+        "conformite": 82,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016",
+          "M-004"
+        ]
+      },
+      {
+        "ref": "CC6.3",
+        "conformite": 88,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-010"
+        ]
+      },
+      {
+        "ref": "CC6.4",
+        "conformite": 51,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ]
+      },
+      {
+        "ref": "CC6.5",
+        "conformite": 85,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-019"
+        ]
+      },
+      {
+        "ref": "CC6.6",
+        "conformite": 62,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ]
+      },
+      {
+        "ref": "CC6.7",
+        "conformite": 95,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-020"
+        ]
+      },
+      {
+        "ref": "CC6.8",
+        "conformite": 91,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-012"
+        ]
+      },
+      {
+        "ref": "CC7.1",
+        "conformite": 94,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011"
+        ]
+      },
+      {
+        "ref": "CC7.2",
+        "conformite": 84,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-006"
+        ]
+      },
+      {
+        "ref": "CC7.3",
+        "conformite": 76,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ]
+      },
+      {
+        "ref": "CC7.4",
+        "conformite": 64,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ]
+      },
+      {
+        "ref": "CC7.5",
+        "conformite": 78,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ]
+      },
+      {
+        "ref": "CC8.1",
+        "conformite": 87,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-022"
+        ]
+      },
+      {
+        "ref": "CC9.1",
+        "conformite": 67,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ]
+      },
+      {
+        "ref": "CC9.2",
+        "conformite": 50,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014"
+        ]
+      },
+      {
+        "ref": "A1.1",
+        "conformite": 60,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ]
+      },
+      {
+        "ref": "A1.2",
+        "conformite": 94,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002",
+          "M-015"
+        ]
+      },
+      {
+        "ref": "A1.3",
+        "conformite": 77,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002"
+        ]
+      },
+      {
+        "ref": "P1.1",
+        "conformite": 71,
+        "ecart": "En cours de mise en conformité",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-021"
+        ]
+      }
+    ],
+    "nis2": [
+      {
+        "ref": "NIS2-01",
+        "conformite": 72,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-001",
+          "M-007"
+        ]
+      },
+      {
+        "ref": "NIS2-02",
+        "conformite": 64,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ]
+      },
+      {
+        "ref": "NIS2-03",
+        "conformite": 68,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-002",
+          "M-015"
+        ]
+      },
+      {
+        "ref": "NIS2-04",
+        "conformite": 76,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-014",
+          "M-023"
+        ]
+      },
+      {
+        "ref": "NIS2-05",
+        "conformite": 61,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-011",
+          "M-012",
+          "M-025"
+        ]
+      },
+      {
+        "ref": "NIS2-06",
+        "conformite": 60,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-007",
+          "M-008"
+        ]
+      },
+      {
+        "ref": "NIS2-07",
+        "conformite": 79,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-003"
+        ]
+      },
+      {
+        "ref": "NIS2-08",
+        "conformite": 61,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-005"
+        ]
+      },
+      {
+        "ref": "NIS2-09",
+        "conformite": 77,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-016",
+          "M-004"
+        ]
+      },
+      {
+        "ref": "NIS2-10",
+        "conformite": 77,
+        "ecart": "Écart identifié",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-017",
+          "M-006"
+        ]
+      },
+      {
+        "ref": "NIS2-11",
+        "conformite": 93,
+        "ecart": "",
+        "mesures_prevues": "",
+        "mesures_ids": [
+          "M-013"
+        ]
+      }
+    ]
+  },
+  "mesures": [
+    {
+      "id": "M-001",
+      "description": "Politique de sécurité des systèmes d'information (PSSI)",
+      "details": "Rédiger et diffuser la PSSI couvrant l'ensemble du périmètre IoMT, incluant les exigences MDR et HDS. Revue annuelle par la direction. Intègre les objectifs de sécurité, les rôles et responsabilités, et la gouvernance SSI.",
+      "statut": "termine",
+      "date_cible": "2025-12-01",
+      "responsable": "RSSI",
+      "recurrence": "annuelle",
+      "dernier_controle": "2026-01-15",
+      "preuves_ids": [
+        "P-001"
+      ]
+    },
+    {
+      "id": "M-002",
+      "description": "Plan de continuité et de reprise d'activité (PCA/PRA)",
+      "details": "Documenter les procédures de continuité pour la plateforme de télésurveillance et les dispositifs IoMT. Inclut RTO/RPO par service, procédures de basculement cloud, et communication de crise. Tests semestriels.",
+      "statut": "termine",
+      "date_cible": "2025-10-01",
+      "responsable": "DSI",
+      "recurrence": "semestrielle",
+      "dernier_controle": "2026-02-10",
+      "preuves_ids": [
+        "P-002"
+      ]
+    },
+    {
+      "id": "M-003",
+      "description": "Programme de sensibilisation et formation cybersécurité",
+      "details": "Programme trimestriel pour tous les collaborateurs : e-learning, phishing simulé, ateliers pratiques IoMT. Formation spécifique développeurs (OWASP, secure coding firmware). Suivi des taux de complétion.",
+      "statut": "termine",
+      "date_cible": "2025-06-01",
+      "responsable": "RSSI",
+      "recurrence": "trimestrielle",
+      "dernier_controle": "2026-03-01",
+      "preuves_ids": [
+        "P-003"
+      ]
+    },
+    {
+      "id": "M-004",
+      "description": "Gestion des accès privilégiés (PAM/bastion)",
+      "details": "Bastion CyberArk pour tous les accès admin AWS, Azure IoT Hub et infrastructure. Sessions enregistrées, MFA obligatoire, accès Just-In-Time via Azure PIM. Revue mensuelle des comptes privilégiés.",
+      "statut": "en_cours",
+      "date_cible": "2026-04-15",
+      "responsable": "Admin Sys",
+      "recurrence": "mensuelle",
+      "dernier_controle": "2026-02-20",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-005",
+      "description": "Chiffrement des données de santé",
+      "details": "AES-256 pour les données patients au repos (RDS PostgreSQL, S3). TLS 1.3 pour tous les flux IoMT (MQTT over TLS), API REST et communications internes. Gestion des clés via AWS KMS avec rotation automatique annuelle.",
+      "statut": "termine",
+      "date_cible": "2025-09-01",
+      "responsable": "Architecte Sécurité",
+      "recurrence": "",
+      "dernier_controle": "2025-12-01",
+      "preuves_ids": [
+        "P-004"
+      ]
+    },
+    {
+      "id": "M-006",
+      "description": "SIEM centralisé et SOC externalisé 24/7",
+      "details": "Elastic SIEM centralisant les logs AWS CloudTrail, Azure AD, IoT Hub, firewalls et endpoints. Corrélation d'événements avec règles SIGMA. SOC externalisé avec SLA : P1 <15min, P2 <1h. Rapports mensuels d'activité.",
+      "statut": "en_cours",
+      "date_cible": "2026-05-01",
+      "responsable": "RSSI",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-007",
+      "description": "Tests d'intrusion et analyses de vulnérabilités",
+      "details": "Pentest annuel infrastructure cloud + plateforme IoMT par cabinet certifié PASSI. Scans de vulnérabilités mensuels (Qualys). Fuzzing firmware trimestriel. Suivi des remédiations avec SLA.",
+      "statut": "termine",
+      "date_cible": "2026-01-15",
+      "responsable": "RSSI",
+      "recurrence": "annuelle",
+      "dernier_controle": "2026-01-20",
+      "preuves_ids": [
+        "P-005"
+      ]
+    },
+    {
+      "id": "M-008",
+      "description": "Gestion des correctifs et vulnérabilités",
+      "details": "Processus de patch management : critique <48h, haute <7j, moyenne <30j. Dashboard Qualys avec indicateurs de couverture. Exceptions documentées et validées par le RSSI. Applicable à l'infrastructure, aux postes et au firmware.",
+      "statut": "en_cours",
+      "date_cible": "2026-03-01",
+      "responsable": "Admin Sys",
+      "recurrence": "mensuelle",
+      "dernier_controle": "2026-03-05",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-009",
+      "description": "Classification et protection des données",
+      "details": "Politique de classification à 4 niveaux (Public, Interne, Confidentiel, Secret médical). Étiquetage automatique Azure Information Protection pour les données de santé. DLP Microsoft 365 activé sur les emails et SharePoint.",
+      "statut": "en_cours",
+      "date_cible": "2026-07-01",
+      "responsable": "DPO",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-010",
+      "description": "Revue périodique des droits d'accès",
+      "details": "Campagne trimestrielle de revue des habilitations sur Azure AD, AWS IAM, IoT Hub et applications métier. Validation par les managers. Désactivation automatique des comptes inactifs >90 jours.",
+      "statut": "en_cours",
+      "date_cible": "2026-04-01",
+      "responsable": "RSSI",
+      "recurrence": "trimestrielle",
+      "dernier_controle": "2026-01-10",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-011",
+      "description": "Segmentation réseau et architecture Zero Trust",
+      "details": "Micro-segmentation VPC AWS (sous-réseaux par environnement), VLAN dédié IoT, DMZ pour les API publiques. Architecture Zero Trust : vérification systématique identité + posture avant accès. WAF CloudFront sur les endpoints publics.",
+      "statut": "en_cours",
+      "date_cible": "2026-06-01",
+      "responsable": "Architecte Réseau",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-012",
+      "description": "Développement sécurisé firmware et applications (SDLC)",
+      "details": "SAST SonarQube et Snyk dans le pipeline CI/CD GitLab. DAST automatisé sur les API. Threat modeling STRIDE à chaque release firmware majeure. Code review sécurité obligatoire. SBOM généré automatiquement.",
+      "statut": "en_cours",
+      "date_cible": "2026-05-01",
+      "responsable": "Lead Dev",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-013",
+      "description": "Procédure de gestion des incidents de sécurité",
+      "details": "Processus conforme NIS2 art. 23 : détection, qualification (P1-P4), confinement, éradication, reprise, retour d'expérience. Notification ANSSI <24h pour incidents significatifs. Notification CNIL <72h si données personnelles. Exercice de crise annuel.",
+      "statut": "termine",
+      "date_cible": "2025-11-01",
+      "responsable": "RSSI",
+      "recurrence": "annuelle",
+      "dernier_controle": "2026-02-01",
+      "preuves_ids": [
+        "P-006"
+      ]
+    },
+    {
+      "id": "M-014",
+      "description": "Évaluation sécurité des fournisseurs (TPRM)",
+      "details": "Questionnaire annuel de sécurité basé sur CAIQ/CSA pour les fournisseurs critiques (AWS, Microsoft, GitLab, fournisseurs composants). Scoring de risque, plan d'action corrective, clause d'audit contractuelle. Registre des sous-traitants tenu à jour.",
+      "statut": "planifie",
+      "date_cible": "2026-09-01",
+      "responsable": "RSSI",
+      "recurrence": "annuelle",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-015",
+      "description": "Sauvegarde, restauration et immutabilité",
+      "details": "Backups quotidiens RDS avec rétention 30j, versioning S3 avec Object Lock (immutabilité). Réplication cross-region pour le PRA. Tests de restauration trimestriels documentés avec mesure du RTO.",
+      "statut": "termine",
+      "date_cible": "2025-08-01",
+      "responsable": "Admin Sys",
+      "recurrence": "trimestrielle",
+      "dernier_controle": "2026-02-15",
+      "preuves_ids": [
+        "P-007"
+      ]
+    },
+    {
+      "id": "M-016",
+      "description": "Contrôle d'accès et authentification forte (MFA)",
+      "details": "MFA Entra ID obligatoire pour tous les accès cloud et VPN. Politiques d'accès conditionnel (localisation, conformité poste). SSO unifié pour toutes les applications SaaS. Politique de mots de passe conforme ANSSI.",
+      "statut": "termine",
+      "date_cible": "2025-07-01",
+      "responsable": "Admin Sys",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-017",
+      "description": "Journalisation et traçabilité",
+      "details": "Centralisation de tous les logs (infrastructure, applications, IoT) dans Elastic. Rétention 12 mois. Intégrité des logs garantie par hachage. Alertes automatiques sur les événements de sécurité critiques.",
+      "statut": "en_cours",
+      "date_cible": "2026-04-01",
+      "responsable": "RSSI",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-018",
+      "description": "Gestion des actifs et inventaire",
+      "details": "Inventaire automatisé des actifs IT (CMDB ServiceNow). Découverte réseau mensuelle. Classification par criticité métier. Suivi du cycle de vie et de l'obsolescence des composants IoMT.",
+      "statut": "en_cours",
+      "date_cible": "2026-05-01",
+      "responsable": "DSI",
+      "recurrence": "mensuelle",
+      "dernier_controle": "2026-03-01",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-019",
+      "description": "Protection des endpoints et anti-malware",
+      "details": "CrowdStrike Falcon déployé sur tous les postes et serveurs. EDR avec détection comportementale. Politique de blocage USB. Sandboxing des pièces jointes email via Defender for Office 365.",
+      "statut": "termine",
+      "date_cible": "2025-06-01",
+      "responsable": "Admin Sys",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-020",
+      "description": "Sécurité physique et environnementale",
+      "details": "Contrôle d'accès badges pour les locaux. Vidéosurveillance des zones sensibles (salle serveurs). Climatisation et onduleurs pour l'infrastructure on-premise. Procédure de destruction sécurisée des supports.",
+      "statut": "termine",
+      "date_cible": "2025-03-01",
+      "responsable": "Services Généraux",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-021",
+      "description": "Conformité RGPD et protection des données personnelles",
+      "details": "Registre des traitements à jour. AIPD réalisée pour la télésurveillance. Clauses contractuelles types avec les sous-traitants. Procédure d'exercice des droits des personnes. DPO désigné.",
+      "statut": "termine",
+      "date_cible": "2025-05-01",
+      "responsable": "DPO",
+      "recurrence": "annuelle",
+      "dernier_controle": "2026-01-15",
+      "preuves_ids": [
+        "P-008"
+      ]
+    },
+    {
+      "id": "M-022",
+      "description": "Gestion des changements",
+      "details": "Processus ITIL de gestion des changements : CAB hebdomadaire, évaluation d'impact sécurité systématique, rollback documenté. Changements d'urgence avec validation RSSI a posteriori sous 48h.",
+      "statut": "en_cours",
+      "date_cible": "2026-04-01",
+      "responsable": "DSI",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-023",
+      "description": "Sécurité de la supply chain IoMT",
+      "details": "Vérification d'intégrité des composants hardware (SBOM). Audit sécurité des fournisseurs de composants électroniques. Contrôle de provenance et traçabilité. Veille sur les alertes supply chain.",
+      "statut": "planifie",
+      "date_cible": "2026-10-01",
+      "responsable": "RSSI",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-024",
+      "description": "Monitoring et détection d'anomalies IoT",
+      "details": "Surveillance des flux MQTT et BLE des dispositifs IoMT. Détection d'anomalies comportementales (volumétrie, horaires atypiques). Alertes temps réel vers le SOC. Tableau de bord dédié IoT.",
+      "statut": "planifie",
+      "date_cible": "2026-08-01",
+      "responsable": "Architecte Sécurité",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    },
+    {
+      "id": "M-025",
+      "description": "Processus de mise à jour sécurisée firmware (OTA)",
+      "details": "Mises à jour firmware signées cryptographiquement (code signing). Distribution OTA sécurisée avec vérification d'intégrité côté device. Rollback automatique en cas d'échec. Validation accélérée des patchs critiques.",
+      "statut": "en_cours",
+      "date_cible": "2026-06-01",
+      "responsable": "Lead Dev",
+      "recurrence": "",
+      "dernier_controle": "",
+      "preuves_ids": []
+    }
+  ],
+  "preuves": [
+    {
+      "id": "P-001",
+      "label": "PSSI MedSecure v3.0",
+      "url": "",
+      "date_obtention": "2025-12-01",
+      "date_expiration": "2026-12-01",
+      "commentaire": "Approuvée par le COMEX"
+    },
+    {
+      "id": "P-002",
+      "label": "PCA/PRA — Rapport de test semestriel",
+      "url": "",
+      "date_obtention": "2026-02-10",
+      "date_expiration": "",
+      "commentaire": "Test de basculement réussi en 45 min"
+    },
+    {
+      "id": "P-003",
+      "label": "Bilan sensibilisation cybersécurité 2025",
+      "url": "",
+      "date_obtention": "2026-01-15",
+      "date_expiration": "",
+      "commentaire": "95% de complétion, taux de clic phishing 4.2%"
+    },
+    {
+      "id": "P-004",
+      "label": "Rapport d'audit chiffrement",
+      "url": "",
+      "date_obtention": "2025-09-15",
+      "date_expiration": "",
+      "commentaire": "Conformité AES-256 et TLS 1.3 validée sur tous les flux"
+    },
+    {
+      "id": "P-005",
+      "label": "Rapport de pentest annuel 2026",
+      "url": "",
+      "date_obtention": "2026-01-20",
+      "date_expiration": "2027-01-20",
+      "commentaire": "3 critiques corrigées, 0 restante. Périmètre : cloud + IoMT"
+    },
+    {
+      "id": "P-006",
+      "label": "Procédure gestion des incidents v2.1",
+      "url": "",
+      "date_obtention": "2025-11-15",
+      "date_expiration": "",
+      "commentaire": "Conforme NIS2 art. 23. Testée lors de l'exercice de crise 02/2026"
+    },
+    {
+      "id": "P-007",
+      "label": "Rapport test de restauration Q1 2026",
+      "url": "",
+      "date_obtention": "2026-02-15",
+      "date_expiration": "",
+      "commentaire": "RTO atteint : 2h (objectif 4h). RPO : 1h (objectif 24h)"
+    },
+    {
+      "id": "P-008",
+      "label": "Registre des traitements RGPD",
+      "url": "",
+      "date_obtention": "2025-05-01",
+      "date_expiration": "",
+      "commentaire": "22 traitements identifiés, 3 AIPD réalisées"
+    },
+    {
+      "id": "P-009",
+      "label": "Rapport d'audit ISO 27001 interne",
+      "url": "",
+      "date_obtention": "2026-02-01",
+      "date_expiration": "",
+      "commentaire": "12 non-conformités mineures, 0 majeure. Audit de certification prévu T3 2026"
+    },
+    {
+      "id": "P-010",
+      "label": "Attestation SOC 2 Type I (en cours)",
+      "url": "",
+      "date_obtention": "",
+      "date_expiration": "",
+      "commentaire": "Audit SOC 2 Type I prévu T4 2026"
+    }
+  ]
+}

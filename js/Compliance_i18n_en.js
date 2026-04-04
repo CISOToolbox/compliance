@@ -234,5 +234,22 @@ _registerTranslations("en", {
     "comp.ref.soc2_desc": "Trust Services Criteria (AICPA) — security, availability, integrity, confidentiality, privacy",
 
     // Footer
-    "comp.footer": "Compliance Tracking — Editable data, JSON backup"
+    "comp.footer": "Compliance Tracking — Editable data, JSON backup",
+
+    "matrix.low": "Low",
+    "matrix.moderate": "Moderate",
+    "matrix.significant": "Significant",
+    "matrix.high": "High",
+    "matrix.critical": "Critical",
+    "matrix.extreme": "Extreme",
+    "matrix.x": "Impact",
+    "matrix.y": "Likelihood",
+"comp.csv.btn_import": "Import framework (CSV)",
+    "comp.csv.download_template": "Download CSV template",
+    "comp.csv.prompt_name": "Framework name:",
+    "comp.csv.custom_desc": "Custom framework ({count} controls)",
+    "comp.csv.imported": "{label} imported ({count} controls)",
+    "comp.csv.error_empty": "CSV file is empty or invalid",
+    "comp.csv.error_columns": "Required columns missing: ref and mesure (or measure/control)",
+    "comp.csv.error_no_measures": "No valid controls found in CSV",
 });

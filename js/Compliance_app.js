@@ -273,7 +273,21 @@ const _BASE_FRAMEWORKS = {
 };
 
 function _getAllFrameworks() {
-    return { ..._BASE_FRAMEWORKS, ...REFERENTIELS_META };
+    var all = Object.assign({}, _BASE_FRAMEWORKS, REFERENTIELS_META);
+    // Include custom frameworks stored in D
+    if (D._custom_frameworks) {
+        for (var fwId in D._custom_frameworks) {
+            if (!all[fwId]) {
+                var cf = D._custom_frameworks[fwId];
+                all[fwId] = { label: cf.label, description: (cf.measures||[]).length + " controles (custom)", color: cf.color, custom: true };
+                REFERENTIELS_META[fwId] = all[fwId];
+                REFERENTIELS_META[fwId].measures = cf.measures;
+                if (!window.COMPLIANCE_REF) window.COMPLIANCE_REF = {};
+                window.COMPLIANCE_REF[fwId] = { label: cf.label, measures: cf.measures, color: cf.color };
+            }
+        }
+    }
+    return all;
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -519,7 +533,10 @@ function renderContext() {
         const chipStyle = `border-color:${meta.color};color:${active?"white":meta.color};background:${active?meta.color:"white"}`;
         h += `<span class="ref-chip" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active?"✓":"+"} ${esc(meta.label)}</span>`;
     }
-    h += "</div></div>";
+    h += '</div>';
+    h += '<button class="btn-add" style="margin-top:8px;font-size:0.8em" data-click="importCustomCSV">' + t("comp.csv.btn_import") + '</button>';
+    h += ' <a href="#" style="font-size:0.78em;color:var(--light-blue);margin-left:8px" data-click="downloadCSVTemplate">' + t("comp.csv.download_template") + '</a>';
+    h += '</div>';
     document.getElementById("context-content").innerHTML = h;
 }
 
@@ -556,6 +573,162 @@ function toggleReferentiel(fwId) {
     };
     if (fwId !== "anssi" && fwId !== "iso") _ensureFramework(fwId, doToggle);
     else doToggle();
+}
+
+// ── Import référentiel custom depuis CSV ──────────────────────────
+
+function downloadCSVTemplate() {
+    var header = "ref;theme;mesure;description;theme_en;mesure_en;description_en";
+    var example1 = "CUSTOM-01;Gouvernance;Politique de securite;Definir et maintenir une PSSI;Governance;Security Policy;Define and maintain a security policy";
+    var example2 = "CUSTOM-02;Acces;Gestion des identites;Controler les acces logiques;Access;Identity Management;Control logical access";
+    var example3 = "CUSTOM-03;Protection;Chiffrement des donnees;AES-256 au repos et en transit;Protection;Data Encryption;AES-256 at rest and in transit";
+    var csv = header + "\n" + example1 + "\n" + example2 + "\n" + example3 + "\n";
+    var blob = new Blob(["\uFEFF" + csv], {type: "text/csv;charset=utf-8"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "referentiel_template.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+window.downloadCSVTemplate = downloadCSVTemplate;
+
+function importCustomCSV() {
+    var fi = document.createElement("input");
+    fi.type = "file";
+    fi.accept = ".csv,.tsv,.txt";
+    fi.onchange = function() {
+        if (!fi.files[0]) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            _parseAndImportCSV(e.target.result, fi.files[0].name);
+        };
+        reader.readAsText(fi.files[0]);
+    };
+    fi.click();
+}
+window.importCustomCSV = importCustomCSV;
+
+function _parseAndImportCSV(csvText, filename) {
+    // Detect separator: ; or , or \t
+    var firstLine = csvText.split("\n")[0];
+    var sep = firstLine.includes("\t") ? "\t" : firstLine.includes(";") ? ";" : ",";
+
+    var lines = csvText.split("\n").map(function(l) { return l.trim(); }).filter(Boolean);
+    if (lines.length < 2) { showStatus(t("comp.csv.error_empty")); return; }
+
+    // Parse header
+    var headers = lines[0].split(sep).map(function(h) { return h.trim().toLowerCase().replace(/^["']|["']$/g, ""); });
+    var refIdx = headers.indexOf("ref");
+    var themeIdx = headers.indexOf("theme");
+    var mesureIdx = headers.indexOf("mesure");
+    if (mesureIdx < 0) mesureIdx = headers.indexOf("measure");
+    if (mesureIdx < 0) mesureIdx = headers.indexOf("control");
+    var descIdx = headers.indexOf("description");
+    if (descIdx < 0) descIdx = headers.indexOf("details");
+    var themeEnIdx = headers.indexOf("theme_en");
+    var mesureEnIdx = headers.indexOf("mesure_en");
+    if (mesureEnIdx < 0) mesureEnIdx = headers.indexOf("measure_en");
+    var descEnIdx = headers.indexOf("description_en");
+
+    if (refIdx < 0 || mesureIdx < 0) {
+        showStatus(t("comp.csv.error_columns"));
+        return;
+    }
+
+    // Parse rows
+    var measures = [];
+    for (var i = 1; i < lines.length; i++) {
+        var cols = _splitCSVLine(lines[i], sep);
+        if (cols.length <= mesureIdx) continue;
+        var ref = (cols[refIdx] || "").trim();
+        var mesure = (cols[mesureIdx] || "").trim();
+        if (!ref || !mesure) continue;
+        measures.push({
+            ref: ref,
+            theme: themeIdx >= 0 ? (cols[themeIdx] || "").trim() : "",
+            theme_en: themeEnIdx >= 0 ? (cols[themeEnIdx] || "").trim() : "",
+            mesure: mesure,
+            mesure_en: mesureEnIdx >= 0 ? (cols[mesureEnIdx] || "").trim() : "",
+            description: descIdx >= 0 ? (cols[descIdx] || "").trim() : "",
+            description_en: descEnIdx >= 0 ? (cols[descEnIdx] || "").trim() : "",
+        });
+    }
+
+    if (measures.length === 0) { showStatus(t("comp.csv.error_no_measures")); return; }
+
+    // Prompt for framework name
+    var label = prompt(t("comp.csv.prompt_name"), filename.replace(/\.(csv|tsv|txt)$/i, ""));
+    if (!label) return;
+
+    var fwId = "custom_" + label.toLowerCase().replace(/[^a-z0-9]/g, "_").substring(0, 30) + "_" + Date.now().toString(36);
+
+    // Random color
+    var colors = ["#6366f1","#8b5cf6","#a855f7","#ec4899","#06b6d4","#14b8a6","#84cc16","#f97316","#78716c"];
+    var color = colors[Math.floor(Math.random() * colors.length)];
+
+    // Register in catalog
+    if (!window._REFERENTIELS_CATALOG) window._REFERENTIELS_CATALOG = {};
+    window._REFERENTIELS_CATALOG[fwId] = {
+        label: label,
+        description: t("comp.csv.custom_desc", {count: measures.length}),
+        description_en: "Custom framework (" + measures.length + " controls)",
+        color: color,
+        custom: true,
+    };
+    REFERENTIELS_META[fwId] = window._REFERENTIELS_CATALOG[fwId];
+    REFERENTIELS_META[fwId].measures = measures;
+
+    // Register in COMPLIANCE_REF for lazy loading
+    if (!window.COMPLIANCE_REF) window.COMPLIANCE_REF = {};
+    window.COMPLIANCE_REF[fwId] = {
+        label: label,
+        description: window._REFERENTIELS_CATALOG[fwId].description,
+        color: color,
+        measures: measures,
+    };
+
+    // Activate and initialize entries
+    _saveState();
+    D.referentiels_actifs.push(fwId);
+    D.referentiels[fwId] = measures.map(function(m) {
+        return {
+            ref: m.ref, theme: m.theme, mesure: m.mesure, description: m.description || "",
+            applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: []
+        };
+    });
+
+    // Store custom frameworks in D for persistence
+    if (!D._custom_frameworks) D._custom_frameworks = {};
+    D._custom_frameworks[fwId] = {
+        label: label,
+        color: color,
+        measures: measures,
+    };
+
+    _autoSave();
+    renderContext();
+    renderSidebar();
+    showStatus(t("comp.csv.imported", {label: label, count: measures.length}));
+}
+
+function _splitCSVLine(line, sep) {
+    // Handle quoted fields (e.g. "field with;semicolon")
+    var result = [];
+    var current = "";
+    var inQuote = false;
+    for (var i = 0; i < line.length; i++) {
+        var c = line[i];
+        if (c === '"' && (i === 0 || line[i-1] !== '\\')) {
+            inQuote = !inQuote;
+        } else if (c === sep && !inQuote) {
+            result.push(current);
+            current = "";
+        } else {
+            current += c;
+        }
+    }
+    result.push(current);
+    return result;
 }
 
 // ── Dashboard global ──────────────────────────────────────────────
@@ -692,11 +865,11 @@ function _renderFwExigences(fwId, label) {
         <span class="fs-xs text-muted">${t("comp.exig.count", {filtered: exigences.length, total: allExigences.length})}</span>
     </div>`;
     h += `<table id="exig-${fwId}-table"><thead><tr>`;
-    h += `<th style="width:60px">${t("comp.exig.col_ref")}</th>`;
+    h += `<th${hd("ref")} style="width:60px">${t("comp.exig.col_ref")}</th>`;
     h += `<th${hd("theme")} style="min-width:100px">${t("comp.exig.col_theme")}</th>`;
-    h += `<th style="max-width:300px">${t("comp.exig.col_mesure")}</th>`;
-    h += `<th style="width:50px" class="ta-c">${t("comp.exig.col_appl")}</th>`;
-    h += `<th style="width:70px" class="ta-c">${t("comp.exig.col_statut")}</th>`;
+    h += `<th${hd("mesure")} style="max-width:300px">${t("comp.exig.col_mesure")}</th>`;
+    h += `<th${hd("appl")} style="width:50px" class="ta-c">${t("comp.exig.col_appl")}</th>`;
+    h += `<th${hd("statut")} style="width:70px" class="ta-c">${t("comp.exig.col_statut")}</th>`;
     h += `<th${hd("ecart")} style="min-width:250px">${t("comp.exig.col_commentaires")}</th>`;
     h += `<th${hd("mes")} style="min-width:200px">${t("comp.exig.col_mesures_liees")}</th>`;
     h += `</tr></thead><tbody>`;
@@ -719,11 +892,11 @@ function _renderFwExigences(fwId, label) {
         const prevues = linkedMesures.filter(m => _mesureEffectiveStatut(m) !== "termine");
 
         h += `<tr${notApplicable?' style="background:#f5f5f5"':''}>`;
-        h += `<td class="fw-600">${esc(ref)}</td>`;
+        h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
-        h += `<td><div>${esc(_rt(e, "mesure"))}</div>${desc?'<div class="desc-text">'+esc(desc)+'</div>':""}</td>`;
-        h += `<td class="ta-c"><input type="checkbox" ${!notApplicable?"checked":""} data-change="_toggleApplicable" data-args='${_da(fwId,i)}' data-pass-checked /></td>`;
-        h += `<td class="ta-c">${badge(_exigStatutLabel(statut), statutColor)}</td>`;
+        h += `<td${hd("mesure")}><div>${esc(_rt(e, "mesure"))}</div>${desc?'<div class="desc-text">'+esc(desc)+'</div>':""}</td>`;
+        h += `<td${hd("appl")} class="ta-c"><input type="checkbox" ${!notApplicable?"checked":""} data-change="_toggleApplicable" data-args='${_da(fwId,i)}' data-pass-checked /></td>`;
+        h += `<td${hd("statut")} class="ta-c">${badge(_exigStatutLabel(statut), statutColor)}</td>`;
         h += `<td${hd("ecart")}><textarea rows="3" class="w-full" placeholder="${notApplicable?t("comp.exig.placeholder_na"):t("comp.exig.placeholder_comments")}" data-change="_updateExig" data-args='${_da(fwId,i,"ecart")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(e.ecart||"")}</textarea></td>`;
 
         // Colonne mesures liées
@@ -749,6 +922,7 @@ function _renderFwExigences(fwId, label) {
         h += '</tr>';
     });
     h += '</tbody></table>';
+    h += colsButton("exig-" + fwId + "-table");
 
     document.getElementById("fw-desc").textContent = t("comp.exig.fw_desc", {label: label});
     document.getElementById("fw-content").innerHTML = h;
@@ -877,8 +1051,8 @@ function _renderFwMesures(fwId, label) {
     // Tableau des mesures
     if (mesures.length > 0) {
         h += `<table id="mesures-${fwId}-table"><thead><tr>
-            <th style="width:70px">${t("comp.mes.col_id")}</th>
-            <th>${t("comp.mes.col_description")}</th>
+            <th${hd("mid")} style="width:70px">${t("comp.mes.col_id")}</th>
+            <th${hd("desc")}>${t("comp.mes.col_description")}</th>
             <th${hd("statut")} style="width:90px">${t("comp.mes.col_statut")}</th>
             <th${hd("resp")} style="width:100px">${t("comp.mes.col_responsable")}</th>
             <th${hd("ech")} style="width:90px">${t("comp.mes.col_echeance")}</th>
@@ -892,8 +1066,8 @@ function _renderFwMesures(fwId, label) {
             const linkedFws = _findFwsForMesure(m.id);
             const isFw = fwMesureIds.has(m.id);
             h += `<tr style="cursor:pointer" data-click="_editMesure" data-args='${_da(fwId,m.id)}'>
-                <td class="fw-600">${esc(m.id)}</td>
-                <td>${esc(m.description||"—")}</td>
+                <td${hd("mid")} class="fw-600">${esc(m.id)}</td>
+                <td${hd("desc")}>${esc(m.description||"—")}</td>
                 <td${hd("statut")}>${_mesureBadge(m)}</td>
                 <td${hd("resp")}>${esc(m.responsable||"—")}</td>
                 <td${hd("ech")}>${esc(m.date_cible||"—")}</td>
@@ -904,6 +1078,7 @@ function _renderFwMesures(fwId, label) {
             </tr>`;
         });
         h += '</tbody></table>';
+        h += colsButton("mesures-" + fwId + "-table");
     }
 
     document.getElementById("fw-desc").textContent = t("comp.mes.fw_desc", {label: label});
@@ -1162,8 +1337,8 @@ function _renderFwPreuves(fwId, label) {
     // Tableau
     if (preuves.length > 0) {
         h += `<table id="preuves-${fwId}-table"><thead><tr>
-            <th style="width:70px">${t("comp.prv.col_id")}</th>
-            <th>${t("comp.prv.col_label")}</th>
+            <th${hd("pid")} style="width:70px">${t("comp.prv.col_id")}</th>
+            <th${hd("label")}>${t("comp.prv.col_label")}</th>
             <th${hd("url")}>${t("comp.prv.col_url")}</th>
             <th${hd("obt")} style="width:100px">${t("comp.prv.col_obtention")}</th>
             <th${hd("exp")} style="width:100px">${t("comp.prv.col_expiration")}</th>
@@ -1181,8 +1356,8 @@ function _renderFwPreuves(fwId, label) {
             else if (p.date_expiration) statut = badge(t("comp.prv.ok"), "var(--green)");
 
             h += `<tr style="cursor:pointer${!isFw?";opacity:0.5":""}${expired?";background:#fdf2f2":""}" data-click="_editPreuve" data-args='${_da(fwId,p.id)}'>
-                <td class="fw-600">${esc(p.id)}</td>
-                <td>${esc(p.label||"—")}</td>
+                <td${hd("pid")} class="fw-600">${esc(p.id)}</td>
+                <td${hd("label")}>${esc(p.label||"—")}</td>
                 <td${hd("url")} class="fs-xs">${p.url ? '<a href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer" data-stop>'+esc(p.url).substring(0,40)+'</a>' : "—"}</td>
                 <td${hd("obt")}>${esc(p.date_obtention||"—")}</td>
                 <td${hd("exp")}>${esc(p.date_expiration||"—")}</td>
@@ -1191,6 +1366,7 @@ function _renderFwPreuves(fwId, label) {
             </tr>`;
         });
         h += '</tbody></table>';
+        h += colsButton("preuves-" + fwId + "-table");
     }
 
     document.getElementById("fw-desc").textContent = t("comp.prv.fw_desc", {label: label});
@@ -1322,8 +1498,8 @@ function renderPlan() {
         h += '<div class="synth-card"><p class="text-muted">' + t("comp.plan.aucune") + '</p></div>';
     } else {
         h += `<table id="plan-table"><thead><tr>
-            <th style="width:70px">${t("comp.mes.col_id")}</th>
-            <th>${t("comp.mes.col_description")}</th>
+            <th${hd("mid")} style="width:70px">${t("comp.mes.col_id")}</th>
+            <th${hd("desc")}>${t("comp.mes.col_description")}</th>
             <th${hd("statut")} style="width:90px">${t("comp.mes.col_statut")}</th>
             <th${hd("resp")} style="width:100px">${t("comp.mes.col_responsable")}</th>
             <th${hd("ech")} style="width:90px">${t("comp.mes.col_echeance")}</th>
@@ -1336,8 +1512,8 @@ function renderPlan() {
             const linkedExigs = _findExigencesForMesure(m.id);
             const linkedFws = _findFwsForMesure(m.id);
             h += `<tr style="cursor:pointer" data-click="_editMesurePlan" data-args='${_da(m.id)}'>
-                <td class="fw-600">${esc(m.id)}</td>
-                <td>${esc(m.description||"—")}</td>
+                <td${hd("mid")} class="fw-600">${esc(m.id)}</td>
+                <td${hd("desc")}>${esc(m.description||"—")}</td>
                 <td${hd("statut")}>${_mesureBadge(m)}</td>
                 <td${hd("resp")}>${esc(m.responsable||"—")}</td>
                 <td${hd("ech")}>${esc(m.date_cible||"—")}</td>
@@ -1348,6 +1524,7 @@ function renderPlan() {
             </tr>`;
         });
         h += '</tbody></table>';
+        h += colsButton("plan-table");
     }
 
     document.getElementById("plan-content").innerHTML = h;
@@ -1472,22 +1649,24 @@ function renderControles() {
     } else {
         const retards = rows.filter(r => r.enRetard || r.expired).length;
         if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:#fdf2f2"><p style="color:var(--red);font-weight:600">${t("comp.ctrl.alertes", {count: retards})}</p></div>`;
-        h += '<table><thead><tr><th>' + t("comp.ctrl.col_type") + '</th><th>' + t("comp.ctrl.col_id") + '</th><th>' + t("comp.ctrl.col_description") + '</th><th>' + t("comp.ctrl.col_details") + '</th><th>' + t("comp.ctrl.col_statut") + '</th></tr></thead><tbody>';
+        h += '<table id="ctrl-table"><thead><tr><th' + hd("type") + '>' + t("comp.ctrl.col_type") + '</th><th' + hd("cid") + '>' + t("comp.ctrl.col_id") + '</th><th' + hd("cdesc") + '>' + t("comp.ctrl.col_description") + '</th><th' + hd("det") + '>' + t("comp.ctrl.col_details") + '</th><th' + hd("csts") + '>' + t("comp.ctrl.col_statut") + '</th></tr></thead><tbody>';
         rows.forEach(r => {
             h += `<tr style="${(r.enRetard||r.expired)?"background:#fdf2f2":""}">`;
-            h += `<td>${r.type==="controle"?t("comp.ctrl.type_controle"):t("comp.ctrl.type_preuve")}</td><td class="fw-600">${esc(r.id)}</td><td>${esc(r.label)}</td>`;
+            h += `<td${hd("type")}>${r.type==="controle"?t("comp.ctrl.type_controle"):t("comp.ctrl.type_preuve")}</td><td${hd("cid")} class="fw-600">${esc(r.id)}</td><td${hd("cdesc")}>${esc(r.label)}</td>`;
             if (r.type === "controle") {
-                h += `<td>${_recLabel(r.recurrence)} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier||t("comp.ctrl.jamais"))}</td>`;
-                h += `<td>${r.enRetard?badge(t("comp.ctrl.en_retard"),"var(--red)"):badge(t("comp.ctrl.ok"),"var(--green)")}</td>`;
+                h += `<td${hd("det")}>${_recLabel(r.recurrence)} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier||t("comp.ctrl.jamais"))}</td>`;
+                h += `<td${hd("csts")}>${r.enRetard?badge(t("comp.ctrl.en_retard"),"var(--red)"):badge(t("comp.ctrl.ok"),"var(--green)")}</td>`;
             } else {
-                h += `<td>${t("comp.ctrl.expire")}: ${esc(r.expiration)}</td>`;
-                h += `<td>${r.expired?badge(t("comp.prv.expiree"),"var(--red)"):badge(t("comp.prv.bientot"),"var(--orange)")}</td>`;
+                h += `<td${hd("det")}>${t("comp.ctrl.expire")}: ${esc(r.expiration)}</td>`;
+                h += `<td${hd("csts")}>${r.expired?badge(t("comp.prv.expiree"),"var(--red)"):badge(t("comp.prv.bientot"),"var(--orange)")}</td>`;
             }
             h += '</tr>';
         });
         h += '</tbody></table>';
+        h += colsButton("ctrl-table");
     }
     document.getElementById("controles-content").innerHTML = h;
+    _setupTable("ctrl-table");
 }
 
 // ═══════════════════════════════════════════════════════════════════════

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suivi de Conformité</title>
+<title>Compliance</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/cisotoolbox.css">
 <link rel="stylesheet" href="css/Compliance.css">
@@ -12,7 +12,7 @@
 
 <div class="toolbar">
     <button class="btn-hamburger" data-click="_toggleSidebarMobile">&#9776;</button>
-    <span class="app-title" data-i18n="comp.title">Suivi de Conformité</span>
+    <span class="app-title" data-i18n="comp.title">Compliance</span>
     <span class="flex-spacer"></span>
     <span class="app-subtitle" id="header-subtitle"></span>
     <div class="toolbar-menu">
@@ -36,19 +36,24 @@
 <div class="app-layout">
 <nav class="sidebar">
     <div class="sidebar-collapse" data-click="toggleSidebar" data-i18n-title="sidebar_hide" title="Masquer le menu">&#10005;</div>
-    <div class="sidebar-section" data-i18n="comp.sidebar.global">Suivi global</div>
-    <div class="sidebar-item active" data-click="selectPanel" data-args='["context"]' data-i18n="comp.sidebar.context">Contexte</div>
-    <div class="sidebar-item" data-click="selectPanel" data-args='["dashboard"]' data-i18n="comp.sidebar.dashboard">Tableau de bord</div>
-    <div class="sidebar-item" data-click="selectPanel" data-args='["plan"]' data-i18n="comp.sidebar.plan">Plan d'action</div>
-    <div class="sidebar-item" data-click="selectPanel" data-args='["controles"]' data-i18n="comp.sidebar.controles">Contrôles</div>
+    <div class="sidebar-group open" data-panels="context,dashboard,plan,controles">
+        <div class="sidebar-section sidebar-toggle" data-click="toggleGroup" data-pass-el data-i18n="comp.sidebar.global">Suivi global</div>
+        <div class="sidebar-item active" data-click="selectPanel" data-args='["dashboard"]' data-i18n="comp.sidebar.dashboard">Tableau de bord</div>
+        <div class="sidebar-item" data-click="selectPanel" data-args='["context"]' data-i18n="comp.sidebar.context">Contexte</div>
+        <div class="sidebar-item" data-click="selectPanel" data-args='["plan"]' data-i18n="comp.sidebar.plan">Plan d'action</div>
+        <div class="sidebar-item" data-click="selectPanel" data-args='["controles"]' data-i18n="comp.sidebar.controles">Controles</div>
+    </div>
     <div id="sidebar-frameworks"></div>
+    <div class="flex-spacer"></div>
+    <div class="sidebar-section" data-i18n="comp.sidebar.section_aide">Aide</div>
+    <div class="sidebar-item" data-click="toggleHelp" data-args='["methodo"]' data-i18n="comp.sidebar.methodo">Méthodologie</div>
+    <div class="sidebar-item" data-click="toggleHelp" data-args='["usage"]' data-i18n="comp.sidebar.usage">Utilisation</div>
     <div class="sidebar-section" data-i18n="comp.sidebar.history_section">Historique</div>
     <div class="sidebar-item" data-click="selectPanel" data-args='["history"]' data-i18n="comp.sidebar.snapshots">Snapshots</div>
     <div style="display:flex;gap:6px;padding:6px 14px 8px">
         <button id="btn-undo" class="btn-undo" style="opacity:0.3" data-click="undo" data-i18n-title="btn_undo_title" title="Annuler (Ctrl+Z)">&#8630;</button>
         <button id="btn-redo" class="btn-redo" style="opacity:0.3" data-click="redo" data-i18n-title="btn_redo_title" title="Rétablir (Ctrl+Y)">&#8631;</button>
     </div>
-    <div class="flex-spacer"></div>
     <a href="https://www.cisotoolbox.org" target="_blank" rel="noopener noreferrer" class="sidebar-brand">cisotoolbox.org</a>
 </nav>
 
@@ -78,6 +83,25 @@
         <button class="pwd-btn pwd-cancel" id="pwd-cancel" data-i18n="btn_cancel">Annuler</button>
         <button class="pwd-btn pwd-ok" id="pwd-ok" data-i18n="btn_ok">OK</button>
     </div>
+</div>
+</div>
+
+<!-- Panel d'aide -->
+<div class="help-overlay" id="help-overlay" data-click-self="toggleHelp">
+<div class="help-panel">
+<button class="close-help" data-click="toggleHelp">&times;</button>
+
+<div class="help-tabs">
+    <div class="help-tab active" id="help-tab-methodo" data-click="switchHelpTab" data-args='["methodo"]' data-i18n="comp.help.tab_methodo">Méthodologie Conformité</div>
+    <div class="help-tab" id="help-tab-usage" data-click="switchHelpTab" data-args='["usage"]' data-i18n="comp.help.tab_usage">Utilisation de l'application</div>
+</div>
+
+<!-- Onglet Methodologie -->
+<div class="help-content" id="help-content-methodo" data-i18n-html="comp.help.methodo"></div>
+
+<!-- Onglet Utilisation -->
+<div class="help-content" id="help-content-usage" data-i18n-html="comp.help.usage" style="display:none"></div>
+
 </div>
 </div>
 

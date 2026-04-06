@@ -16,7 +16,7 @@ window.CT_CONFIG = {
 let D = window.COMPLIANCE_INIT_DATA || {};
 const _ASSET_BASE = "js/Compliance";
 // _REFERENTIELS_CATALOG loaded from referentiels_catalog.js (shared)
-const _REFERENTIELS_CATALOG = window._REFERENTIELS_CATALOG || {"gamp": {"label": "GAMP 5", "description": "Good Automated Manufacturing Practice \u2014 exigences cybers\u00e9curit\u00e9 pour syst\u00e8mes valid\u00e9s", "description_en": "Good Automated Manufacturing Practice \u2014 cybersecurity requirements for validated systems", "color": "#5b6abf"}, "lpm": {"label": "LPM", "description": "Loi de Programmation Militaire (France) \u2014 r\u00e8gles de s\u00e9curit\u00e9 des arr\u00eat\u00e9s sectoriels ANSSI pour OIV", "description_en": "Military Programming Law (France) \u2014 ANSSI sectoral security rules for Operators of Vital Importance", "color": "#8b5e3c"}, "loi0520": {"label": "Loi 05-20 (Maroc)", "description": "Loi marocaine sur la cybers\u00e9curit\u00e9 \u2014 obligations des organismes soumis", "description_en": "Moroccan Cybersecurity Law \u2014 obligations for subject organizations", "color": "#7a6830"}, "dora": {"label": "DORA", "description": "Digital Operational Resilience Act (UE 2022/2554) \u2014 r\u00e9silience num\u00e9rique du secteur financier", "description_en": "Digital Operational Resilience Act (EU 2022/2554) \u2014 digital resilience for the financial sector", "color": "#3a7ca5"}, "hds": {"label": "HDS", "description": "Certification H\u00e9bergeur de Donn\u00e9es de Sant\u00e9 (France) \u2014 exigences compl\u00e9mentaires ISO 27001", "description_en": "Health Data Hosting Certification (France) \u2014 ISO 27001 complementary requirements", "color": "#3a8a6e"}, "secnumcloud": {"label": "SecNumCloud", "description": "R\u00e9f\u00e9rentiel de qualification ANSSI pour les prestataires de services Cloud (v3.2)", "description_en": "ANSSI qualification framework for Cloud service providers (v3.2)", "color": "#5c6b99"}, "nis2": {"label": "NIS 2", "description": "Directive NIS 2 (UE 2022/2555) \u2014 mesures de cybers\u00e9curit\u00e9 pour entit\u00e9s essentielles et importantes", "description_en": "NIS 2 Directive (EU 2022/2555) \u2014 cybersecurity measures for essential and important entities", "color": "#4a8fa8"}, "cra": {"label": "Cyber Resilience Act", "description": "R\u00e8glement UE sur la cyber-r\u00e9silience (CRA 2024) \u2014 exigences pour produits comportant des \u00e9l\u00e9ments num\u00e9riques", "description_en": "EU Cyber Resilience Act (CRA 2024) \u2014 requirements for products with digital elements", "color": "#96694a"}, "soc2": {"label": "SOC 2", "description": "Trust Services Criteria (AICPA) \u2014 s\u00e9curit\u00e9, disponibilit\u00e9, int\u00e9grit\u00e9, confidentialit\u00e9, vie priv\u00e9e", "description_en": "Trust Services Criteria (AICPA) \u2014 security, availability, processing integrity, confidentiality, privacy", "color": "#6b5b8a"}};
+const _REFERENTIELS_CATALOG = window._REFERENTIELS_CATALOG || {"gamp": {"label": "GAMP 5", "description": "Good Automated Manufacturing Practice \u2014 exigences cybers\u00e9curit\u00e9 pour syst\u00e8mes valid\u00e9s", "description_en": "Good Automated Manufacturing Practice \u2014 cybersecurity requirements for validated systems", "color": "#5b6abf"}, "lpm": {"label": "LPM", "description": "Loi de Programmation Militaire (France) \u2014 r\u00e8gles de s\u00e9curit\u00e9 des arr\u00eat\u00e9s sectoriels ANSSI pour OIV", "description_en": "Military Programming Law (France) \u2014 ANSSI sectoral security rules for Operators of Vital Importance", "color": "#8b5e3c"}, "loi0520": {"label": "Loi 05-20 (Maroc)", "description": "Loi marocaine sur la cybers\u00e9curit\u00e9 \u2014 obligations des organismes soumis", "description_en": "Moroccan Cybersecurity Law \u2014 obligations for subject organizations", "color": "#7a6830"}, "dora": {"label": "DORA", "description": "Digital Operational Resilience Act (UE 2022/2554) \u2014 r\u00e9silience num\u00e9rique du secteur financier", "description_en": "Digital Operational Resilience Act (EU 2022/2554) \u2014 digital resilience for the financial sector", "color": "#3a7ca5"}, "hds": {"label": "HDS", "description": "Certification H\u00e9bergeur de Donn\u00e9es de Sant\u00e9 (France) \u2014 exigences compl\u00e9mentaires ISO 27001", "description_en": "Health Data Hosting Certification (France) \u2014 ISO 27001 complementary requirements", "color": "#3a8a6e"}, "secnumcloud": {"label": "SecNumCloud", "description": "R\u00e9f\u00e9rentiel de qualification ANSSI pour les prestataires de services Cloud (v3.2)", "description_en": "ANSSI qualification framework for Cloud service providers (v3.2)", "color": "#5c6b99"}, "recyf": {"label": "ReCyF (NIS2)", "description": "R\u00e9f\u00e9rentiel Cyber France v2.5 \u2014 transposition nationale NIS 2 (ANSSI, mars 2026)", "description_en": "French Cyber Framework v2.5 \u2014 national transposition of NIS 2 Directive (ANSSI, March 2026)", "color": "#4a8fa8"}, "cra": {"label": "Cyber Resilience Act", "description": "R\u00e8glement UE sur la cyber-r\u00e9silience (CRA 2024) \u2014 exigences pour produits comportant des \u00e9l\u00e9ments num\u00e9riques", "description_en": "EU Cyber Resilience Act (CRA 2024) \u2014 requirements for products with digital elements", "color": "#96694a"}, "soc2": {"label": "SOC 2", "description": "Trust Services Criteria (AICPA) \u2014 s\u00e9curit\u00e9, disponibilit\u00e9, int\u00e9grit\u00e9, confidentialit\u00e9, vie priv\u00e9e", "description_en": "Trust Services Criteria (AICPA) \u2014 security, availability, processing integrity, confidentiality, privacy", "color": "#6b5b8a"}};
 let REFERENTIELS_META = Object.fromEntries(
     Object.entries(_REFERENTIELS_CATALOG).map(([k, v]) => [k, {...v}])
 );
@@ -229,7 +229,7 @@ function _getPreuvesForFw(fwId) {
 
 // Statut labels
 function _statutLabel(key) { return t("comp.statut." + key) || key; }
-const _statutColors = {planifie:"var(--orange)",en_cours:"var(--light-blue)",termine:"var(--green)",preuve_manquante:"var(--red)"};
+const _statutColors = {planifie:"orange",en_cours:"blue",termine:"green",preuve_manquante:"red"};
 
 // ── Calcul automatique des statuts ───────────────────────────────────
 
@@ -256,11 +256,11 @@ function _exigenceStatut(entry) {
 }
 
 function _exigStatutLabel(key) { return t("comp.exig_statut." + key) || key; }
-const _exigStatutColors = {ok: "var(--green)", ko: "var(--red)", na: "var(--text-muted)"};
+const _exigStatutColors = {ok: "green", ko: "red", na: "gray"};
 
 function _mesureBadge(m) {
     const s = _mesureEffectiveStatut(m);
-    return s ? badge(_statutLabel(s), _statutColors[s]||"#999") : "—";
+    return s ? ctBadge(_statutLabel(s), _statutColors[s]||"gray") : "u2014";
 }
 
 function _recLabel(key) { return t("comp.rec." + key) || key; }
@@ -268,8 +268,8 @@ const _recJours = {ponctuel:0,mensuelle:30,trimestrielle:90,semestrielle:180,ann
 
 // Référentiels de base (ANSSI, ISO) avec même structure que les complémentaires pour l'UI
 const _BASE_FRAMEWORKS = {
-    anssi: { label: "ANSSI — Guide d'hygiène", get description() { return t("comp.fw.anssi_desc"); }, color: "#2c3e50" },
-    iso: { label: "ISO 27001", get description() { return t("comp.fw.iso_desc"); }, color: "#1a5276" }
+    anssi: { label: "ANSSI — Guide d'hygiène", get description() { return t("comp.fw.anssi_desc"); }, color: "#1e293b" },
+    iso: { label: "ISO 27001", get description() { return t("comp.fw.iso_desc"); }, color: "#1e40af" }
 };
 
 function _getAllFrameworks() {
@@ -331,17 +331,8 @@ function selectPanel(panelId) {
         else if (panelId === "history") renderHistory();
     }
 
-    // Re-rendre la sidebar (afficher/masquer les sous-menus du référentiel actif)
     renderSidebar();
-
-    // Marquer l'item actif dans la sidebar statique (Suivi global, Historique)
-    document.querySelectorAll(".sidebar-item").forEach(el => {
-        const args = el.getAttribute("data-args");
-        if (!args) return;
-        const val = JSON.parse(args)[0];
-        if (val === panelId) el.classList.add("active");
-        else if (!val.startsWith("fw:")) el.classList.remove("active");
-    });
+    _updateSidebarAccordion(panelId);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -825,7 +816,7 @@ function _renderFwDashboard(fwId, label) {
         h += `<div class="synth-card" style="border-color:var(--orange)"><h3 style="color:var(--orange)">${t("comp.fw_dash.preuves_expirant", {count: expiring.length})}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_label")}</th><th>${t("comp.fw_dash.col_expiration")}</th></tr></thead><tbody>`;
         expiring.forEach(p => {
             const expired = new Date(p.date_expiration) < today;
-            h += `<tr style="${expired?"background:#fdf2f2":""}"><td class="fw-600">${esc(p.id)}</td><td>${esc(p.label)}</td><td>${expired?badge(t("comp.prv.expiree"),"var(--red)"):esc(p.date_expiration)}</td></tr>`;
+            h += `<tr style="${expired?"background:#fef2f2":""}"><td class="fw-600">${esc(p.id)}</td><td>${esc(p.label)}</td><td>${expired?ctBadge(t("comp.prv.expiree"),"red"):esc(p.date_expiration)}</td></tr>`;
         });
         h += '</tbody></table></div>';
     }
@@ -891,12 +882,12 @@ function _renderFwExigences(fwId, label) {
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
         const prevues = linkedMesures.filter(m => _mesureEffectiveStatut(m) !== "termine");
 
-        h += `<tr${notApplicable?' style="background:#f5f5f5"':''}>`;
+        h += `<tr${notApplicable?' style="background:#f1f5f9"':''}>`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
         h += `<td${hd("mesure")}><div>${esc(_rt(e, "mesure"))}</div>${desc?'<div class="desc-text">'+esc(desc)+'</div>':""}</td>`;
         h += `<td${hd("appl")} class="ta-c"><input type="checkbox" ${!notApplicable?"checked":""} data-change="_toggleApplicable" data-args='${_da(fwId,i)}' data-pass-checked /></td>`;
-        h += `<td${hd("statut")} class="ta-c">${badge(_exigStatutLabel(statut), statutColor)}</td>`;
+        h += `<td${hd("statut")} class="ta-c">${ctBadge(_exigStatutLabel(statut), statutColor)}</td>`;
         h += `<td${hd("ecart")}><textarea rows="3" class="w-full" placeholder="${notApplicable?t("comp.exig.placeholder_na"):t("comp.exig.placeholder_comments")}" data-change="_updateExig" data-args='${_da(fwId,i,"ecart")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(e.ecart||"")}</textarea></td>`;
 
         // Colonne mesures liées
@@ -1009,7 +1000,7 @@ function _renderFwMesures(fwId, label) {
     if (_editingMesure) {
         const m = _getMesure(_editingMesure);
         if (m) {
-            h += `<div class="measure-card editing" style="background:#f8f9fa;margin-bottom:16px">
+            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
                     <strong>${esc(m.id)}</strong>
                     <span class="flex-spacer"></span>
@@ -1315,7 +1306,7 @@ function _renderFwPreuves(fwId, label) {
     if (_editingPreuve) {
         const p = _getPreuve(_editingPreuve);
         if (p) {
-            h += `<div class="measure-card editing" style="background:#f8f9fa;margin-bottom:16px">
+            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
                     <strong>${esc(p.id)}</strong><span class="flex-spacer"></span>
                     <button class="btn-del" data-click="_deletePreuve" data-args='${_da(p.id,fwId)}'>${t("comp.prv.btn_supprimer")}</button>
@@ -1355,7 +1346,7 @@ function _renderFwPreuves(fwId, label) {
             else if (soonDays !== null && soonDays < 90) statut = badge(t("comp.prv.bientot"), "var(--orange)");
             else if (p.date_expiration) statut = badge(t("comp.prv.ok"), "var(--green)");
 
-            h += `<tr style="cursor:pointer${!isFw?";opacity:0.5":""}${expired?";background:#fdf2f2":""}" data-click="_editPreuve" data-args='${_da(fwId,p.id)}'>
+            h += `<tr style="cursor:pointer${!isFw?";opacity:0.5":""}${expired?";background:#fef2f2":""}" data-click="_editPreuve" data-args='${_da(fwId,p.id)}'>
                 <td${hd("pid")} class="fw-600">${esc(p.id)}</td>
                 <td${hd("label")}>${esc(p.label||"—")}</td>
                 <td${hd("url")} class="fs-xs">${p.url ? '<a href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer" data-stop>'+esc(p.url).substring(0,40)+'</a>' : "—"}</td>
@@ -1454,7 +1445,7 @@ function renderPlan() {
     if (_editingMesure) {
         const m = _getMesure(_editingMesure);
         if (m) {
-            h += `<div class="measure-card editing" style="background:#f8f9fa;margin-bottom:16px">
+            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
                     <strong>${esc(m.id)}</strong>
                     <span class="flex-spacer"></span>
@@ -1648,17 +1639,17 @@ function renderControles() {
         h = '<div class="synth-card"><p class="text-muted">' + t("comp.ctrl.aucun") + '</p></div>';
     } else {
         const retards = rows.filter(r => r.enRetard || r.expired).length;
-        if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:#fdf2f2"><p style="color:var(--red);font-weight:600">${t("comp.ctrl.alertes", {count: retards})}</p></div>`;
+        if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:#fef2f2"><p style="color:var(--red);font-weight:600">${t("comp.ctrl.alertes", {count: retards})}</p></div>`;
         h += '<table id="ctrl-table"><thead><tr><th' + hd("type") + '>' + t("comp.ctrl.col_type") + '</th><th' + hd("cid") + '>' + t("comp.ctrl.col_id") + '</th><th' + hd("cdesc") + '>' + t("comp.ctrl.col_description") + '</th><th' + hd("det") + '>' + t("comp.ctrl.col_details") + '</th><th' + hd("csts") + '>' + t("comp.ctrl.col_statut") + '</th></tr></thead><tbody>';
         rows.forEach(r => {
-            h += `<tr style="${(r.enRetard||r.expired)?"background:#fdf2f2":""}">`;
+            h += `<tr style="${(r.enRetard||r.expired)?"background:#fef2f2":""}">`;
             h += `<td${hd("type")}>${r.type==="controle"?t("comp.ctrl.type_controle"):t("comp.ctrl.type_preuve")}</td><td${hd("cid")} class="fw-600">${esc(r.id)}</td><td${hd("cdesc")}>${esc(r.label)}</td>`;
             if (r.type === "controle") {
                 h += `<td${hd("det")}>${_recLabel(r.recurrence)} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier||t("comp.ctrl.jamais"))}</td>`;
-                h += `<td${hd("csts")}>${r.enRetard?badge(t("comp.ctrl.en_retard"),"var(--red)"):badge(t("comp.ctrl.ok"),"var(--green)")}</td>`;
+                h += `<td${hd("csts")}>${r.enRetard?ctBadge(t("comp.ctrl.en_retard"),"red"):ctBadge(t("comp.ctrl.ok"),"green")}</td>`;
             } else {
                 h += `<td${hd("det")}>${t("comp.ctrl.expire")}: ${esc(r.expiration)}</td>`;
-                h += `<td${hd("csts")}>${r.expired?badge(t("comp.prv.expiree"),"var(--red)"):badge(t("comp.prv.bientot"),"var(--orange)")}</td>`;
+                h += `<td${hd("csts")}>${r.expired?ctBadge(t("comp.prv.expiree"),"red"):ctBadge(t("comp.prv.bientot"),"orange")}</td>`;
             }
             h += '</tr>';
         });
@@ -1676,7 +1667,7 @@ async function renderHistory() {
     const snaps = await _getSnapshots();
     let h = '<button class="btn-add" data-click="createSnapshot">' + t("comp.hist.btn_creer") + '</button>';
     if (_isSnapEncrypted()) {
-        h += ' <button class="btn-add" style="background:#e74c3c;margin-left:8px" data-click="disableSnapEncryption">' + t("comp.hist.btn_dechiffrer") + '</button>';
+        h += ' <button class="btn-add" style="background:var(--red);margin-left:8px" data-click="disableSnapEncryption">' + t("comp.hist.btn_dechiffrer") + '</button>';
     } else {
         h += ' <button class="btn-add" style="background:var(--light-blue);margin-left:8px" data-click="enableSnapEncryption">' + t("comp.hist.btn_chiffrer") + '</button>';
     }
@@ -1854,6 +1845,11 @@ function _doImportEbiosRM(event) {
     reader.readAsArrayBuffer(file);
     event.target.value = "";
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// AIDE
+// ═══════════════════════════════════════════════════════════════════════
+// toggleHelp / switchHelpTab → moved to cisotoolbox.js
 
 // ═══════════════════════════════════════════════════════════════════════
 // INIT

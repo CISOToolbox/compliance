@@ -232,7 +232,7 @@ _registerTranslations("fr", {
     "comp.ref.dora_desc": "Digital Operational Resilience Act (UE 2022/2554) — résilience numérique du secteur financier",
     "comp.ref.hds_desc": "Certification Hébergeur de Données de Santé (France) — exigences complémentaires ISO 27001",
     "comp.ref.secnumcloud_desc": "Référentiel de qualification ANSSI pour les prestataires de services Cloud (v3.2)",
-    "comp.ref.nis2_desc": "Directive NIS 2 (UE 2022/2555) — mesures de cybersécurité pour entités essentielles et importantes",
+    "comp.ref.recyf_desc": "Référentiel Cyber France v2.5 — transposition nationale NIS 2 (ANSSI, mars 2026)",
     "comp.ref.cra_desc": "Règlement UE sur la cyber-résilience (CRA 2024) — exigences pour produits comportant des éléments numériques",
     "comp.ref.soc2_desc": "Trust Services Criteria (AICPA) — sécurité, disponibilité, intégrité, confidentialité, vie privée",
 
@@ -470,7 +470,7 @@ _registerTranslations("en", {
     "comp.ref.dora_desc": "Digital Operational Resilience Act (EU 2022/2554) — digital resilience for the financial sector",
     "comp.ref.hds_desc": "Health Data Hosting Certification (France) — ISO 27001 complementary requirements",
     "comp.ref.secnumcloud_desc": "ANSSI qualification framework for Cloud service providers (v3.2)",
-    "comp.ref.nis2_desc": "NIS 2 Directive (EU 2022/2555) — cybersecurity requirements for essential and important entities",
+    "comp.ref.recyf_desc": "French Cyber Framework v2.5 — national transposition of NIS 2 Directive (ANSSI, March 2026)",
     "comp.ref.cra_desc": "EU Cyber Resilience Act (CRA 2024) — requirements for products with digital elements",
     "comp.ref.soc2_desc": "Trust Services Criteria (AICPA) — security, availability, integrity, confidentiality, privacy",
 

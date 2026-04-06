@@ -10,7 +10,7 @@
     "anssi",
     "iso",
     "soc2",
-    "nis2"
+    "recyf"
   ],
   "referentiels": {
     "anssi": [
@@ -2631,7 +2631,7 @@
         ]
       }
     ],
-    "nis2": [
+    "recyf": [
       {
         "ref": "NIS2-01",
         "conformite": 72,

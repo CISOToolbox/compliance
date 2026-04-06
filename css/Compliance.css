@@ -12,18 +12,18 @@
 .indicator { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }
 .indicator .value { font-size: 1.8em; font-weight: 700; }
 .indicator .ind-label { font-size: 0.75em; color: var(--text-muted); margin-top: 2px; }
-.conf-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: #eee; margin-top: 4px; }
+.conf-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--bg-subtle); margin-top: 4px; }
 .conf-bar-fill { height: 100%; transition: width 0.3s; }
 
 .measure-card { border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; }
 .measure-card.compact { cursor: pointer; transition: background 0.15s; }
-.measure-card.compact:hover { background: #eef3f7; }
+.measure-card.compact:hover { background: var(--bg-hover); }
 .measure-card.editing { padding: 10px; }
 .measure-summary { font-size: 0.82em; line-height: 1.4; }
 .measure-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
-.measure-tag { font-size: 0.7em; background: #e8e8e8; border-radius: 3px; padding: 1px 5px; color: var(--text-muted); }
+.measure-tag { font-size: 0.7em; background: var(--border); border-radius: 3px; padding: 1px 5px; color: var(--text-muted); }
 .evidence-row { display: flex; gap: 6px; align-items: center; margin-bottom: 4px; }
-.linked-tag { display: inline-flex; align-items: center; gap: 2px; background: #e8f4fd; border-radius: 4px; padding: 1px 6px; font-size: 0.75em; margin: 1px 2px; }
+.linked-tag { display: inline-flex; align-items: center; gap: 2px; background: var(--bg-highlight); border-radius: 4px; padding: 1px 6px; font-size: 0.75em; margin: 1px 2px; }
 .linked-tag .tag-x { cursor: pointer; color: var(--red); font-weight: bold; margin-left: 2px; }
 
 /* Search select (dropdown filtrable) */
@@ -32,7 +32,7 @@
 .ss-drop { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 200; background: white; border: 1px solid var(--light-blue); border-radius: 0 0 6px 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 200px; overflow-y: auto; }
 .ss-drop.open { display: block; }
 .ss-opt { padding: 4px 8px; cursor: pointer; font-size: 0.8em; }
-.ss-opt:hover { background: #e8f4fd; }
+.ss-opt:hover { background: var(--bg-highlight); }
 
 input, select, textarea { font-family: inherit; font-size: inherit; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; background: white; }
 textarea { width: 100%; resize: vertical; }
@@ -40,3 +40,25 @@ textarea { width: 100%; resize: vertical; }
 @media (max-width: 768px) {
     .sidebar-sub { padding-left: 24px; font-size: 0.8em; border-bottom: 1px solid rgba(255,255,255,0.05); }
 }
+
+/* ── Help overlay ────────────────────────────────────── */
+.help-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:400; overflow-y:auto; }
+.help-overlay.open { display:flex; justify-content:center; padding:40px 20px; }
+.help-panel { background:white; border-radius:12px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; padding:32px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+.close-help { position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.5em; cursor:pointer; color:var(--text-muted); padding:4px 8px; }
+.close-help:hover { color:var(--text); }
+.help-tabs { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:20px; }
+.help-tab { padding:8px 16px; cursor:pointer; font-weight:600; font-size:0.85em; color:var(--text-muted); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.15s; }
+.help-tab:hover { color:var(--text); }
+.help-tab.active { color:var(--light-blue); border-bottom-color:var(--light-blue); }
+.help-content { display:none; }
+.help-content.active { display:block; }
+.help-content h1 { font-size:1.3em; color:var(--blue); margin-bottom:12px; }
+.help-content h2 { font-size:1.05em; color:var(--blue); margin:20px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--border); }
+.help-content h3 { font-size:0.9em; margin:12px 0 6px; }
+.help-content p { margin-bottom:8px; font-size:0.88em; line-height:1.6; }
+.help-content table { margin:8px 0 12px; font-size:0.82em; }
+.help-content ul, .help-content ol { margin:6px 0 10px 20px; font-size:0.88em; }
+.help-content li { margin-bottom:4px; line-height:1.5; }
+.help-tip { background:var(--bg-hover); border-left:3px solid var(--light-blue); padding:8px 12px; margin:10px 0; border-radius:0 6px 6px 0; font-size:0.85em; }
+.heading-blue { color:var(--blue); }

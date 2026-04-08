@@ -1,0 +1,13 @@
+{
+  "name": "compliance-e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for Compliance app",
+  "scripts": {
+    "test": "npx playwright test --config=playwright.config.js",
+    "test:headed": "npx playwright test --config=playwright.config.js --headed",
+    "report": "npx playwright show-report playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}

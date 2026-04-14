@@ -471,7 +471,7 @@ function renderAll() {
     if (btnR) { btnR.style.opacity = _redoStack.length > 0 ? "1" : "0.3"; }
     // i18n: toolbar right + static translations
     var tr = document.getElementById("toolbar-right");
-    if (tr) tr.innerHTML = _getSettingsButtonHTML() + _getGithubLinkHTML("https://github.com/CollectiveMakers/compliance_webapp");
+    if (tr) tr.innerHTML = _getSettingsButtonHTML() + _getGithubLinkHTML("https://github.com/CISOToolbox/compliance");
     _applyStaticTranslations();
 }
 

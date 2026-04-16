@@ -927,14 +927,15 @@ function _toggleApplicable(fwId, idx, checked) {
     entry.applicable = checked;
     if (!checked) entry.conformite = "";
     _renderFwView(fwId, "exigences");
-    _autoSave();
+    _persist("control", entry.id, { applicable: entry.applicable, conformite: entry.conformite });
 }
 
 // Conformité calculée automatiquement (voir _exigenceStatut)
 
 function _updateExig(fwId, idx, field, val) {
-    _getExigEntry(fwId, idx)[field] = val;
-    _autoSave();
+    var entry = _getExigEntry(fwId, idx);
+    entry[field] = val;
+    _persist("control", entry.id, _obj(field, val));
 }
 
 function _getExigEntry(fwId, idx) {
@@ -948,20 +949,22 @@ function _linkExistingMesure(fwId, idx, mesureId) {
     if (!entry.mesures_ids) entry.mesures_ids = [];
     if (!entry.mesures_ids.includes(mesureId)) entry.mesures_ids.push(mesureId);
     _renderFwView(fwId, "exigences");
-    _autoSave();
+    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
 function _createAndLinkMesure(fwId, idx) {
     _saveState();
     const id = _genMesureId();
-    D.mesures.push({ id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] });
+    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    D.mesures.push(newMesure);
     const entry = _getExigEntry(fwId, idx);
     if (!entry.mesures_ids) entry.mesures_ids = [];
     entry.mesures_ids.push(id);
     _editingMesure = id;
     _mesureEditReturnTo = "fw:" + fwId + ":exigences";
     selectPanel("fw:" + fwId + ":mesures");
-    _autoSave();
+    _persistCreate("measure", newMesure);
+    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
 function _unlinkMesure(fwId, idx, mesureId) {
@@ -969,7 +972,7 @@ function _unlinkMesure(fwId, idx, mesureId) {
     const entry = _getExigEntry(fwId, idx);
     entry.mesures_ids = (entry.mesures_ids || []).filter(id => id !== mesureId);
     _renderFwView(fwId, "exigences");
-    _autoSave();
+    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
 // ── Mesures (par référentiel) ─────────────────────────────────────
@@ -1110,10 +1113,11 @@ function _findFwsForMesure(mesureId) {
 function _addMesure(fwId) {
     _saveState();
     const id = _genMesureId();
-    D.mesures.push({ id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] });
+    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    D.mesures.push(newMesure);
     _editingMesure = id;
     _renderFwView(fwId, "mesures");
-    _autoSave();
+    _persistCreate("measure", newMesure);
 }
 
 function _editMesure(fwId, mesureId) {
@@ -1202,7 +1206,7 @@ function _linkMesureToExig(mesureId, currentFwId, val) {
     } else {
         renderPlan();
     }
-    _autoSave();
+    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
 function _unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId) {
@@ -1216,12 +1220,12 @@ function _unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId) {
     } else {
         renderPlan();
     }
-    _autoSave();
+    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
 function _updateMesure(mesureId, field, val) {
     const m = _getMesure(mesureId);
-    if (m) { m[field] = val; _autoSave(); }
+    if (m) { m[field] = val; _persist("measure", m.id, _obj(field, val)); }
 }
 
 function _deleteMesure(mesureId, fwId) {
@@ -1235,7 +1239,7 @@ function _deleteMesure(mesureId, fwId) {
     }
     _editingMesure = null;
     _renderFwView(fwId, "mesures");
-    _autoSave();
+    _persistDelete("measure", mesureId);
 }
 
 function _linkExistingPreuve(mesureId, fwId, preuveId) {
@@ -1247,21 +1251,24 @@ function _linkExistingPreuve(mesureId, fwId, preuveId) {
         if (!m.preuves_ids.includes(preuveId)) m.preuves_ids.push(preuveId);
     }
     _renderFwView(fwId, "mesures");
-    _autoSave();
+    if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
 function _unlinkPreuve(mesureId, preuveId, fwId) {
     _saveState();
     const m = _getMesure(mesureId);
-    if (m) m.preuves_ids = (m.preuves_ids||[]).filter(id => id !== preuveId);
+    if (m) {
+        m.preuves_ids = (m.preuves_ids||[]).filter(id => id !== preuveId);
+        _persist("measure", m.id, { preuves_ids: m.preuves_ids });
+    }
     _renderFwView(fwId, "mesures");
-    _autoSave();
 }
 
 function _createAndLinkPreuve(mesureId, fwId) {
     _saveState();
     const id = _genPreuveId();
-    D.preuves.push({ id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" });
+    const newPreuve = { id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
+    D.preuves.push(newPreuve);
     const m = _getMesure(mesureId);
     if (m) {
         if (!m.preuves_ids) m.preuves_ids = [];
@@ -1271,7 +1278,8 @@ function _createAndLinkPreuve(mesureId, fwId) {
     _preuveEditReturnTo = "fw:" + fwId + ":mesures";
     selectPanel("fw:" + fwId + ":preuves");
     showStatus(t("comp.status.preuve_created", {id: id}));
-    _autoSave();
+    _persistCreate("proof", newPreuve);
+    if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
 // ── Preuves (par référentiel) ─────────────────────────────────────
@@ -1373,10 +1381,11 @@ function _filterPreuves(fwId, val) {
 function _addPreuveGlobal(fwId) {
     _saveState();
     const id = _genPreuveId();
-    D.preuves.push({ id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" });
+    const newPreuve = { id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
+    D.preuves.push(newPreuve);
     _editingPreuve = id;
     _renderFwView(fwId, "preuves");
-    _autoSave();
+    _persistCreate("proof", newPreuve);
 }
 
 function _editPreuve(fwId, preuveId) {
@@ -1412,7 +1421,7 @@ function _closePreuveEdit(fwId) {
 
 function _updatePreuveField(preuveId, field, val) {
     const p = _getPreuve(preuveId);
-    if (p) { p[field] = val; _autoSave(); }
+    if (p) { p[field] = val; _persist("proof", p.id, _obj(field, val)); }
 }
 
 function _deletePreuve(preuveId, fwId) {
@@ -1422,7 +1431,7 @@ function _deletePreuve(preuveId, fwId) {
     D.mesures.forEach(m => { if (m.preuves_ids) m.preuves_ids = m.preuves_ids.filter(id => id !== preuveId); });
     _editingPreuve = null;
     _renderFwView(fwId, "preuves");
-    _autoSave();
+    _persistDelete("proof", preuveId);
 }
 
 // ── Plan d'action global ──────────────────────────────────────────
@@ -1541,10 +1550,11 @@ function _closePlanEdit() {
 function _addMesurePlan() {
     _saveState();
     const id = _genMesureId();
-    D.mesures.push({ id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] });
+    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    D.mesures.push(newMesure);
     _editingMesure = id;
     renderPlan();
-    _autoSave();
+    _persistCreate("measure", newMesure);
 }
 
 function _deleteMesurePlan(mesureId) {
@@ -1557,15 +1567,17 @@ function _deleteMesurePlan(mesureId) {
     }
     _editingMesure = null;
     renderPlan();
-    _autoSave();
+    _persistDelete("measure", mesureId);
 }
 
 function _unlinkPreuvePlan(mesureId, preuveId) {
     _saveState();
     const m = _getMesure(mesureId);
-    if (m) m.preuves_ids = (m.preuves_ids||[]).filter(id => id !== preuveId);
+    if (m) {
+        m.preuves_ids = (m.preuves_ids||[]).filter(id => id !== preuveId);
+        _persist("measure", m.id, { preuves_ids: m.preuves_ids });
+    }
     renderPlan();
-    _autoSave();
 }
 
 function _linkExistingPreuvePlan(mesureId, preuveId) {
@@ -1577,13 +1589,14 @@ function _linkExistingPreuvePlan(mesureId, preuveId) {
         if (!m.preuves_ids.includes(preuveId)) m.preuves_ids.push(preuveId);
     }
     renderPlan();
-    _autoSave();
+    if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
 function _createAndLinkPreuvePlan(mesureId) {
     _saveState();
     const id = _genPreuveId();
-    D.preuves.push({ id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" });
+    const newPreuve = { id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
+    D.preuves.push(newPreuve);
     const m = _getMesure(mesureId);
     if (m) {
         if (!m.preuves_ids) m.preuves_ids = [];
@@ -1594,7 +1607,8 @@ function _createAndLinkPreuvePlan(mesureId) {
     _returnToMesureId = mesureId;
     selectPanel("plan");
     renderPlan();
-    _autoSave();
+    _persistCreate("proof", newPreuve);
+    if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
 function _goEditPreuveFromPlan(mesureId, preuveId) {

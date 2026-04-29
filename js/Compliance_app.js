@@ -48,75 +48,140 @@ function _getMesuresTypesFor(fwId, exigRef) {
 function _proposerMesures(fwId, idx) {
     _ensureMesuresTypes(() => {
         const entry = _getExigEntry(fwId, idx);
-        // Récupérer la ref depuis les données ou les métadonnées du référentiel
-        let exigRef;
-        exigRef = entry.ref || "";
+        const exigRef = entry.ref || "";
         const types = _getMesuresTypesFor(fwId, exigRef);
         if (types.length === 0) {
-            alert(t("comp.alert.no_mesure_type", {ref: exigRef}));
+            showStatus(t("comp.alert.no_mesure_type", {ref: exigRef}), "warn");
             return;
         }
-        // Séparer : déjà liées vs disponibles
         const linkedIds = new Set(entry.mesures_ids || []);
         const linkedDescs = new Set(D.mesures.filter(m => linkedIds.has(m.id)).map(m => m.description));
         const available = types.filter(t => !linkedDescs.has(t.description) && !linkedDescs.has(_rt(t, "description")));
         if (available.length === 0) {
-            // Toutes déjà liées — proposer de voir les mesures liées
-            alert(t("comp.alert.all_linked", {count: types.length, ref: exigRef}));
+            showStatus(t("comp.alert.all_linked", {count: types.length, ref: exigRef}), "info");
             return;
         }
-        let nums;
-        if (available.length === 1) {
-            nums = [0];
-        } else {
-            let msg = t("comp.alert.mesures_prompt_title", {ref: exigRef}) + "\n\n";
-            available.forEach((mt, i) => {
-                msg += (i+1) + ". [" + mt.id + "] " + _rt(mt, "description") + "\n";
-            });
-            msg += "\n" + t("comp.alert.mesures_prompt_footer");
-            const choice = prompt(msg);
-            if (!choice) return;
-            if (choice.trim() === "*") {
-                nums = available.map((_, i) => i);
-            } else {
-                nums = choice.split(",").map(s => parseInt(s.trim()) - 1).filter(n => n >= 0 && n < available.length);
-            }
+        _showPropositionsModal(fwId, idx, exigRef, entry, available);
+    });
+}
+
+function _showPropositionsModal(fwId, idx, exigRef, entry, available) {
+    var existing = document.getElementById("propositions-modal");
+    if (existing) existing.remove();
+    var overlay = document.createElement("div");
+    overlay.id = "propositions-modal";
+    overlay.style.cssText = "position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
+    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    h += '<h3>' + esc(t("comp.propose.title", {ref: exigRef})) + '</h3>';
+    h += '<p class="text-muted fs-sm">' + esc(t("comp.propose.subtitle", {count: available.length})) + '</p>';
+    available.forEach(function(mt, i) {
+        var catBadge = mt.categorie ? '<span class="badge" style="background:#e2e8f0;color:#475569;font-size:0.7em;margin-left:6px">' + esc(mt.categorie) + '</span>' : '';
+        h += '<div class="proposition-card" style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin:8px 0">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:flex-start">';
+        h += '<div style="flex:1">';
+        h += '<div style="font-weight:600;font-size:0.9em">' + esc(_rt(mt, "description")) + catBadge + '</div>';
+        if (mt.details) h += '<div class="text-muted fs-xs" style="margin-top:4px">' + esc(_rt(mt, "details").substring(0, 200)) + (mt.details.length > 200 ? "…" : "") + '</div>';
+        h += '</div>';
+        h += '<div style="display:flex;gap:6px;margin-left:12px;flex-shrink:0">';
+        h += '<button class="btn-ok" style="padding:4px 12px;background:#22c55e;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_acceptProposition" data-args=\'' + _da(i) + '\'>✓</button>';
+        h += '<button class="btn-ko" style="padding:4px 12px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_rejectProposition" data-args=\'' + _da(i) + '\'>✗</button>';
+        h += '</div></div></div>';
+    });
+    h += '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0">';
+    h += '<button class="btn" style="background:#22c55e;color:#fff" data-click="_acceptAllPropositions">' + esc(t("comp.propose.accept_all")) + '</button>';
+    h += '<button class="btn" data-click="_closePropositionsModal">' + esc(t("comp.propose.close")) + '</button>';
+    h += '</div></div>';
+    overlay.innerHTML = h;
+    document.body.appendChild(overlay);
+    window._propositionsCtx = { fwId: fwId, idx: idx, exigRef: exigRef, entry: entry, available: available, accepted: 0 };
+}
+
+window._acceptProposition = function(i) {
+    var ctx = window._propositionsCtx;
+    if (!ctx) return;
+    var mt = ctx.available[i];
+    if (!mt) return;
+    _applyProposition(ctx, mt);
+    var card = document.querySelectorAll("#propositions-modal .proposition-card")[i];
+    if (card) {
+        card.style.opacity = "0.4";
+        card.style.pointerEvents = "none";
+        card.querySelectorAll("button").forEach(function(b) { b.disabled = true; });
+        card.insertAdjacentHTML("beforeend", '<span style="color:#22c55e;font-weight:600;font-size:0.8em;margin-left:8px">✓ ' + esc(t("comp.propose.accepted")) + '</span>');
+    }
+    ctx.accepted++;
+};
+
+window._rejectProposition = function(i) {
+    var card = document.querySelectorAll("#propositions-modal .proposition-card")[i];
+    if (card) {
+        card.style.opacity = "0.3";
+        card.style.pointerEvents = "none";
+        card.querySelectorAll("button").forEach(function(b) { b.disabled = true; });
+        card.insertAdjacentHTML("beforeend", '<span style="color:#94a3b8;font-size:0.8em;margin-left:8px">✗ ' + esc(t("comp.propose.rejected")) + '</span>');
+    }
+};
+
+window._acceptAllPropositions = function() {
+    var ctx = window._propositionsCtx;
+    if (!ctx) return;
+    _saveState();
+    var cards = document.querySelectorAll("#propositions-modal .proposition-card");
+    ctx.available.forEach(function(mt, i) {
+        if (cards[i] && cards[i].style.opacity !== "0.4" && cards[i].style.opacity !== "0.3") {
+            _applyProposition(ctx, mt);
+            ctx.accepted++;
+            if (cards[i]) { cards[i].style.opacity = "0.4"; cards[i].style.pointerEvents = "none"; }
         }
-        _saveState();
-        nums.forEach(n => {
-            const t = available[n];
-            // Vérifier si une mesure identique existe déjà
-            const existing = D.mesures.find(m => m.description === t.description);
-            if (existing) {
-                // Lier la mesure existante
-                if (!entry.mesures_ids) entry.mesures_ids = [];
-                if (!entry.mesures_ids.includes(existing.id)) entry.mesures_ids.push(existing.id);
-            } else {
-                // Créer la mesure
-                const id = _genMesureId();
-                D.mesures.push({ id, description: t.description, details: t.details || "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] });
-                if (!entry.mesures_ids) entry.mesures_ids = [];
-                entry.mesures_ids.push(id);
-                // Lier aussi aux autres exigences du même référentiel couvert par cette mesure type
-                for (const [otherFwId, otherRefs] of Object.entries(t.exigences)) {
-                    if (!D.referentiels_actifs.includes(otherFwId)) continue;
-                    for (const otherRef of otherRefs) {
-                        if (otherFwId === fwId && otherRef === exigRef) continue;
-                        const otherExigs = _getExigences(otherFwId);
-                        const otherIdx = otherExigs.findIndex(e => _getExigRef(otherFwId, e) === otherRef);
-                        if (otherIdx >= 0) {
-                            const otherEntry = _getExigEntry(otherFwId, otherIdx);
-                            if (!otherEntry.mesures_ids) otherEntry.mesures_ids = [];
-                            if (!otherEntry.mesures_ids.includes(id)) otherEntry.mesures_ids.push(id);
-                        }
+    });
+    _closePropositionsModal();
+};
+
+window._closePropositionsModal = function() {
+    var ctx = window._propositionsCtx;
+    var el = document.getElementById("propositions-modal");
+    if (el) el.remove();
+    if (ctx && ctx.accepted > 0) {
+        _renderFwView(ctx.fwId, "exigences");
+        _autoSave();
+        showStatus(t("comp.status.mesures_created", {count: ctx.accepted}));
+    }
+    window._propositionsCtx = null;
+};
+
+function _applyProposition(ctx, mt) {
+    var entry = ctx.entry;
+    var existing = D.mesures.find(function(m) { return m.description === mt.description; });
+    if (existing) {
+        if (!entry.mesures_ids) entry.mesures_ids = [];
+        if (!entry.mesures_ids.includes(existing.id)) entry.mesures_ids.push(existing.id);
+        _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
+    } else {
+        var id = _genMesureId();
+        var newM = { id: id, description: mt.description, details: mt.details || "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+        D.mesures.push(newM);
+        _persistCreate("measure", newM);
+        if (!entry.mesures_ids) entry.mesures_ids = [];
+        entry.mesures_ids.push(id);
+        _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
+        for (var otherFwId in mt.exigences) {
+            if (!D.referentiels_actifs || !D.referentiels_actifs.includes(otherFwId)) continue;
+            var otherRefs = mt.exigences[otherFwId];
+            for (var ri = 0; ri < otherRefs.length; ri++) {
+                if (otherFwId === ctx.fwId && otherRefs[ri] === ctx.exigRef) continue;
+                var otherExigs = _getExigences(otherFwId);
+                var otherIdx = otherExigs.findIndex(function(e) { return _getExigRef(otherFwId, e) === otherRefs[ri]; });
+                if (otherIdx >= 0) {
+                    var otherEntry = _getExigEntry(otherFwId, otherIdx);
+                    if (!otherEntry.mesures_ids) otherEntry.mesures_ids = [];
+                    if (!otherEntry.mesures_ids.includes(id)) {
+                        otherEntry.mesures_ids.push(id);
+                        _persist("control", otherEntry.id, { mesures_ids: otherEntry.mesures_ids });
                     }
                 }
             }
-        });
-        _renderFwView(fwId, "exigences");
-        _autoSave();
-        showStatus(t("comp.status.mesures_created", {count: nums.length}));
-    });
+        }
+    }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -135,6 +200,7 @@ function _genPreuveId() {
 }
 function _getMesure(id) { return D.mesures.find(m => m.id === id); }
 function _getPreuve(id) { return D.preuves.find(p => p.id === id); }
+function _findMesuresForPreuve(preuveId) { return D.mesures.filter(m => (m.preuves_ids||[]).includes(preuveId)).map(m => m.id); }
 
 // ── Search Select : dropdown filtrable ────────────────────────────────
 let _ssCounter = 0;
@@ -191,6 +257,14 @@ function _ssSelect(uid, value, callbackFn, argsJson) {
     args.push(value);
     if (typeof window[callbackFn] === "function") window[callbackFn].apply(null, args);
 }
+
+// Open search-select dropdown on focus (click into the input)
+document.addEventListener("focusin", function(e) {
+    if (e.target.classList.contains("ss-input")) {
+        var wrap = e.target.closest(".ss-wrap");
+        if (wrap) _ssOpen(wrap.id);
+    }
+});
 
 // Fermer les dropdowns search-select au clic extérieur
 document.addEventListener("click", function(e) {
@@ -294,6 +368,7 @@ function _getAllFrameworks() {
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════════════
 function selectPanel(panelId) {
+    if (_draftMesure) _discardDraft();
     _currentPanel = panelId;
     // Fermer la sidebar mobile
     document.querySelector(".sidebar").classList.remove("open");
@@ -366,7 +441,10 @@ function ensureKeys() {
             const meta = REFERENTIELS_META[fwId];
             if (meta && meta.measures) {
                 D.referentiels[fwId] = meta.measures.map(m => ({
-                    ref: m.ref, theme: _rt(m, "theme"), mesure: _rt(m, "mesure"), description: _rt(m, "description") || "",
+                    ref: m.ref,
+                    theme: m.theme || "", theme_en: m.theme_en || "",
+                    mesure: m.mesure || "", mesure_en: m.mesure_en || "",
+                    description: m.description || "", description_en: m.description_en || "",
                     ...(fwData[m.ref] || { applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: [] })
                 }));
             }
@@ -409,26 +487,32 @@ function ensureKeys() {
         const meta = REFERENTIELS_META[fwId];
         if (!meta || !meta.measures) continue;
         if (!D.referentiels[fwId]) {
-            // Create fresh entries from meta
             D.referentiels[fwId] = meta.measures.map(m => ({
-                ref: m.ref, theme: _rt(m, "theme"), mesure: _rt(m, "mesure"), description: _rt(m, "description") || "",
+                ref: m.ref,
+                theme: m.theme || "", theme_en: m.theme_en || "",
+                mesure: m.mesure || "", mesure_en: m.mesure_en || "",
+                description: m.description || "", description_en: m.description_en || "",
                 applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: []
             }));
         } else {
-            // Enrich existing entries with meta data (theme, mesure, description) and add missing ones
             const existing = D.referentiels[fwId];
             const existingByRef = Object.fromEntries(existing.map(e => [e.ref, e]));
             const enriched = meta.measures.map(m => {
                 const e = existingByRef[m.ref];
                 if (e) {
-                    // Fill in meta fields if missing
-                    if (!e.theme) e.theme = _rt(m, "theme");
-                    if (!e.mesure) e.mesure = _rt(m, "mesure");
-                    if (!e.description && _rt(m, "description")) e.description = _rt(m, "description");
+                    if (!e.theme) e.theme = m.theme || "";
+                    if (!e.theme_en && m.theme_en) e.theme_en = m.theme_en;
+                    if (!e.mesure) e.mesure = m.mesure || "";
+                    if (!e.mesure_en && m.mesure_en) e.mesure_en = m.mesure_en;
+                    if (!e.description && m.description) e.description = m.description;
+                    if (!e.description_en && m.description_en) e.description_en = m.description_en;
                     return e;
                 }
                 return {
-                    ref: m.ref, theme: _rt(m, "theme"), mesure: _rt(m, "mesure"), description: _rt(m, "description") || "",
+                    ref: m.ref,
+                    theme: m.theme || "", theme_en: m.theme_en || "",
+                    mesure: m.mesure || "", mesure_en: m.mesure_en || "",
+                    description: m.description || "", description_en: m.description_en || "",
                     applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: []
                 };
             });
@@ -553,7 +637,10 @@ function toggleReferentiel(fwId) {
                     const meta = REFERENTIELS_META[fwId];
                     if (meta && meta.measures) {
                         D.referentiels[fwId] = meta.measures.map(m => ({
-                            ref: m.ref, theme: _rt(m, "theme"), mesure: _rt(m, "mesure"), description: _rt(m, "description") || "",
+                            ref: m.ref,
+                            theme: m.theme || "", theme_en: m.theme_en || "",
+                            mesure: m.mesure || "", mesure_en: m.mesure_en || "",
+                            description: m.description || "", description_en: m.description_en || "",
                             applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: []
                         }));
                     }
@@ -880,7 +967,8 @@ function _renderFwExigences(fwId, label) {
         // Mesures liées avec statut effectif
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
-        const prevues = linkedMesures.filter(m => _mesureEffectiveStatut(m) !== "termine");
+        const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
+        const prevues = linkedMesures.filter(m => { var s = _mesureEffectiveStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
 
         h += `<tr${notApplicable?' style="background:#f1f5f9"':''}>`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
@@ -896,6 +984,12 @@ function _renderFwExigences(fwId, label) {
             h += '<div class="fs-xs fw-600 mb-8" style="color:var(--green)">' + t("comp.exig.en_place") + '</div>';
             enPlace.forEach(m => {
                 h += `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditMesure" data-args='${_da(fwId,m.id)}'>${esc(m.id)} ${esc(m.description).substring(0,40)}</span><span class="tag-x" data-click="_unlinkMesure" data-args='${_da(fwId,i,m.id)}' data-stop>×</span></div>`;
+            });
+        }
+        if (preuveManquante.length > 0) {
+            h += '<div class="fs-xs fw-600 mb-8 mt-8" style="color:var(--red)">' + t("comp.exig.preuve_manquante") + '</div>';
+            preuveManquante.forEach(m => {
+                h += `<div class="linked-tag" style="border-color:var(--red)"><span style="cursor:pointer" data-click="_goEditMesure" data-args='${_da(fwId,m.id)}'>${esc(m.id)} ${esc(m.description).substring(0,40)}</span><span class="tag-x" data-click="_unlinkMesure" data-args='${_da(fwId,i,m.id)}' data-stop>×</span></div>`;
             });
         }
         if (prevues.length > 0) {
@@ -918,6 +1012,9 @@ function _renderFwExigences(fwId, label) {
     document.getElementById("fw-desc").textContent = t("comp.exig.fw_desc", {label: label});
     document.getElementById("fw-content").innerHTML = h;
     _setupTable("exig-" + fwId + "-table");
+    document.querySelectorAll("#fw-content textarea").forEach(function(ta) {
+        if (ta.value) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + "px"; }
+    });
 }
 
 // Handlers exigences
@@ -953,18 +1050,11 @@ function _linkExistingMesure(fwId, idx, mesureId) {
 }
 
 function _createAndLinkMesure(fwId, idx) {
-    _saveState();
-    const id = _genMesureId();
-    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
-    D.mesures.push(newMesure);
-    const entry = _getExigEntry(fwId, idx);
-    if (!entry.mesures_ids) entry.mesures_ids = [];
-    entry.mesures_ids.push(id);
-    _editingMesure = id;
-    _mesureEditReturnTo = "fw:" + fwId + ":exigences";
-    selectPanel("fw:" + fwId + ":mesures");
-    _persistCreate("measure", newMesure);
-    _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
+    _draftMesure = { description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    _draftMesureFwId = fwId;
+    _draftMesureLinkIdx = idx;
+    _editingMesure = "__draft__";
+    _showMesureModal();
 }
 
 function _unlinkMesure(fwId, idx, mesureId) {
@@ -987,7 +1077,7 @@ function _renderFwMesures(fwId, label) {
     _getExigences(fwId).forEach(e => (e.mesures_ids||[]).forEach(id => fwMesureIds.add(id)));
     const filter = _mesureFilter.toLowerCase();
     const mesures = D.mesures.filter(m => {
-        if (!fwMesureIds.has(m.id)) return false;
+        if (!fwMesureIds.has(m.id) && m.id !== _editingMesure) return false;
         if (!filter) return true;
         return (m.id + " " + (m.description||"") + " " + (m.responsable||"")).toLowerCase().includes(filter);
     });
@@ -1000,48 +1090,6 @@ function _renderFwMesures(fwId, label) {
     </div>`;
 
     // Mesure en édition ?
-    if (_editingMesure) {
-        const m = _getMesure(_editingMesure);
-        if (m) {
-            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-                    <strong>${esc(m.id)}</strong>
-                    <span class="flex-spacer"></span>
-                    <button class="btn-del" data-click="_deleteMesure" data-args='${_da(m.id,fwId)}'>${t("comp.mes.btn_supprimer")}</button>
-                    <button class="btn-add fs-xs" data-click="_closeMesureEdit" data-args='${_da(fwId)}'>${t("comp.mes.btn_valider")}</button>
-                </div>
-                <textarea rows="2" class="w-full mb-4" placeholder="${t("comp.mes.placeholder_desc")}" data-change="_updateMesure" data-args='${_da(m.id,"description")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(m.description||"")}</textarea>
-                <textarea rows="2" class="w-full mb-8 fs-sm" style="color:var(--text-muted)" placeholder="${t("comp.mes.placeholder_details")}" data-change="_updateMesure" data-args='${_da(m.id,"details")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(m.details||"")}</textarea>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-                    <label class="fs-xs">${t("comp.mes.label_statut")}
-                        <select data-change="_updateMesure" data-args='${_da(m.id,"statut")}' data-pass-value>
-                            <option value="">—</option>
-                            ${["planifie","en_cours","termine"].map(s => `<option value="${s}" ${m.statut===s?"selected":""}>${_statutLabel(s)}</option>`).join("")}
-                        </select>
-                    </label>
-                    <label class="fs-xs">${t("comp.mes.label_echeance")} <input type="date" value="${esc(m.date_cible||"")}" data-change="_updateMesure" data-args='${_da(m.id,"date_cible")}' data-pass-value /></label>
-                    <label class="fs-xs">${t("comp.mes.label_responsable")} <input type="text" value="${esc(m.responsable||"")}" data-change="_updateMesure" data-args='${_da(m.id,"responsable")}' data-pass-value /></label>
-                    <label class="fs-xs">${t("comp.mes.label_recurrence")}
-                        <select data-change="_updateMesure" data-args='${_da(m.id,"recurrence")}' data-pass-value>
-                            <option value="">—</option>
-                            ${["ponctuel","mensuelle","trimestrielle","semestrielle","annuelle"].map(r => `<option value="${r}" ${m.recurrence===r?"selected":""}>${_recLabel(r)}</option>`).join("")}
-                        </select>
-                    </label>
-                    <label class="fs-xs">${t("comp.mes.label_dernier_controle")} <input type="date" value="${esc(m.dernier_controle||"")}" data-change="_updateMesure" data-args='${_da(m.id,"dernier_controle")}' data-pass-value /></label>
-                </div>
-                <div class="fs-xs fw-600 mb-8">${t("comp.mes.exigences_liees")}</div>
-                ${_renderLinkedExigences(m.id, fwId)}
-                <div class="fs-xs fw-600 mb-8 mt-8">${t("comp.mes.preuves_liees")}</div>
-                ${(m.preuves_ids||[]).map(pid => {
-                    const p = _getPreuve(pid);
-                    return p ? `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditPreuveFromMesure" data-args='${_da(fwId,m.id,pid)}'>${esc(p.id)} ${esc(p.label)}</span><span class="tag-x" data-click="_unlinkPreuve" data-args='${_da(m.id,pid,fwId)}' data-stop>×</span></div>` : "";
-                }).join("")}
-                ${_searchSelect(t("comp.mes.lier_preuve"), D.preuves.filter(p => !(m.preuves_ids||[]).includes(p.id)).map(p => ({value:p.id,label:p.id+" "+p.label})), "_linkExistingPreuve", [m.id, fwId])}
-                <button class="btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuve" data-args='${_da(m.id,fwId)}'>${t("comp.mes.btn_nouvelle_preuve")}</button>
-            </div>`;
-        }
-    }
-
     // Tableau des mesures
     if (mesures.length > 0) {
         h += `<table id="mesures-${fwId}-table"><thead><tr>
@@ -1110,29 +1158,169 @@ function _findFwsForMesure(mesureId) {
     });
 }
 
-function _addMesure(fwId) {
+// ── Measure creation: API-driven ──────────────────────────────
+// The form is rendered as a standalone draft. On "Valider", we POST
+// to the API. The server generates the ID. On success, we reload
+// D.mesures from the response. No client-side ID generation, no
+// pollution of D.mesures before the user validates.
+var _draftMesure = null;
+var _draftMesureFwId = null;
+var _draftMesureLinkIdx = null;
+
+function _discardDraft() {
+    _draftMesure = null;
+    _draftMesureFwId = null;
+    _draftMesureLinkIdx = null;
+    _editingMesure = null;
+}
+
+function _commitDraft() {
+    if (!_draftMesure) return;
+    var draft = _draftMesure;
+    var fwId = _draftMesureFwId;
+    var linkIdx = _draftMesureLinkIdx;
+    _discardDraft();
+    var id = _genMesureId();
+    var payload = Object.assign({ id: id }, draft);
+    ComplianceAPI.createMeasure(_getActiveProjectId(), payload).then(function(created) {
+        D.mesures.push(created);
+        if (linkIdx !== null && fwId) {
+            var entry = _getExigEntry(fwId, linkIdx);
+            if (entry) {
+                if (!entry.mesures_ids) entry.mesures_ids = [];
+                entry.mesures_ids.push(created.id);
+                _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
+            }
+        }
+        _discardDraft();
+        _editingMesure = created.id;
+        showStatus(t("comp.status.mesure_created") || "Mesure creee : " + created.id);
+        _showMesureModal();
+    }).catch(function(e) {
+        showStatus("Erreur creation : " + (e.message || e), true);
+    });
+}
+
+window._validateDraftMesure = function() {
+    _commitDraft();
+};
+
+window._cancelDraftMesure = function() {
+    _discardDraft();
+    _closeMesureModal();
+};
+
+// ── Measure modal (shared between referential view + plan d'action) ──
+function _showMesureModal() {
+    var existing = document.getElementById("mesure-modal-overlay");
+    if (existing) existing.remove();
+
+    var isDraft = (_editingMesure === "__draft__");
+    var m = isDraft ? _draftMesure : _getMesure(_editingMesure);
+    if (!m) return;
+    var mid = isDraft ? "__draft__" : m.id;
+
+    var ov = document.createElement("div");
+    ov.id = "mesure-modal-overlay";
+    ov.style.cssText = "position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
+
+    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:620px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    // Header
+    h += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">';
+    h += '<strong style="flex:1;font-size:1.05em">' + (isDraft ? esc(t("comp.mes.new_draft")) : esc(m.id)) + '</strong>';
+    if (isDraft) {
+        h += '<button class="btn-add fs-xs" style="background:var(--text-muted)" data-click="_cancelDraftMesure">' + esc(t("comp.mes.btn_annuler")) + '</button>';
+        h += '<button class="btn-add fs-xs" data-click="_validateDraftMesure">' + esc(t("comp.mes.btn_valider")) + '</button>';
+    } else {
+        h += '<button class="btn-add fs-xs" style="background:var(--red)" data-click="_deleteMesureModal" data-args=\'' + _da(m.id) + '\'>' + esc(t("comp.mes.btn_supprimer")) + '</button>';
+        h += '<button class="btn-add fs-xs" data-click="_closeMesureModal">' + esc(t("comp.mes.btn_valider")) + '</button>';
+    }
+    h += '</div>';
+    // Fields
+    h += '<textarea rows="2" class="w-full mb-4" placeholder="' + esc(t("comp.mes.placeholder_desc")) + '" data-change="_updateMesure" data-args=\'' + _da(mid,"description") + '\' data-pass-value data-input="_autoHeight" data-pass-el>' + esc(m.description||"") + '</textarea>';
+    h += '<textarea rows="2" class="w-full mb-8 fs-sm" style="color:var(--text-muted)" placeholder="' + esc(t("comp.mes.placeholder_details")) + '" data-change="_updateMesure" data-args=\'' + _da(mid,"details") + '\' data-pass-value data-input="_autoHeight" data-pass-el>' + esc(m.details||"") + '</textarea>';
+    h += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">';
+    h += '<label class="fs-xs">' + esc(t("comp.mes.label_statut"));
+    h += '<select data-change="_updateMesure" data-args=\'' + _da(mid,"statut") + '\' data-pass-value><option value="">—</option>';
+    ["planifie","en_cours","termine"].forEach(function(s) { h += '<option value="' + s + '"' + (m.statut===s?" selected":"") + '>' + _statutLabel(s) + '</option>'; });
+    h += '</select></label>';
+    h += '<label class="fs-xs">' + esc(t("comp.mes.label_echeance")) + ' <input type="date" value="' + esc(m.date_cible||"") + '" data-change="_updateMesure" data-args=\'' + _da(mid,"date_cible") + '\' data-pass-value /></label>';
+    h += '<label class="fs-xs">' + esc(t("comp.mes.label_responsable")) + ' <input type="text" value="' + esc(m.responsable||"") + '" data-change="_updateMesure" data-args=\'' + _da(mid,"responsable") + '\' data-pass-value /></label>';
+    h += '<label class="fs-xs">' + esc(t("comp.mes.label_recurrence"));
+    h += '<select data-change="_updateMesure" data-args=\'' + _da(mid,"recurrence") + '\' data-pass-value><option value="">—</option>';
+    ["ponctuel","mensuelle","trimestrielle","semestrielle","annuelle"].forEach(function(r) { h += '<option value="' + r + '"' + (m.recurrence===r?" selected":"") + '>' + _recLabel(r) + '</option>'; });
+    h += '</select></label>';
+    h += '<label class="fs-xs">' + esc(t("comp.mes.label_dernier_controle")) + ' <input type="date" value="' + esc(m.dernier_controle||"") + '" data-change="_updateMesure" data-args=\'' + _da(mid,"dernier_controle") + '\' data-pass-value /></label>';
+    h += '</div>';
+    // Linked exigences + preuves (only for saved measures)
+    if (!isDraft) {
+        h += '<div class="fs-xs fw-600 mb-8">' + esc(t("comp.mes.exigences_liees")) + '</div>';
+        h += _renderLinkedExigences(m.id, _draftMesureFwId || null);
+        h += '<div class="fs-xs fw-600 mb-8 mt-8">' + esc(t("comp.mes.preuves_liees")) + '</div>';
+        (m.preuves_ids||[]).forEach(function(pid) {
+            var p = _getPreuve(pid);
+            if (p) h += '<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditPreuveFromMesure" data-args=\'' + _da(_draftMesureFwId||"",m.id,pid) + '\'>' + esc(p.id) + ' ' + esc(p.label) + '</span><span class="tag-x" data-click="_unlinkPreuve" data-args=\'' + _da(m.id,pid,_draftMesureFwId||"") + '\' data-stop>&times;</span></div>';
+        });
+        h += _searchSelect(t("comp.mes.lier_preuve"), D.preuves.filter(function(p) { return !(m.preuves_ids||[]).includes(p.id); }).map(function(p) { return {value:p.id,label:p.id+" "+p.label}; }), "_linkExistingPreuve", [m.id, _draftMesureFwId||""]);
+        h += '<button class="btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuve" data-args=\'' + _da(m.id,_draftMesureFwId||"") + '\'>' + esc(t("comp.mes.btn_nouvelle_preuve")) + '</button>';
+    } else {
+        h += '<div class="fs-xs text-muted mt-8">Validez pour pouvoir lier des exigences et preuves.</div>';
+    }
+    h += '</div>';
+
+    ov.innerHTML = h;
+    ov.addEventListener("click", function(e) { if (e.target === ov) _closeMesureModal(); });
+    document.body.appendChild(ov);
+    // Auto-size textareas to fit their content on open
+    ov.querySelectorAll("textarea").forEach(function(ta) { _autoHeight(ta); });
+}
+
+function _closeMesureModal() {
+    _editingMesure = null;
+    var ov = document.getElementById("mesure-modal-overlay");
+    if (ov) ov.remove();
+    _autoSave();
+    // Refresh whichever view is active
+    if (_currentPanel === "plan") renderPlan();
+    else if (_currentPanel.startsWith("fw:")) _renderFwView(_currentFw, _currentSubview);
+}
+
+window._closeMesureModal = _closeMesureModal;
+
+window._deleteMesureModal = function(mesureId) {
+    if (!confirm(t("comp.confirm.delete_mesure", {id: mesureId}))) return;
     _saveState();
-    const id = _genMesureId();
-    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
-    D.mesures.push(newMesure);
-    _editingMesure = id;
-    _renderFwView(fwId, "mesures");
-    _persistCreate("measure", newMesure);
+    D.mesures = D.mesures.filter(function(m) { return m.id !== mesureId; });
+    for (var fwId in (D.referentiels || {})) {
+        var fw = D.referentiels[fwId];
+        if (Array.isArray(fw)) fw.forEach(function(e) { if (e.mesures_ids) e.mesures_ids = e.mesures_ids.filter(function(id) { return id !== mesureId; }); });
+    }
+    _closeMesureModal();
+    _persistDelete("measure", mesureId);
+};
+
+function _addMesure(fwId) {
+    _draftMesure = { description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    _draftMesureFwId = fwId;
+    _draftMesureLinkIdx = null;
+    _editingMesure = "__draft__";
+    _showMesureModal();
 }
 
 function _editMesure(fwId, mesureId) {
+    if (_draftMesure) _discardDraft();
     _editingMesure = mesureId;
+    _draftMesureFwId = fwId;
     _mesureEditReturnTo = null;
-    _renderFwView(fwId, "mesures");
+    _showMesureModal();
     var card = document.querySelector(".measure-card.editing");
     if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function _goEditMesure(fwId, mesureId) {
     _editingMesure = mesureId;
-    _mesureEditReturnTo = _currentPanel || ("fw:" + fwId + ":exigences");
-    selectPanel("fw:" + fwId + ":mesures");
-    _scrollToEditingCard();
+    _draftMesureFwId = fwId;
+    _showMesureModal();
 }
 function _scrollToEditingCard() {
     var card = document.querySelector(".measure-card.editing");
@@ -1144,16 +1332,7 @@ function _scrollToEditingCard() {
     }, 200);
 }
 
-function _closeMesureEdit(fwId) {
-    _editingMesure = null;
-    if (_mesureEditReturnTo) {
-        const ret = _mesureEditReturnTo;
-        _mesureEditReturnTo = null;
-        selectPanel(ret);
-    } else {
-        _renderFwView(fwId, "mesures");
-    }
-}
+function _closeMesureEdit() { _closeMesureModal(); }
 
 // Rendu des exigences liées à une mesure (dans la vue édition mesure)
 function _renderLinkedExigences(mesureId, currentFwId) {
@@ -1192,7 +1371,7 @@ function _renderLinkedExigences(mesureId, currentFwId) {
     return h;
 }
 
-function _linkMesureToExig(mesureId, currentFwId, val) {
+window._linkMesureToExig = function(mesureId, currentFwId, val) {
     if (!val) return;
     _saveState();
     const [fwId, idxStr] = val.split(":");
@@ -1209,7 +1388,7 @@ function _linkMesureToExig(mesureId, currentFwId, val) {
     _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 
-function _unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId) {
+window._unlinkMesureFromEdit = function(mesureId, fwId, idx, currentFwId) {
     _saveState();
     const entry = _getExigEntry(fwId, idx);
     entry.mesures_ids = (entry.mesures_ids || []).filter(id => id !== mesureId);
@@ -1224,6 +1403,10 @@ function _unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId) {
 }
 
 function _updateMesure(mesureId, field, val) {
+    if (mesureId === "__draft__" && _draftMesure) {
+        _draftMesure[field] = val;
+        return;
+    }
     const m = _getMesure(mesureId);
     if (m) { m[field] = val; _persist("measure", m.id, _obj(field, val)); }
 }
@@ -1242,7 +1425,7 @@ function _deleteMesure(mesureId, fwId) {
     _persistDelete("measure", mesureId);
 }
 
-function _linkExistingPreuve(mesureId, fwId, preuveId) {
+window._linkExistingPreuve = function(mesureId, fwId, preuveId) {
     if (!preuveId) return;
     _saveState();
     const m = _getMesure(mesureId);
@@ -1254,7 +1437,7 @@ function _linkExistingPreuve(mesureId, fwId, preuveId) {
     if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
-function _unlinkPreuve(mesureId, preuveId, fwId) {
+window._unlinkPreuve = function(mesureId, preuveId, fwId) {
     _saveState();
     const m = _getMesure(mesureId);
     if (m) {
@@ -1264,22 +1447,25 @@ function _unlinkPreuve(mesureId, preuveId, fwId) {
     _renderFwView(fwId, "mesures");
 }
 
-function _createAndLinkPreuve(mesureId, fwId) {
+window._createAndLinkPreuve = function(mesureId, fwId) {
     _saveState();
-    const id = _genPreuveId();
-    const newPreuve = { id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
+    var id = _genPreuveId();
+    var newPreuve = { id: id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
     D.preuves.push(newPreuve);
-    const m = _getMesure(mesureId);
+    var m = _getMesure(mesureId);
     if (m) {
         if (!m.preuves_ids) m.preuves_ids = [];
         m.preuves_ids.push(id);
     }
-    _editingPreuve = id;
-    _preuveEditReturnTo = "fw:" + fwId + ":mesures";
-    selectPanel("fw:" + fwId + ":preuves");
-    showStatus(t("comp.status.preuve_created", {id: id}));
     _persistCreate("proof", newPreuve);
     if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
+    // Close measure modal, open proof modal, remember to return
+    var mesureOv = document.getElementById("mesure-modal-overlay");
+    if (mesureOv) mesureOv.remove();
+    _editingPreuve = id;
+    _returnToMesureId = mesureId;
+    _showPreuveModal();
+    showStatus(t("comp.status.preuve_created") || "Preuve creee : " + id);
 }
 
 // ── Preuves (par référentiel) ─────────────────────────────────────
@@ -1298,10 +1484,7 @@ function _renderFwPreuves(fwId, label) {
         return (p.id + " " + (p.label||"") + " " + (p.url||"") + " " + (p.commentaire||"")).toLowerCase().includes(filter);
     });
 
-    // Trouver les mesures liées à chaque preuve
-    function _findMesuresForPreuve(preuveId) {
-        return D.mesures.filter(m => (m.preuves_ids||[]).includes(preuveId)).map(m => m.id);
-    }
+    // (utilise _findMesuresForPreuve définie au top-level)
 
     let h = `<h2 style="color:var(--blue);margin-bottom:16px">${t("comp.prv.title", {label: esc(label)})}</h2>`;
     h += `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
@@ -1309,29 +1492,6 @@ function _renderFwPreuves(fwId, label) {
         <input type="text" placeholder="${t("comp.prv.search")}" value="${esc(_preuveFilter)}" style="flex:1;max-width:300px" data-input="_filterPreuves" data-args='${_da(fwId)}' data-pass-value />
         <span class="fs-xs text-muted">${t("comp.prv.count", {count: preuves.length})}</span>
     </div>`;
-
-    // Preuve en édition
-    if (_editingPreuve) {
-        const p = _getPreuve(_editingPreuve);
-        if (p) {
-            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-                    <strong>${esc(p.id)}</strong><span class="flex-spacer"></span>
-                    <button class="btn-del" data-click="_deletePreuve" data-args='${_da(p.id,fwId)}'>${t("comp.prv.btn_supprimer")}</button>
-                    <button class="btn-add fs-xs" data-click="_closePreuveEdit" data-args='${_da(fwId)}'>${t("comp.prv.btn_valider")}</button>
-                </div>
-                <input type="text" class="w-full mb-8" placeholder="${t("comp.prv.placeholder_label")}" value="${esc(p.label||"")}" data-change="_updatePreuveField" data-args='${_da(p.id,"label")}' data-pass-value />
-                <input type="text" class="w-full mb-8" placeholder="${t("comp.prv.placeholder_url")}" value="${esc(p.url||"")}" data-change="_updatePreuveField" data-args='${_da(p.id,"url")}' data-pass-value />
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-                    <label class="fs-xs">${t("comp.prv.label_obtention")} <input type="date" value="${esc(p.date_obtention||"")}" data-change="_updatePreuveField" data-args='${_da(p.id,"date_obtention")}' data-pass-value /></label>
-                    <label class="fs-xs">${t("comp.prv.label_expiration")} <input type="date" value="${esc(p.date_expiration||"")}" data-change="_updatePreuveField" data-args='${_da(p.id,"date_expiration")}' data-pass-value /></label>
-                </div>
-                <textarea rows="2" class="w-full mb-8" placeholder="${t("comp.prv.placeholder_comment")}" data-change="_updatePreuveField" data-args='${_da(p.id,"commentaire")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(p.commentaire||"")}</textarea>
-                <div class="fs-xs fw-600 mb-8">${t("comp.prv.mesures_liees")}</div>
-                ${_findMesuresForPreuve(p.id).map(mid => `<span class="linked-tag">${esc(mid)}</span>`).join("") || '<span class="text-muted fs-xs">' + t("comp.prv.aucune") + '</span>'}
-            </div>`;
-        }
-    }
 
     // Tableau
     if (preuves.length > 0) {
@@ -1390,33 +1550,87 @@ function _addPreuveGlobal(fwId) {
 
 function _editPreuve(fwId, preuveId) {
     _editingPreuve = preuveId;
-    _preuveEditReturnTo = null;
-    _renderFwView(fwId, "preuves");
+    _returnToMesureId = null;
+    _showPreuveModal();
 }
 
-// Depuis l'édition d'une mesure : éditer la preuve puis revenir à la mesure
 let _returnToMesureId = null;
-function _goEditPreuveFromMesure(fwId, mesureId, preuveId) {
+window._goEditPreuveFromMesure = function(fwId, mesureId, preuveId) {
+    // Close the measure modal, open the proof modal, remember to return
+    var mesureOv = document.getElementById("mesure-modal-overlay");
+    if (mesureOv) mesureOv.remove();
     _editingPreuve = preuveId;
     _returnToMesureId = mesureId;
-    _preuveEditReturnTo = "fw:" + fwId + ":mesures";
-    selectPanel("fw:" + fwId + ":preuves");
+    _showPreuveModal();
 }
 
-function _closePreuveEdit(fwId) {
+// ── Preuve modal ──────────────────────────────────────────────
+function _showPreuveModal() {
+    var existing = document.getElementById("preuve-modal-overlay");
+    if (existing) existing.remove();
+
+    var p = _getPreuve(_editingPreuve);
+    if (!p) return;
+
+    var ov = document.createElement("div");
+    ov.id = "preuve-modal-overlay";
+    ov.style.cssText = "position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
+
+    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    h += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">';
+    h += '<strong style="flex:1;font-size:1.05em">' + esc(p.id) + '</strong>';
+    h += '<button class="btn-add fs-xs" style="background:var(--red)" data-click="_deletePreuveModal" data-args=\'' + _da(p.id) + '\'>' + esc(t("comp.prv.btn_supprimer")) + '</button>';
+    h += '<button class="btn-add fs-xs" data-click="_closePreuveModal">' + esc(t("comp.prv.btn_valider")) + '</button>';
+    h += '</div>';
+    h += '<input type="text" class="w-full mb-8" placeholder="' + esc(t("comp.prv.placeholder_label")) + '" value="' + esc(p.label||"") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id,"label") + '\' data-pass-value />';
+    h += '<input type="text" class="w-full mb-8" placeholder="' + esc(t("comp.prv.placeholder_url")) + '" value="' + esc(p.url||"") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id,"url") + '\' data-pass-value />';
+    h += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
+    h += '<label class="fs-xs">' + esc(t("comp.prv.label_obtention")) + ' <input type="date" value="' + esc(p.date_obtention||"") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id,"date_obtention") + '\' data-pass-value /></label>';
+    h += '<label class="fs-xs">' + esc(t("comp.prv.label_expiration")) + ' <input type="date" value="' + esc(p.date_expiration||"") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id,"date_expiration") + '\' data-pass-value /></label>';
+    h += '</div>';
+    h += '<textarea rows="2" class="w-full mb-8" placeholder="' + esc(t("comp.prv.placeholder_comment")) + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id,"commentaire") + '\' data-pass-value data-input="_autoHeight" data-pass-el>' + esc(p.commentaire||"") + '</textarea>';
+    h += '<div class="fs-xs fw-600 mb-8">' + esc(t("comp.prv.mesures_liees")) + '</div>';
+    var linked = _findMesuresForPreuve(p.id);
+    h += linked.length ? linked.map(function(mid) { return '<span class="linked-tag">' + esc(mid) + '</span>'; }).join("") : '<span class="text-muted fs-xs">' + esc(t("comp.prv.aucune")) + '</span>';
+    h += '</div>';
+
+    ov.innerHTML = h;
+    ov.addEventListener("click", function(e) { if (e.target === ov) _closePreuveModal(); });
+    document.body.appendChild(ov);
+    ov.querySelectorAll("textarea").forEach(function(ta) { _autoHeight(ta); });
+}
+
+window._closePreuveModal = function() {
     _editingPreuve = null;
-    if (_preuveEditReturnTo) {
-        const ret = _preuveEditReturnTo;
-        _preuveEditReturnTo = null;
-        // Rouvrir l'édition de la mesure si on venait de là
-        if (_returnToMesureId) {
-            _editingMesure = _returnToMesureId;
-            _returnToMesureId = null;
-        }
-        selectPanel(ret);
-    } else {
-        _renderFwView(fwId, "preuves");
+    var ov = document.getElementById("preuve-modal-overlay");
+    if (ov) ov.remove();
+    _autoSave();
+    // Reopen the measure modal if we came from there
+    if (_returnToMesureId) {
+        _editingMesure = _returnToMesureId;
+        _returnToMesureId = null;
+        _showMesureModal();
     }
+};
+
+window._deletePreuveModal = function(preuveId) {
+    if (!confirm(t("comp.confirm.delete_preuve", {id: preuveId}))) return;
+    _saveState();
+    D.preuves = D.preuves.filter(function(p) { return p.id !== preuveId; });
+    D.mesures.forEach(function(m) { if (m.preuves_ids) m.preuves_ids = m.preuves_ids.filter(function(id) { return id !== preuveId; }); });
+    _editingPreuve = null;
+    var ov = document.getElementById("preuve-modal-overlay");
+    if (ov) ov.remove();
+    _persistDelete("proof", preuveId);
+    if (_returnToMesureId) {
+        _editingMesure = _returnToMesureId;
+        _returnToMesureId = null;
+        _showMesureModal();
+    }
+};
+
+function _closePreuveEdit(fwId) {
+    _closePreuveModal();
 }
 
 function _updatePreuveField(preuveId, field, val) {
@@ -1449,49 +1663,6 @@ function renderPlan() {
         <input type="text" placeholder="${t("comp.plan.search")}" value="${esc(_planFilter)}" style="flex:1;max-width:300px" data-input="_filterPlan" data-pass-value />
         <span class="fs-xs text-muted">${t("comp.plan.count", {count: mesures.length})}</span>
     </div>`;
-
-    // Formulaire d'édition si ouvert
-    if (_editingMesure) {
-        const m = _getMesure(_editingMesure);
-        if (m) {
-            h += `<div class="measure-card editing" style="background:#f1f5f9;margin-bottom:16px">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-                    <strong>${esc(m.id)}</strong>
-                    <span class="flex-spacer"></span>
-                    <button class="btn-del" data-click="_deleteMesurePlan" data-args='${_da(m.id)}'>${t("comp.mes.btn_supprimer")}</button>
-                    <button class="btn-add fs-xs" data-click="_closePlanEdit">${t("comp.mes.btn_valider")}</button>
-                </div>
-                <textarea rows="2" class="w-full mb-4" placeholder="${t("comp.mes.placeholder_desc")}" data-change="_updateMesure" data-args='${_da(m.id,"description")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(m.description||"")}</textarea>
-                <textarea rows="2" class="w-full mb-8 fs-sm" style="color:var(--text-muted)" placeholder="${t("comp.mes.placeholder_details")}" data-change="_updateMesure" data-args='${_da(m.id,"details")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(m.details||"")}</textarea>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-                    <label class="fs-xs">${t("comp.mes.label_statut")}
-                        <select data-change="_updateMesure" data-args='${_da(m.id,"statut")}' data-pass-value>
-                            <option value="">—</option>
-                            ${["planifie","en_cours","termine"].map(s => `<option value="${s}" ${m.statut===s?"selected":""}>${_statutLabel(s)}</option>`).join("")}
-                        </select>
-                    </label>
-                    <label class="fs-xs">${t("comp.mes.label_echeance")} <input type="date" value="${esc(m.date_cible||"")}" data-change="_updateMesure" data-args='${_da(m.id,"date_cible")}' data-pass-value /></label>
-                    <label class="fs-xs">${t("comp.mes.label_responsable")} <input type="text" value="${esc(m.responsable||"")}" data-change="_updateMesure" data-args='${_da(m.id,"responsable")}' data-pass-value /></label>
-                    <label class="fs-xs">${t("comp.mes.label_recurrence")}
-                        <select data-change="_updateMesure" data-args='${_da(m.id,"recurrence")}' data-pass-value>
-                            <option value="">—</option>
-                            ${["ponctuel","mensuelle","trimestrielle","semestrielle","annuelle"].map(r => `<option value="${r}" ${m.recurrence===r?"selected":""}>${_recLabel(r)}</option>`).join("")}
-                        </select>
-                    </label>
-                    <label class="fs-xs">${t("comp.mes.label_dernier_controle")} <input type="date" value="${esc(m.dernier_controle||"")}" data-change="_updateMesure" data-args='${_da(m.id,"dernier_controle")}' data-pass-value /></label>
-                </div>
-                <div class="fs-xs fw-600 mb-8">${t("comp.mes.exigences_liees")}</div>
-                ${_renderLinkedExigences(m.id, null)}
-                <div class="fs-xs fw-600 mb-8 mt-8">${t("comp.mes.preuves_liees")}</div>
-                ${(m.preuves_ids||[]).map(pid => {
-                    const p = _getPreuve(pid);
-                    return p ? `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditPreuveFromPlan" data-args='${_da(m.id,pid)}'>${esc(p.id)} ${esc(p.label)}</span><span class="tag-x" data-click="_unlinkPreuvePlan" data-args='${_da(m.id,pid)}' data-stop>×</span></div>` : "";
-                }).join("")}
-                ${_searchSelect(t("comp.mes.lier_preuve"), D.preuves.filter(p => !(m.preuves_ids||[]).includes(p.id)).map(p => ({value:p.id,label:p.id+" "+p.label})), "_linkExistingPreuvePlan", [m.id])}
-                <button class="btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuvePlan" data-args='${_da(m.id)}'>${t("comp.mes.btn_nouvelle_preuve")}</button>
-            </div>`;
-        }
-    }
 
     // Tableau
     if (mesures.length === 0) {
@@ -1538,23 +1709,21 @@ function _filterPlan(val) {
 
 function _editMesurePlan(mesureId) {
     _editingMesure = mesureId;
+    _draftMesureFwId = null;
     _mesureEditReturnTo = null;
-    renderPlan();
+    _showMesureModal();
 }
 
 function _closePlanEdit() {
-    _editingMesure = null;
-    renderPlan();
+    _closeMesureModal();
 }
 
 function _addMesurePlan() {
-    _saveState();
-    const id = _genMesureId();
-    const newMesure = { id, description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
-    D.mesures.push(newMesure);
-    _editingMesure = id;
-    renderPlan();
-    _persistCreate("measure", newMesure);
+    _draftMesure = { description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
+    _draftMesureFwId = null;
+    _draftMesureLinkIdx = null;
+    _editingMesure = "__draft__";
+    _showMesureModal();
 }
 
 function _deleteMesurePlan(mesureId) {
@@ -1570,7 +1739,7 @@ function _deleteMesurePlan(mesureId) {
     _persistDelete("measure", mesureId);
 }
 
-function _unlinkPreuvePlan(mesureId, preuveId) {
+window._unlinkPreuvePlan = function(mesureId, preuveId) {
     _saveState();
     const m = _getMesure(mesureId);
     if (m) {
@@ -1580,7 +1749,7 @@ function _unlinkPreuvePlan(mesureId, preuveId) {
     renderPlan();
 }
 
-function _linkExistingPreuvePlan(mesureId, preuveId) {
+window._linkExistingPreuvePlan = function(mesureId, preuveId) {
     if (!preuveId) return;
     _saveState();
     const m = _getMesure(mesureId);
@@ -1592,7 +1761,7 @@ function _linkExistingPreuvePlan(mesureId, preuveId) {
     if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
-function _createAndLinkPreuvePlan(mesureId) {
+window._createAndLinkPreuvePlan = function(mesureId) {
     _saveState();
     const id = _genPreuveId();
     const newPreuve = { id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
@@ -1881,4 +2050,8 @@ try {
 }
 
 // AI module config (read by ai_common.js)
-window.AI_APP_CONFIG = { storagePrefix: "compliance" };
+window.AI_APP_CONFIG = {
+    storagePrefix: "compliance",
+    settingsExtraHTML: function() { return _demoSettingsHTML(); },
+    onSettingsRendered: function() { _wireDemoSettings(); }
+};

@@ -1135,10 +1135,13 @@ function _filterMesures(fwId, val) {
 
 function _findExigencesForMesure(mesureId) {
     const result = [];
+    const multipleFws = D.referentiels_actifs.length > 1;
     for (const fwId of D.referentiels_actifs) {
         const exigences = _getExigences(fwId);
+        const meta = _getAllFrameworks()[fwId];
+        const prefix = multipleFws && meta ? meta.label + " " : "";
         exigences.forEach(e => {
-            if ((e.mesures_ids||[]).includes(mesureId)) result.push(e.ref || "");
+            if ((e.mesures_ids||[]).includes(mesureId)) result.push(prefix + (e.ref || ""));
         });
     }
     return result;

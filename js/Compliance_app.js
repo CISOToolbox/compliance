@@ -1085,48 +1085,412 @@ function _renderFwMesures(fwId, label) {
     let h = `<h2 style="color:var(--blue);margin-bottom:16px">${t("comp.mes.title", {label: esc(label)})}</h2>`;
     h += `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
         <button class="btn-add" data-click="_addMesure" data-args='${_da(fwId)}'>${t("comp.mes.btn_nouvelle")}</button>
+        <button class="btn-add" data-click="_refreshMeasures" title="Rafraîchir">&#x21bb;</button>
         <input type="text" placeholder="${t("comp.mes.search")}" value="${esc(_mesureFilter)}" style="flex:1;max-width:300px" data-input="_filterMesures" data-args='${_da(fwId)}' data-pass-value />
         <span class="fs-xs text-muted">${t("comp.mes.count", {count: mesures.length})}</span>
     </div>`;
 
-    // Mesure en édition ?
-    // Tableau des mesures
-    if (mesures.length > 0) {
-        h += `<table id="mesures-${fwId}-table"><thead><tr>
-            <th${hd("mid")} style="width:70px">${t("comp.mes.col_id")}</th>
-            <th${hd("desc")}>${t("comp.mes.col_description")}</th>
-            <th${hd("statut")} style="width:90px">${t("comp.mes.col_statut")}</th>
-            <th${hd("resp")} style="width:100px">${t("comp.mes.col_responsable")}</th>
-            <th${hd("ech")} style="width:90px">${t("comp.mes.col_echeance")}</th>
-            <th${hd("rec")} style="width:90px">${t("comp.mes.col_recurrence")}</th>
-            <th${hd("prv")} style="width:70px">${t("comp.mes.col_preuves")}</th>
-            <th${hd("exig")} style="min-width:100px">${t("comp.mes.col_exigences")}</th>
-            <th${hd("refs")} style="min-width:80px">${t("comp.mes.col_referentiels")}</th>
-        </tr></thead><tbody>`;
-        mesures.forEach(m => {
-            const linkedExigs = _findExigencesForMesure(m.id);
-            const linkedFws = _findFwsForMesure(m.id);
-            const isFw = fwMesureIds.has(m.id);
-            h += `<tr style="cursor:pointer" data-click="_editMesure" data-args='${_da(fwId,m.id)}'>
-                <td${hd("mid")} class="fw-600">${esc(m.id)}</td>
-                <td${hd("desc")}>${esc(m.description||"—")}</td>
-                <td${hd("statut")}>${_mesureBadge(m)}</td>
-                <td${hd("resp")}>${esc(m.responsable||"—")}</td>
-                <td${hd("ech")}>${esc(m.date_cible||"—")}</td>
-                <td${hd("rec")}>${m.recurrence?esc(_recLabel(m.recurrence)):"—"}</td>
-                <td${hd("prv")} class="ta-c">${(m.preuves_ids||[]).length||"—"}</td>
-                <td${hd("exig")} class="fs-xs">${linkedExigs.join(", ")||"—"}</td>
-                <td${hd("refs")} class="fs-xs">${linkedFws.join(", ")||"—"}</td>
-            </tr>`;
+    const scope = "compliance-mesures-" + fwId;
+
+    if (mesures.length > 0 && window.ct_table) {
+        // Enrich rows with linked info so ct_table renderers can access it synchronously
+        const rows = mesures.map(m => {
+            return Object.assign({}, m, {
+                __linkedExigs: _findExigencesForMesure(m.id),
+                __linkedFws: _findFwsForMesure(m.id),
+                __fwId: fwId
+            });
         });
-        h += '</tbody></table>';
-        h += colsButton("mesures-" + fwId + "-table");
+
+        h += ct_table.render({
+            rows: rows,
+            rowKey: "id",
+            onRowClick: "_editMesureRow",
+            bulk: { scope: scope },
+            columns: [
+                { key: "id",          label: t("comp.mes.col_id"),          width: "80px",
+                  render: m => '<span class="fw-600">' + esc(m.id) + '</span>' },
+                { key: "description", label: t("comp.mes.col_description"),
+                  render: m => esc(m.description || "—") },
+                { key: "statut",      label: t("comp.mes.col_statut"),      width: "100px",
+                  render: m => _mesureBadge(m) },
+                { key: "responsable", label: t("comp.mes.col_responsable"), width: "120px",
+                  render: m => esc(m.responsable || "—") },
+                { key: "date_cible",  label: t("comp.mes.col_echeance"),    width: "110px",
+                  render: m => esc(m.date_cible || "—") },
+                { key: "recurrence",  label: t("comp.mes.col_recurrence"),  width: "110px",
+                  render: m => m.recurrence ? esc(_recLabel(m.recurrence)) : "—" },
+                { key: "preuves",     label: t("comp.mes.col_preuves"),     width: "80px",
+                  render: m => '<span class="ta-c">' + ((m.preuves_ids || []).length || "—") + '</span>' },
+                { key: "exigences",   label: t("comp.mes.col_exigences"),
+                  render: m => '<span class="fs-xs">' + esc((m.__linkedExigs || []).join(", ") || "—") + '</span>' }
+            ]
+        });
+    } else if (mesures.length > 0) {
+        // Fallback (ct_table not loaded yet)
+        h += '<div class="empty-state">' + t("comp.mes.count", {count: mesures.length}) + '</div>';
     }
 
     document.getElementById("fw-desc").textContent = t("comp.mes.fw_desc", {label: label});
     document.getElementById("fw-content").innerHTML = h;
-    _setupTable("mesures-" + fwId + "-table");
+
+    if (mesures.length > 0 && window.ct_bulkbar) {
+        setTimeout(function() {
+            ct_bulkbar.attach({
+                scope: scope,
+                label: t("measure.selected_n") || "{n} mesure(s) sélectionnée(s)",
+                actions: [
+                    { id: "done",   icon: "check", label: "Terminé", variant: "success",
+                      onClick: "_bulkComplianceMesuresDone", data: { fwId: fwId } },
+                    { id: "delete", icon: "trash", label: t("btn_delete") || "Supprimer", danger: true,
+                      onClick: "_bulkComplianceMesuresDelete", data: { fwId: fwId },
+                      confirm: { title: "Supprimer {n} mesure(s) ?", message: "Cette action est irréversible." } }
+                ]
+            });
+            ct_bulkbar.update(scope);
+        }, 0);
+    }
 }
+
+// Shim: ct_table passes the row object to onRowClick handlers.
+// Opens the unified ct_measure_modal. The rich "exigences / preuves"
+// management stays available via an "Avancé" extra button that opens
+// the legacy _showMesureModal.
+window._refreshMeasures = function() {
+    var pid = (typeof _getActiveProjectId === "function") ? _getActiveProjectId() : null;
+    if (pid && window.ComplianceAPI && ComplianceAPI.get) {
+        ComplianceAPI.get(pid).then(function(proj) {
+            if (proj && proj.data) {
+                Object.keys(proj.data).forEach(function(k) { D[k] = proj.data[k]; });
+            }
+            showStatus("Données rafraîchies");
+            renderAll();
+        }).catch(function(e) { showStatus("Erreur : " + (e.message || e), true); });
+    } else {
+        window.location.reload();
+    }
+};
+
+window._editMesureRow = function(row) {
+    if (!row || !row.id) return;
+    if (!window.ct_measure_modal) { _editMesure(row.__fwId, row.id); return; }
+    var m = _getMesure(row.id);
+    if (!m) return;
+    var fwId = row.__fwId || null;
+
+    var statusOpts = [
+        { value: "planifie", label: _statutLabel("planifie") },
+        { value: "en_cours", label: _statutLabel("en_cours") },
+        { value: "termine",  label: _statutLabel("termine")  }
+    ];
+    var recurrenceOpts = ["ponctuel", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
+        .map(function(k) { return { value: k, label: _recLabel(k) }; });
+
+    // Pending changes — applied only on save, discarded on cancel.
+    // Never touch D directly during modal editing.
+    window._pendingExigLinks = [];    // [{fwId, idx, entryId}]
+    window._pendingExigUnlinks = [];  // [{fwId, idx, entryId}]
+    window._pendingPreuveLinks = [];  // [preuveId]
+    window._pendingPreuveUnlinks = []; // [preuveId]
+
+    // Inline exigences + preuves management (interactive).
+    var extraHtml = '';
+    extraHtml += '<div class="fs-xs fw-600" style="margin-top:10px;margin-bottom:4px">'
+              + esc(t("comp.mes.exigences_liees") || "Exigences liées") + '</div>';
+    extraHtml += '<div id="ct-mesure-exigs-wrap">' + _renderExigsForModal(m.id) + '</div>';
+    extraHtml += '<div class="fs-xs fw-600" style="margin-top:10px;margin-bottom:4px">'
+              + esc(t("comp.mes.preuves_liees") || "Preuves liées") + '</div>';
+    extraHtml += '<div id="ct-mesure-preuves-wrap">' + _renderPreuvesForModal(m.id) + '</div>';
+
+    ct_measure_modal.open(m, {
+        title: m.id,
+        fieldMap: { title: "description", description: "details" },
+        hideFields: ["type"],
+        statusOptions: statusOpts,
+        defaultStatus: "planifie",
+        ownerPicker: { pickerId: "compliance-measure-owner", directoryUrl: "api/directory" },
+        extraFields: [
+            { key: "recurrence",       label: t("comp.mes.label_recurrence")       || "Récurrence",      type: "select", options: recurrenceOpts, value: m.recurrence || "" },
+            { key: "dernier_controle", label: t("comp.mes.label_dernier_controle") || "Dernier contrôle", type: "date",   value: m.dernier_controle || "" }
+        ],
+        extraContent: extraHtml,
+        extraButtons: [],
+        onDelete: function() {
+            if (!confirm(t("comp.confirm.delete_mesure", { id: m.id }))) return;
+            _saveState();
+            _deleteMesure(m.id, fwId);
+        }
+    }).then(function(result) {
+        if (!result || result.__deleted || result.__advanced) return;
+        _saveState();
+        // Apply measure field changes
+        var patch = {};
+        ["description", "details", "statut", "responsable", "date_cible", "recurrence", "dernier_controle"].forEach(function(k) {
+            if (result[k] !== undefined && result[k] !== m[k]) {
+                m[k] = result[k];
+                patch[k] = result[k];
+            }
+        });
+        // Apply pending exigence links/unlinks to D
+        var dirtyControls = {};
+        (window._pendingExigLinks || []).forEach(function(op) {
+            var entry = _getExigEntry(op.fwId, op.idx);
+            if (!entry) return;
+            if (!entry.mesures_ids) entry.mesures_ids = [];
+            if (entry.mesures_ids.indexOf(m.id) < 0) entry.mesures_ids.push(m.id);
+            dirtyControls[entry.id] = entry;
+        });
+        (window._pendingExigUnlinks || []).forEach(function(op) {
+            var entry = _getExigEntry(op.fwId, op.idx);
+            if (!entry) return;
+            entry.mesures_ids = (entry.mesures_ids || []).filter(function(id) { return id !== m.id; });
+            dirtyControls[entry.id] = entry;
+        });
+        for (var cid in dirtyControls) {
+            _persist("control", dirtyControls[cid].id, { mesures_ids: dirtyControls[cid].mesures_ids });
+        }
+        // Apply pending preuve links/unlinks
+        var preuveDirty = false;
+        (window._pendingPreuveLinks || []).forEach(function(pid) {
+            if (!m.preuves_ids) m.preuves_ids = [];
+            if (m.preuves_ids.indexOf(pid) < 0) { m.preuves_ids.push(pid); preuveDirty = true; }
+        });
+        (window._pendingPreuveUnlinks || []).forEach(function(pid) {
+            m.preuves_ids = (m.preuves_ids || []).filter(function(id) { return id !== pid; });
+            preuveDirty = true;
+        });
+        if (preuveDirty) patch.preuves_ids = m.preuves_ids;
+        if (Object.keys(patch).length) _persist("measure", m.id, patch);
+        renderAll();
+    });
+};
+
+// Renders the interactive exigences section for the unified modal:
+// a list of linked-exigence tags (with × to unlink) plus a searchable
+// selector to link a new exigence. The output is injected into
+// #ct-mesure-exigs-wrap and the handlers re-render just that wrapper
+// after every mutation (so the ct_modal stays open).
+function _isExigLinkedInModal(e, fwId, idx, mesureId) {
+    // Real state from D
+    var linked = (e.mesures_ids || []).indexOf(mesureId) >= 0;
+    // Apply pending ops
+    if (window._pendingExigUnlinks) {
+        for (var u = 0; u < window._pendingExigUnlinks.length; u++) {
+            if (window._pendingExigUnlinks[u].fwId === fwId && window._pendingExigUnlinks[u].idx === idx) { linked = false; break; }
+        }
+    }
+    if (window._pendingExigLinks) {
+        for (var l = 0; l < window._pendingExigLinks.length; l++) {
+            if (window._pendingExigLinks[l].fwId === fwId && window._pendingExigLinks[l].idx === idx) { linked = true; break; }
+        }
+    }
+    return linked;
+}
+
+function _renderExigsForModal(mesureId) {
+    var h = "";
+    var linked = [];
+    for (var i = 0; i < D.referentiels_actifs.length; i++) {
+        var fwId = D.referentiels_actifs[i];
+        var exigences = _getExigences(fwId);
+        var meta = _getAllFrameworks()[fwId];
+        var fwLabel = meta ? meta.label : fwId;
+        exigences.forEach(function(e, idx) {
+            var ref = _getExigRef(fwId, e);
+            if (_isExigLinkedInModal(e, fwId, idx, mesureId)) {
+                linked.push({ fwId: fwId, idx: idx, ref: ref, fwLabel: fwLabel });
+            }
+        });
+    }
+    if (linked.length) {
+        linked.forEach(function(l) {
+            h += '<div class="linked-tag">' + esc(l.fwLabel) + ' — ' + esc(l.ref)
+               + '<span class="tag-x" data-click="_unlinkExigInModal" data-args=\'' + _da(mesureId, l.fwId, l.idx) + '\' data-stop>×</span></div>';
+        });
+    } else {
+        h += '<div class="text-muted fs-xs" style="margin-bottom:6px">—</div>';
+    }
+    var exigOpts = [];
+    for (var j = 0; j < D.referentiels_actifs.length; j++) {
+        var fwId2 = D.referentiels_actifs[j];
+        var exigences2 = _getExigences(fwId2);
+        var meta2 = _getAllFrameworks()[fwId2];
+        var fwLabel2 = meta2 ? meta2.label : fwId2;
+        exigences2.forEach(function(e, idx) {
+            var ref = _getExigRef(fwId2, e);
+            if (!_isExigLinkedInModal(e, fwId2, idx, mesureId)) {
+                exigOpts.push({
+                    value: fwId2 + ":" + idx,
+                    label: fwLabel2 + " — " + ref + " " + ((_rt(e, "mesure") || "").substring(0, 40))
+                });
+            }
+        });
+    }
+    h += _searchSelect(t("comp.mes.lier_exigence") || "Lier une exigence…", exigOpts, "_linkExigInModal", [mesureId]);
+    return h;
+}
+
+window._linkExigInModal = function(mesureId, val) {
+    if (!val) return;
+    var parts = val.split(":");
+    var fwId = parts[0];
+    var idx = parseInt(parts[1], 10);
+    var entry = _getExigEntry(fwId, idx);
+    if (!entry) return;
+    window._pendingExigLinks.push({ fwId: fwId, idx: idx, entryId: entry.id });
+    // Remove from unlinks if previously unlinked in this session
+    window._pendingExigUnlinks = window._pendingExigUnlinks.filter(function(op) {
+        return !(op.fwId === fwId && op.idx === idx);
+    });
+    var wrap = document.getElementById("ct-mesure-exigs-wrap");
+    if (wrap) wrap.innerHTML = _renderExigsForModal(mesureId);
+};
+
+window._unlinkExigInModal = function(mesureId, fwId, idx) {
+    var entry = _getExigEntry(fwId, idx);
+    if (!entry) return;
+    window._pendingExigUnlinks.push({ fwId: fwId, idx: idx, entryId: entry.id });
+    // Remove from links if previously linked in this session
+    window._pendingExigLinks = window._pendingExigLinks.filter(function(op) {
+        return !(op.fwId === fwId && op.idx === idx);
+    });
+    var wrap = document.getElementById("ct-mesure-exigs-wrap");
+    if (wrap) wrap.innerHTML = _renderExigsForModal(mesureId);
+};
+
+// Renders the interactive preuves section for the unified modal.
+// Mirrors _renderExigsForModal: tags (name + ×) + search select + "+ New"
+// button. All mutations re-render only #ct-mesure-preuves-wrap so the
+// ct_modal stays open.
+function _renderPreuvesForModal(mesureId) {
+    var m = _getMesure(mesureId);
+    if (!m) return "";
+    var h = "";
+    // Build effective linked list from D + pending ops
+    var linked = (m.preuves_ids || []).slice();
+    (window._pendingPreuveUnlinks || []).forEach(function(pid) {
+        linked = linked.filter(function(id) { return id !== pid; });
+    });
+    (window._pendingPreuveLinks || []).forEach(function(pid) {
+        if (linked.indexOf(pid) < 0) linked.push(pid);
+    });
+    if (linked.length) {
+        linked.forEach(function(pid) {
+            var p = _getPreuve(pid);
+            if (!p) return;
+            h += '<div class="linked-tag">'
+               + '<span style="cursor:pointer" data-click="_editPreuveFromModal" data-args=\'' + _da(mesureId, pid) + '\'>'
+               + esc(p.id) + ' ' + esc(p.label || "") + '</span>'
+               + '<span class="tag-x" data-click="_unlinkPreuveInModal" data-args=\'' + _da(mesureId, pid) + '\' data-stop>×</span></div>';
+        });
+    } else {
+        h += '<div class="text-muted fs-xs" style="margin-bottom:6px">—</div>';
+    }
+    var availOpts = D.preuves
+        .filter(function(p) { return linked.indexOf(p.id) < 0; })
+        .map(function(p) { return { value: p.id, label: p.id + " " + (p.label || "") }; });
+    h += '<div style="display:flex;gap:6px;align-items:center;margin-top:4px">';
+    h += '<div style="flex:1">' + _searchSelect(t("comp.mes.lier_preuve") || "Lier une preuve…", availOpts, "_linkPreuveInModal", [mesureId]) + '</div>';
+    h += '<button class="btn-add fs-xs" data-click="_createAndLinkPreuveInModal" data-args=\'' + _da(mesureId) + '\'>'
+       + esc(t("comp.mes.btn_nouvelle_preuve") || "+ Nouvelle preuve") + '</button>';
+    h += '</div>';
+    return h;
+}
+
+window._linkPreuveInModal = function(mesureId, preuveId) {
+    if (!preuveId) return;
+    window._pendingPreuveLinks.push(preuveId);
+    window._pendingPreuveUnlinks = window._pendingPreuveUnlinks.filter(function(id) { return id !== preuveId; });
+    var wrap = document.getElementById("ct-mesure-preuves-wrap");
+    if (wrap) wrap.innerHTML = _renderPreuvesForModal(mesureId);
+};
+
+window._unlinkPreuveInModal = function(mesureId, preuveId) {
+    window._pendingPreuveUnlinks.push(preuveId);
+    window._pendingPreuveLinks = window._pendingPreuveLinks.filter(function(id) { return id !== preuveId; });
+    var wrap = document.getElementById("ct-mesure-preuves-wrap");
+    if (wrap) wrap.innerHTML = _renderPreuvesForModal(mesureId);
+};
+
+// Markers used by _closePreuveModal / _deletePreuveModal to know they
+// should reopen the unified ct_measure_modal (rather than the legacy
+// _showMesureModal overlay) when the preuve overlay closes.
+var _ctReturnToMesureId = null;
+var _ctReturnToMesureFwId = null;
+
+// Edit an existing preuve by closing the unified modal and opening
+// the legacy preuve modal; reopens the unified modal on close.
+window._editPreuveFromModal = function(mesureId, preuveId) {
+    if (!_getPreuve(preuveId)) return;
+    _ctReturnToMesureId = mesureId;
+    _ctReturnToMesureFwId = null;
+    if (window.ct_modal && typeof ct_modal.close === "function") ct_modal.close();
+    _editingPreuve = preuveId;
+    setTimeout(function() { _showPreuveModal(); }, 0);
+};
+
+// Create a new preuve inline, then hand off to the existing preuve
+// edit modal so the user can fill in label / URL / dates / comment.
+// On close/delete of the preuve modal, the unified measure modal is
+// reopened automatically (see _closePreuveModal + _deletePreuveModal).
+window._createAndLinkPreuveInModal = function(mesureId) {
+    var m = _getMesure(mesureId);
+    if (!m) return;
+    _saveState();
+    var id = _genPreuveId();
+    var newPreuve = { id: id, label: "", url: "", date_obtention: "", date_expiration: "", commentaire: "" };
+    D.preuves.push(newPreuve);
+    _persistCreate("proof", newPreuve);
+    if (!m.preuves_ids) m.preuves_ids = [];
+    m.preuves_ids.push(id);
+    _persist("measure", m.id, { preuves_ids: m.preuves_ids });
+
+    // Close the unified modal, remember we need to come back,
+    // then open the legacy preuve edit overlay for full field editing.
+    _ctReturnToMesureId = mesureId;
+    _ctReturnToMesureFwId = null; // cross-fw when reopened
+    if (window.ct_modal && typeof ct_modal.close === "function") ct_modal.close();
+    _editingPreuve = id;
+    _showPreuveModal();
+};
+
+window._bulkComplianceMesuresDone = function(scope) {
+    var ids = Array.from(ct_bulkbar.getSelection(scope));
+    if (!ids.length) return;
+    _saveState();
+    var count = 0;
+    D.mesures.forEach(function(m) {
+        if (ids.indexOf(m.id) >= 0) {
+            m.statut = "Terminé";
+            _persist("measure", m.id, { statut: "Terminé" });
+            count++;
+        }
+    });
+    ct_bulkbar.clear(scope);
+    renderAll();
+    showStatus(count + " mesure(s) marquée(s) terminée(s)");
+};
+
+window._bulkComplianceMesuresDelete = function(scope) {
+    var ids = Array.from(ct_bulkbar.getSelection(scope));
+    if (!ids.length) return;
+    _saveState();
+    // Remove from exigence links first
+    for (const fwId of D.referentiels_actifs) {
+        _getExigences(fwId).forEach(function(e) {
+            if (!e.mesures_ids) return;
+            var before = e.mesures_ids.length;
+            e.mesures_ids = e.mesures_ids.filter(function(mid) { return ids.indexOf(mid) < 0; });
+            if (e.mesures_ids.length !== before) _persist("control", e.id, { mesures_ids: e.mesures_ids });
+        });
+    }
+    // Remove measures themselves
+    ids.forEach(function(mid) { _persistDelete && _persistDelete("measure", mid); });
+    D.mesures = D.mesures.filter(function(m) { return ids.indexOf(m.id) < 0; });
+    ct_bulkbar.clear(scope);
+    renderAll();
+    showStatus(ids.length + " mesure(s) supprimée(s)");
+};
 
 function _filterMesures(fwId, val) {
     _mesureFilter = val;
@@ -1185,7 +1549,7 @@ function _commitDraft() {
     _discardDraft();
     var id = _genMesureId();
     var payload = Object.assign({ id: id }, draft);
-    ComplianceAPI.createMeasure(_getActiveProjectId(), payload).then(function(created) {
+    var _afterCreate = function(created) {
         D.mesures.push(created);
         if (linkIdx !== null && fwId) {
             var entry = _getExigEntry(fwId, linkIdx);
@@ -1199,9 +1563,14 @@ function _commitDraft() {
         _editingMesure = created.id;
         showStatus(t("comp.status.mesure_created") || "Mesure creee : " + created.id);
         _showMesureModal();
-    }).catch(function(e) {
-        showStatus("Erreur creation : " + (e.message || e), true);
-    });
+    };
+    if (window.ComplianceAPI && typeof _getActiveProjectId === "function") {
+        ComplianceAPI.createMeasure(_getActiveProjectId(), payload).then(_afterCreate)
+            .catch(function(e) { showStatus("Erreur creation : " + (e.message || e), true); });
+    } else {
+        _afterCreate(payload);
+        _autoSave();
+    }
 }
 
 window._validateDraftMesure = function() {
@@ -1321,9 +1690,7 @@ function _editMesure(fwId, mesureId) {
 }
 
 function _goEditMesure(fwId, mesureId) {
-    _editingMesure = mesureId;
-    _draftMesureFwId = fwId;
-    _showMesureModal();
+    _editMesureRow({ id: mesureId, __fwId: fwId });
 }
 function _scrollToEditingCard() {
     var card = document.querySelector(".measure-card.editing");
@@ -1608,7 +1975,17 @@ window._closePreuveModal = function() {
     var ov = document.getElementById("preuve-modal-overlay");
     if (ov) ov.remove();
     _autoSave();
-    // Reopen the measure modal if we came from there
+    // Prefer reopening the unified ct_measure_modal when we came from it.
+    if (_ctReturnToMesureId) {
+        var mid = _ctReturnToMesureId;
+        var fwId = _ctReturnToMesureFwId;
+        _ctReturnToMesureId = null;
+        _ctReturnToMesureFwId = null;
+        // Defer so this overlay is fully torn down before ct_modal reopens.
+        setTimeout(function() { _editMesureRow({ id: mid, __fwId: fwId }); }, 0);
+        return;
+    }
+    // Legacy path: reopen the old measure modal
     if (_returnToMesureId) {
         _editingMesure = _returnToMesureId;
         _returnToMesureId = null;
@@ -1625,6 +2002,14 @@ window._deletePreuveModal = function(preuveId) {
     var ov = document.getElementById("preuve-modal-overlay");
     if (ov) ov.remove();
     _persistDelete("proof", preuveId);
+    if (_ctReturnToMesureId) {
+        var mid = _ctReturnToMesureId;
+        var fwId = _ctReturnToMesureFwId;
+        _ctReturnToMesureId = null;
+        _ctReturnToMesureFwId = null;
+        setTimeout(function() { _editMesureRow({ id: mid, __fwId: fwId }); }, 0);
+        return;
+    }
     if (_returnToMesureId) {
         _editingMesure = _returnToMesureId;
         _returnToMesureId = null;
@@ -1645,7 +2030,12 @@ function _deletePreuve(preuveId, fwId) {
     if (!confirm(t("comp.confirm.delete_preuve", {id: preuveId}))) return;
     _saveState();
     D.preuves = D.preuves.filter(p => p.id !== preuveId);
-    D.mesures.forEach(m => { if (m.preuves_ids) m.preuves_ids = m.preuves_ids.filter(id => id !== preuveId); });
+    D.mesures.forEach(m => {
+        if (m.preuves_ids && m.preuves_ids.includes(preuveId)) {
+            m.preuves_ids = m.preuves_ids.filter(id => id !== preuveId);
+            _persist("measure", m.id, { preuves_ids: m.preuves_ids });
+        }
+    });
     _editingPreuve = null;
     _renderFwView(fwId, "preuves");
     _persistDelete("proof", preuveId);
@@ -1663,47 +2053,102 @@ function renderPlan() {
 
     let h = `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
         <button class="btn-add" data-click="_addMesurePlan">${t("comp.plan.btn_nouvelle")}</button>
+        <button class="btn-add" data-click="_refreshMeasures" title="Rafraîchir">&#x21bb;</button>
         <input type="text" placeholder="${t("comp.plan.search")}" value="${esc(_planFilter)}" style="flex:1;max-width:300px" data-input="_filterPlan" data-pass-value />
         <span class="fs-xs text-muted">${t("comp.plan.count", {count: mesures.length})}</span>
     </div>`;
 
-    // Tableau
+    const scope = "compliance-plan";
+
     if (mesures.length === 0) {
         h += '<div class="synth-card"><p class="text-muted">' + t("comp.plan.aucune") + '</p></div>';
-    } else {
-        h += `<table id="plan-table"><thead><tr>
-            <th${hd("mid")} style="width:70px">${t("comp.mes.col_id")}</th>
-            <th${hd("desc")}>${t("comp.mes.col_description")}</th>
-            <th${hd("statut")} style="width:90px">${t("comp.mes.col_statut")}</th>
-            <th${hd("resp")} style="width:100px">${t("comp.mes.col_responsable")}</th>
-            <th${hd("ech")} style="width:90px">${t("comp.mes.col_echeance")}</th>
-            <th${hd("rec")} style="width:90px">${t("comp.mes.col_recurrence")}</th>
-            <th${hd("prv")} style="width:70px">${t("comp.mes.col_preuves")}</th>
-            <th${hd("exig")} style="min-width:100px">${t("comp.mes.col_exigences")}</th>
-            <th${hd("refs")} style="min-width:80px">${t("comp.mes.col_referentiels")}</th>
-        </tr></thead><tbody>`;
-        mesures.forEach(m => {
-            const linkedExigs = _findExigencesForMesure(m.id);
-            const linkedFws = _findFwsForMesure(m.id);
-            h += `<tr style="cursor:pointer" data-click="_editMesurePlan" data-args='${_da(m.id)}'>
-                <td${hd("mid")} class="fw-600">${esc(m.id)}</td>
-                <td${hd("desc")}>${esc(m.description||"—")}</td>
-                <td${hd("statut")}>${_mesureBadge(m)}</td>
-                <td${hd("resp")}>${esc(m.responsable||"—")}</td>
-                <td${hd("ech")}>${esc(m.date_cible||"—")}</td>
-                <td${hd("rec")}>${m.recurrence?esc(_recLabel(m.recurrence)):"—"}</td>
-                <td${hd("prv")} class="ta-c">${(m.preuves_ids||[]).length||"—"}</td>
-                <td${hd("exig")} class="fs-xs">${linkedExigs.join(", ")||"—"}</td>
-                <td${hd("refs")} class="fs-xs">${linkedFws.join(", ")||"—"}</td>
-            </tr>`;
+    } else if (window.ct_table) {
+        const rows = mesures.map(m => Object.assign({}, m, {
+            __linkedExigs: _findExigencesForMesure(m.id),
+            __linkedFws:   _findFwsForMesure(m.id),
+            __fwId: null  // plan d'action is cross-framework
+        }));
+        h += ct_table.render({
+            rows: rows,
+            rowKey: "id",
+            onRowClick: "_editMesureRow",
+            bulk: { scope: scope },
+            columns: [
+                { key: "id",          label: t("comp.mes.col_id"),          width: "80px",
+                  render: m => '<span class="fw-600">' + esc(m.id) + '</span>' },
+                { key: "description", label: t("comp.mes.col_description"),
+                  render: m => esc(m.description || "—") },
+                { key: "statut",      label: t("comp.mes.col_statut"),      width: "100px",
+                  render: m => _mesureBadge(m) },
+                { key: "responsable", label: t("comp.mes.col_responsable"), width: "120px",
+                  render: m => esc(m.responsable || "—") },
+                { key: "date_cible",  label: t("comp.mes.col_echeance"),    width: "110px",
+                  render: m => esc(m.date_cible || "—") },
+                { key: "recurrence",  label: t("comp.mes.col_recurrence"),  width: "110px",
+                  render: m => m.recurrence ? esc(_recLabel(m.recurrence)) : "—" },
+                { key: "preuves",     label: t("comp.mes.col_preuves"),     width: "80px",
+                  render: m => '<span class="ta-c">' + ((m.preuves_ids || []).length || "—") + '</span>' },
+                { key: "exigences",   label: t("comp.mes.col_exigences"),
+                  render: m => '<span class="fs-xs">' + esc((m.__linkedExigs || []).join(", ") || "—") + '</span>' }
+            ]
         });
-        h += '</tbody></table>';
-        h += colsButton("plan-table");
     }
 
     document.getElementById("plan-content").innerHTML = h;
-    _setupTable("plan-table");
+
+    if (mesures.length > 0 && window.ct_bulkbar) {
+        setTimeout(function() {
+            ct_bulkbar.attach({
+                scope: scope,
+                label: t("measure.selected_n") || "{n} mesure(s) sélectionnée(s)",
+                actions: [
+                    { id: "done",   icon: "check", label: "Terminé", variant: "success",
+                      onClick: "_bulkCompliancePlanDone" },
+                    { id: "delete", icon: "trash", label: t("btn_delete") || "Supprimer", danger: true,
+                      onClick: "_bulkCompliancePlanDelete",
+                      confirm: { title: "Supprimer {n} mesure(s) ?", message: "Cette action est irréversible." } }
+                ]
+            });
+            ct_bulkbar.update(scope);
+        }, 0);
+    }
 }
+
+window._bulkCompliancePlanDone = function(scope) {
+    var ids = Array.from(ct_bulkbar.getSelection(scope));
+    if (!ids.length) return;
+    _saveState();
+    var count = 0;
+    D.mesures.forEach(function(m) {
+        if (ids.indexOf(m.id) >= 0) {
+            m.statut = "termine";
+            _persist("measure", m.id, { statut: "termine" });
+            count++;
+        }
+    });
+    ct_bulkbar.clear(scope);
+    renderPlan();
+    showStatus(count + " mesure(s) marquée(s) terminée(s)");
+};
+
+window._bulkCompliancePlanDelete = function(scope) {
+    var ids = Array.from(ct_bulkbar.getSelection(scope));
+    if (!ids.length) return;
+    _saveState();
+    for (const fwId of D.referentiels_actifs) {
+        _getExigences(fwId).forEach(function(e) {
+            if (!e.mesures_ids) return;
+            var before = e.mesures_ids.length;
+            e.mesures_ids = e.mesures_ids.filter(function(mid) { return ids.indexOf(mid) < 0; });
+            if (e.mesures_ids.length !== before) _persist("control", e.id, { mesures_ids: e.mesures_ids });
+        });
+    }
+    ids.forEach(function(mid) { _persistDelete && _persistDelete("measure", mid); });
+    D.mesures = D.mesures.filter(function(m) { return ids.indexOf(m.id) < 0; });
+    ct_bulkbar.clear(scope);
+    renderPlan();
+    showStatus(ids.length + " mesure(s) supprimée(s)");
+};
 
 function _filterPlan(val) {
     _planFilter = val;
@@ -2053,8 +2498,4 @@ try {
 }
 
 // AI module config (read by ai_common.js)
-window.AI_APP_CONFIG = {
-    storagePrefix: "compliance",
-    settingsExtraHTML: function() { return _demoSettingsHTML(); },
-    onSettingsRendered: function() { _wireDemoSettings(); }
-};
+window.AI_APP_CONFIG = { storagePrefix: "compliance" };

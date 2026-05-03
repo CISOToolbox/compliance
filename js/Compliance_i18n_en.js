@@ -134,6 +134,8 @@ _registerTranslations("en", {
     "comp.mes.col_preuves": "Evidence",
     "comp.mes.col_exigences": "Requirements",
     "comp.mes.col_referentiels": "Frameworks",
+    "measure.selected_n": "{n} measure(s) selected",
+    "comp.mes.prompt_new_preuve": "Evidence name:",
 
     // Preuves
     "comp.prv.title": "Evidence — {label}",
@@ -205,8 +207,12 @@ _registerTranslations("en", {
     "comp.confirm.delete_preuve": "Delete evidence {id}?",
     "comp.alert.no_mesure_type": "No control template available for this requirement ({ref}).",
     "comp.alert.all_linked": "All {count} suggested control(s) for {ref} are already linked to this requirement.",
-    "comp.alert.mesures_prompt_title": "Suggested controls for {ref}:",
-    "comp.alert.mesures_prompt_footer": "Enter number(s) to create (e.g. 1,3) or * for all:",
+    "comp.propose.title": "Suggested controls for {ref}",
+    "comp.propose.subtitle": "{count} control(s) available — accept or reject each one",
+    "comp.propose.accept_all": "Accept all",
+    "comp.propose.close": "Close",
+    "comp.propose.accepted": "Accepted",
+    "comp.propose.rejected": "Rejected",
     "comp.status.mesures_created": "{count} control(s) created",
     "comp.status.preuve_created": "Evidence {id} created and linked",
 

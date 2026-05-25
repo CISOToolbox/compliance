@@ -277,8 +277,7 @@
             var p = _aiEnsurePanel();
             p.title.textContent = "✨ AI — " + ref;
             p.body.innerHTML =
-                '<p style="padding:20px;color:var(--red)">' + t("ai.parse_error") + '</p>' +
-                '<pre style="font-size:0.75em;white-space:pre-wrap;max-height:200px;overflow:auto">' + esc(e.message) + '</pre>';
+                '<div class="ai-error">' + esc(t("ai.error", {msg: e.message})) + '</div>';
             p.footer.innerHTML = '';
             _aiOpenPanel();
         }
@@ -558,7 +557,7 @@
                     resultEl.scrollTop = resultEl.scrollHeight;
                 }
             } catch (e) {
-                if (resultEl) resultEl.insertAdjacentHTML("beforeend", '<p style="color:var(--red);font-size:0.85em">Batch ' + batchNum + ' error: ' + esc(e.message) + '</p>');
+                if (resultEl) resultEl.insertAdjacentHTML("beforeend", '<p class="ai-error" style="font-size:0.85em;margin:8px 0">' + esc(t("ai.error", {msg: "Batch " + batchNum + " — " + e.message})) + '</p>');
             }
         }
 
@@ -783,7 +782,7 @@
                     resultEl.scrollTop = resultEl.scrollHeight;
                 }
             } catch (e) {
-                if (resultEl) resultEl.insertAdjacentHTML("beforeend", '<p style="color:var(--red);font-size:0.85em">Error: ' + esc(e.message) + '</p>');
+                if (resultEl) resultEl.insertAdjacentHTML("beforeend", '<p class="ai-error" style="font-size:0.85em;margin:8px 0">' + esc(t("ai.error", {msg: e.message})) + '</p>');
             }
         }
 

@@ -4,6 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 _registerTranslations("fr", {
+    "ai.error": "Erreur : {msg}",
     // Label app
     "comp.label": "évaluation",
 

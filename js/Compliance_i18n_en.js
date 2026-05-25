@@ -1,5 +1,6 @@
 // Compliance — English translations
 _registerTranslations("en", {
+    "ai.error": "Error: {msg}",
     // Label app
     "comp.label": "assessment",
 

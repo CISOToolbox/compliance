@@ -851,7 +851,7 @@
                 h2.parentNode.insertBefore(wrapper, h2);
                 wrapper.appendChild(h2);
                 var globalBtn = document.createElement("button");
-                globalBtn.className = "btn-add fs-xs ai-btn-global";
+                globalBtn.className = "btn-ai ai-btn-global";
                 globalBtn.innerHTML = "✨ " + t("ai.global_btn");
                 globalBtn.setAttribute("data-click", "aiGlobalAnalysis");
                 globalBtn.setAttribute("data-args", JSON.stringify([fwId]));
@@ -864,7 +864,7 @@
             if (btn.nextElementSibling && btn.nextElementSibling.classList.contains("ai-btn-suggest")) return;
             var args = JSON.parse(btn.getAttribute("data-args"));
             var aiBtn = document.createElement("button");
-            aiBtn.className = "btn-add fs-xs ai-btn-suggest";
+            aiBtn.className = "btn-ai btn-ai-sm";
             aiBtn.textContent = "✨ AI";
             aiBtn.setAttribute("data-click", "aiSuggestControls");
             aiBtn.setAttribute("data-args", JSON.stringify(args));

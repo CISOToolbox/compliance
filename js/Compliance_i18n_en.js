@@ -277,4 +277,5 @@ _registerTranslations("en", {
     "comp.mes.btn_annuler": "Cancel",
     "comp.mes.new_draft": "New measure",
     "comp.status.mesure_created": "Measure created",
+    "settings.custom_needs_endpoint": "Please provide the custom endpoint URL.",
 });

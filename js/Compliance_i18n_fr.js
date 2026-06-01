@@ -282,4 +282,5 @@ _registerTranslations("fr", {
     "comp.csv.error_empty": "Le fichier CSV est vide ou invalide",
     "comp.csv.error_columns": "Colonnes obligatoires manquantes : ref et mesure (ou measure/control)",
     "comp.csv.error_no_measures": "Aucune mesure valide trouvee dans le CSV",
+    "settings.custom_needs_endpoint": "Veuillez renseigner l'URL de l'endpoint personnalisé.",
 });

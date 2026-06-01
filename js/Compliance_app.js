@@ -302,7 +302,14 @@ function _getPreuvesForFw(fwId) {
 }
 
 // Statut labels
-function _statutLabel(key) { return t("comp.statut." + key) || key; }
+function _normStatut(key) {
+    var k = String(key || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    var map = { "planifie": "planifie", "en cours": "en_cours", "en_cours": "en_cours",
+                "termine": "termine", "terminee": "termine", "terminees": "termine",
+                "preuve manquante": "preuve_manquante", "preuve_manquante": "preuve_manquante" };
+    return map[k] || key;
+}
+function _statutLabel(key) { return t("comp.statut." + _normStatut(key)) || key; }
 const _statutColors = {planifie:"orange",en_cours:"blue",termine:"green",preuve_manquante:"red"};
 
 // ── Calcul automatique des statuts ───────────────────────────────────

@@ -273,4 +273,8 @@ _registerTranslations("en", {
     "comp.csv.error_empty": "CSV file is empty or invalid",
     "comp.csv.error_columns": "Required columns missing: ref and mesure (or measure/control)",
     "comp.csv.error_no_measures": "No valid controls found in CSV",
+    "comp.exig.preuve_manquante": "Completed — missing evidence",
+    "comp.mes.btn_annuler": "Cancel",
+    "comp.mes.new_draft": "New measure",
+    "comp.status.mesure_created": "Measure created",
 });

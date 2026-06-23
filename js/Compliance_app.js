@@ -1092,11 +1092,10 @@ function _linkExistingMesure(fwId, idx, mesureId) {
     _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
 function _createAndLinkMesure(fwId, idx) {
-    _draftMesure = { description: "", details: "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] };
-    _draftMesureFwId = fwId;
-    _draftMesureLinkIdx = idx;
-    _editingMesure = "__draft__";
-    _showMesureModal();
+    // BUG-15: create+link through the unified ct_measure_modal (like _addMesure
+    // / _addMesurePlan), not the legacy draft overlay. _createMesureUnified
+    // handles both the creation and the exigence link.
+    window._createMesureUnified(fwId, idx);
 }
 function _unlinkMesure(fwId, idx, mesureId) {
     _saveState();

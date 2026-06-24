@@ -333,7 +333,10 @@
 
     async function _extractDocxText(buffer: ArrayBuffer) {
         if (typeof JSZip === "undefined") {
-            await _loadScript("https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js");
+            await _loadScript("https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js", {
+                integrity: "sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG",
+                crossOrigin: "anonymous"
+            });
         }
         var zip = await JSZip.loadAsync(buffer);
         var docXml = await zip.file("word/document.xml").async("string");
@@ -347,7 +350,10 @@
 
     async function _extractExcelText(buffer: ArrayBuffer) {
         if (typeof ExcelJS === "undefined") {
-            await _loadScript("https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js");
+            await _loadScript("https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js", {
+                integrity: "sha384-Pqp51FUN2/qzfxZxBCtF0stpc9ONI6MYZpVqmo8m20SoaQCzf+arZvACkLkirlPz",
+                crossOrigin: "anonymous"
+            });
         }
         var wb = new ExcelJS.Workbook();
         await wb.xlsx.load(buffer);
@@ -362,11 +368,14 @@
         return lines.join("\n");
     }
 
-    function _loadScript(url: string) {
+    function _loadScript(url: string, opts?: { integrity?: string; crossOrigin?: string }) {
         return new Promise<void>(function(resolve, reject) {
             if (document.querySelector('script[src="' + url + '"]')) { resolve(); return; }
             var s = document.createElement("script");
             s.src = url;
+            // Subresource Integrity: a tampered/MITM'd CDN response fails the
+            // hash check and is blocked (CDN-supplied libs must be pinned).
+            if (opts && opts.integrity) { s.integrity = opts.integrity; s.crossOrigin = opts.crossOrigin || "anonymous"; }
             s.onload = function() { resolve(); };
             s.onerror = reject;
             document.head.appendChild(s);

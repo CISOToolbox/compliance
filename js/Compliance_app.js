@@ -2340,7 +2340,7 @@ function renderControles() {
             h += `<tr style="${(r.enRetard || r.expired) ? "background:var(--ct-critical-tint)" : ""}">`;
             h += `<td${hd("type")}>${r.type === "controle" ? t("comp.ctrl.type_controle") : t("comp.ctrl.type_preuve")}</td><td${hd("cid")} class="fw-600">${esc(r.id)}</td><td${hd("cdesc")}>${esc(r.label)}</td>`;
             if (r.type === "controle") {
-                h += `<td${hd("det")}>${_recLabel(r.recurrence)} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier || t("comp.ctrl.jamais"))}</td>`;
+                h += `<td${hd("det")}>${esc(_recLabel(r.recurrence))} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier || t("comp.ctrl.jamais"))}</td>`;
                 h += `<td${hd("csts")}>${r.enRetard ? ctBadge(t("comp.ctrl.en_retard"), "red") : ctBadge(t("comp.ctrl.ok"), "green")}</td>`;
             }
             else {

@@ -333,10 +333,9 @@
 
     async function _extractDocxText(buffer: ArrayBuffer) {
         if (typeof JSZip === "undefined") {
-            await _loadScript("https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js", {
-                integrity: "sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG",
-                crossOrigin: "anonymous"
-            });
+            // JSZip 3.10.1, vendored under js/vendor/ — same-origin, so the app CSP
+            // keeps script-src 'self' with no CDN entry and the import works offline.
+            await _loadScript("js/vendor/jszip.min.js");
         }
         var zip = await JSZip.loadAsync(buffer);
         var docXml = await zip.file("word/document.xml").async("string");
@@ -350,10 +349,8 @@
 
     async function _extractExcelText(buffer: ArrayBuffer) {
         if (typeof ExcelJS === "undefined") {
-            await _loadScript("https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js", {
-                integrity: "sha384-Pqp51FUN2/qzfxZxBCtF0stpc9ONI6MYZpVqmo8m20SoaQCzf+arZvACkLkirlPz",
-                crossOrigin: "anonymous"
-            });
+            // ExcelJS 4.4.0, vendored under js/vendor/ — same-origin (see above).
+            await _loadScript("js/vendor/exceljs.min.js");
         }
         var wb = new ExcelJS.Workbook();
         await wb.xlsx.load(buffer);

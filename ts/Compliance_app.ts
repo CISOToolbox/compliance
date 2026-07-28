@@ -71,24 +71,24 @@ function _showPropositionsModal(fwId: string, idx: number, exigRef: string, entr
     var overlay = document.createElement("div");
     overlay.id = "propositions-modal";
     overlay.style.cssText = "position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
-    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    var h = '<div style="background:var(--ct-surface);border-radius:12px;padding:24px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
     h += '<h3>' + esc(t("comp.propose.title", {ref: exigRef})) + '</h3>';
     h += '<p class="text-muted fs-sm">' + esc(t("comp.propose.subtitle", {count: available.length})) + '</p>';
     available.forEach(function(mt, i) {
-        var catBadge = mt.categorie ? '<span class="badge" style="background:#e2e8f0;color:#475569;font-size:0.7em;margin-left:6px">' + esc(mt.categorie) + '</span>' : '';
-        h += '<div class="proposition-card" style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin:8px 0">';
+        var catBadge = mt.categorie ? '<span class="badge" style="background:var(--ct-line);color:var(--ct-neutral-ink);font-size:0.7em;margin-left:6px">' + esc(mt.categorie) + '</span>' : '';
+        h += '<div class="proposition-card" style="border:1px solid var(--ct-line);border-radius:8px;padding:12px;margin:8px 0">';
         h += '<div style="display:flex;justify-content:space-between;align-items:flex-start">';
         h += '<div style="flex:1">';
         h += '<div style="font-weight:600;font-size:0.9em">' + esc(_rt(mt, "description")) + catBadge + '</div>';
         if (mt.details) h += '<div class="text-muted fs-xs" style="margin-top:4px">' + esc(_rt(mt, "details").substring(0, 200)) + (mt.details.length > 200 ? "…" : "") + '</div>';
         h += '</div>';
         h += '<div style="display:flex;gap:6px;margin-left:12px;flex-shrink:0">';
-        h += '<button class="btn-ok" style="padding:4px 12px;background:#22c55e;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_acceptProposition" data-args=\'' + _da(i) + '\'>✓</button>';
-        h += '<button class="btn-ko" style="padding:4px 12px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_rejectProposition" data-args=\'' + _da(i) + '\'>✗</button>';
+        h += '<button class="btn-ok" style="padding:4px 12px;background:var(--ct-accent);color:var(--ai-on-accent,#fff);border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_acceptProposition" data-args=\'' + _da(i) + '\'>✓</button>';
+        h += '<button class="btn-ko" style="padding:4px 12px;background:var(--ct-critical);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.85em" data-click="_rejectProposition" data-args=\'' + _da(i) + '\'>✗</button>';
         h += '</div></div></div>';
     });
-    h += '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0">';
-    h += '<button class="btn" style="background:#22c55e;color:#fff" data-click="_acceptAllPropositions">' + esc(t("comp.propose.accept_all")) + '</button>';
+    h += '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid var(--ct-line)">';
+    h += '<button class="btn" style="background:var(--ct-accent);color:var(--ai-on-accent,#fff)" data-click="_acceptAllPropositions">' + esc(t("comp.propose.accept_all")) + '</button>';
     h += '<button class="btn" data-click="_closePropositionsModal">' + esc(t("comp.propose.close")) + '</button>';
     h += '</div></div>';
     overlay.innerHTML = h;
@@ -275,9 +275,6 @@ document.addEventListener("click", function(e) {
     }
 });
 
-// Clé d'exigence : "anssi:1", "iso:A.5.1", "dora:DORA-G01"
-function _exigKey(fwId: string, ref: string) { return fwId + ":" + ref; }
-
 // Récupérer toutes les exigences d'un référentiel comme tableau d'objets
 function _getExigences(fwId: string): ComplianceExigence[] {
     return (D.referentiels && D.referentiels[fwId]) || [];
@@ -343,7 +340,10 @@ const _exigStatutColors: Record<string, string> = {ok: "green", ko: "red", na: "
 
 function _mesureBadge(m: ComplianceMesure) {
     const s = _mesureEffectiveStatut(m);
-    return s ? ctBadge(_statutLabel(s), _statutColors[s]||"gray") : "u2014";
+    // Normaliser avant lookup : les mesures importées peuvent porter un
+    // statut brut ("En cours") — sans normalisation le badge retombait
+    // sur "gray" et deux styles coexistaient pour le même statut.
+    return s ? ctBadge(_statutLabel(s), _statutColors[_normStatut(s)]||"gray") : "u2014";
 }
 
 function _recLabel(key: string) { return t("comp.rec." + key) || key; }
@@ -380,7 +380,7 @@ function selectPanel(panelId: string) {
     if (_draftMesure) _discardDraft();
     _currentPanel = panelId;
     // Fermer la sidebar mobile
-    document.querySelector(".sidebar")!.classList.remove("open");
+    document.querySelector(".ct-rail, .sidebar")?.classList.remove("open");
 
     // Format: "fw:dora:exigences" ou "dashboard" ou "context"
     if (panelId.startsWith("fw:")) {
@@ -574,7 +574,7 @@ function renderSidebar() {
         document.getElementById("sidebar-frameworks")!.innerHTML = "";
         return;
     }
-    let h = '<div class="sidebar-section">' + t("comp.sidebar.frameworks") + '</div>';
+    let h = '<div class="ct-rail-section"><div class="ct-rail-group">' + esc(t("comp.sidebar.frameworks")) + '</div>';
     const views = ["dashboard", "exigences", "mesures", "preuves"];
     const viewLabels = [t("comp.subview.dashboard"), t("comp.subview.exigences"), t("comp.subview.mesures"), t("comp.subview.preuves")];
 
@@ -584,16 +584,17 @@ function renderSidebar() {
         const label = fwId === "anssi" ? "ANSSI" : fwId === "iso" ? "ISO 27001" : meta.label;
         const isActive = _currentFw === fwId;
         // Item du référentiel — cliquer dessus ouvre/ferme les sous-menus et va au dashboard
-        h += `<div class="sidebar-item${isActive?" active":""}" data-click="selectPanel" data-args='${_da("fw:"+fwId+":dashboard")}'>${esc(label)}</div>`;
+        h += `<button class="ct-rail-item"${isActive?' aria-current="page"':""} data-click="selectPanel" data-args='${_da("fw:"+fwId+":dashboard")}'><span class="ct-rail-item-label">${esc(label)}</span></button>`;
         // Sous-menus : affichés uniquement si c'est le référentiel sélectionné
         if (isActive) {
             for (let vi = 0; vi < views.length; vi++) {
                 const pid = "fw:" + fwId + ":" + views[vi];
                 const active = _currentSubview === views[vi];
-                h += `<div class="sidebar-item sidebar-sub${active?" active":""}" data-click="selectPanel" data-args='${_da(pid)}'>${viewLabels[vi]}</div>`;
+                h += `<button class="ct-rail-item ct-rail-subitem"${active?' aria-current="page"':""} data-click="selectPanel" data-args='${_da(pid)}'><span class="ct-rail-item-label">${esc(viewLabels[vi])}</span></button>`;
             }
         }
     }
+    h += '</div>';
     document.getElementById("sidebar-frameworks")!.innerHTML = h;
 }
 
@@ -616,7 +617,10 @@ function renderContext() {
     for (const [fwId, meta] of Object.entries(_getAllFrameworks())) {
         const active = D.referentiels_actifs.includes(fwId);
         const chipStyle = `border-color:${meta.color};color:${active?"white":meta.color};background:${active?meta.color:"white"}`;
-        h += `<span class="ref-chip" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active?"✓":"+"} ${esc(meta.label)}</span>`;
+        // La classe d'état (is-active / is-inactive) ne porte aucun style en
+        // light ; elle sert d'ancre aux overrides dark de Compliance.css
+        // (les couleurs inline par référentiel restent le rendu light).
+        h += `<span class="ref-chip ${active?"is-active":"is-inactive"}" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active?"✓":"+"} ${esc(meta.label)}</span>`;
     }
     h += '</div>';
     h += '<button class="btn-add" style="margin-top:8px;font-size:0.8em" data-click="importCustomCSV">' + t("comp.csv.btn_import") + '</button>';
@@ -837,11 +841,11 @@ function renderDashboard() {
     } else {
         h += '<div class="indicators">';
         for (const fw of frameworks) {
-            const color = fw.pct >= 80 ? "var(--green)" : fw.pct > 0 ? "var(--orange)" : "var(--red)";
+            const tone = fw.pct >= 80 ? "low" : fw.pct >= 50 ? "medium" : fw.pct >= 25 ? "high" : "critical";
             h += `<div class="indicator" style="cursor:pointer" data-click="selectPanel" data-args='${_da("fw:"+fw.fwId+":dashboard")}'>
-                <div class="value" style="color:${color}">${fw.pct}%</div>
+                <div class="value">${fw.pct}%</div>
                 <div class="ind-label">${esc(fw.label)}</div>
-                <div class="conf-bar"><div class="conf-bar-fill" style="width:${fw.pct}%;background:${color}"></div></div>
+                <div class="ct-meter" data-tone="${tone}"><span style="width:${fw.pct}%"></span></div>
                 <div class="fs-xs text-muted mt-8">${fw.ok} OK / ${fw.ko} KO${fw.excluded?" ("+fw.excluded+" N/A)":""}</div>
             </div>`;
         }
@@ -911,7 +915,7 @@ function _renderFwDashboard(fwId: string, label: string) {
         h += `<div class="synth-card" style="border-color:var(--orange)"><h3 style="color:var(--orange)">${t("comp.fw_dash.preuves_expirant", {count: expiring.length})}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_label")}</th><th>${t("comp.fw_dash.col_expiration")}</th></tr></thead><tbody>`;
         expiring.forEach(p => {
             const expired = ctDateStatus(p.date_expiration, 90) === "expired";
-            h += `<tr style="${expired?"background:#fef2f2":""}"><td class="fw-600">${esc(p.id)}</td><td>${esc(p.label)}</td><td>${expired?ctBadge(t("comp.prv.expiree"),"red"):esc(p.date_expiration)}</td></tr>`;
+            h += `<tr style="${expired?"background:var(--ct-critical-tint)":""}"><td class="fw-600">${esc(p.id)}</td><td>${esc(p.label)}</td><td>${expired?ctBadge(t("comp.prv.expiree"),"red"):esc(p.date_expiration)}</td></tr>`;
         });
         h += '</tbody></table></div>';
     }
@@ -978,7 +982,7 @@ function _renderFwExigences(fwId: string, label: string) {
         const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
         const prevues = linkedMesures.filter(m => { var s = _mesureEffectiveStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
 
-        h += `<tr${notApplicable?' style="background:#f1f5f9"':''}>`;
+        h += `<tr${notApplicable?' style="background:var(--ct-surface-2)"':''}>`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
         h += `<td${hd("mesure")}><div>${esc(_rt(e, "mesure"))}</div>${desc?'<div class="desc-text">'+esc(desc)+'</div>':""}</td>`;
@@ -1664,7 +1668,7 @@ function _showMesureModal() {
     ov.id = "mesure-modal-overlay";
     ov.style.cssText = "position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
 
-    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:620px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    var h = '<div style="background:var(--ct-surface);border-radius:12px;padding:24px;max-width:620px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
     // Header
     h += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">';
     h += '<strong style="flex:1;font-size:1.05em">' + (isDraft ? esc(t("comp.mes.new_draft")) : esc(mid)) + '</strong>';
@@ -1756,18 +1760,6 @@ function _editMesure(fwId: string | null, mesureId: string) {
 function _goEditMesure(fwId: string, mesureId: string) {
     window._editMesureRow!({ id: mesureId, __fwId: fwId });
 }
-function _scrollToEditingCard() {
-    var card = document.querySelector(".measure-card.editing");
-    if (card) { card.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
-    // Retry after async loading (script fetch for framework data)
-    setTimeout(function() {
-        var c = document.querySelector(".measure-card.editing");
-        if (c) c.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 200);
-}
-
-function _closeMesureEdit() { _closeMesureModal(); }
-
 // Rendu des exigences liées à une mesure (dans la vue édition mesure)
 function _renderLinkedExigences(mesureId: string, currentFwId: string | null) {
     let h = "";
@@ -1943,11 +1935,11 @@ function _renderFwPreuves(fwId: string, label: string) {
             const expired = dst === "expired";
             const linkedMesures = _findMesuresForPreuve(p.id);
             let statut = "—";
-            if (dst === "expired") statut = badge(t("comp.prv.expiree"), "var(--red)");
-            else if (dst === "soon") statut = badge(t("comp.prv.bientot"), "var(--orange)");
-            else if (dst === "valid") statut = badge(t("comp.prv.ok"), "var(--green)");
+            if (dst === "expired") statut = badgeTone(t("comp.prv.expiree"), "critical");
+            else if (dst === "soon") statut = badgeTone(t("comp.prv.bientot"), "high");
+            else if (dst === "valid") statut = badgeTone(t("comp.prv.ok"), "low");
 
-            h += `<tr style="cursor:pointer${!isFw?";opacity:0.5":""}${expired?";background:#fef2f2":""}" data-click="_editPreuve" data-args='${_da(fwId,p.id)}'>
+            h += `<tr style="cursor:pointer${!isFw?";opacity:0.5":""}${expired?";background:var(--ct-critical-tint)":""}" data-click="_editPreuve" data-args='${_da(fwId,p.id)}'>
                 <td${hd("pid")} class="fw-600">${esc(p.id)}</td>
                 <td${hd("label")}>${esc(p.label||"—")}</td>
                 <td${hd("url")} class="fs-xs">${p.url ? '<a href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer" data-stop>'+esc(p.url).substring(0,40)+'</a>' : "—"}</td>
@@ -2009,7 +2001,7 @@ function _showPreuveModal() {
     ov.id = "preuve-modal-overlay";
     ov.style.cssText = "position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
 
-    var h = '<div style="background:white;border-radius:12px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
+    var h = '<div style="background:var(--ct-surface);border-radius:12px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2)">';
     h += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">';
     h += '<strong style="flex:1;font-size:1.05em">' + esc(p.id) + '</strong>';
     h += '<button class="btn-add fs-xs" style="background:var(--red)" data-click="_deletePreuveModal" data-args=\'' + _da(p.id) + '\'>' + esc(t("comp.prv.btn_supprimer")) + '</button>';
@@ -2080,28 +2072,9 @@ window._deletePreuveModal = function(preuveId: string) {
     }
 };
 
-function _closePreuveEdit(fwId: string) {
-    window._closePreuveModal!();
-}
-
 function _updatePreuveField(preuveId: string, field: string, val: string) {
     const p = _getPreuve(preuveId);
     if (p) { (p as unknown as Record<string, unknown>)[field] = val; _persist("proof", p.id, _obj(field, val)); }
-}
-
-function _deletePreuve(preuveId: string, fwId: string) {
-    if (!confirm(t("comp.confirm.delete_preuve", {id: preuveId}))) return;
-    _saveState();
-    D.preuves = D.preuves.filter(p => p.id !== preuveId);
-    D.mesures.forEach(m => {
-        if (m.preuves_ids && m.preuves_ids.includes(preuveId)) {
-            m.preuves_ids = m.preuves_ids.filter(id => id !== preuveId);
-            _persist("measure", m.id, { preuves_ids: m.preuves_ids });
-        }
-    });
-    _editingPreuve = null;
-    _renderFwView(fwId, "preuves");
-    _persistDelete("proof", preuveId);
 }
 
 // ── Plan d'action global ──────────────────────────────────────────
@@ -2218,32 +2191,8 @@ function _filterPlan(val: string) {
     renderPlan();
 }
 
-function _editMesurePlan(mesureId: string) {
-    _editingMesure = mesureId;
-    _draftMesureFwId = null;
-    _mesureEditReturnTo = null;
-    _showMesureModal();
-}
-
-function _closePlanEdit() {
-    _closeMesureModal();
-}
-
 function _addMesurePlan() {
     window._createMesureUnified!(null, null);
-}
-
-function _deleteMesurePlan(mesureId: string) {
-    if (!confirm(t("comp.confirm.delete_mesure", {id: mesureId}))) return;
-    _saveState();
-    D.mesures = D.mesures.filter(m => m.id !== mesureId);
-    const cleanup = (items: ComplianceExigence[]) => items.forEach(e => { if (e.mesures_ids) e.mesures_ids = e.mesures_ids.filter(id => id !== mesureId); });
-    for (const fw of Object.values(D.referentiels || {})) {
-        if (Array.isArray(fw)) cleanup(fw);
-    }
-    _editingMesure = null;
-    renderPlan();
-    _persistDelete("measure", mesureId);
 }
 
 window._unlinkPreuvePlan = function(mesureId: string, preuveId: string) {
@@ -2287,15 +2236,6 @@ window._createAndLinkPreuvePlan = function(mesureId: string) {
     if (m) _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 }
 
-function _goEditPreuveFromPlan(mesureId: string, preuveId: string) {
-    _editingPreuve = preuveId;
-    _returnToMesureId = mesureId;
-    _preuveEditReturnTo = "plan";
-    // Pour les preuves il faut aller sur un panel preuve — on utilise le premier fw actif
-    const fwId = D.referentiels_actifs[0] || "anssi";
-    selectPanel("fw:" + fwId + ":preuves");
-}
-
 // ── Contrôles global ──────────────────────────────────────────────
 function renderControles() {
     const today = new Date();
@@ -2329,10 +2269,10 @@ function renderControles() {
         h = '<div class="synth-card"><p class="text-muted">' + t("comp.ctrl.aucun") + '</p></div>';
     } else {
         const retards = rows.filter(r => r.enRetard || r.expired).length;
-        if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:#fef2f2"><p style="color:var(--red);font-weight:600">${t("comp.ctrl.alertes", {count: retards})}</p></div>`;
+        if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:var(--ct-critical-tint)"><p style="color:var(--red);font-weight:600">${t("comp.ctrl.alertes", {count: retards})}</p></div>`;
         h += '<table id="ctrl-table"><thead><tr><th' + hd("type") + '>' + t("comp.ctrl.col_type") + '</th><th' + hd("cid") + '>' + t("comp.ctrl.col_id") + '</th><th' + hd("cdesc") + '>' + t("comp.ctrl.col_description") + '</th><th' + hd("det") + '>' + t("comp.ctrl.col_details") + '</th><th' + hd("csts") + '>' + t("comp.ctrl.col_statut") + '</th></tr></thead><tbody>';
         rows.forEach(r => {
-            h += `<tr style="${(r.enRetard||r.expired)?"background:#fef2f2":""}">`;
+            h += `<tr style="${(r.enRetard||r.expired)?"background:var(--ct-critical-tint)":""}">`;
             h += `<td${hd("type")}>${r.type==="controle"?t("comp.ctrl.type_controle"):t("comp.ctrl.type_preuve")}</td><td${hd("cid")} class="fw-600">${esc(r.id)}</td><td${hd("cdesc")}>${esc(r.label)}</td>`;
             if (r.type === "controle") {
                 h += `<td${hd("det")}>${_recLabel(r.recurrence!)} — ${t("comp.ctrl.dernier")}: ${esc(r.dernier||t("comp.ctrl.jamais"))}</td>`;

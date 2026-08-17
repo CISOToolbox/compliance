@@ -1,0 +1,1378 @@
+{
+  "id": "recyf",
+  "version": "2024",
+  "label": "ReCyF (NIS2)",
+  "description": "RECYF constitue le référentiel de cybersécurité mentionné au 6ème alinéa de l’article 14 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (PJL). Il se compose d’objectifs de sécurité et, pour chacun d’eux, de moyens acceptables de conformité.",
+  "description_en": "RECYF constitue le référentiel de cybersécurité mentionné au 6ème alinéa de l’article 14 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (PJL). Il se compose d’objectifs de sécurité et, pour chacun d’eux, de moyens acceptables de conformité.",
+  "color": "#047857",
+  "measures": [
+    {
+      "ref": "1.1",
+      "theme": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "theme_en": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "mesure": "L’entité liste l’ensemble de ses activités et services, y compris les activités et services qui ne correspondent pas aux critères pour lesquels",
+      "mesure_en": "L’entité liste l’ensemble de ses activités et services, y compris les activités et services qui ne correspondent pas aux critères pour lesquels",
+      "description": "L’entité liste l’ensemble de ses activités et services, y compris les activités et services qui ne correspondent pas aux critères pour lesquels l’entité constitue une entité importante ou essentielle (par exemple : une entité essentielle au titre d’une activité exploitation d’un oléoduc doit lister, en plus des activités et services participant à l’exploitation de l’oléoduc, tous les services et les autres activités qu’elle fournit).\nPour chaque entrée de cette liste, l’entité :\n•\tidentifie un responsable de l’activité ou du service (par exemple le chef de service auquel est rattachée l'activité ou le service, un directeur métier, la direction générale) ;\n•\tliste les systèmes d’information les supportant.",
+      "description_en": "L’entité liste l’ensemble de ses activités et services, y compris les activités et services qui ne correspondent pas aux critères pour lesquels l’entité constitue une entité importante ou essentielle (par exemple : une entité essentielle au titre d’une activité exploitation d’un oléoduc doit lister, en plus des activités et services participant à l’exploitation de l’oléoduc, tous les services et les autres activités qu’elle fournit).\nPour chaque entrée de cette liste, l’entité :\n•\tidentifie un responsable de l’activité ou du service (par exemple le chef de service auquel est rattachée l'activité ou le service, un directeur métier, la direction générale) ;\n•\tliste les systèmes d’information les supportant."
+    },
+    {
+      "ref": "1.2",
+      "theme": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "theme_en": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "mesure": "L’entité précise dans la liste prévue au 1.1-EI/EE les systèmes d’information qui ne sont exposés à aucun des risques mentionnés à l’alinéa 2 de",
+      "mesure_en": "L’entité précise dans la liste prévue au 1.1-EI/EE les systèmes d’information qui ne sont exposés à aucun des risques mentionnés à l’alinéa 2 de",
+      "description": "L’entité précise dans la liste prévue au 1.1-EI/EE les systèmes d’information qui ne sont exposés à aucun des risques mentionnés à l’alinéa 2 de l’objectif de sécurité.\nL’entité renseigne les justifications de ces choix.",
+      "description_en": "L’entité précise dans la liste prévue au 1.1-EI/EE les systèmes d’information qui ne sont exposés à aucun des risques mentionnés à l’alinéa 2 de l’objectif de sécurité.\nL’entité renseigne les justifications de ces choix."
+    },
+    {
+      "ref": "1.3",
+      "theme": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "theme_en": "Objectif de sécurité 1: Recensement des systèmes d'information",
+      "mesure": "L’entité valide et réexamine annuellement la liste prévue au 1.1-EI/EE, et en tant que de besoin, notamment en cas d’évolution des activités et",
+      "mesure_en": "L’entité valide et réexamine annuellement la liste prévue au 1.1-EI/EE, et en tant que de besoin, notamment en cas d’évolution des activités et",
+      "description": "L’entité valide et réexamine annuellement la liste prévue au 1.1-EI/EE, et en tant que de besoin, notamment en cas d’évolution des activités et services de l’entité ou en cas de mise en service d’un nouveau système d’information.",
+      "description_en": "L’entité valide et réexamine annuellement la liste prévue au 1.1-EI/EE, et en tant que de besoin, notamment en cas d’évolution des activités et services de l’entité ou en cas de mise en service d’un nouveau système d’information."
+    },
+    {
+      "ref": "2.A.1",
+      "theme": "Rôles et responsabilités",
+      "theme_en": "Rôles et responsabilités",
+      "mesure": "Le dirigeant exécutif de l’entité est responsable de la sécurité numérique au sein de son entité et en particulier du suivi de la conformité des",
+      "mesure_en": "Le dirigeant exécutif de l’entité est responsable de la sécurité numérique au sein de son entité et en particulier du suivi de la conformité des",
+      "description": "Le dirigeant exécutif de l’entité est responsable de la sécurité numérique au sein de son entité et en particulier du suivi de la conformité des systèmes d’information aux présentes mesures.",
+      "description_en": "Le dirigeant exécutif de l’entité est responsable de la sécurité numérique au sein de son entité et en particulier du suivi de la conformité des systèmes d’information aux présentes mesures."
+    },
+    {
+      "ref": "2.A.2",
+      "theme": "Rôles et responsabilités",
+      "theme_en": "Rôles et responsabilités",
+      "mesure": "Il désigne au moins une personne qui le conseille et l’accompagne dans l’exercice de cette responsabilité. Cette personne est le point de contact",
+      "mesure_en": "Il désigne au moins une personne qui le conseille et l’accompagne dans l’exercice de cette responsabilité. Cette personne est le point de contact",
+      "description": "Il désigne au moins une personne qui le conseille et l’accompagne dans l’exercice de cette responsabilité. Cette personne est le point de contact privilégié de l’Agence nationale de la sécurité des systèmes d’information pour tous les sujets relatifs à la sécurité numérique (notamment incidents de sécurité, communications de l’ANSSI sur les sujets relatifs aux entités essentielles)",
+      "description_en": "Il désigne au moins une personne qui le conseille et l’accompagne dans l’exercice de cette responsabilité. Cette personne est le point de contact privilégié de l’Agence nationale de la sécurité des systèmes d’information pour tous les sujets relatifs à la sécurité numérique (notamment incidents de sécurité, communications de l’ANSSI sur les sujets relatifs aux entités essentielles)"
+    },
+    {
+      "ref": "2.A.3",
+      "theme": "Rôles et responsabilités",
+      "theme_en": "Rôles et responsabilités",
+      "mesure": "L’entité définit et met en œuvre une organisation adaptée pour assurer sa sécurité numérique (par exemple : la désignation d’un responsable de la",
+      "mesure_en": "L’entité définit et met en œuvre une organisation adaptée pour assurer sa sécurité numérique (par exemple : la désignation d’un responsable de la",
+      "description": "L’entité définit et met en œuvre une organisation adaptée pour assurer sa sécurité numérique (par exemple : la désignation d’un responsable de la sécurité numérique, l’établissement d’un RACI, la mise en place d’une comitologie).",
+      "description_en": "L’entité définit et met en œuvre une organisation adaptée pour assurer sa sécurité numérique (par exemple : la désignation d’un responsable de la sécurité numérique, l’établissement d’un RACI, la mise en place d’une comitologie)."
+    },
+    {
+      "ref": "2.B.1",
+      "theme": "Politique de sécurité des systèmes d'information",
+      "theme_en": "Politique de sécurité des systèmes d'information",
+      "mesure": "L’entité définit et met en œuvre une politique de sécurité des systèmes d’information (PSSI).",
+      "mesure_en": "L’entité définit et met en œuvre une politique de sécurité des systèmes d’information (PSSI).",
+      "description": "L’entité définit et met en œuvre une politique de sécurité des systèmes d’information (PSSI).",
+      "description_en": "L’entité définit et met en œuvre une politique de sécurité des systèmes d’information (PSSI)."
+    },
+    {
+      "ref": "2.B.2",
+      "theme": "Politique de sécurité des systèmes d'information",
+      "theme_en": "Politique de sécurité des systèmes d'information",
+      "mesure": "Cette PSSI comprend au moins :\n•\tL’organisation de la gouvernance de la sécurité numérique et notamment les rôles et les responsabilités du personnel",
+      "mesure_en": "Cette PSSI comprend au moins :\n•\tL’organisation de la gouvernance de la sécurité numérique et notamment les rôles et les responsabilités du personnel",
+      "description": "Cette PSSI comprend au moins :\n•\tL’organisation de la gouvernance de la sécurité numérique et notamment les rôles et les responsabilités du personnel interne et externe (par exemple : prestataires, fournisseurs) ;\n•\tLes orientations et objectifs stratégiques en matière de sécurité numérique déclinés de la stratégie globale de l’entité ;\n•\tL’engagement du dirigeant exécutif de l’entité à assurer la sécurité numérique des systèmes d’information dont il est responsable ;\n•\tL’engagement du dirigeant exécutif de l’entité à respecter les exigences légales et réglementaires et en particulier celles définies dans la transposition nationale de la directive NIS 2.\n•\tLa PSSI tient également compte des exigences, procédures et spécificités propres au(x) secteur(s) dans lesquels l’entité exerce ses activités.",
+      "description_en": "Cette PSSI comprend au moins :\n•\tL’organisation de la gouvernance de la sécurité numérique et notamment les rôles et les responsabilités du personnel interne et externe (par exemple : prestataires, fournisseurs) ;\n•\tLes orientations et objectifs stratégiques en matière de sécurité numérique déclinés de la stratégie globale de l’entité ;\n•\tL’engagement du dirigeant exécutif de l’entité à assurer la sécurité numérique des systèmes d’information dont il est responsable ;\n•\tL’engagement du dirigeant exécutif de l’entité à respecter les exigences légales et réglementaires et en particulier celles définies dans la transposition nationale de la directive NIS 2.\n•\tLa PSSI tient également compte des exigences, procédures et spécificités propres au(x) secteur(s) dans lesquels l’entité exerce ses activités."
+    },
+    {
+      "ref": "2.B.3",
+      "theme": "Politique de sécurité des systèmes d'information",
+      "theme_en": "Politique de sécurité des systèmes d'information",
+      "mesure": "Le dirigeant exécutif de l’entité approuve la PSSI.",
+      "mesure_en": "Le dirigeant exécutif de l’entité approuve la PSSI.",
+      "description": "Le dirigeant exécutif de l’entité approuve la PSSI.",
+      "description_en": "Le dirigeant exécutif de l’entité approuve la PSSI."
+    },
+    {
+      "ref": "2.B.4",
+      "theme": "Politique de sécurité des systèmes d'information",
+      "theme_en": "Politique de sécurité des systèmes d'information",
+      "mesure": "La PSSI est au minimum revue annuellement et mise à jour lorsque nécessaire, notamment en cas d’évolutions majeures de la menace, du contexte métier,",
+      "mesure_en": "La PSSI est au minimum revue annuellement et mise à jour lorsque nécessaire, notamment en cas d’évolutions majeures de la menace, du contexte métier,",
+      "description": "La PSSI est au minimum revue annuellement et mise à jour lorsque nécessaire, notamment en cas d’évolutions majeures de la menace, du contexte métier, technique ou organisationnel intervenues après son approbation.",
+      "description_en": "La PSSI est au minimum revue annuellement et mise à jour lorsque nécessaire, notamment en cas d’évolutions majeures de la menace, du contexte métier, technique ou organisationnel intervenues après son approbation."
+    },
+    {
+      "ref": "2.B.5",
+      "theme": "Politique de sécurité des systèmes d'information",
+      "theme_en": "Politique de sécurité des systèmes d'information",
+      "mesure": "L’entité décline, en tant que de besoin, la PSSI en politiques de sécurité relatives à des thèmes précis permettant de couvrir tout ou partie des",
+      "mesure_en": "L’entité décline, en tant que de besoin, la PSSI en politiques de sécurité relatives à des thèmes précis permettant de couvrir tout ou partie des",
+      "description": "L’entité décline, en tant que de besoin, la PSSI en politiques de sécurité relatives à des thèmes précis permettant de couvrir tout ou partie des présentes mesures.\nEn particulier, l’entité définit et met en œuvre, au minimum, des politiques de sécurité en matière :\n•\tD’usage du chiffrement ;\n•\tDe contrôle d’accès physique et logique ;\n•\tDe revue de l’application des mesures de sécurité mises en œuvre ;\n•\tDe gestion des comptes.",
+      "description_en": "L’entité décline, en tant que de besoin, la PSSI en politiques de sécurité relatives à des thèmes précis permettant de couvrir tout ou partie des présentes mesures.\nEn particulier, l’entité définit et met en œuvre, au minimum, des politiques de sécurité en matière :\n•\tD’usage du chiffrement ;\n•\tDe contrôle d’accès physique et logique ;\n•\tDe revue de l’application des mesures de sécurité mises en œuvre ;\n•\tDe gestion des comptes."
+    },
+    {
+      "ref": "2.C.1",
+      "theme": "Gestion de la conformité",
+      "theme_en": "Gestion de la conformité",
+      "mesure": "Pour chaque système d’information, l’entité réalise et maintient à jour une analyse de la conformité du système d’information vis-à-vis des mesures",
+      "mesure_en": "Pour chaque système d’information, l’entité réalise et maintient à jour une analyse de la conformité du système d’information vis-à-vis des mesures",
+      "description": "Pour chaque système d’information, l’entité réalise et maintient à jour une analyse de la conformité du système d’information vis-à-vis des mesures du présent référentiel.\nL’analyse de la conformité identifie les éventuels écarts entre les mesures mises en œuvre par l’entité et les mesures prévues dans le présent référentiel.\nCette analyse tient compte de la PSSI de l’entité.",
+      "description_en": "Pour chaque système d’information, l’entité réalise et maintient à jour une analyse de la conformité du système d’information vis-à-vis des mesures du présent référentiel.\nL’analyse de la conformité identifie les éventuels écarts entre les mesures mises en œuvre par l’entité et les mesures prévues dans le présent référentiel.\nCette analyse tient compte de la PSSI de l’entité."
+    },
+    {
+      "ref": "2.C.2",
+      "theme": "Gestion de la conformité",
+      "theme_en": "Gestion de la conformité",
+      "mesure": "L’entité établit, met en œuvre et suit dans la durée un plan d’action adapté à la structure et à l’environnement dans lequel elle opère afin de",
+      "mesure_en": "L’entité établit, met en œuvre et suit dans la durée un plan d’action adapté à la structure et à l’environnement dans lequel elle opère afin de",
+      "description": "L’entité établit, met en œuvre et suit dans la durée un plan d’action adapté à la structure et à l’environnement dans lequel elle opère afin de corriger ces écarts dans les meilleurs délais.\nLa responsabilité de ce plan d’action est déterminée au regard du cadre de gouvernance de la sécurité numérique mis en place.\nCe plan d’action prévoit, au minimum, une échéance raisonnable au regard du besoin de sécurisation du système d’information et un responsable pour la réalisation de chaque action.\nCe plan d’action ne préjuge pas de l’appréciation du respect de ses obligations légales et réglementaires lors d’un contrôle de l’ANSSI.",
+      "description_en": "L’entité établit, met en œuvre et suit dans la durée un plan d’action adapté à la structure et à l’environnement dans lequel elle opère afin de corriger ces écarts dans les meilleurs délais.\nLa responsabilité de ce plan d’action est déterminée au regard du cadre de gouvernance de la sécurité numérique mis en place.\nCe plan d’action prévoit, au minimum, une échéance raisonnable au regard du besoin de sécurisation du système d’information et un responsable pour la réalisation de chaque action.\nCe plan d’action ne préjuge pas de l’appréciation du respect de ses obligations légales et réglementaires lors d’un contrôle de l’ANSSI."
+    },
+    {
+      "ref": "2.C.3",
+      "theme": "Gestion de la conformité",
+      "theme_en": "Gestion de la conformité",
+      "mesure": "Lorsque l’entité n’est pas tenue de mettre en œuvre le référentiel mais qu’elle décide de l’appliquer pour démontrer sa conformité aux objectifs de",
+      "mesure_en": "Lorsque l’entité n’est pas tenue de mettre en œuvre le référentiel mais qu’elle décide de l’appliquer pour démontrer sa conformité aux objectifs de",
+      "description": "Lorsque l’entité n’est pas tenue de mettre en œuvre le référentiel mais qu’elle décide de l’appliquer pour démontrer sa conformité aux objectifs de sécurité, et qu’elle applique une ou plusieurs mesures alternatives aux moyens acceptables de conformité du référentiel, elle en précise les justifications dans son analyse de la conformité. L’ANSSI peut apprécier la pertinence de la mesure retenue pour satisfaire la mesure du référentiel non retenue lors d’un contrôle.",
+      "description_en": "Lorsque l’entité n’est pas tenue de mettre en œuvre le référentiel mais qu’elle décide de l’appliquer pour démontrer sa conformité aux objectifs de sécurité, et qu’elle applique une ou plusieurs mesures alternatives aux moyens acceptables de conformité du référentiel, elle en précise les justifications dans son analyse de la conformité. L’ANSSI peut apprécier la pertinence de la mesure retenue pour satisfaire la mesure du référentiel non retenue lors d’un contrôle."
+    },
+    {
+      "ref": "3.A.1",
+      "theme": "Cartographie de l'écosystème",
+      "theme_en": "Cartographie de l'écosystème",
+      "mesure": "L’entité définit et maintient à jour une cartographie de l’écosystème dans lequel ses systèmes d’information sont mis en œuvre et contenant, au",
+      "mesure_en": "L’entité définit et maintient à jour une cartographie de l’écosystème dans lequel ses systèmes d’information sont mis en œuvre et contenant, au",
+      "description": "L’entité définit et maintient à jour une cartographie de l’écosystème dans lequel ses systèmes d’information sont mis en œuvre et contenant, au minimum, les informations suivantes :\n•\tLa liste des prestataires et fournisseurs informatiques contribuant à la réalisation des activités ou des services de l’entité et avec lesquels il existe une relation de droit ou de fait (par exemple : prestataire d’infogérance, matériels et services fournis par la maison mère à une filiale, fournisseur de matériel informatique)\n•\tLa liste des interconnexions avec les systèmes d’information de l’entité.\n(Cette liste peut s’appuyer sur les démarches déjà réalisées par l’entité pour réaliser une telle liste. Par exemple, la déclaration de sous-traitance réalisée dans le cadre d’un contrat de la commande publique).",
+      "description_en": "L’entité définit et maintient à jour une cartographie de l’écosystème dans lequel ses systèmes d’information sont mis en œuvre et contenant, au minimum, les informations suivantes :\n•\tLa liste des prestataires et fournisseurs informatiques contribuant à la réalisation des activités ou des services de l’entité et avec lesquels il existe une relation de droit ou de fait (par exemple : prestataire d’infogérance, matériels et services fournis par la maison mère à une filiale, fournisseur de matériel informatique)\n•\tLa liste des interconnexions avec les systèmes d’information de l’entité.\n(Cette liste peut s’appuyer sur les démarches déjà réalisées par l’entité pour réaliser une telle liste. Par exemple, la déclaration de sous-traitance réalisée dans le cadre d’un contrat de la commande publique)."
+    },
+    {
+      "ref": "3.A.2",
+      "theme": "Cartographie de l'écosystème",
+      "theme_en": "Cartographie de l'écosystème",
+      "mesure": "L’entité renseigne et maintient à jour les coordonnées d’au moins un point de contact pour chaque entrée figurant dans la cartographie de",
+      "mesure_en": "L’entité renseigne et maintient à jour les coordonnées d’au moins un point de contact pour chaque entrée figurant dans la cartographie de",
+      "description": "L’entité renseigne et maintient à jour les coordonnées d’au moins un point de contact pour chaque entrée figurant dans la cartographie de l’écosystème.",
+      "description_en": "L’entité renseigne et maintient à jour les coordonnées d’au moins un point de contact pour chaque entrée figurant dans la cartographie de l’écosystème."
+    },
+    {
+      "ref": "3.B.1",
+      "theme": "Sécurité numérique dans les contrats avec les prestataires et fournisseurs informatiques",
+      "theme_en": "Sécurité numérique dans les contrats avec les prestataires et fournisseurs informatiques",
+      "mesure": "En cas de recours à un prestataire ou à un fournisseur informatique, l’entité s’assure que la prestation est conforme aux obligations auxquelles",
+      "mesure_en": "En cas de recours à un prestataire ou à un fournisseur informatique, l’entité s’assure que la prestation est conforme aux obligations auxquelles",
+      "description": "En cas de recours à un prestataire ou à un fournisseur informatique, l’entité s’assure que la prestation est conforme aux obligations auxquelles l’entité est assujettie, notamment en matière de gestion des risques qui menacent la sécurité de leurs réseaux et systèmes d’information et de notification des incidents importants et s’assure de disposer des assurances contractuelles de cette conformité (par exemple : plan d’assurance sécurité, charte de télémaintenance, mise en place d’indicateurs de suivi de la conformité).",
+      "description_en": "En cas de recours à un prestataire ou à un fournisseur informatique, l’entité s’assure que la prestation est conforme aux obligations auxquelles l’entité est assujettie, notamment en matière de gestion des risques qui menacent la sécurité de leurs réseaux et systèmes d’information et de notification des incidents importants et s’assure de disposer des assurances contractuelles de cette conformité (par exemple : plan d’assurance sécurité, charte de télémaintenance, mise en place d’indicateurs de suivi de la conformité)."
+    },
+    {
+      "ref": "3.B.2",
+      "theme": "Sécurité numérique dans les contrats avec les prestataires et fournisseurs informatiques",
+      "theme_en": "Sécurité numérique dans les contrats avec les prestataires et fournisseurs informatiques",
+      "mesure": "L'entité vérifie périodiquement la conformité de la prestation aux obligations auxquelles l’entité est assujettie notamment en matière de gestion des",
+      "mesure_en": "L'entité vérifie périodiquement la conformité de la prestation aux obligations auxquelles l’entité est assujettie notamment en matière de gestion des",
+      "description": "L'entité vérifie périodiquement la conformité de la prestation aux obligations auxquelles l’entité est assujettie notamment en matière de gestion des risques qui menacent la sécurité de leurs réseaux et systèmes d’information et de notification des incidents importants. L’entité peut s’appuyer sur des audits dont les conditions sont précisées par les Moyens acceptables de conformité 17.2-EE, 17.4-EE et 17.5-EE relatifs à l’audit.",
+      "description_en": "L'entité vérifie périodiquement la conformité de la prestation aux obligations auxquelles l’entité est assujettie notamment en matière de gestion des risques qui menacent la sécurité de leurs réseaux et systèmes d’information et de notification des incidents importants. L’entité peut s’appuyer sur des audits dont les conditions sont précisées par les Moyens acceptables de conformité 17.2-EE, 17.4-EE et 17.5-EE relatifs à l’audit."
+    },
+    {
+      "ref": "4.1",
+      "theme": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "theme_en": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "mesure": "L'entité définit et met en œuvre une charte d'usage des systèmes d'information, et la rend opposable à chacun des utilisateurs de ces systèmes",
+      "mesure_en": "L'entité définit et met en œuvre une charte d'usage des systèmes d'information, et la rend opposable à chacun des utilisateurs de ces systèmes",
+      "description": "L'entité définit et met en œuvre une charte d'usage des systèmes d'information, et la rend opposable à chacun des utilisateurs de ces systèmes d'information.\nCette charte peut prévoir des dispositions spécifiques pour les administrateurs.\nCette charte peut également couvrir les systèmes d'information pour lesquels l'entité a décidé de ne pas appliquer les objectifs de sécurité.",
+      "description_en": "L'entité définit et met en œuvre une charte d'usage des systèmes d'information, et la rend opposable à chacun des utilisateurs de ces systèmes d'information.\nCette charte peut prévoir des dispositions spécifiques pour les administrateurs.\nCette charte peut également couvrir les systèmes d'information pour lesquels l'entité a décidé de ne pas appliquer les objectifs de sécurité."
+    },
+    {
+      "ref": "4.2",
+      "theme": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "theme_en": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "mesure": "L’entité définit et met en œuvre un programme de sensibilisation à la sécurité numérique de l’ensemble des utilisateurs.\nCe programme doit comporter",
+      "mesure_en": "L’entité définit et met en œuvre un programme de sensibilisation à la sécurité numérique de l’ensemble des utilisateurs.\nCe programme doit comporter",
+      "description": "L’entité définit et met en œuvre un programme de sensibilisation à la sécurité numérique de l’ensemble des utilisateurs.\nCe programme doit comporter des actions tout au long de la présence des utilisateurs dans l’entité.",
+      "description_en": "L’entité définit et met en œuvre un programme de sensibilisation à la sécurité numérique de l’ensemble des utilisateurs.\nCe programme doit comporter des actions tout au long de la présence des utilisateurs dans l’entité."
+    },
+    {
+      "ref": "4.3",
+      "theme": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "theme_en": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "mesure": "L’entité prévoit des clauses de sécurité dans ses contrats de travail (par exemple : clauses de confidentialité de nature à garantir la",
+      "mesure_en": "L’entité prévoit des clauses de sécurité dans ses contrats de travail (par exemple : clauses de confidentialité de nature à garantir la",
+      "description": "L’entité prévoit des clauses de sécurité dans ses contrats de travail (par exemple : clauses de confidentialité de nature à garantir la confidentialité des informations auxquelles les salariés ont accès au cours de leur contrat et à l’issu de celui-ci).",
+      "description_en": "L’entité prévoit des clauses de sécurité dans ses contrats de travail (par exemple : clauses de confidentialité de nature à garantir la confidentialité des informations auxquelles les salariés ont accès au cours de leur contrat et à l’issu de celui-ci)."
+    },
+    {
+      "ref": "4.4",
+      "theme": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "theme_en": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "mesure": "L’entité définit et met en œuvre un processus de gestion des arrivées, des départs et des changements de fonction des personnels et des tiers",
+      "mesure_en": "L’entité définit et met en œuvre un processus de gestion des arrivées, des départs et des changements de fonction des personnels et des tiers",
+      "description": "L’entité définit et met en œuvre un processus de gestion des arrivées, des départs et des changements de fonction des personnels et des tiers accédant aux systèmes d’information. Ce processus prévoit :\n•\tLa prise de connaissance des règles de sécurité en vigueur lors leur arrivée ;\n•\tL’attribution des accès appropriés lors de leur arrivée ;\n•\tLa mise à jour des accès lors d’un changement de fonction ;\n•\tLors du départ, la restitution de l’ensemble du matériel qui a été mis à disposition et la désactivation de l’ensemble des accès logiques aux systèmes d’information et physiques aux locaux et salles.",
+      "description_en": "L’entité définit et met en œuvre un processus de gestion des arrivées, des départs et des changements de fonction des personnels et des tiers accédant aux systèmes d’information. Ce processus prévoit :\n•\tLa prise de connaissance des règles de sécurité en vigueur lors leur arrivée ;\n•\tL’attribution des accès appropriés lors de leur arrivée ;\n•\tLa mise à jour des accès lors d’un changement de fonction ;\n•\tLors du départ, la restitution de l’ensemble du matériel qui a été mis à disposition et la désactivation de l’ensemble des accès logiques aux systèmes d’information et physiques aux locaux et salles."
+    },
+    {
+      "ref": "4.5",
+      "theme": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "theme_en": "Objectif de sécurité 4: Prise en compte de la sécurité numérique dans la gestion des ressources humaines",
+      "mesure": "L’entité définit et met en œuvre, pour les fonctions assumant des responsabilités dans le domaine du numérique, un programme de formations dédiées à",
+      "mesure_en": "L’entité définit et met en œuvre, pour les fonctions assumant des responsabilités dans le domaine du numérique, un programme de formations dédiées à",
+      "description": "L’entité définit et met en œuvre, pour les fonctions assumant des responsabilités dans le domaine du numérique, un programme de formations dédiées à la sécurité numérique adapté à leurs responsabilités.",
+      "description_en": "L’entité définit et met en œuvre, pour les fonctions assumant des responsabilités dans le domaine du numérique, un programme de formations dédiées à la sécurité numérique adapté à leurs responsabilités."
+    },
+    {
+      "ref": "5.A.1",
+      "theme": "Cartographie des systèmes d'information",
+      "theme_en": "Cartographie des systèmes d'information",
+      "mesure": "L’entité élabore et maintient à jour au moins une cartographie de ses systèmes d’information dont le niveau de détail est suffisant pour lui",
+      "mesure_en": "L’entité élabore et maintient à jour au moins une cartographie de ses systèmes d’information dont le niveau de détail est suffisant pour lui",
+      "description": "L’entité élabore et maintient à jour au moins une cartographie de ses systèmes d’information dont le niveau de détail est suffisant pour lui permettre :\no\td’assurer le maintien en condition opérationnelles et de sécurité de ces systèmes (par exemple : être capable d’identifier les ressources matérielles ou logicielles vulnérables suite à la publication d’un bulletin d’alerte) ;\no\tde pouvoir réagir sans retard injustifié à un incident de sécurité affectant ces systèmes d’information (par exemple : être capable d’identifier les ressources matérielles ou logicielles affectées par un incident de sécurité et ainsi limiter les conséquences de l’incident).\nCette cartographie peut s’appuyer sur les recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de cartographie.",
+      "description_en": "L’entité élabore et maintient à jour au moins une cartographie de ses systèmes d’information dont le niveau de détail est suffisant pour lui permettre :\no\td’assurer le maintien en condition opérationnelles et de sécurité de ces systèmes (par exemple : être capable d’identifier les ressources matérielles ou logicielles vulnérables suite à la publication d’un bulletin d’alerte) ;\no\tde pouvoir réagir sans retard injustifié à un incident de sécurité affectant ces systèmes d’information (par exemple : être capable d’identifier les ressources matérielles ou logicielles affectées par un incident de sécurité et ainsi limiter les conséquences de l’incident).\nCette cartographie peut s’appuyer sur les recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de cartographie."
+    },
+    {
+      "ref": "5.B.1",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité élabore, met en œuvre et maintient à jour une procédure de maintien en conditions opérationnelle et de sécurité des ressources matérielles",
+      "mesure_en": "L’entité élabore, met en œuvre et maintient à jour une procédure de maintien en conditions opérationnelle et de sécurité des ressources matérielles",
+      "description": "L’entité élabore, met en œuvre et maintient à jour une procédure de maintien en conditions opérationnelle et de sécurité des ressources matérielles et logicielles de ses systèmes d’information.",
+      "description_en": "L’entité élabore, met en œuvre et maintient à jour une procédure de maintien en conditions opérationnelle et de sécurité des ressources matérielles et logicielles de ses systèmes d’information."
+    },
+    {
+      "ref": "5.B.2",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité maintient à jour les bases de connaissances des outils de protection contre les codes malveillants qu’elle utilise (par exemple : la mise à",
+      "mesure_en": "L’entité maintient à jour les bases de connaissances des outils de protection contre les codes malveillants qu’elle utilise (par exemple : la mise à",
+      "description": "L’entité maintient à jour les bases de connaissances des outils de protection contre les codes malveillants qu’elle utilise (par exemple : la mise à jour de la base antivirale de l’antivirus, la mise à jour des signatures utilisées par la solution d’EDR).",
+      "description_en": "L’entité maintient à jour les bases de connaissances des outils de protection contre les codes malveillants qu’elle utilise (par exemple : la mise à jour de la base antivirale de l’antivirus, la mise à jour des signatures utilisées par la solution d’EDR)."
+    },
+    {
+      "ref": "5.B.3",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité met en œuvre une veille sur les vulnérabilités, les correctifs de sécurité et les mesures d’atténuation préconisées susceptibles de",
+      "mesure_en": "L’entité met en œuvre une veille sur les vulnérabilités, les correctifs de sécurité et les mesures d’atténuation préconisées susceptibles de",
+      "description": "L’entité met en œuvre une veille sur les vulnérabilités, les correctifs de sécurité et les mesures d’atténuation préconisées susceptibles de concerner les ressources de ses systèmes d’information, qui sont diffusées notamment par les fournisseurs ou les fabricants de ces ressources, par un prestataire mandaté ou par des centres de prévention et d’alerte en matière de cyber sécurité tels que le CERT-FR (centre gouvernemental de veille, d’alerte et de réponse aux attaques informatiques) ou les CSIRT (centres de réponse aux incidents de sécurité informatique).",
+      "description_en": "L’entité met en œuvre une veille sur les vulnérabilités, les correctifs de sécurité et les mesures d’atténuation préconisées susceptibles de concerner les ressources de ses systèmes d’information, qui sont diffusées notamment par les fournisseurs ou les fabricants de ces ressources, par un prestataire mandaté ou par des centres de prévention et d’alerte en matière de cyber sécurité tels que le CERT-FR (centre gouvernemental de veille, d’alerte et de réponse aux attaques informatiques) ou les CSIRT (centres de réponse aux incidents de sécurité informatique)."
+    },
+    {
+      "ref": "5.B.4",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité met en œuvre, au regard de la nature de la vulnérabilité :\n•\tsans délai : les actions visant à l’installation des correctifs de sécurité",
+      "mesure_en": "L’entité met en œuvre, au regard de la nature de la vulnérabilité :\n•\tsans délai : les actions visant à l’installation des correctifs de sécurité",
+      "description": "L’entité met en œuvre, au regard de la nature de la vulnérabilité :\n•\tsans délai : les actions visant à l’installation des correctifs de sécurité (par exemple : le déploiement en environnement de test, pré-production et production, mécanismes de rollback) ;\n•\tsans retard injustifié : l’application effective des correctifs de sécurité après la réalisation des actions précédentes\nsur les ressources exposées à des systèmes d’information tiers (par exemple : un serveur Web, un pare-feu exposé sur Internet, un serveur de messagerie) et les postes de travail des utilisateurs.",
+      "description_en": "L’entité met en œuvre, au regard de la nature de la vulnérabilité :\n•\tsans délai : les actions visant à l’installation des correctifs de sécurité (par exemple : le déploiement en environnement de test, pré-production et production, mécanismes de rollback) ;\n•\tsans retard injustifié : l’application effective des correctifs de sécurité après la réalisation des actions précédentes\nsur les ressources exposées à des systèmes d’information tiers (par exemple : un serveur Web, un pare-feu exposé sur Internet, un serveur de messagerie) et les postes de travail des utilisateurs."
+    },
+    {
+      "ref": "5.B.5",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité planifie et installe sur l’ensemble de ses ressources, y compris celles non exposées à des systèmes d’information tiers, les correctifs de",
+      "mesure_en": "L’entité planifie et installe sur l’ensemble de ses ressources, y compris celles non exposées à des systèmes d’information tiers, les correctifs de",
+      "description": "L’entité planifie et installe sur l’ensemble de ses ressources, y compris celles non exposées à des systèmes d’information tiers, les correctifs de sécurité.",
+      "description_en": "L’entité planifie et installe sur l’ensemble de ses ressources, y compris celles non exposées à des systèmes d’information tiers, les correctifs de sécurité."
+    },
+    {
+      "ref": "5.B.6",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation des correctifs de sécurité sur les ressources concernées, l’entité",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation des correctifs de sécurité sur les ressources concernées, l’entité",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation des correctifs de sécurité sur les ressources concernées, l’entité met en œuvre des mesures d’atténuation pour réduire les risques liés à l’utilisation d’une version comportant des vulnérabilités connues (par exemple : isoler la ressource du reste du SI, mettre en place un contrôle d'accès renforcé).",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation des correctifs de sécurité sur les ressources concernées, l’entité met en œuvre des mesures d’atténuation pour réduire les risques liés à l’utilisation d’une version comportant des vulnérabilités connues (par exemple : isoler la ressource du reste du SI, mettre en place un contrôle d'accès renforcé)."
+    },
+    {
+      "ref": "5.B.7",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité met en œuvre sans délai les actions visant à l’installation et le maintien à jour des ressources logicielles de ses systèmes d’information,",
+      "mesure_en": "L’entité met en œuvre sans délai les actions visant à l’installation et le maintien à jour des ressources logicielles de ses systèmes d’information,",
+      "description": "L’entité met en œuvre sans délai les actions visant à l’installation et le maintien à jour des ressources logicielles de ses systèmes d’information, y compris les logiciels embarqués, dans des versions bénéficiant d’un support par leurs fournisseurs ou leurs fabricants et comportant les mises à jour de sécurité.",
+      "description_en": "L’entité met en œuvre sans délai les actions visant à l’installation et le maintien à jour des ressources logicielles de ses systèmes d’information, y compris les logiciels embarqués, dans des versions bénéficiant d’un support par leurs fournisseurs ou leurs fabricants et comportant les mises à jour de sécurité."
+    },
+    {
+      "ref": "5.B.8",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "L’entité vérifie que toute nouvelle version d’un logiciel est téléchargée depuis les ressources officielles mises à disposition par les éditeurs ou",
+      "mesure_en": "L’entité vérifie que toute nouvelle version d’un logiciel est téléchargée depuis les ressources officielles mises à disposition par les éditeurs ou",
+      "description": "L’entité vérifie que toute nouvelle version d’un logiciel est téléchargée depuis les ressources officielles mises à disposition par les éditeurs ou les fournisseurs.",
+      "description_en": "L’entité vérifie que toute nouvelle version d’un logiciel est téléchargée depuis les ressources officielles mises à disposition par les éditeurs ou les fournisseurs."
+    },
+    {
+      "ref": "5.B.9",
+      "theme": "Maintien en condition opérationnelle et de sécurité",
+      "theme_en": "Maintien en condition opérationnelle et de sécurité",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation d’une version supportée par le fournisseur ou l’éditeur, l’entité",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation d’une version supportée par le fournisseur ou l’éditeur, l’entité",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation d’une version supportée par le fournisseur ou l’éditeur, l’entité met en œuvre des mesures pour réduire les risques liés à l’utilisation d’une version obsolète.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas l’installation d’une version supportée par le fournisseur ou l’éditeur, l’entité met en œuvre des mesures pour réduire les risques liés à l’utilisation d’une version obsolète."
+    },
+    {
+      "ref": "6.1",
+      "theme": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "theme_en": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "mesure": "L’entité met en place des mesures de sécurité permettant de limiter l’accès de personnes non autorisées à ses locaux, ses salles serveurs et ses",
+      "mesure_en": "L’entité met en place des mesures de sécurité permettant de limiter l’accès de personnes non autorisées à ses locaux, ses salles serveurs et ses",
+      "description": "L’entité met en place des mesures de sécurité permettant de limiter l’accès de personnes non autorisées à ses locaux, ses salles serveurs et ses locaux techniques (par exemple : tenue d’un registre des visiteurs, badges d’accès, etc).",
+      "description_en": "L’entité met en place des mesures de sécurité permettant de limiter l’accès de personnes non autorisées à ses locaux, ses salles serveurs et ses locaux techniques (par exemple : tenue d’un registre des visiteurs, badges d’accès, etc)."
+    },
+    {
+      "ref": "6.2",
+      "theme": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "theme_en": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "mesure": "L’entité s’assure de la protection physique des locaux, salles serveurs et locaux techniques (par exemple : vidéosurveillance, gardiennage,",
+      "mesure_en": "L’entité s’assure de la protection physique des locaux, salles serveurs et locaux techniques (par exemple : vidéosurveillance, gardiennage,",
+      "description": "L’entité s’assure de la protection physique des locaux, salles serveurs et locaux techniques (par exemple : vidéosurveillance, gardiennage, alarme).\nCette protection physique permet de prévenir, de surveiller et de réagir aux accès non autorisés à ces locaux.",
+      "description_en": "L’entité s’assure de la protection physique des locaux, salles serveurs et locaux techniques (par exemple : vidéosurveillance, gardiennage, alarme).\nCette protection physique permet de prévenir, de surveiller et de réagir aux accès non autorisés à ces locaux."
+    },
+    {
+      "ref": "6.3",
+      "theme": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "theme_en": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "mesure": "L’entité s’assure que les droits d'accès physique sont attribués au regard du besoin strictement nécessaire à l’exécution des missions des personnes.",
+      "mesure_en": "L’entité s’assure que les droits d'accès physique sont attribués au regard du besoin strictement nécessaire à l’exécution des missions des personnes.",
+      "description": "L’entité s’assure que les droits d'accès physique sont attribués au regard du besoin strictement nécessaire à l’exécution des missions des personnes.",
+      "description_en": "L’entité s’assure que les droits d'accès physique sont attribués au regard du besoin strictement nécessaire à l’exécution des missions des personnes."
+    },
+    {
+      "ref": "6.4",
+      "theme": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "theme_en": "Objectif de sécurité 6: Maitrise des accès physiques aux locaux",
+      "mesure": "L'entité s'assure que les personnes externes accédant aux locaux techniques et salles serveurs de l’entité sont accompagnées ou dûment autorisées.",
+      "mesure_en": "L'entité s'assure que les personnes externes accédant aux locaux techniques et salles serveurs de l’entité sont accompagnées ou dûment autorisées.",
+      "description": "L'entité s'assure que les personnes externes accédant aux locaux techniques et salles serveurs de l’entité sont accompagnées ou dûment autorisées.",
+      "description_en": "L'entité s'assure que les personnes externes accédant aux locaux techniques et salles serveurs de l’entité sont accompagnées ou dûment autorisées."
+    },
+    {
+      "ref": "7.A.1",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "L’entité cloisonne physiquement et/ou logiquement l’ensemble de ses systèmes d’information vis-à-vis des autres systèmes d’information, y compris des",
+      "mesure_en": "L’entité cloisonne physiquement et/ou logiquement l’ensemble de ses systèmes d’information vis-à-vis des autres systèmes d’information, y compris des",
+      "description": "L’entité cloisonne physiquement et/ou logiquement l’ensemble de ses systèmes d’information vis-à-vis des autres systèmes d’information, y compris des systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité et les systèmes d’information tiers (par exemple : cloisonnement logique par VLAN – réseau local virtuel - (réseau), par VM – machine virtuelle - (calcul) ou par volume (stockage)).",
+      "description_en": "L’entité cloisonne physiquement et/ou logiquement l’ensemble de ses systèmes d’information vis-à-vis des autres systèmes d’information, y compris des systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité et les systèmes d’information tiers (par exemple : cloisonnement logique par VLAN – réseau local virtuel - (réseau), par VM – machine virtuelle - (calcul) ou par volume (stockage))."
+    },
+    {
+      "ref": "7.A.2",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "L’entité cloisonne physiquement et/ou logiquement chaque système d’information vis-à-vis des autres systèmes d’information, y compris des systèmes",
+      "mesure_en": "L’entité cloisonne physiquement et/ou logiquement chaque système d’information vis-à-vis des autres systèmes d’information, y compris des systèmes",
+      "description": "L’entité cloisonne physiquement et/ou logiquement chaque système d’information vis-à-vis des autres systèmes d’information, y compris des systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité et des systèmes d’information tiers (par exemple : un système d’information est cloisonné logiquement des autres systèmes d’information de l’entité. Il est aussi cloisonné physiquement des systèmes d’information de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité).",
+      "description_en": "L’entité cloisonne physiquement et/ou logiquement chaque système d’information vis-à-vis des autres systèmes d’information, y compris des systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité et des systèmes d’information tiers (par exemple : un système d’information est cloisonné logiquement des autres systèmes d’information de l’entité. Il est aussi cloisonné physiquement des systèmes d’information de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité)."
+    },
+    {
+      "ref": "7.A.3",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "L’entité mène des réflexions, pour chaque système d’information, sur la pertinence de définir des sous-systèmes. Lorsqu’elle n’identifie aucun",
+      "mesure_en": "L’entité mène des réflexions, pour chaque système d’information, sur la pertinence de définir des sous-systèmes. Lorsqu’elle n’identifie aucun",
+      "description": "L’entité mène des réflexions, pour chaque système d’information, sur la pertinence de définir des sous-systèmes. Lorsqu’elle n’identifie aucun sous-système, l’entité en apporte la justification.\nUn sous-système regroupe des ressources assurant des fonctionnalités similaires et ayant des niveaux de sensibilité, d’exposition et de sécurité homogènes.",
+      "description_en": "L’entité mène des réflexions, pour chaque système d’information, sur la pertinence de définir des sous-systèmes. Lorsqu’elle n’identifie aucun sous-système, l’entité en apporte la justification.\nUn sous-système regroupe des ressources assurant des fonctionnalités similaires et ayant des niveaux de sensibilité, d’exposition et de sécurité homogènes."
+    },
+    {
+      "ref": "7.A.4",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "Les sous-systèmes identifiés à la mesure 7.A.4-EE sont cloisonnés entre eux physiquement et/ou logiquement.",
+      "mesure_en": "Les sous-systèmes identifiés à la mesure 7.A.4-EE sont cloisonnés entre eux physiquement et/ou logiquement.",
+      "description": "Les sous-systèmes identifiés à la mesure 7.A.4-EE sont cloisonnés entre eux physiquement et/ou logiquement.",
+      "description_en": "Les sous-systèmes identifiés à la mesure 7.A.4-EE sont cloisonnés entre eux physiquement et/ou logiquement."
+    },
+    {
+      "ref": "7.A.5",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "L’entité met en œuvre au moins un sous-système “passerelle sortante” permettant :\n•\taux ressources de ses systèmes d’information d’accéder aux",
+      "mesure_en": "L’entité met en œuvre au moins un sous-système “passerelle sortante” permettant :\n•\taux ressources de ses systèmes d’information d’accéder aux",
+      "description": "L’entité met en œuvre au moins un sous-système “passerelle sortante” permettant :\n•\taux ressources de ses systèmes d’information d’accéder aux systèmes d’informations tiers ;\n•\td’authentifier, de filtrer et de tracer les accès aux systèmes d’information tiers (par exemple : un serveur mandataire).",
+      "description_en": "L’entité met en œuvre au moins un sous-système “passerelle sortante” permettant :\n•\taux ressources de ses systèmes d’information d’accéder aux systèmes d’informations tiers ;\n•\td’authentifier, de filtrer et de tracer les accès aux systèmes d’information tiers (par exemple : un serveur mandataire)."
+    },
+    {
+      "ref": "7.A.6",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "L’entité met en œuvre au moins un sous-système “passerelle entrante” permettant :\n•\td’exposer des ressources de ses systèmes d’information aux",
+      "mesure_en": "L’entité met en œuvre au moins un sous-système “passerelle entrante” permettant :\n•\td’exposer des ressources de ses systèmes d’information aux",
+      "description": "L’entité met en œuvre au moins un sous-système “passerelle entrante” permettant :\n•\td’exposer des ressources de ses systèmes d’information aux systèmes d’information tiers ;\n•\tde filtrer et de tracer les accès depuis des systèmes d’information tiers (par exemple : un serveur mandataire inverse ou un relai).",
+      "description_en": "L’entité met en œuvre au moins un sous-système “passerelle entrante” permettant :\n•\td’exposer des ressources de ses systèmes d’information aux systèmes d’information tiers ;\n•\tde filtrer et de tracer les accès depuis des systèmes d’information tiers (par exemple : un serveur mandataire inverse ou un relai)."
+    },
+    {
+      "ref": "7.A.7",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de",
+      "mesure_en": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de",
+      "description": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité sont mises en œuvre entre l’ensemble des systèmes d’information et, d’une part les systèmes d’information tiers et, d’autre part les autres systèmes d’information sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité.",
+      "description_en": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité sont mises en œuvre entre l’ensemble des systèmes d’information et, d’une part les systèmes d’information tiers et, d’autre part les autres systèmes d’information sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité."
+    },
+    {
+      "ref": "7.A.8",
+      "theme": "Cloisonnement",
+      "theme_en": "Cloisonnement",
+      "mesure": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de",
+      "mesure_en": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de",
+      "description": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité sont mises en œuvre entre chaque système d’information et, d’une part les systèmes d’information tiers et, d’autre part les autres systèmes d’information sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité, ou entre les sous-systèmes du système d’information.",
+      "description_en": "Seules les interconnexions nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité sont mises en œuvre entre chaque système d’information et, d’une part les systèmes d’information tiers et, d’autre part les autres systèmes d’information sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité, ou entre les sous-systèmes du système d’information."
+    },
+    {
+      "ref": "7.B.1",
+      "theme": "Filtrage des communications",
+      "theme_en": "Filtrage des communications",
+      "mesure": "L’entité définit et documente les communications nécessaires :\n•\tà la réalisation de ses activités et services ;\n•\tau maintien en condition",
+      "mesure_en": "L’entité définit et documente les communications nécessaires :\n•\tà la réalisation de ses activités et services ;\n•\tau maintien en condition",
+      "description": "L’entité définit et documente les communications nécessaires :\n•\tà la réalisation de ses activités et services ;\n•\tau maintien en condition opérationnelle de sécurité circulant entre ses systèmes d’information et les autres systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité, d’une part, et les systèmes d’information tiers, d’autre part.",
+      "description_en": "L’entité définit et documente les communications nécessaires :\n•\tà la réalisation de ses activités et services ;\n•\tau maintien en condition opérationnelle de sécurité circulant entre ses systèmes d’information et les autres systèmes d’information pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité, d’une part, et les systèmes d’information tiers, d’autre part."
+    },
+    {
+      "ref": "7.B.2",
+      "theme": "Filtrage des communications",
+      "theme_en": "Filtrage des communications",
+      "mesure": "L’entité définit et documente les communications nécessaires au maintien en condition opérationnelle de sécurité circulant entre les sous-systèmes du",
+      "mesure_en": "L’entité définit et documente les communications nécessaires au maintien en condition opérationnelle de sécurité circulant entre les sous-systèmes du",
+      "description": "L’entité définit et documente les communications nécessaires au maintien en condition opérationnelle de sécurité circulant entre les sous-systèmes du système d’information.",
+      "description_en": "L’entité définit et documente les communications nécessaires au maintien en condition opérationnelle de sécurité circulant entre les sous-systèmes du système d’information."
+    },
+    {
+      "ref": "7.B.3",
+      "theme": "Filtrage des communications",
+      "theme_en": "Filtrage des communications",
+      "mesure": "L’entité met en œuvre, au niveau des interconnexions, les règles de filtrage pour n’autoriser que les communications identifiées à la mesure",
+      "mesure_en": "L’entité met en œuvre, au niveau des interconnexions, les règles de filtrage pour n’autoriser que les communications identifiées à la mesure",
+      "description": "L’entité met en œuvre, au niveau des interconnexions, les règles de filtrage pour n’autoriser que les communications identifiées à la mesure 7.B.1-EI/EE ou 7.B.2-EE. Les autres communications sont bloquées par défaut.",
+      "description_en": "L’entité met en œuvre, au niveau des interconnexions, les règles de filtrage pour n’autoriser que les communications identifiées à la mesure 7.B.1-EI/EE ou 7.B.2-EE. Les autres communications sont bloquées par défaut."
+    },
+    {
+      "ref": "7.B.4",
+      "theme": "Filtrage des communications",
+      "theme_en": "Filtrage des communications",
+      "mesure": "L’entité filtre par un ou plusieurs pares-feux dédiés à cet usage, au minimum :\n•\tles communications entre les systèmes d’information de l’entité",
+      "mesure_en": "L’entité filtre par un ou plusieurs pares-feux dédiés à cet usage, au minimum :\n•\tles communications entre les systèmes d’information de l’entité",
+      "description": "L’entité filtre par un ou plusieurs pares-feux dédiés à cet usage, au minimum :\n•\tles communications entre les systèmes d’information de l’entité pour lesquels elle a décidé d'appliquer les objectifs ou non, d’une part ; et\n•\tles SI tiers d’autre part.\nPar exemple : une entité mettant en œuvre un pare-feu pour filtrer les communications entre ses systèmes d’information (pour lesquels elle applique les objectifs de sécurité ou non) d’une part et les systèmes d’information tiers d’autre part est une solution acceptable.",
+      "description_en": "L’entité filtre par un ou plusieurs pares-feux dédiés à cet usage, au minimum :\n•\tles communications entre les systèmes d’information de l’entité pour lesquels elle a décidé d'appliquer les objectifs ou non, d’une part ; et\n•\tles SI tiers d’autre part.\nPar exemple : une entité mettant en œuvre un pare-feu pour filtrer les communications entre ses systèmes d’information (pour lesquels elle applique les objectifs de sécurité ou non) d’une part et les systèmes d’information tiers d’autre part est une solution acceptable."
+    },
+    {
+      "ref": "7.B.5",
+      "theme": "Filtrage des communications",
+      "theme_en": "Filtrage des communications",
+      "mesure": "L’entité effectue annuellement une revue de la mise en œuvre technique des règles de filtrage mentionnées à la mesure 7.B.4-EI/EE.",
+      "mesure_en": "L’entité effectue annuellement une revue de la mise en œuvre technique des règles de filtrage mentionnées à la mesure 7.B.4-EI/EE.",
+      "description": "L’entité effectue annuellement une revue de la mise en œuvre technique des règles de filtrage mentionnées à la mesure 7.B.4-EI/EE.",
+      "description_en": "L’entité effectue annuellement une revue de la mise en œuvre technique des règles de filtrage mentionnées à la mesure 7.B.4-EI/EE."
+    },
+    {
+      "ref": "8.1",
+      "theme": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "theme_en": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "mesure": "L’entité protège les accès à ses systèmes d’information effectués à travers un système d’information tiers au moyen de mécanismes de chiffrement",
+      "mesure_en": "L’entité protège les accès à ses systèmes d’information effectués à travers un système d’information tiers au moyen de mécanismes de chiffrement",
+      "description": "L’entité protège les accès à ses systèmes d’information effectués à travers un système d’information tiers au moyen de mécanismes de chiffrement conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information (par exemple : VPN TLS ou IPSec, protocoles applicatifs chiffrés comme TLS, SSH, etc.).",
+      "description_en": "L’entité protège les accès à ses systèmes d’information effectués à travers un système d’information tiers au moyen de mécanismes de chiffrement conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information (par exemple : VPN TLS ou IPSec, protocoles applicatifs chiffrés comme TLS, SSH, etc.)."
+    },
+    {
+      "ref": "8.2",
+      "theme": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "theme_en": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "mesure": "Lorsque les accès visés à la mesure 8.2-EI/EE sont effectués par les personnels et prestataires qu’elle a autorisée, l’entité protège les accès aux",
+      "mesure_en": "Lorsque les accès visés à la mesure 8.2-EI/EE sont effectués par les personnels et prestataires qu’elle a autorisée, l’entité protège les accès aux",
+      "description": "Lorsque les accès visés à la mesure 8.2-EI/EE sont effectués par les personnels et prestataires qu’elle a autorisée, l’entité protège les accès aux systèmes d’information par un mécanisme d'authentification conforme aux mesures relatives à l’Authentification.",
+      "description_en": "Lorsque les accès visés à la mesure 8.2-EI/EE sont effectués par les personnels et prestataires qu’elle a autorisée, l’entité protège les accès aux systèmes d’information par un mécanisme d'authentification conforme aux mesures relatives à l’Authentification."
+    },
+    {
+      "ref": "8.3",
+      "theme": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "theme_en": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "mesure": "Pour les accès visés à la mesure 8.2-EI/EE le mécanisme d’authentification est multifacteur et repose sur au moins un facteur de connaissance (par",
+      "mesure_en": "Pour les accès visés à la mesure 8.2-EI/EE le mécanisme d’authentification est multifacteur et repose sur au moins un facteur de connaissance (par",
+      "description": "Pour les accès visés à la mesure 8.2-EI/EE le mécanisme d’authentification est multifacteur et repose sur au moins un facteur de connaissance (par exemple : authentification avec une carte à puce et un code PIN).",
+      "description_en": "Pour les accès visés à la mesure 8.2-EI/EE le mécanisme d’authentification est multifacteur et repose sur au moins un facteur de connaissance (par exemple : authentification avec une carte à puce et un code PIN)."
+    },
+    {
+      "ref": "8.4",
+      "theme": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "theme_en": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas la mise en œuvre d’une authentification multifacteur, l’entité met en œuvre des",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas la mise en œuvre d’une authentification multifacteur, l’entité met en œuvre des",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas la mise en œuvre d’une authentification multifacteur, l’entité met en œuvre des mesures permettant de réduire le risque associé.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas la mise en œuvre d’une authentification multifacteur, l’entité met en œuvre des mesures permettant de réduire le risque associé."
+    },
+    {
+      "ref": "8.5",
+      "theme": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "theme_en": "Objectif de sécurité 8: Sécurisation des accès distants aux systèmes d'information",
+      "mesure": "Les mémoires de masse (par exemple : les « disques ») des postes de travail et équipements mobiles permettant aux personnels et prestataires de",
+      "mesure_en": "Les mémoires de masse (par exemple : les « disques ») des postes de travail et équipements mobiles permettant aux personnels et prestataires de",
+      "description": "Les mémoires de masse (par exemple : les « disques ») des postes de travail et équipements mobiles permettant aux personnels et prestataires de l’entité d’accéder à distance aux systèmes d’information depuis un lieu qui n’est pas maîtrisé par l’entité, sont en permanence protégées par des mécanismes de chiffrement et d’authentification conformes à l’état de l’art tel que recommandé par l’autorité nationale de sécurité des systèmes d’information (par exemple : disques chiffrés avec code PIN exigé pour le déchiffrement au démarrage).",
+      "description_en": "Les mémoires de masse (par exemple : les « disques ») des postes de travail et équipements mobiles permettant aux personnels et prestataires de l’entité d’accéder à distance aux systèmes d’information depuis un lieu qui n’est pas maîtrisé par l’entité, sont en permanence protégées par des mécanismes de chiffrement et d’authentification conformes à l’état de l’art tel que recommandé par l’autorité nationale de sécurité des systèmes d’information (par exemple : disques chiffrés avec code PIN exigé pour le déchiffrement au démarrage)."
+    },
+    {
+      "ref": "9.1",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "L’entité définit les ressources matérielles, en particulier les terminaux, autorisées à se connecter à ses systèmes d’information.\nNB : Cette mesure",
+      "mesure_en": "L’entité définit les ressources matérielles, en particulier les terminaux, autorisées à se connecter à ses systèmes d’information.\nNB : Cette mesure",
+      "description": "L’entité définit les ressources matérielles, en particulier les terminaux, autorisées à se connecter à ses systèmes d’information.\nNB : Cette mesure autorise le AVEC (Apportez votre équipement de communication) ou BYOD en anglais.",
+      "description_en": "L’entité définit les ressources matérielles, en particulier les terminaux, autorisées à se connecter à ses systèmes d’information.\nNB : Cette mesure autorise le AVEC (Apportez votre équipement de communication) ou BYOD en anglais."
+    },
+    {
+      "ref": "9.2",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "Seules les ressources matérielles dont l’entité, ou le prestataire qu’elle a mandaté à cet effet, assure la gestion et qui participent à la",
+      "mesure_en": "Seules les ressources matérielles dont l’entité, ou le prestataire qu’elle a mandaté à cet effet, assure la gestion et qui participent à la",
+      "description": "Seules les ressources matérielles dont l’entité, ou le prestataire qu’elle a mandaté à cet effet, assure la gestion et qui participent à la réalisation des activités ou des services de l’entité ou au maintien en condition opérationnelle et de sécurité se connectent aux systèmes d’information.\nNB : Cette mesure interdit le AVEC (Apportez votre équipement de communication) ou BYOD en anglais.",
+      "description_en": "Seules les ressources matérielles dont l’entité, ou le prestataire qu’elle a mandaté à cet effet, assure la gestion et qui participent à la réalisation des activités ou des services de l’entité ou au maintien en condition opérationnelle et de sécurité se connectent aux systèmes d’information.\nNB : Cette mesure interdit le AVEC (Apportez votre équipement de communication) ou BYOD en anglais."
+    },
+    {
+      "ref": "9.3",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles",
+      "mesure_en": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles",
+      "description": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles identifiées à la mesure 9.1-EI/EE sur ses systèmes d’information.",
+      "description_en": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles identifiées à la mesure 9.1-EI/EE sur ses systèmes d’information."
+    },
+    {
+      "ref": "9.4",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles",
+      "mesure_en": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles",
+      "description": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles identifiées à la mesure 9.2-EE sur ses systèmes d’information.",
+      "description_en": "L’entité met en œuvre des mesures organisationnelles ou techniques visant à empêcher la connexion des ressources matérielles autres que celles identifiées à la mesure 9.2-EE sur ses systèmes d’information."
+    },
+    {
+      "ref": "9.5",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "Seuls les supports amovibles réinscriptibles nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition",
+      "mesure_en": "Seuls les supports amovibles réinscriptibles nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition",
+      "description": "Seuls les supports amovibles réinscriptibles nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité se connectent à ses systèmes d’information (par exemple : clefs USB ou disques dur amovibles).",
+      "description_en": "Seuls les supports amovibles réinscriptibles nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité se connectent à ses systèmes d’information (par exemple : clefs USB ou disques dur amovibles)."
+    },
+    {
+      "ref": "9.6",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "Les postes de travail, les serveurs et les équipements mobiles maîtrisés par l’entité, qui sont amenés à traiter de données provenant de sources",
+      "mesure_en": "Les postes de travail, les serveurs et les équipements mobiles maîtrisés par l’entité, qui sont amenés à traiter de données provenant de sources",
+      "description": "Les postes de travail, les serveurs et les équipements mobiles maîtrisés par l’entité, qui sont amenés à traiter de données provenant de sources externes (par exemple les supports amovibles, la messagerie ou la navigation web), à l’exception de données de mise à jour fournies par les éditeurs et dont l’authenticité et l’intégrité sont vérifiées, disposent de mécanismes de protection contre les risques d'exécution de codes malveillants (par exemple : un antivirus ou un EDR).",
+      "description_en": "Les postes de travail, les serveurs et les équipements mobiles maîtrisés par l’entité, qui sont amenés à traiter de données provenant de sources externes (par exemple les supports amovibles, la messagerie ou la navigation web), à l’exception de données de mise à jour fournies par les éditeurs et dont l’authenticité et l’intégrité sont vérifiées, disposent de mécanismes de protection contre les risques d'exécution de codes malveillants (par exemple : un antivirus ou un EDR)."
+    },
+    {
+      "ref": "9.7",
+      "theme": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "theme_en": "Objectif de sécurité 9: Protection des systèmes d'information contre les codes malveillants",
+      "mesure": "L’entité procède à l’analyse des données provenant de sources externes lors de leur réception, pour y rechercher des codes malveillants, à",
+      "mesure_en": "L’entité procède à l’analyse des données provenant de sources externes lors de leur réception, pour y rechercher des codes malveillants, à",
+      "description": "L’entité procède à l’analyse des données provenant de sources externes lors de leur réception, pour y rechercher des codes malveillants, à l’exception de données de mise à jour fournies par les éditeurs et dont l’authenticité et l’intégrité sont vérifiées (par exemple : une passerelle mail analysant les pièces jointes avant distribution, un SAS de décontamination antivirale pour les clefs USB).",
+      "description_en": "L’entité procède à l’analyse des données provenant de sources externes lors de leur réception, pour y rechercher des codes malveillants, à l’exception de données de mise à jour fournies par les éditeurs et dont l’authenticité et l’intégrité sont vérifiées (par exemple : une passerelle mail analysant les pièces jointes avant distribution, un SAS de décontamination antivirale pour les clefs USB)."
+    },
+    {
+      "ref": "10.A.1",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "Les utilisateurs et les processus automatiques accédant aux ressources des systèmes d’information de l’entité disposent de comptes individuels. Les",
+      "mesure_en": "Les utilisateurs et les processus automatiques accédant aux ressources des systèmes d’information de l’entité disposent de comptes individuels. Les",
+      "description": "Les utilisateurs et les processus automatiques accédant aux ressources des systèmes d’information de l’entité disposent de comptes individuels. Les utilisateurs peuvent, le cas échéant, disposer de plusieurs comptes individuels.",
+      "description_en": "Les utilisateurs et les processus automatiques accédant aux ressources des systèmes d’information de l’entité disposent de comptes individuels. Les utilisateurs peuvent, le cas échéant, disposer de plusieurs comptes individuels."
+    },
+    {
+      "ref": "10.A.2",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "L’emploi d’un compte individuel du système d’information est réservé à l’utilisateur ou au processus automatique auquel ce compte a été attribué.",
+      "mesure_en": "L’emploi d’un compte individuel du système d’information est réservé à l’utilisateur ou au processus automatique auquel ce compte a été attribué.",
+      "description": "L’emploi d’un compte individuel du système d’information est réservé à l’utilisateur ou au processus automatique auquel ce compte a été attribué.",
+      "description_en": "L’emploi d’un compte individuel du système d’information est réservé à l’utilisateur ou au processus automatique auquel ce compte a été attribué."
+    },
+    {
+      "ref": "10.A.3",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus automatiques, l’entité met en place des mesures permettant de réduire le risque lié à l'utilisation de comptes partagés et d'assurer la traçabilité de l'utilisation de ces comptes (par exemple : carnet de quart dans une salle de supervision, badgeuse à l’entrée de la salle).",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus automatiques, l’entité met en place des mesures permettant de réduire le risque lié à l'utilisation de comptes partagés et d'assurer la traçabilité de l'utilisation de ces comptes (par exemple : carnet de quart dans une salle de supervision, badgeuse à l’entrée de la salle)."
+    },
+    {
+      "ref": "10.A.4",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "Lorsqu'un système d’information est utilisé pour diffuser de l'information au public, l’entité n'est pas tenue de créer de comptes pour l'accès du",
+      "mesure_en": "Lorsqu'un système d’information est utilisé pour diffuser de l'information au public, l’entité n'est pas tenue de créer de comptes pour l'accès du",
+      "description": "Lorsqu'un système d’information est utilisé pour diffuser de l'information au public, l’entité n'est pas tenue de créer de comptes pour l'accès du public à cette information (par exemple : l’accès à un site vitrine ne nécessite pas d’authentifier les visiteurs alors que l’accès à l’intranet doit authentifier les utilisateurs).",
+      "description_en": "Lorsqu'un système d’information est utilisé pour diffuser de l'information au public, l’entité n'est pas tenue de créer de comptes pour l'accès du public à cette information (par exemple : l’accès à un site vitrine ne nécessite pas d’authentifier les visiteurs alors que l’accès à l’intranet doit authentifier les utilisateurs)."
+    },
+    {
+      "ref": "10.A.5",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "L’entité désactive les comptes qui ne sont plus nécessaires dans les délais prévus par sa politique de gestion des comptes (par exemple : sous 7",
+      "mesure_en": "L’entité désactive les comptes qui ne sont plus nécessaires dans les délais prévus par sa politique de gestion des comptes (par exemple : sous 7",
+      "description": "L’entité désactive les comptes qui ne sont plus nécessaires dans les délais prévus par sa politique de gestion des comptes (par exemple : sous 7 jours).",
+      "description_en": "L’entité désactive les comptes qui ne sont plus nécessaires dans les délais prévus par sa politique de gestion des comptes (par exemple : sous 7 jours)."
+    },
+    {
+      "ref": "10.A.6",
+      "theme": "Identification",
+      "theme_en": "Identification",
+      "mesure": "L’entité effectue périodiquement, au moins annuellement, une revue des comptes. Cette revue doit notamment vérifier le respect des présentes mesures",
+      "mesure_en": "L’entité effectue périodiquement, au moins annuellement, une revue des comptes. Cette revue doit notamment vérifier le respect des présentes mesures",
+      "description": "L’entité effectue périodiquement, au moins annuellement, une revue des comptes. Cette revue doit notamment vérifier le respect des présentes mesures relatives à l'identification et, le cas échéant, corriger les anomalies.",
+      "description_en": "L’entité effectue périodiquement, au moins annuellement, une revue des comptes. Cette revue doit notamment vérifier le respect des présentes mesures relatives à l'identification et, le cas échéant, corriger les anomalies."
+    },
+    {
+      "ref": "10.B.1",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "L’entité protège les accès des utilisateurs et processus automatiques aux ressources de ses systèmes d’information au moyen d'un mécanisme",
+      "mesure_en": "L’entité protège les accès des utilisateurs et processus automatiques aux ressources de ses systèmes d’information au moyen d'un mécanisme",
+      "description": "L’entité protège les accès des utilisateurs et processus automatiques aux ressources de ses systèmes d’information au moyen d'un mécanisme d'authentification impliquant au moins un élément secret (par exemple : un mécanisme d’authentification mono-facteur tel qu’un mot de passe, ou multi-facteur, tel qu’une carte à puce avec code PIN).",
+      "description_en": "L’entité protège les accès des utilisateurs et processus automatiques aux ressources de ses systèmes d’information au moyen d'un mécanisme d'authentification impliquant au moins un élément secret (par exemple : un mécanisme d’authentification mono-facteur tel qu’un mot de passe, ou multi-facteur, tel qu’une carte à puce avec code PIN)."
+    },
+    {
+      "ref": "10.B.2",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "L’entité change les éléments secrets configurés par défaut, avant la mise en service d’une ressource. À cet effet, l’entité s'assure auprès du",
+      "mesure_en": "L’entité change les éléments secrets configurés par défaut, avant la mise en service d’une ressource. À cet effet, l’entité s'assure auprès du",
+      "description": "L’entité change les éléments secrets configurés par défaut, avant la mise en service d’une ressource. À cet effet, l’entité s'assure auprès du fabricant ou du fournisseur de la ressource qu'elle dispose des moyens et des droits permettant d’effectuer ces changements.",
+      "description_en": "L’entité change les éléments secrets configurés par défaut, avant la mise en service d’une ressource. À cet effet, l’entité s'assure auprès du fabricant ou du fournisseur de la ressource qu'elle dispose des moyens et des droits permettant d’effectuer ces changements."
+    },
+    {
+      "ref": "10.B.3",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "L’élément secret d'un compte partagé est renouvelé à chaque retrait d'un utilisateur de ce compte.",
+      "mesure_en": "L’élément secret d'un compte partagé est renouvelé à chaque retrait d'un utilisateur de ce compte.",
+      "description": "L’élément secret d'un compte partagé est renouvelé à chaque retrait d'un utilisateur de ce compte.",
+      "description_en": "L’élément secret d'un compte partagé est renouvelé à chaque retrait d'un utilisateur de ce compte."
+    },
+    {
+      "ref": "10.B.4",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "L’élément secret d’un compte n’est connu, que des utilisateurs autorisés à utiliser le compte (par exemple : les mots de passe des comptes partagés",
+      "mesure_en": "L’élément secret d’un compte n’est connu, que des utilisateurs autorisés à utiliser le compte (par exemple : les mots de passe des comptes partagés",
+      "description": "L’élément secret d’un compte n’est connu, que des utilisateurs autorisés à utiliser le compte (par exemple : les mots de passe des comptes partagés peuvent être stockés dans un coffre-fort de mots de passe).",
+      "description_en": "L’élément secret d’un compte n’est connu, que des utilisateurs autorisés à utiliser le compte (par exemple : les mots de passe des comptes partagés peuvent être stockés dans un coffre-fort de mots de passe)."
+    },
+    {
+      "ref": "10.B.5",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "Les facteurs d’authentification sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de",
+      "mesure_en": "Les facteurs d’authentification sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de",
+      "description": "Les facteurs d’authentification sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de complexité, en tenant compte du niveau de complexité maximal permis par la ressource concernée, et en matière de fréquence de renouvellement.",
+      "description_en": "Les facteurs d’authentification sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de complexité, en tenant compte du niveau de complexité maximal permis par la ressource concernée, et en matière de fréquence de renouvellement."
+    },
+    {
+      "ref": "10.B.6",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de modifier l'élément secret, l’entité met en œuvre un contrôle d'accès approprié",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de modifier l'élément secret, l’entité met en œuvre un contrôle d'accès approprié",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de modifier l'élément secret, l’entité met en œuvre un contrôle d'accès approprié à la ressource concernée ainsi que des mesures de réduction du risque lié à l'utilisation d'un élément secret d'authentification fixe.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de modifier l'élément secret, l’entité met en œuvre un contrôle d'accès approprié à la ressource concernée ainsi que des mesures de réduction du risque lié à l'utilisation d'un élément secret d'authentification fixe."
+    },
+    {
+      "ref": "10.B.7",
+      "theme": "Authentification",
+      "theme_en": "Authentification",
+      "mesure": "Dans le cadre de cette exception, l’entité met également en œuvre des mesures de sécurité permettant d'assurer la traçabilité des accès.",
+      "mesure_en": "Dans le cadre de cette exception, l’entité met également en œuvre des mesures de sécurité permettant d'assurer la traçabilité des accès.",
+      "description": "Dans le cadre de cette exception, l’entité met également en œuvre des mesures de sécurité permettant d'assurer la traçabilité des accès.",
+      "description_en": "Dans le cadre de cette exception, l’entité met également en œuvre des mesures de sécurité permettant d'assurer la traçabilité des accès."
+    },
+    {
+      "ref": "10.C.1",
+      "theme": "Droits d'accès",
+      "theme_en": "Droits d'accès",
+      "mesure": "L’entité n’attribue des droits qu’aux utilisateurs et processus automatiques authentifiés.",
+      "mesure_en": "L’entité n’attribue des droits qu’aux utilisateurs et processus automatiques authentifiés.",
+      "description": "L’entité n’attribue des droits qu’aux utilisateurs et processus automatiques authentifiés.",
+      "description_en": "L’entité n’attribue des droits qu’aux utilisateurs et processus automatiques authentifiés."
+    },
+    {
+      "ref": "10.C.2",
+      "theme": "Droits d'accès",
+      "theme_en": "Droits d'accès",
+      "mesure": "Pour chaque utilisateur ou chaque processus automatique, l’entité n'attribue les droits d'accès qu’aux seules ressources nécessaires à la réalisation",
+      "mesure_en": "Pour chaque utilisateur ou chaque processus automatique, l’entité n'attribue les droits d'accès qu’aux seules ressources nécessaires à la réalisation",
+      "description": "Pour chaque utilisateur ou chaque processus automatique, l’entité n'attribue les droits d'accès qu’aux seules ressources nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité.",
+      "description_en": "Pour chaque utilisateur ou chaque processus automatique, l’entité n'attribue les droits d'accès qu’aux seules ressources nécessaires à la réalisation des activités et services de l’entité ou au maintien en condition opérationnelle ou de sécurité."
+    },
+    {
+      "ref": "10.C.3",
+      "theme": "Droits d'accès",
+      "theme_en": "Droits d'accès",
+      "mesure": "Pour chaque ressource du système d’information, l’entité n’attribue les droits d’accès qu’aux seuls utilisateurs et processus automatiques justifiant",
+      "mesure_en": "Pour chaque ressource du système d’information, l’entité n’attribue les droits d’accès qu’aux seuls utilisateurs et processus automatiques justifiant",
+      "description": "Pour chaque ressource du système d’information, l’entité n’attribue les droits d’accès qu’aux seuls utilisateurs et processus automatiques justifiant d’un besoin au regard de leurs missions.",
+      "description_en": "Pour chaque ressource du système d’information, l’entité n’attribue les droits d’accès qu’aux seuls utilisateurs et processus automatiques justifiant d’un besoin au regard de leurs missions."
+    },
+    {
+      "ref": "10.C.4",
+      "theme": "Droits d'accès",
+      "theme_en": "Droits d'accès",
+      "mesure": "L’entité effectue périodiquement, au moins annuellement, une revue des droits d’accès. Cette revue doit notamment vérifier le respect des présentes",
+      "mesure_en": "L’entité effectue périodiquement, au moins annuellement, une revue des droits d’accès. Cette revue doit notamment vérifier le respect des présentes",
+      "description": "L’entité effectue périodiquement, au moins annuellement, une revue des droits d’accès. Cette revue doit notamment vérifier le respect des présentes mesures relatives au droit d’accès et, le cas échéant, corriger les anomalies.",
+      "description_en": "L’entité effectue périodiquement, au moins annuellement, une revue des droits d’accès. Cette revue doit notamment vérifier le respect des présentes mesures relatives au droit d’accès et, le cas échéant, corriger les anomalies."
+    },
+    {
+      "ref": "11.A.1",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Les actions d'administration sont effectuées exclusivement à partir de comptes d'administration et les comptes d'administration sont utilisés",
+      "mesure_en": "Les actions d'administration sont effectuées exclusivement à partir de comptes d'administration et les comptes d'administration sont utilisés",
+      "description": "Les actions d'administration sont effectuées exclusivement à partir de comptes d'administration et les comptes d'administration sont utilisés exclusivement pour les actions d'administration.\nPar exemple : le compte d’administration d’un poste utilisateur est utilisé exclusivement pour l’administration de ce poste. L’utilisateur de ce poste dispose d’un compte bureautique non administrateur pour son utilisation quotidienne.",
+      "description_en": "Les actions d'administration sont effectuées exclusivement à partir de comptes d'administration et les comptes d'administration sont utilisés exclusivement pour les actions d'administration.\nPar exemple : le compte d’administration d’un poste utilisateur est utilisé exclusivement pour l’administration de ce poste. L’utilisateur de ce poste dispose d’un compte bureautique non administrateur pour son utilisation quotidienne."
+    },
+    {
+      "ref": "11.A.2",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Les comptes d’administration ne sont utilisés que par des administrateurs ou des personnes autorisées.",
+      "mesure_en": "Les comptes d’administration ne sont utilisés que par des administrateurs ou des personnes autorisées.",
+      "description": "Les comptes d’administration ne sont utilisés que par des administrateurs ou des personnes autorisées.",
+      "description_en": "Les comptes d’administration ne sont utilisés que par des administrateurs ou des personnes autorisées."
+    },
+    {
+      "ref": "11.A.3",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Les comptes d’administration respectent les mesures relatives à la gestion des identités et des accès des utilisateurs aux systèmes d’information.",
+      "mesure_en": "Les comptes d’administration respectent les mesures relatives à la gestion des identités et des accès des utilisateurs aux systèmes d’information.",
+      "description": "Les comptes d’administration respectent les mesures relatives à la gestion des identités et des accès des utilisateurs aux systèmes d’information.",
+      "description_en": "Les comptes d’administration respectent les mesures relatives à la gestion des identités et des accès des utilisateurs aux systèmes d’information."
+    },
+    {
+      "ref": "11.A.4",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Un compte d'administration est utilisé exclusivement pour se connecter aux ressources que ce compte administre pour effectuer des actions",
+      "mesure_en": "Un compte d'administration est utilisé exclusivement pour se connecter aux ressources que ce compte administre pour effectuer des actions",
+      "description": "Un compte d'administration est utilisé exclusivement pour se connecter aux ressources que ce compte administre pour effectuer des actions d’administration, ou à une ressource d’administration (par exemple : le compte administrateur d’un routeur est utilisé depuis un poste d’administration ou sur le routeur pour l’administrer).",
+      "description_en": "Un compte d'administration est utilisé exclusivement pour se connecter aux ressources que ce compte administre pour effectuer des actions d’administration, ou à une ressource d’administration (par exemple : le compte administrateur d’un routeur est utilisé depuis un poste d’administration ou sur le routeur pour l’administrer)."
+    },
+    {
+      "ref": "11.A.5",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d’effectuer des actions d’administration à partir d'un compte d'administration,",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d’effectuer des actions d’administration à partir d'un compte d'administration,",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d’effectuer des actions d’administration à partir d'un compte d'administration, l’entité met en œuvre des mesures permettant d'assurer le contrôle de ces actions d'administration et des mesures de réduction du risque lié à l'utilisation d'un compte non dédié à l'administration.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d’effectuer des actions d’administration à partir d'un compte d'administration, l’entité met en œuvre des mesures permettant d'assurer le contrôle de ces actions d'administration et des mesures de réduction du risque lié à l'utilisation d'un compte non dédié à l'administration."
+    },
+    {
+      "ref": "11.A.6",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "L’entité établit et tient à jour la liste des comptes d'administration de ses systèmes d’information.",
+      "mesure_en": "L’entité établit et tient à jour la liste des comptes d'administration de ses systèmes d’information.",
+      "description": "L’entité établit et tient à jour la liste des comptes d'administration de ses systèmes d’information.",
+      "description_en": "L’entité établit et tient à jour la liste des comptes d'administration de ses systèmes d’information."
+    },
+    {
+      "ref": "11.A.7",
+      "theme": "Comptes d'administration",
+      "theme_en": "Comptes d'administration",
+      "mesure": "Lors de toute modification d'un compte d’administration (ajout, suppression, suspension ou modification des droits associés), l’entité vérifie que",
+      "mesure_en": "Lors de toute modification d'un compte d’administration (ajout, suppression, suspension ou modification des droits associés), l’entité vérifie que",
+      "description": "Lors de toute modification d'un compte d’administration (ajout, suppression, suspension ou modification des droits associés), l’entité vérifie que les droits d'accès aux ressources et fonctionnalités sont attribués en cohérence avec les besoins d'utilisation du compte.\nEn particulier, afin de limiter la portée des droits individuels, ils sont attribués à chaque compte d’administration en les restreignant autant que possible au périmètre fonctionnel et technique de ce dernier.\nPour ceci, il est recommandé d’octroyer les droits d’administration au travers des groupes dont les comptes d’administration sont membres.",
+      "description_en": "Lors de toute modification d'un compte d’administration (ajout, suppression, suspension ou modification des droits associés), l’entité vérifie que les droits d'accès aux ressources et fonctionnalités sont attribués en cohérence avec les besoins d'utilisation du compte.\nEn particulier, afin de limiter la portée des droits individuels, ils sont attribués à chaque compte d’administration en les restreignant autant que possible au périmètre fonctionnel et technique de ce dernier.\nPour ceci, il est recommandé d’octroyer les droits d’administration au travers des groupes dont les comptes d’administration sont membres."
+    },
+    {
+      "ref": "11.B.1",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "L’entité applique sans retard injustifié les correctifs de sécurité sur les annuaires gérant les utilisateurs ou les ressources de ses systèmes",
+      "mesure_en": "L’entité applique sans retard injustifié les correctifs de sécurité sur les annuaires gérant les utilisateurs ou les ressources de ses systèmes",
+      "description": "L’entité applique sans retard injustifié les correctifs de sécurité sur les annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information.",
+      "description_en": "L’entité applique sans retard injustifié les correctifs de sécurité sur les annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information."
+    },
+    {
+      "ref": "11.B.2",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "La sécurité des systèmes d’information de l’entité repose en grande partie sur la sécurité du ou des annuaires gérant les utilisateurs ou les",
+      "mesure_en": "La sécurité des systèmes d’information de l’entité repose en grande partie sur la sécurité du ou des annuaires gérant les utilisateurs ou les",
+      "description": "La sécurité des systèmes d’information de l’entité repose en grande partie sur la sécurité du ou des annuaires gérant les utilisateurs ou les ressources des systèmes d’information.\nL’ensemble des ressources regroupant un annuaire, les ressources matérielles et logicielles hébergeant cet annuaire ou permettant de prendre le contrôle de cet annuaire (les comptes, les hyperviseurs, les machines d’administration, etc.) est désigné « cœur de confiance » (par exemple : Le Tier0 un annuaire AD DS constitue le cœur de confiance du système d’information).\nPour chacun de ses annuaires, l’entité identifie les ressources constituant son cœur de confiance.",
+      "description_en": "La sécurité des systèmes d’information de l’entité repose en grande partie sur la sécurité du ou des annuaires gérant les utilisateurs ou les ressources des systèmes d’information.\nL’ensemble des ressources regroupant un annuaire, les ressources matérielles et logicielles hébergeant cet annuaire ou permettant de prendre le contrôle de cet annuaire (les comptes, les hyperviseurs, les machines d’administration, etc.) est désigné « cœur de confiance » (par exemple : Le Tier0 un annuaire AD DS constitue le cœur de confiance du système d’information).\nPour chacun de ses annuaires, l’entité identifie les ressources constituant son cœur de confiance."
+    },
+    {
+      "ref": "11.B.3",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "Les actions d’administration d’un cœur de confiance sont réalisées depuis des comptes d’administration dédiés à l’administration de cœurs de",
+      "mesure_en": "Les actions d’administration d’un cœur de confiance sont réalisées depuis des comptes d’administration dédiés à l’administration de cœurs de",
+      "description": "Les actions d’administration d’un cœur de confiance sont réalisées depuis des comptes d’administration dédiés à l’administration de cœurs de confiance.",
+      "description_en": "Les actions d’administration d’un cœur de confiance sont réalisées depuis des comptes d’administration dédiés à l’administration de cœurs de confiance."
+    },
+    {
+      "ref": "11.B.4",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "Les actions d'administration d’un cœur de confiance sont réalisées depuis des ressources dédiées exclusivement à l’administration de cœurs de",
+      "mesure_en": "Les actions d'administration d’un cœur de confiance sont réalisées depuis des ressources dédiées exclusivement à l’administration de cœurs de",
+      "description": "Les actions d'administration d’un cœur de confiance sont réalisées depuis des ressources dédiées exclusivement à l’administration de cœurs de confiance.",
+      "description_en": "Les actions d'administration d’un cœur de confiance sont réalisées depuis des ressources dédiées exclusivement à l’administration de cœurs de confiance."
+    },
+    {
+      "ref": "11.B.5",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "Les connexions externes à un cœur de confiance, à destination des ressources d’administration de cœurs de confiance sont interdites par un dispositif",
+      "mesure_en": "Les connexions externes à un cœur de confiance, à destination des ressources d’administration de cœurs de confiance sont interdites par un dispositif",
+      "description": "Les connexions externes à un cœur de confiance, à destination des ressources d’administration de cœurs de confiance sont interdites par un dispositif de filtrage sur les ressources d’administration (par exemple : le filtrage peut être réalisé par le pare-feu local de la ressource d’administration du cœur de confiance).",
+      "description_en": "Les connexions externes à un cœur de confiance, à destination des ressources d’administration de cœurs de confiance sont interdites par un dispositif de filtrage sur les ressources d’administration (par exemple : le filtrage peut être réalisé par le pare-feu local de la ressource d’administration du cœur de confiance)."
+    },
+    {
+      "ref": "11.B.6",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "L’entité effectue annuellement une revue de la configuration des annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information,",
+      "mesure_en": "L’entité effectue annuellement une revue de la configuration des annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information,",
+      "description": "L’entité effectue annuellement une revue de la configuration des annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information, afin d’identifier tout élément inutile ou anormal.\nIl est recommandé que cette revue s’appuie sur un outil automatisé.",
+      "description_en": "L’entité effectue annuellement une revue de la configuration des annuaires gérant les utilisateurs ou les ressources de ses systèmes d’information, afin d’identifier tout élément inutile ou anormal.\nIl est recommandé que cette revue s’appuie sur un outil automatisé."
+    },
+    {
+      "ref": "11.B.7",
+      "theme": "Sécurité des annuaires",
+      "theme_en": "Sécurité des annuaires",
+      "mesure": "Lorsqu’elles existent, les recommandations de l’autorité nationale de sécurité des systèmes d’information relatives au cœur de confiance sont mises",
+      "mesure_en": "Lorsqu’elles existent, les recommandations de l’autorité nationale de sécurité des systèmes d’information relatives au cœur de confiance sont mises",
+      "description": "Lorsqu’elles existent, les recommandations de l’autorité nationale de sécurité des systèmes d’information relatives au cœur de confiance sont mises en œuvre (par exemple : guide de sécurisation, guide de réponses à incidents, mémos techniques, recommandations issues des outils de revues de configurations).",
+      "description_en": "Lorsqu’elles existent, les recommandations de l’autorité nationale de sécurité des systèmes d’information relatives au cœur de confiance sont mises en œuvre (par exemple : guide de sécurisation, guide de réponses à incidents, mémos techniques, recommandations issues des outils de revues de configurations)."
+    },
+    {
+      "ref": "12.1",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "L’entité s’assure de l’élaboration, du maintien à jour et de la mise en œuvre d’une procédure de traitement des incidents de sécurité affectant ses",
+      "mesure_en": "L’entité s’assure de l’élaboration, du maintien à jour et de la mise en œuvre d’une procédure de traitement des incidents de sécurité affectant ses",
+      "description": "L’entité s’assure de l’élaboration, du maintien à jour et de la mise en œuvre d’une procédure de traitement des incidents de sécurité affectant ses systèmes d’information.",
+      "description_en": "L’entité s’assure de l’élaboration, du maintien à jour et de la mise en œuvre d’une procédure de traitement des incidents de sécurité affectant ses systèmes d’information."
+    },
+    {
+      "ref": "12.2",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "L’entité s’assure de la mise en œuvre des outils permettant de collecter les signalements remontés, en particulier par les sources suivantes :\n•\tLes",
+      "mesure_en": "L’entité s’assure de la mise en œuvre des outils permettant de collecter les signalements remontés, en particulier par les sources suivantes :\n•\tLes",
+      "description": "L’entité s’assure de la mise en œuvre des outils permettant de collecter les signalements remontés, en particulier par les sources suivantes :\n•\tLes employés de l’entité essentielle ;\n•\tLes clients et les usagers des activités et services mis en œuvre par l’entité essentielle ;\n•\tLes prestataires et les fournisseurs contractant avec l’entité essentielle.",
+      "description_en": "L’entité s’assure de la mise en œuvre des outils permettant de collecter les signalements remontés, en particulier par les sources suivantes :\n•\tLes employés de l’entité essentielle ;\n•\tLes clients et les usagers des activités et services mis en œuvre par l’entité essentielle ;\n•\tLes prestataires et les fournisseurs contractant avec l’entité essentielle."
+    },
+    {
+      "ref": "12.3",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes permettant d’analyser et de qualifier les événements remontés et",
+      "mesure_en": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes permettant d’analyser et de qualifier les événements remontés et",
+      "description": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes permettant d’analyser et de qualifier les événements remontés et d’identifier les incidents potentiels ou avérés.",
+      "description_en": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes permettant d’analyser et de qualifier les événements remontés et d’identifier les incidents potentiels ou avérés."
+    },
+    {
+      "ref": "12.4",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes organisationnels et techniques permettant de réagir en cas d’incident et de",
+      "mesure_en": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes organisationnels et techniques permettant de réagir en cas d’incident et de",
+      "description": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes organisationnels et techniques permettant de réagir en cas d’incident et de limiter les conséquences sur la fourniture des services.\nCes mécanismes sont repris, le cas échéant, dans la définition des plans de continuité et de reprise d’activité.",
+      "description_en": "L’entité s’assure de la définition et de la mise en œuvre des mécanismes organisationnels et techniques permettant de réagir en cas d’incident et de limiter les conséquences sur la fourniture des services.\nCes mécanismes sont repris, le cas échéant, dans la définition des plans de continuité et de reprise d’activité."
+    },
+    {
+      "ref": "12.5",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "En complément des dispositions de l’article 17 de la loi XXX, l’entité s’assure, après chaque incident de sécurité, qu’une analyse des causes de",
+      "mesure_en": "En complément des dispositions de l’article 17 de la loi XXX, l’entité s’assure, après chaque incident de sécurité, qu’une analyse des causes de",
+      "description": "En complément des dispositions de l’article 17 de la loi XXX, l’entité s’assure, après chaque incident de sécurité, qu’une analyse des causes de l’incident a été réalisée.\nL’analyse des causes vise à définir et mettre en œuvre les mesures de sécurité permettant de limiter la vraisemblance d’un nouvel incident ou d’en réduire l’impact. L’entité conserve des preuves de cette analyse.",
+      "description_en": "En complément des dispositions de l’article 17 de la loi XXX, l’entité s’assure, après chaque incident de sécurité, qu’une analyse des causes de l’incident a été réalisée.\nL’analyse des causes vise à définir et mettre en œuvre les mesures de sécurité permettant de limiter la vraisemblance d’un nouvel incident ou d’en réduire l’impact. L’entité conserve des preuves de cette analyse."
+    },
+    {
+      "ref": "12.6",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "L’entité conserve les relevés techniques dont elles disposent (par exemple : rapport d’analyse, alertes remontées par les outils de protection contre",
+      "mesure_en": "L’entité conserve les relevés techniques dont elles disposent (par exemple : rapport d’analyse, alertes remontées par les outils de protection contre",
+      "description": "L’entité conserve les relevés techniques dont elles disposent (par exemple : rapport d’analyse, alertes remontées par les outils de protection contre les codes malveillants) et pouvant être utilisés comme éléments de preuve en cas de judiciarisation. Ces relevés techniques sont conservés pour une durée pertinente au regard de la protection des données à caractère personnel et en particulier la finalité du traitement.",
+      "description_en": "L’entité conserve les relevés techniques dont elles disposent (par exemple : rapport d’analyse, alertes remontées par les outils de protection contre les codes malveillants) et pouvant être utilisés comme éléments de preuve en cas de judiciarisation. Ces relevés techniques sont conservés pour une durée pertinente au regard de la protection des données à caractère personnel et en particulier la finalité du traitement."
+    },
+    {
+      "ref": "12.7",
+      "theme": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "theme_en": "Objectif de sécurité 12: Identification et réaction aux incidents de sécurité",
+      "mesure": "Les relevés techniques relatifs aux analyses des incidents sont protégés d’un incident qui les rendrait inexploitables (par exemple : le stockage",
+      "mesure_en": "Les relevés techniques relatifs aux analyses des incidents sont protégés d’un incident qui les rendrait inexploitables (par exemple : le stockage",
+      "description": "Les relevés techniques relatifs aux analyses des incidents sont protégés d’un incident qui les rendrait inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel).",
+      "description_en": "Les relevés techniques relatifs aux analyses des incidents sont protégés d’un incident qui les rendrait inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel)."
+    },
+    {
+      "ref": "13.1",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "L’entité définit et met en œuvre des procédures de sauvegarde et de restauration de ses systèmes d’information et des données qu’ils manipulent.",
+      "mesure_en": "L’entité définit et met en œuvre des procédures de sauvegarde et de restauration de ses systèmes d’information et des données qu’ils manipulent.",
+      "description": "L’entité définit et met en œuvre des procédures de sauvegarde et de restauration de ses systèmes d’information et des données qu’ils manipulent.",
+      "description_en": "L’entité définit et met en œuvre des procédures de sauvegarde et de restauration de ses systèmes d’information et des données qu’ils manipulent."
+    },
+    {
+      "ref": "13.2",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "L’entité s’assure que les processus de sauvegarde et de restauration sont testés au minimum une fois par an. Ces tests visent notamment à vérifier la",
+      "mesure_en": "L’entité s’assure que les processus de sauvegarde et de restauration sont testés au minimum une fois par an. Ces tests visent notamment à vérifier la",
+      "description": "L’entité s’assure que les processus de sauvegarde et de restauration sont testés au minimum une fois par an. Ces tests visent notamment à vérifier la bonne réalisation des sauvegardes et leur bonne restauration.",
+      "description_en": "L’entité s’assure que les processus de sauvegarde et de restauration sont testés au minimum une fois par an. Ces tests visent notamment à vérifier la bonne réalisation des sauvegardes et leur bonne restauration."
+    },
+    {
+      "ref": "13.3",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "Les sauvegardes sont protégées d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type",
+      "mesure_en": "Les sauvegardes sont protégées d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type",
+      "description": "Les sauvegardes sont protégées d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel).",
+      "description_en": "Les sauvegardes sont protégées d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel)."
+    },
+    {
+      "ref": "13.4",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "L’entité, pour chacun de ses activités et services, définit et documente la durée maximale d’interruption admissible (DMIA) et le point de",
+      "mesure_en": "L’entité, pour chacun de ses activités et services, définit et documente la durée maximale d’interruption admissible (DMIA) et le point de",
+      "description": "L’entité, pour chacun de ses activités et services, définit et documente la durée maximale d’interruption admissible (DMIA) et le point de rétablissement des données (PRD).",
+      "description_en": "L’entité, pour chacun de ses activités et services, définit et documente la durée maximale d’interruption admissible (DMIA) et le point de rétablissement des données (PRD)."
+    },
+    {
+      "ref": "13.5",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "Les mécanismes de sauvegarde sont dimensionnés pour répondre aux besoins de disponibilité associés aux différents services et aux différentes",
+      "mesure_en": "Les mécanismes de sauvegarde sont dimensionnés pour répondre aux besoins de disponibilité associés aux différents services et aux différentes",
+      "description": "Les mécanismes de sauvegarde sont dimensionnés pour répondre aux besoins de disponibilité associés aux différents services et aux différentes activités fournis par l’entité.",
+      "description_en": "Les mécanismes de sauvegarde sont dimensionnés pour répondre aux besoins de disponibilité associés aux différents services et aux différentes activités fournis par l’entité."
+    },
+    {
+      "ref": "13.6",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "L’entité définit et met en œuvre un plan de continuité d’activité (PCA) et un plan de reprise d’activité (PRA) adaptés aux scénarios de crises",
+      "mesure_en": "L’entité définit et met en œuvre un plan de continuité d’activité (PCA) et un plan de reprise d’activité (PRA) adaptés aux scénarios de crises",
+      "description": "L’entité définit et met en œuvre un plan de continuité d’activité (PCA) et un plan de reprise d’activité (PRA) adaptés aux scénarios de crises d’origine cyber et cohérents avec la durée maximale d’interruption admissible et le point de rétablissement des données.",
+      "description_en": "L’entité définit et met en œuvre un plan de continuité d’activité (PCA) et un plan de reprise d’activité (PRA) adaptés aux scénarios de crises d’origine cyber et cohérents avec la durée maximale d’interruption admissible et le point de rétablissement des données."
+    },
+    {
+      "ref": "13.7",
+      "theme": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "theme_en": "Objectif de sécurité 13: Continuité et reprise d'activité",
+      "mesure": "L’identification de ces mesures de continuité s’appuie notamment :\n•\tSur la cartographie de l’écosystème ;\n•\tSur la procédure de gestion des",
+      "mesure_en": "L’identification de ces mesures de continuité s’appuie notamment :\n•\tSur la cartographie de l’écosystème ;\n•\tSur la procédure de gestion des",
+      "description": "L’identification de ces mesures de continuité s’appuie notamment :\n•\tSur la cartographie de l’écosystème ;\n•\tSur la procédure de gestion des incidents pour détecter et réagir au plus tôt aux incidents ;\n•\tSur la procédure de gestion des crises d’origine cyber pour permettre la reprise au plus tôt des services.",
+      "description_en": "L’identification de ces mesures de continuité s’appuie notamment :\n•\tSur la cartographie de l’écosystème ;\n•\tSur la procédure de gestion des incidents pour détecter et réagir au plus tôt aux incidents ;\n•\tSur la procédure de gestion des crises d’origine cyber pour permettre la reprise au plus tôt des services."
+    },
+    {
+      "ref": "14.1",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre d’une procédure de gestion de crises en cas d’incident de sécurité sur",
+      "mesure_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre d’une procédure de gestion de crises en cas d’incident de sécurité sur",
+      "description": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre d’une procédure de gestion de crises en cas d’incident de sécurité sur ses systèmes d’information nécessitant le passage en mode crise (par exemple : pour les incidents importants au sens de l’article 17 du PJL).",
+      "description_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre d’une procédure de gestion de crises en cas d’incident de sécurité sur ses systèmes d’information nécessitant le passage en mode crise (par exemple : pour les incidents importants au sens de l’article 17 du PJL)."
+    },
+    {
+      "ref": "14.2",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure du maintien à jour d’une liste imprimée des personnes mobilisables dans la gestion de la crise sur les sujets relatifs à la",
+      "mesure_en": "L’entité s’assure du maintien à jour d’une liste imprimée des personnes mobilisables dans la gestion de la crise sur les sujets relatifs à la",
+      "description": "L’entité s’assure du maintien à jour d’une liste imprimée des personnes mobilisables dans la gestion de la crise sur les sujets relatifs à la sécurité numérique ainsi que leurs coordonnées.",
+      "description_en": "L’entité s’assure du maintien à jour d’une liste imprimée des personnes mobilisables dans la gestion de la crise sur les sujets relatifs à la sécurité numérique ainsi que leurs coordonnées."
+    },
+    {
+      "ref": "14.3",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure que la liste des personnes mobilisables prévue au 14.2-EI/EE est accessible dans un format adapté à la nature de la crise (par",
+      "mesure_en": "L’entité s’assure que la liste des personnes mobilisables prévue au 14.2-EI/EE est accessible dans un format adapté à la nature de la crise (par",
+      "description": "L’entité s’assure que la liste des personnes mobilisables prévue au 14.2-EI/EE est accessible dans un format adapté à la nature de la crise (par exemple, la liste doit être accessible au format papier si les systèmes d’information ne sont plus disponibles, et elle doit être accessible au format numérique si la version papier n’est pas accessible).",
+      "description_en": "L’entité s’assure que la liste des personnes mobilisables prévue au 14.2-EI/EE est accessible dans un format adapté à la nature de la crise (par exemple, la liste doit être accessible au format papier si les systèmes d’information ne sont plus disponibles, et elle doit être accessible au format numérique si la version papier n’est pas accessible)."
+    },
+    {
+      "ref": "14.4",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure du maintien à jour d’un annuaire des parties prenantes externes à l’entité pertinente dans la gestion de la crise en s’appuyant sur",
+      "mesure_en": "L’entité s’assure du maintien à jour d’un annuaire des parties prenantes externes à l’entité pertinente dans la gestion de la crise en s’appuyant sur",
+      "description": "L’entité s’assure du maintien à jour d’un annuaire des parties prenantes externes à l’entité pertinente dans la gestion de la crise en s’appuyant sur la cartographie de l’écosystème.",
+      "description_en": "L’entité s’assure du maintien à jour d’un annuaire des parties prenantes externes à l’entité pertinente dans la gestion de la crise en s’appuyant sur la cartographie de l’écosystème."
+    },
+    {
+      "ref": "14.5",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité essentielle s’assure de la mise en œuvre de retour d’expérience (RETEX) permettant d’identifier les axes d’amélioration et les mesures",
+      "mesure_en": "L’entité essentielle s’assure de la mise en œuvre de retour d’expérience (RETEX) permettant d’identifier les axes d’amélioration et les mesures",
+      "description": "L’entité essentielle s’assure de la mise en œuvre de retour d’expérience (RETEX) permettant d’identifier les axes d’amélioration et les mesures associées à mettre en œuvre suite à un entraînement, un exercice ou une crise réelle.",
+      "description_en": "L’entité essentielle s’assure de la mise en œuvre de retour d’expérience (RETEX) permettant d’identifier les axes d’amélioration et les mesures associées à mettre en œuvre suite à un entraînement, un exercice ou une crise réelle."
+    },
+    {
+      "ref": "14.6",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des critères permettant d’activer et de désactiver le dispositif de",
+      "mesure_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des critères permettant d’activer et de désactiver le dispositif de",
+      "description": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des critères permettant d’activer et de désactiver le dispositif de gestion de crise prenant en compte les menaces cyber.",
+      "description_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des critères permettant d’activer et de désactiver le dispositif de gestion de crise prenant en compte les menaces cyber."
+    },
+    {
+      "ref": "14.7",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des procédures et des mécanismes de gestion de la crise adaptés à la",
+      "mesure_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des procédures et des mécanismes de gestion de la crise adaptés à la",
+      "description": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des procédures et des mécanismes de gestion de la crise adaptés à la menace cyber en s’appuyant sur les recommandations de l’autorité nationale de sécurité des systèmes d’information.",
+      "description_en": "L’entité s’assure de la définition, du maintien à jour et de la mise en œuvre des procédures et des mécanismes de gestion de la crise adaptés à la menace cyber en s’appuyant sur les recommandations de l’autorité nationale de sécurité des systèmes d’information."
+    },
+    {
+      "ref": "14.8",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la définition et de la mise en œuvre des mesures pour isoler, protéger et, le cas échéant, reconstruire les systèmes",
+      "mesure_en": "L’entité s’assure de la définition et de la mise en œuvre des mesures pour isoler, protéger et, le cas échéant, reconstruire les systèmes",
+      "description": "L’entité s’assure de la définition et de la mise en œuvre des mesures pour isoler, protéger et, le cas échéant, reconstruire les systèmes d’information concernés, activables en cas d’incident de sécurité.\nCes mesures prennent en compte les infrastructures, applicatifs et services numériques externalisés à des prestataires et sont mises en place en cohérence avec les plans de continuité et de reprise d’activité.",
+      "description_en": "L’entité s’assure de la définition et de la mise en œuvre des mesures pour isoler, protéger et, le cas échéant, reconstruire les systèmes d’information concernés, activables en cas d’incident de sécurité.\nCes mesures prennent en compte les infrastructures, applicatifs et services numériques externalisés à des prestataires et sont mises en place en cohérence avec les plans de continuité et de reprise d’activité."
+    },
+    {
+      "ref": "14.9",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la définition d’une stratégie de communication adaptée aux crises d’origine cyber, incluant des scénarios de crise, le schéma",
+      "mesure_en": "L’entité s’assure de la définition d’une stratégie de communication adaptée aux crises d’origine cyber, incluant des scénarios de crise, le schéma",
+      "description": "L’entité s’assure de la définition d’une stratégie de communication adaptée aux crises d’origine cyber, incluant des scénarios de crise, le schéma d’organisation de la communication de crise, les outils de pilotage de la communication et des éléments de langage sur des sujets sensibles ou de crise. Cette stratégie prend en compte les scénarios de menaces cyber identifiés.",
+      "description_en": "L’entité s’assure de la définition d’une stratégie de communication adaptée aux crises d’origine cyber, incluant des scénarios de crise, le schéma d’organisation de la communication de crise, les outils de pilotage de la communication et des éléments de langage sur des sujets sensibles ou de crise. Cette stratégie prend en compte les scénarios de menaces cyber identifiés."
+    },
+    {
+      "ref": "14.10",
+      "theme": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "theme_en": "Objectif de sécurité 14: Réaction aux crises d'origine cyber",
+      "mesure": "L’entité s’assure de la disponibilité de moyens de communication de secours, si possible, sécurisés en temps de crise lorsque les moyens de",
+      "mesure_en": "L’entité s’assure de la disponibilité de moyens de communication de secours, si possible, sécurisés en temps de crise lorsque les moyens de",
+      "description": "L’entité s’assure de la disponibilité de moyens de communication de secours, si possible, sécurisés en temps de crise lorsque les moyens de communication habituels sont indisponibles.",
+      "description_en": "L’entité s’assure de la disponibilité de moyens de communication de secours, si possible, sécurisés en temps de crise lorsque les moyens de communication habituels sont indisponibles."
+    },
+    {
+      "ref": "15.1",
+      "theme": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "theme_en": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "mesure": "L’entité s’assure de la sensibilisation et de la mise en œuvre d’un exercice sur table à une fréquence qu’elle définit pour les personnes",
+      "mesure_en": "L’entité s’assure de la sensibilisation et de la mise en œuvre d’un exercice sur table à une fréquence qu’elle définit pour les personnes",
+      "description": "L’entité s’assure de la sensibilisation et de la mise en œuvre d’un exercice sur table à une fréquence qu’elle définit pour les personnes mobilisables dans le dispositif de gestion des crises d’origine cyber.",
+      "description_en": "L’entité s’assure de la sensibilisation et de la mise en œuvre d’un exercice sur table à une fréquence qu’elle définit pour les personnes mobilisables dans le dispositif de gestion des crises d’origine cyber."
+    },
+    {
+      "ref": "15.2",
+      "theme": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "theme_en": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "mesure": "L’entité définit et met en œuvre une stratégie d’entraînement qui comporte, au minimum, les éléments suivants :\n•\tUne liste des acteurs amenés à",
+      "mesure_en": "L’entité définit et met en œuvre une stratégie d’entraînement qui comporte, au minimum, les éléments suivants :\n•\tUne liste des acteurs amenés à",
+      "description": "L’entité définit et met en œuvre une stratégie d’entraînement qui comporte, au minimum, les éléments suivants :\n•\tUne liste des acteurs amenés à participer aux différents dispositifs d’entraînement et d’exercice ;\n•\tUne liste d’exercices permettant d’entraîner ou de tester les capacités opérationnelles ;\n•\tLes objectifs visés par la stratégie ; \n•\tLes moyens de vérification ou d’évaluation d’atteinte de ces objectifs ;\n•\tLes scénarios de risques ou d’attaques à tester en priorité ;\n•\tLa comitologie de suivi de la stratégie.\nCette stratégie peut être mutualisée avec d’autres livrables.",
+      "description_en": "L’entité définit et met en œuvre une stratégie d’entraînement qui comporte, au minimum, les éléments suivants :\n•\tUne liste des acteurs amenés à participer aux différents dispositifs d’entraînement et d’exercice ;\n•\tUne liste d’exercices permettant d’entraîner ou de tester les capacités opérationnelles ;\n•\tLes objectifs visés par la stratégie ; \n•\tLes moyens de vérification ou d’évaluation d’atteinte de ces objectifs ;\n•\tLes scénarios de risques ou d’attaques à tester en priorité ;\n•\tLa comitologie de suivi de la stratégie.\nCette stratégie peut être mutualisée avec d’autres livrables."
+    },
+    {
+      "ref": "15.3",
+      "theme": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "theme_en": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "mesure": "Cette stratégie d’entraînement vise à tester les dispositifs mis en œuvre par l’entité en matière :\n•\tDe gestion des alertes relatives aux incidents,",
+      "mesure_en": "Cette stratégie d’entraînement vise à tester les dispositifs mis en œuvre par l’entité en matière :\n•\tDe gestion des alertes relatives aux incidents,",
+      "description": "Cette stratégie d’entraînement vise à tester les dispositifs mis en œuvre par l’entité en matière :\n•\tDe gestion des alertes relatives aux incidents, aux vulnérabilités et menaces ;\n•\tDe continuité et de reprise d’activité ;\n•\tDe gestion des crises d’origine cyber.",
+      "description_en": "Cette stratégie d’entraînement vise à tester les dispositifs mis en œuvre par l’entité en matière :\n•\tDe gestion des alertes relatives aux incidents, aux vulnérabilités et menaces ;\n•\tDe continuité et de reprise d’activité ;\n•\tDe gestion des crises d’origine cyber."
+    },
+    {
+      "ref": "15.4",
+      "theme": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "theme_en": "Objectif de sécurité 15: Exercices, tests et entrainements",
+      "mesure": "L’entité décline cette stratégie dans la définition et la mise en œuvre d’un programme triennal d’entraînement et d’exercice. Ce programme précise",
+      "mesure_en": "L’entité décline cette stratégie dans la définition et la mise en œuvre d’un programme triennal d’entraînement et d’exercice. Ce programme précise",
+      "description": "L’entité décline cette stratégie dans la définition et la mise en œuvre d’un programme triennal d’entraînement et d’exercice. Ce programme précise notamment la fréquence de ces entraînements et exercices ainsi que leur nature et que leurs objectifs.\nCe programme triennal doit permettre de tester les dispositifs de gestion des incidents, de gestion des crises d’origine cyber et de coopération avec l’écosystème et, le cas échéant, le volet cyber des plans de continuité et de reprise d’activité.",
+      "description_en": "L’entité décline cette stratégie dans la définition et la mise en œuvre d’un programme triennal d’entraînement et d’exercice. Ce programme précise notamment la fréquence de ces entraînements et exercices ainsi que leur nature et que leurs objectifs.\nCe programme triennal doit permettre de tester les dispositifs de gestion des incidents, de gestion des crises d’origine cyber et de coopération avec l’écosystème et, le cas échéant, le volet cyber des plans de continuité et de reprise d’activité."
+    },
+    {
+      "ref": "16.1",
+      "theme": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "theme_en": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "mesure": "L’entité définit, met en œuvre et maintient à jour une gouvernance par les risques.\nCette gouvernance vise à s’assurer que le risque numérique est",
+      "mesure_en": "L’entité définit, met en œuvre et maintient à jour une gouvernance par les risques.\nCette gouvernance vise à s’assurer que le risque numérique est",
+      "description": "L’entité définit, met en œuvre et maintient à jour une gouvernance par les risques.\nCette gouvernance vise à s’assurer que le risque numérique est pris en compte par le dirigeant exécutif de l’entité et les responsables d’activité ou de service de l’entité au regard des rôles et responsabilités définis et que les moyens financiers, humains ou techniques adéquats sont alloués pour maîtriser ce risque.\nCette gouvernance intègre les éléments issus de l’approche par la conformité et la complète par une approche par les risques, réalisée dans les conditions définies ci-après. Ces approches sont complémentaires et peuvent être mutualisées, notamment en termes de livrables attendus.",
+      "description_en": "L’entité définit, met en œuvre et maintient à jour une gouvernance par les risques.\nCette gouvernance vise à s’assurer que le risque numérique est pris en compte par le dirigeant exécutif de l’entité et les responsables d’activité ou de service de l’entité au regard des rôles et responsabilités définis et que les moyens financiers, humains ou techniques adéquats sont alloués pour maîtriser ce risque.\nCette gouvernance intègre les éléments issus de l’approche par la conformité et la complète par une approche par les risques, réalisée dans les conditions définies ci-après. Ces approches sont complémentaires et peuvent être mutualisées, notamment en termes de livrables attendus."
+    },
+    {
+      "ref": "16.2",
+      "theme": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "theme_en": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "mesure": "L’entité s’assure que chaque système d’information fait l’objet d’une analyse de risques.\nCette exigence peut être satisfaite via la réalisation et",
+      "mesure_en": "L’entité s’assure que chaque système d’information fait l’objet d’une analyse de risques.\nCette exigence peut être satisfaite via la réalisation et",
+      "description": "L’entité s’assure que chaque système d’information fait l’objet d’une analyse de risques.\nCette exigence peut être satisfaite via la réalisation et le maintien à jour d’une analyse de risques pour chaque activité ou service qu’elle fournit, couvrant l’ensemble des systèmes d’information supportant cette activité ou ce service.\nCette analyse de risques s’appuie sur les éléments issus :\n•\tDe la PSSI et des spécificités sectorielles ;\n•\tDe la maîtrise de l’écosystème ;\n•\tDe la maîtrise du système d’information ;\n•\tDe l’approche par conformité ;\n•\tDes audits.\nLa méthode EBIOS RM peut être utilisée pour réaliser cette analyse de risques.",
+      "description_en": "L’entité s’assure que chaque système d’information fait l’objet d’une analyse de risques.\nCette exigence peut être satisfaite via la réalisation et le maintien à jour d’une analyse de risques pour chaque activité ou service qu’elle fournit, couvrant l’ensemble des systèmes d’information supportant cette activité ou ce service.\nCette analyse de risques s’appuie sur les éléments issus :\n•\tDe la PSSI et des spécificités sectorielles ;\n•\tDe la maîtrise de l’écosystème ;\n•\tDe la maîtrise du système d’information ;\n•\tDe l’approche par conformité ;\n•\tDes audits.\nLa méthode EBIOS RM peut être utilisée pour réaliser cette analyse de risques."
+    },
+    {
+      "ref": "16.3",
+      "theme": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "theme_en": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "mesure": "L’entité valide l’analyse de risques, accepte les risques résiduels et met en œuvre le plan d’action pour maîtriser ces risques.\nLe plan d’action",
+      "mesure_en": "L’entité valide l’analyse de risques, accepte les risques résiduels et met en œuvre le plan d’action pour maîtriser ces risques.\nLe plan d’action",
+      "description": "L’entité valide l’analyse de risques, accepte les risques résiduels et met en œuvre le plan d’action pour maîtriser ces risques.\nLe plan d’action prévoit, au minimum, une échéance raisonnable et un responsable pour la réalisation de chaque action.",
+      "description_en": "L’entité valide l’analyse de risques, accepte les risques résiduels et met en œuvre le plan d’action pour maîtriser ces risques.\nLe plan d’action prévoit, au minimum, une échéance raisonnable et un responsable pour la réalisation de chaque action."
+    },
+    {
+      "ref": "16.4",
+      "theme": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "theme_en": "Objectif de sécurité 16: Mise en œuvre d'une approche par les risques",
+      "mesure": "L’entité réexamine l’analyse de risques au minimum tous les trois ans et en tant que de besoin, notamment en cas d’incident de sécurité ou",
+      "mesure_en": "L’entité réexamine l’analyse de risques au minimum tous les trois ans et en tant que de besoin, notamment en cas d’incident de sécurité ou",
+      "description": "L’entité réexamine l’analyse de risques au minimum tous les trois ans et en tant que de besoin, notamment en cas d’incident de sécurité ou d’évolutions majeures du contexte métier, technique ou organisationnel.",
+      "description_en": "L’entité réexamine l’analyse de risques au minimum tous les trois ans et en tant que de besoin, notamment en cas d’incident de sécurité ou d’évolutions majeures du contexte métier, technique ou organisationnel."
+    },
+    {
+      "ref": "17.1",
+      "theme": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "mesure": "L’entité définit et met en œuvre un programme d’audit de l’ensemble de ses systèmes d’information et s’assure que les audits associés à ce programme",
+      "mesure_en": "L’entité définit et met en œuvre un programme d’audit de l’ensemble de ses systèmes d’information et s’assure que les audits associés à ce programme",
+      "description": "L’entité définit et met en œuvre un programme d’audit de l’ensemble de ses systèmes d’information et s’assure que les audits associés à ce programme ainsi que leur profondeur et leur fréquence tiennent compte de tout ou partie de l’analyse de risque réalisée, de la criticité du système d’information au regard de son organisation et de l’exposition du système d’information aux risques numériques.\nPour évaluer cette criticité et ce niveau d’exposition, l’entité peut s’appuyer sur les recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de gestion des risques numériques.",
+      "description_en": "L’entité définit et met en œuvre un programme d’audit de l’ensemble de ses systèmes d’information et s’assure que les audits associés à ce programme ainsi que leur profondeur et leur fréquence tiennent compte de tout ou partie de l’analyse de risque réalisée, de la criticité du système d’information au regard de son organisation et de l’exposition du système d’information aux risques numériques.\nPour évaluer cette criticité et ce niveau d’exposition, l’entité peut s’appuyer sur les recommandations de l’autorité nationale de sécurité des systèmes d’information en matière de gestion des risques numériques."
+    },
+    {
+      "ref": "17.2",
+      "theme": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "mesure": "L’audit de sécurité permet, de manière indépendante :\n•\tDe vérifier, sur le périmètre défini, l’atteinte des objectifs fixés par la réglementation",
+      "mesure_en": "L’audit de sécurité permet, de manière indépendante :\n•\tDe vérifier, sur le périmètre défini, l’atteinte des objectifs fixés par la réglementation",
+      "description": "L’audit de sécurité permet, de manière indépendante :\n•\tDe vérifier, sur le périmètre défini, l’atteinte des objectifs fixés par la réglementation via \no\tLa conformité aux présentes mesures, ou \no\tLa mise en œuvre de mesures alternatives ; et\n•\tD’évaluer le niveau de sécurité du ou des systèmes d’information couverts au regard des menaces et des vulnérabilités connues.",
+      "description_en": "L’audit de sécurité permet, de manière indépendante :\n•\tDe vérifier, sur le périmètre défini, l’atteinte des objectifs fixés par la réglementation via \no\tLa conformité aux présentes mesures, ou \no\tLa mise en œuvre de mesures alternatives ; et\n•\tD’évaluer le niveau de sécurité du ou des systèmes d’information couverts au regard des menaces et des vulnérabilités connues."
+    },
+    {
+      "ref": "17.3",
+      "theme": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "mesure": "Sans préjudice d’autres obligations légales et réglementaires, l’audit de sécurité comprend au minimum une activité parmi les suivantes : un test",
+      "mesure_en": "Sans préjudice d’autres obligations légales et réglementaires, l’audit de sécurité comprend au minimum une activité parmi les suivantes : un test",
+      "description": "Sans préjudice d’autres obligations légales et réglementaires, l’audit de sécurité comprend au minimum une activité parmi les suivantes : un test d’intrusion (couvrant au minimum les interfaces exposées à des systèmes sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité ainsi qu’à des systèmes d’information tiers), un audit de configuration, un audit d’architecture, un audit organisationnel et physique et, lorsque cela est pertinent, un audit de code.",
+      "description_en": "Sans préjudice d’autres obligations légales et réglementaires, l’audit de sécurité comprend au minimum une activité parmi les suivantes : un test d’intrusion (couvrant au minimum les interfaces exposées à des systèmes sous la responsabilité de l’entité pour lesquels elle a décidé de ne pas appliquer les objectifs de sécurité ainsi qu’à des systèmes d’information tiers), un audit de configuration, un audit d’architecture, un audit organisationnel et physique et, lorsque cela est pertinent, un audit de code."
+    },
+    {
+      "ref": "17.4",
+      "theme": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "mesure": "Le rapport de l’audit de sécurité présente :\n•\tUne synthèse de la conformité aux présentes mesures ou aux mesures définies par l’entité pour",
+      "mesure_en": "Le rapport de l’audit de sécurité présente :\n•\tUne synthèse de la conformité aux présentes mesures ou aux mesures définies par l’entité pour",
+      "description": "Le rapport de l’audit de sécurité présente :\n•\tUne synthèse de la conformité aux présentes mesures ou aux mesures définies par l’entité pour atteindre les objectifs fixés par la réglementation et du niveau de sécurité des systèmes d’information audités ;\n•\tLes constats de non-conformité et les vulnérabilités identifiées ;\n•\tLes recommandations pour y remédier.",
+      "description_en": "Le rapport de l’audit de sécurité présente :\n•\tUne synthèse de la conformité aux présentes mesures ou aux mesures définies par l’entité pour atteindre les objectifs fixés par la réglementation et du niveau de sécurité des systèmes d’information audités ;\n•\tLes constats de non-conformité et les vulnérabilités identifiées ;\n•\tLes recommandations pour y remédier."
+    },
+    {
+      "ref": "17.5",
+      "theme": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 17: Audit de la sécurité des systèmes d'information",
+      "mesure": "L’entité définit et met en œuvre un plan d’action visant à corriger les non-conformités et les vulnérabilités identifiées.\nCe plan d’action prévoit,",
+      "mesure_en": "L’entité définit et met en œuvre un plan d’action visant à corriger les non-conformités et les vulnérabilités identifiées.\nCe plan d’action prévoit,",
+      "description": "L’entité définit et met en œuvre un plan d’action visant à corriger les non-conformités et les vulnérabilités identifiées.\nCe plan d’action prévoit, au minimum, une échéance raisonnable et un responsable pour la réalisation de chaque action.",
+      "description_en": "L’entité définit et met en œuvre un plan d’action visant à corriger les non-conformités et les vulnérabilités identifiées.\nCe plan d’action prévoit, au minimum, une échéance raisonnable et un responsable pour la réalisation de chaque action."
+    },
+    {
+      "ref": "18.1",
+      "theme": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "theme_en": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "mesure": "L’entité n’installe et ne conserve sur ses systèmes d’information que les ressources logicielles nécessaires à la réalisation de ses activités et",
+      "mesure_en": "L’entité n’installe et ne conserve sur ses systèmes d’information que les ressources logicielles nécessaires à la réalisation de ses activités et",
+      "description": "L’entité n’installe et ne conserve sur ses systèmes d’information que les ressources logicielles nécessaires à la réalisation de ses activités et services ou au maintien en condition opérationnelle ou de sécurité de ses systèmes d’information (par exemple : utilisation d’un modèle de configuration centralisé (master) contenant exclusivement les logiciels/services strictement nécessaires aux besoins métiers et d’administration).",
+      "description_en": "L’entité n’installe et ne conserve sur ses systèmes d’information que les ressources logicielles nécessaires à la réalisation de ses activités et services ou au maintien en condition opérationnelle ou de sécurité de ses systèmes d’information (par exemple : utilisation d’un modèle de configuration centralisé (master) contenant exclusivement les logiciels/services strictement nécessaires aux besoins métiers et d’administration)."
+    },
+    {
+      "ref": "18.2",
+      "theme": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "theme_en": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de désactiver ou désinstaller une ressource logicielle, l’entité met en œuvre des",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de désactiver ou désinstaller une ressource logicielle, l’entité met en œuvre des",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de désactiver ou désinstaller une ressource logicielle, l’entité met en œuvre des mesures permettant de réduire le risque associé.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de désactiver ou désinstaller une ressource logicielle, l’entité met en œuvre des mesures permettant de réduire le risque associé."
+    },
+    {
+      "ref": "18.3",
+      "theme": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "theme_en": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "mesure": "L’entité configure les ressources de ses systèmes d’information de manière sécurisée en s’appuyant sur les recommandations de l’éditeur de la",
+      "mesure_en": "L’entité configure les ressources de ses systèmes d’information de manière sécurisée en s’appuyant sur les recommandations de l’éditeur de la",
+      "description": "L’entité configure les ressources de ses systèmes d’information de manière sécurisée en s’appuyant sur les recommandations de l’éditeur de la fonctionnalité, du fabricant de la ressource ou de l’autorité nationale de sécurité des systèmes d’information.",
+      "description_en": "L’entité configure les ressources de ses systèmes d’information de manière sécurisée en s’appuyant sur les recommandations de l’éditeur de la fonctionnalité, du fabricant de la ressource ou de l’autorité nationale de sécurité des systèmes d’information."
+    },
+    {
+      "ref": "18.4",
+      "theme": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "theme_en": "Objectif de sécurité 18: Sécurisation de la configuration des ressources des systèmes d'information",
+      "mesure": "L’entité effectue annuellement une revue de configuration des ressources de ses systèmes d’information pour vérifier l’application des mesures",
+      "mesure_en": "L’entité effectue annuellement une revue de configuration des ressources de ses systèmes d’information pour vérifier l’application des mesures",
+      "description": "L’entité effectue annuellement une revue de configuration des ressources de ses systèmes d’information pour vérifier l’application des mesures précédentes. Il est recommandé que cette revue s’appuie sur un ou des outils automatisés (par exemple : scan de port et de vulnérabilité, revue (manuel ou automatique) des configurations des pares-feux par rapport aux matrices de flux).",
+      "description_en": "L’entité effectue annuellement une revue de configuration des ressources de ses systèmes d’information pour vérifier l’application des mesures précédentes. Il est recommandé que cette revue s’appuie sur un ou des outils automatisés (par exemple : scan de port et de vulnérabilité, revue (manuel ou automatique) des configurations des pares-feux par rapport aux matrices de flux)."
+    },
+    {
+      "ref": "19.1",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les actions d’administration sont effectuées au moyen d’un réseau d’administration dédié.",
+      "mesure_en": "Les actions d’administration sont effectuées au moyen d’un réseau d’administration dédié.",
+      "description": "Les actions d’administration sont effectuées au moyen d’un réseau d’administration dédié.",
+      "description_en": "Les actions d’administration sont effectuées au moyen d’un réseau d’administration dédié."
+    },
+    {
+      "ref": "19.2",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les ressources des réseaux d'administration sont gérées et configurées par l’entité ou par le prestataire qu'elle a mandaté pour réaliser les actions",
+      "mesure_en": "Les ressources des réseaux d'administration sont gérées et configurées par l’entité ou par le prestataire qu'elle a mandaté pour réaliser les actions",
+      "description": "Les ressources des réseaux d'administration sont gérées et configurées par l’entité ou par le prestataire qu'elle a mandaté pour réaliser les actions d'administration.",
+      "description_en": "Les ressources des réseaux d'administration sont gérées et configurées par l’entité ou par le prestataire qu'elle a mandaté pour réaliser les actions d'administration."
+    },
+    {
+      "ref": "19.3",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les ressources matérielles des réseaux d’administration sont utilisées exclusivement pour réaliser des actions d’administration.",
+      "mesure_en": "Les ressources matérielles des réseaux d’administration sont utilisées exclusivement pour réaliser des actions d’administration.",
+      "description": "Les ressources matérielles des réseaux d’administration sont utilisées exclusivement pour réaliser des actions d’administration.",
+      "description_en": "Les ressources matérielles des réseaux d’administration sont utilisées exclusivement pour réaliser des actions d’administration."
+    },
+    {
+      "ref": "19.4",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Le poste physique utilisé pour effectuer des actions d'administration est utilisé exclusivement pour réaliser des actions d’administration.",
+      "mesure_en": "Le poste physique utilisé pour effectuer des actions d'administration est utilisé exclusivement pour réaliser des actions d’administration.",
+      "description": "Le poste physique utilisé pour effectuer des actions d'administration est utilisé exclusivement pour réaliser des actions d’administration.",
+      "description_en": "Le poste physique utilisé pour effectuer des actions d'administration est utilisé exclusivement pour réaliser des actions d’administration."
+    },
+    {
+      "ref": "19.5",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "La connexion des administrateurs à un réseau d’administration s’effectue au moyen d’un poste physique utilisé exclusivement pour des actions",
+      "mesure_en": "La connexion des administrateurs à un réseau d’administration s’effectue au moyen d’un poste physique utilisé exclusivement pour des actions",
+      "description": "La connexion des administrateurs à un réseau d’administration s’effectue au moyen d’un poste physique utilisé exclusivement pour des actions d’administration.",
+      "description_en": "La connexion des administrateurs à un réseau d’administration s’effectue au moyen d’un poste physique utilisé exclusivement pour des actions d’administration."
+    },
+    {
+      "ref": "19.6",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de dédier le poste de travail physique de l'administrateur pour les actions",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de dédier le poste de travail physique de l'administrateur pour les actions",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de dédier le poste de travail physique de l'administrateur pour les actions d'administration, l’entité met en œuvre des mesures de durcissement et de cloisonnement du système d'exploitation du poste de travail permettant d'isoler le système d’exploitation utilisé pour les actions d'administration du système d’exploitation utilisé pour les autres actions. Ces mesures sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information, y compris les recommandations alternatives.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de dédier le poste de travail physique de l'administrateur pour les actions d'administration, l’entité met en œuvre des mesures de durcissement et de cloisonnement du système d'exploitation du poste de travail permettant d'isoler le système d’exploitation utilisé pour les actions d'administration du système d’exploitation utilisé pour les autres actions. Ces mesures sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information, y compris les recommandations alternatives."
+    },
+    {
+      "ref": "19.7",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les réseaux d'administration sont connectés aux ressources du système d’information à administrer au travers d'une liaison réseau physique utilisée",
+      "mesure_en": "Les réseaux d'administration sont connectés aux ressources du système d’information à administrer au travers d'une liaison réseau physique utilisée",
+      "description": "Les réseaux d'administration sont connectés aux ressources du système d’information à administrer au travers d'une liaison réseau physique utilisée exclusivement pour les actions d'administration. Ces ressources sont administrées au travers de leur interface d'administration physique.",
+      "description_en": "Les réseaux d'administration sont connectés aux ressources du système d’information à administrer au travers d'une liaison réseau physique utilisée exclusivement pour les actions d'administration. Ces ressources sont administrées au travers de leur interface d'administration physique."
+    },
+    {
+      "ref": "19.8",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les modalités de cloisonnement et de filtrage du réseau d’administration respectent les modalités de cloisonnement et de filtrage mis en œuvre entre",
+      "mesure_en": "Les modalités de cloisonnement et de filtrage du réseau d’administration respectent les modalités de cloisonnement et de filtrage mis en œuvre entre",
+      "description": "Les modalités de cloisonnement et de filtrage du réseau d’administration respectent les modalités de cloisonnement et de filtrage mis en œuvre entre et au sein des systèmes d’information (par exemple : deux machines ne pouvant pas communiquer au travers des systèmes d’information ne peuvent pas communiquer au travers du réseau d’administration).",
+      "description_en": "Les modalités de cloisonnement et de filtrage du réseau d’administration respectent les modalités de cloisonnement et de filtrage mis en œuvre entre et au sein des systèmes d’information (par exemple : deux machines ne pouvant pas communiquer au travers des systèmes d’information ne peuvent pas communiquer au travers du réseau d’administration)."
+    },
+    {
+      "ref": "19.9",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d'administrer une ressource au travers d'une liaison réseau physique ou de son",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d'administrer une ressource au travers d'une liaison réseau physique ou de son",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d'administrer une ressource au travers d'une liaison réseau physique ou de son interface d'administration physique, l’entité met en œuvre des mesures de réduction du risque telles que des mesures de sécurité logique. Ces mesures sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information y compris les recommandations alternatives.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas d'administrer une ressource au travers d'une liaison réseau physique ou de son interface d'administration physique, l’entité met en œuvre des mesures de réduction du risque telles que des mesures de sécurité logique. Ces mesures sont conformes aux recommandations de l’autorité nationale de sécurité des systèmes d’information y compris les recommandations alternatives."
+    },
+    {
+      "ref": "19.10",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les communications associées à des actions d’administration sont protégées par des mécanismes de chiffrement et d’authentification conformes à l’état",
+      "mesure_en": "Les communications associées à des actions d’administration sont protégées par des mécanismes de chiffrement et d’authentification conformes à l’état",
+      "description": "Les communications associées à des actions d’administration sont protégées par des mécanismes de chiffrement et d’authentification conformes à l’état de l'art tel que recommandé par l’autorité nationale de sécurité des systèmes d’information (par exemple : en utilisant des protocoles sécurisés garantissant l’authentification de l’administrateur, l’intégrité et la confidentialité des messages).",
+      "description_en": "Les communications associées à des actions d’administration sont protégées par des mécanismes de chiffrement et d’authentification conformes à l’état de l'art tel que recommandé par l’autorité nationale de sécurité des systèmes d’information (par exemple : en utilisant des protocoles sécurisés garantissant l’authentification de l’administrateur, l’intégrité et la confidentialité des messages)."
+    },
+    {
+      "ref": "19.11",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Les communications associées à des actions d’administration qui transitent sur des réseaux non dédiés à ces communications sont cloisonnées au moyen",
+      "mesure_en": "Les communications associées à des actions d’administration qui transitent sur des réseaux non dédiés à ces communications sont cloisonnées au moyen",
+      "description": "Les communications associées à des actions d’administration qui transitent sur des réseaux non dédiés à ces communications sont cloisonnées au moyen de mécanismes de chiffrement et d’authentification conformes aux mesures recommandées par l’autorité nationale de sécurité des systèmes d’information (par exemple : au travers de tunnels VPN).",
+      "description_en": "Les communications associées à des actions d’administration qui transitent sur des réseaux non dédiés à ces communications sont cloisonnées au moyen de mécanismes de chiffrement et d’authentification conformes aux mesures recommandées par l’autorité nationale de sécurité des systèmes d’information (par exemple : au travers de tunnels VPN)."
+    },
+    {
+      "ref": "19.12",
+      "theme": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "theme_en": "Objectif de sécurité 19: Administration des systèmes d'information depuis des ressources dédiées",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de recourir à des mécanismes de chiffrement ou d’authentification de ces",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de recourir à des mécanismes de chiffrement ou d’authentification de ces",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de recourir à des mécanismes de chiffrement ou d’authentification de ces communications, l’entité met en œuvre des mesures permettant de protéger la confidentialité et l’intégrité de ces flux et de renforcer le contrôle et la traçabilité des actions d’administration.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de recourir à des mécanismes de chiffrement ou d’authentification de ces communications, l’entité met en œuvre des mesures permettant de protéger la confidentialité et l’intégrité de ces flux et de renforcer le contrôle et la traçabilité des actions d’administration."
+    },
+    {
+      "ref": "20.1",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "L’entité s’assure que les équipes en charge de l’activité de supervision de sécurité dimensionnent et opèrent le système d’information supportant",
+      "mesure_en": "L’entité s’assure que les équipes en charge de l’activité de supervision de sécurité dimensionnent et opèrent le système d’information supportant",
+      "description": "L’entité s’assure que les équipes en charge de l’activité de supervision de sécurité dimensionnent et opèrent le système d’information supportant l’activité de supervision de sécurité en adéquation avec leur capacité opérationnelle, afin de prendre en compte les journaux et les évènements de sécurité, sans retard injustifié et au maximum sous 24h ouvrés (Par exemple : l’ensemble des évènements de sécurité issus de l’EDR).",
+      "description_en": "L’entité s’assure que les équipes en charge de l’activité de supervision de sécurité dimensionnent et opèrent le système d’information supportant l’activité de supervision de sécurité en adéquation avec leur capacité opérationnelle, afin de prendre en compte les journaux et les évènements de sécurité, sans retard injustifié et au maximum sous 24h ouvrés (Par exemple : l’ensemble des évènements de sécurité issus de l’EDR)."
+    },
+    {
+      "ref": "20.2",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "L’entité élabore et met en œuvre une démarche d’amélioration continue de son activité de supervision de sécurité, afin d’améliorer la couverture des",
+      "mesure_en": "L’entité élabore et met en œuvre une démarche d’amélioration continue de son activité de supervision de sécurité, afin d’améliorer la couverture des",
+      "description": "L’entité élabore et met en œuvre une démarche d’amélioration continue de son activité de supervision de sécurité, afin d’améliorer la couverture des scénarios de menaces identifiés à l’occasion de l’analyse de risque prévue à l’objectif de sécurité 16, et l’efficacité de la supervision de sécurité, en accord avec les dispositions prévues 20.1-EE (par exemple : augmentation des sources de collecte, amélioration des processus de traitements, augmentation des capacités de traitement, centralisation des journaux et des évènements de sécurité, mise en place de corrélation, prise en compte de scénarios de menace supplémentaires).",
+      "description_en": "L’entité élabore et met en œuvre une démarche d’amélioration continue de son activité de supervision de sécurité, afin d’améliorer la couverture des scénarios de menaces identifiés à l’occasion de l’analyse de risque prévue à l’objectif de sécurité 16, et l’efficacité de la supervision de sécurité, en accord avec les dispositions prévues 20.1-EE (par exemple : augmentation des sources de collecte, amélioration des processus de traitements, augmentation des capacités de traitement, centralisation des journaux et des évènements de sécurité, mise en place de corrélation, prise en compte de scénarios de menace supplémentaires)."
+    },
+    {
+      "ref": "20.3",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "L’entité ou le prestataire qu’elle a mandaté à cet effet maîtrise l’architecture et la configuration du système d’information supportant l’activité",
+      "mesure_en": "L’entité ou le prestataire qu’elle a mandaté à cet effet maîtrise l’architecture et la configuration du système d’information supportant l’activité",
+      "description": "L’entité ou le prestataire qu’elle a mandaté à cet effet maîtrise l’architecture et la configuration du système d’information supportant l’activité de supervision de sécurité (par exemple : Le système peut être composé d’une ou plusieurs des chaînes suivantes : collecte, analyse, investigation, signalement).",
+      "description_en": "L’entité ou le prestataire qu’elle a mandaté à cet effet maîtrise l’architecture et la configuration du système d’information supportant l’activité de supervision de sécurité (par exemple : Le système peut être composé d’une ou plusieurs des chaînes suivantes : collecte, analyse, investigation, signalement)."
+    },
+    {
+      "ref": "20.4",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "En lien avec la démarche d’amélioration continue, l’entité collecte les données de supervision et les évènements de sécurité utiles à la détection",
+      "mesure_en": "En lien avec la démarche d’amélioration continue, l’entité collecte les données de supervision et les évènements de sécurité utiles à la détection",
+      "description": "En lien avec la démarche d’amélioration continue, l’entité collecte les données de supervision et les évènements de sécurité utiles à la détection des scénarios principaux de menaces, conformément à la disposition prévue en 20.1-EE. Les journaux et évènements reflètent, la variété des activités du système d’information associées (par exemple : réseau, système, applicatif, utilisateur).",
+      "description_en": "En lien avec la démarche d’amélioration continue, l’entité collecte les données de supervision et les évènements de sécurité utiles à la détection des scénarios principaux de menaces, conformément à la disposition prévue en 20.1-EE. Les journaux et évènements reflètent, la variété des activités du système d’information associées (par exemple : réseau, système, applicatif, utilisateur)."
+    },
+    {
+      "ref": "20.5",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "L’entité s’assure que les données de supervision et les événements de sécurité sont conservés pour une durée d'au moins trois mois, sans préjudice",
+      "mesure_en": "L’entité s’assure que les données de supervision et les événements de sécurité sont conservés pour une durée d'au moins trois mois, sans préjudice",
+      "description": "L’entité s’assure que les données de supervision et les événements de sécurité sont conservés pour une durée d'au moins trois mois, sans préjudice d’autres obligations légales et réglementaires (par exemple : le règlement général sur la protection des données à caractère personnel).",
+      "description_en": "L’entité s’assure que les données de supervision et les événements de sécurité sont conservés pour une durée d'au moins trois mois, sans préjudice d’autres obligations légales et réglementaires (par exemple : le règlement général sur la protection des données à caractère personnel)."
+    },
+    {
+      "ref": "20.6",
+      "theme": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "theme_en": "Objectif de sécurité 20: Supervision de la sécurité des systèmes d'information",
+      "mesure": "Les données de supervision et les événements de sécurité sont protégés d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne",
+      "mesure_en": "Les données de supervision et les événements de sécurité sont protégés d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne",
+      "description": "Les données de supervision et les événements de sécurité sont protégés d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel).",
+      "description_en": "Les données de supervision et les événements de sécurité sont protégés d’un incident les rendant inexploitables (par exemple : le stockage hors-ligne pour répondre à un incident de type rançongiciel)."
+    }
+  ]
+}

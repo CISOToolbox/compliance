@@ -1,0 +1,74 @@
+{
+  "anssi": {
+    "label": "ANSSI Hygiène",
+    "description": "Renforcer la sécurité de son système d’information en 42 mesures\n https://cyber.gouv.fr/sites/default/files/2017/01/guide_hygiene_informatique_anssi.pdf",
+    "description_en": "Strengthen Information System Security in 42 Measures\nhttps://cyber.gouv.fr/sites/default/files/2013/01/guideline-for-a-healthy-information-system-in-42-measures_v2.pdf",
+    "color": "#cf4520"
+  },
+  "iso": {
+    "label": "ISO 27001:2022",
+    "description": "Sécurité de l'information, cybersécurité et protection de la vie privée — Information système de management de la sécurité — Exigences",
+    "description_en": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+    "color": "#2563eb"
+  },
+  "soc2": {
+    "label": "SOC 2",
+    "description": "TSP Section 100\n2017 Trust Services Criteria for Security, Availability, Processing Integrity, Confidentiality, and Privacy (with Revised Points of Focus – 2022)\n\nTSC presents control criteria established by the AICPA’s Assurance Services Executive Committee (ASEC) for use in attestation or consulting engagements to evaluate and report on controls over the security, availability, processing integrity, confidentiality, or privacy of information and systems used to provide products or services (a) across an entire entity; (b) at a subsidiary, division, or operating unit level; (c) within a function relevant to the entity’s operational, reporting, or compliance objectives; and (d) for a particular type of information used by the entity. Link: https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022",
+    "description_en": "TSP Section 100\n2017 Trust Services Criteria for Security, Availability, Processing Integrity, Confidentiality, and Privacy (with Revised Points of Focus – 2022)\n\nTSC presents control criteria established by the AICPA’s Assurance Services Executive Committee (ASEC) for use in attestation or consulting engagements to evaluate and report on controls over the security, availability, processing integrity, confidentiality, or privacy of information and systems used to provide products or services (a) across an entire entity; (b) at a subsidiary, division, or operating unit level; (c) within a function relevant to the entity’s operational, reporting, or compliance objectives; and (d) for a particular type of information used by the entity. Link: https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022",
+    "color": "#0e7490"
+  },
+  "secnumcloud": {
+    "label": "SecNumCloud",
+    "description": "Premier ministre\nAgence nationale de la sécurité des systèmes d’information\nPrestataires de services d’informatique en nuage (SecNumCloud)\nréférentiel d’exigences\nVersion 3.2 du 8 mars 202",
+    "description_en": "Premier ministre\nAgence nationale de la sécurité des systèmes d’information\nPrestataires de services d’informatique en nuage (SecNumCloud)\nréférentiel d’exigences\nVersion 3.2 du 8 mars 202",
+    "color": "#dc2626"
+  },
+  "lpm": {
+    "label": "LPM",
+    "description": "RÈGLES DE SÉCURITÉ RELATIVES AU SECTEUR D'ACTIVITÉS D'IMPORTANCE VITALE \" ACTIVITÉS CIVILES DE L'ÉTAT \"\nArrêté du 29 mai 2019 fixant les règles de sécurité et les modalités de déclaration des systèmes d'information d'importance vitale et des incidents de sécurité relatives au secteur d'activités d'importance vitale « Activités civiles de l'Etat » et pris en application des articles R. 1332-41-1, R. 1332-41-2 et R. 1332-41-10 du code de la défense\nhttps://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038565011",
+    "description_en": "RÈGLES DE SÉCURITÉ RELATIVES AU SECTEUR D'ACTIVITÉS D'IMPORTANCE VITALE \" ACTIVITÉS CIVILES DE L'ÉTAT \"\nArrêté du 29 mai 2019 fixant les règles de sécurité et les modalités de déclaration des systèmes d'information d'importance vitale et des incidents de sécurité relatives au secteur d'activités d'importance vitale « Activités civiles de l'Etat » et pris en application des articles R. 1332-41-1, R. 1332-41-2 et R. 1332-41-10 du code de la défense\nhttps://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038565011",
+    "color": "#1e3a5f"
+  },
+  "loi0520": {
+    "label": "Loi 05-20 (Maroc)",
+    "description": "Loi n° 05-20 fixant le cadre législatif de la cybersécurité au Maroc",
+    "description_en": "Loi n° 05-20 fixant le cadre législatif de la cybersécurité au Maroc",
+    "color": "#b45309"
+  },
+  "hds": {
+    "label": "HDS",
+    "description": "Référentiel de certification Hébergeur de données de santé (HDS) - Exigences\nVersion publiée par l’arrêté du 26 avril 2024 portant approbation du référentiel d'accréditation des organismes de certification et du référentiel de certification pour l'hébergement de données de santé à caractère personnel.",
+    "description_en": "Référentiel de certification Hébergeur de données de santé (HDS) - Exigences\nVersion publiée par l’arrêté du 26 avril 2024 portant approbation du référentiel d'accréditation des organismes de certification et du référentiel de certification pour l'hébergement de données de santé à caractère personnel.",
+    "color": "#7c3aed"
+  },
+  "nis2": {
+    "label": "NIS 2",
+    "description": "Article 21 de la directive (UE) 2022/2555 du Parlement européen et du Conseil du 14 décembre 2022 concernant des mesures destinées à assurer un niveau élevé commun de cybersécurité dans l’ensemble de l’Union, modifiant le règlement (UE) no 910/2014 et la directive (UE) 2018/1972, et abrogeant la directive (UE) 2016/1148 (directive SRI 2) (Texte présentant de l’intérêt pour l’EEE)",
+    "description_en": "Requirements from article 21 of directive 2022/2555 of the european parliament and of the council of 14 December 2022 on measures for a high common level of cybersecurity across the Union.",
+    "color": "#7c3aed"
+  },
+  "recyf": {
+    "label": "ReCyF (NIS2)",
+    "description": "RECYF constitue le référentiel de cybersécurité mentionné au 6ème alinéa de l’article 14 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (PJL). Il se compose d’objectifs de sécurité et, pour chacun d’eux, de moyens acceptables de conformité.",
+    "description_en": "RECYF constitue le référentiel de cybersécurité mentionné au 6ème alinéa de l’article 14 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (PJL). Il se compose d’objectifs de sécurité et, pour chacun d’eux, de moyens acceptables de conformité.",
+    "color": "#047857"
+  },
+  "cra": {
+    "label": "Cyber Resilience Act",
+    "description": "Annexes to the REGULATION (EU) 2024/2847 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 23 October 2024 on horizontal cybersecurity requirements for products with digital elements and amending Regulations (EU) No 168/2013 and (EU) No 2019/1020 and Directive (EU) 2020/1828 (Cyber Resilience Act)",
+    "description_en": "Annexes to the REGULATION (EU) 2024/2847 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 23 October 2024 on horizontal cybersecurity requirements for products with digital elements and amending Regulations (EU) No 168/2013 and (EU) No 2019/1020 and Directive (EU) 2020/1828 (Cyber Resilience Act)",
+    "color": "#c2410c"
+  },
+  "dora": {
+    "label": "DORA",
+    "description": "Digital Operational Resilience Act (UE 2022/2554) — résilience numérique du secteur financier (39 exigences par article)",
+    "description_en": "Digital Operational Resilience Act (EU 2022/2554) — digital resilience for the financial sector (39 article-level requirements)",
+    "color": "#3a7ca5"
+  },
+  "dora_detailed": {
+    "label": "DORA (détaillé)",
+    "description": "Digital Operational Resilience Act (UE 2022/2554) — 211 exigences au niveau paragraphe",
+    "description_en": "Digital Operational Resilience Act (EU 2022/2554) — 211 paragraph-level requirements",
+    "color": "#3a7ca5"
+  }
+}

@@ -1,0 +1,7032 @@
+{
+  "source": "soc2",
+  "target": "iso",
+  "description": "Mapping SOC2 2017 rev 2022 -> ISO 27001:2022",
+  "rules": [
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.5.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.1",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.2",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.3",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.4",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.7.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.3.1",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.3.2",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.1.1",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.1.2",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.1.3",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.8.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.3.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.3.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.1",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.2",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.3",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.4",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.5",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.1",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.2",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.3",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.4",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.5",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.1",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.2",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.3",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.4",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.5",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.1",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.2",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.3",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.4",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.5",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.32",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C6.5.1",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.5.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C6.5.1",
+      "target_ref": "A.7.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C6.5.1",
+      "target_ref": "A.8.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.2.1",
+      "target_ref": "A.7.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.2.1",
+      "target_ref": "A.8.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.2.2",
+      "target_ref": "A.7.14",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.2.2",
+      "target_ref": "A.8.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.1.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.1.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.1.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.1.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.1.5",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.1",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.1",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.2",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.2",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.3",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.3",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.4",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.2.4",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.1",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.1",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.2",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.2",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.3",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.3",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.1",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.1",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.2",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.2",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.3",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.3",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.4",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.4",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.1",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.2",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.2.3",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.1",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.2",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.3",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.3.4",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.1",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.2",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.3",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.7.4",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.1",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.1",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.1",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.2",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.2",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.2",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.3",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.3",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.3",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.4",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.4",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.4",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.5",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.5",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.5",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.6",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.6",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.6",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.7",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.7",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.7",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.8",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.8",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.8",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.9",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.9",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.9",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.10",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.10",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.10",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.11",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.11",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.11",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.12",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.12",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.12",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.13",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.13",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.13",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.14",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.14",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.14",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.1",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.2",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.3",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.4",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.5",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.5.6",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.1",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.1",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.2",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.2",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.3",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.3",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.4",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.4",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.5",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.5",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.6",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.6",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.7",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.7",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.8",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.8",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.9",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.9",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.10",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.10",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.11",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.11",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.12",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.12",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.13",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.13",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.14",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.4.14",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.1",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.2",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.3",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.4",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.5",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.6",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.7",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.8",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.9",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.10",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.11",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.3.12",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.6.1",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.6.2",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.6.3",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.6.4",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.1",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.2",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.3",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.4",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.5",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.6",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.7",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.8",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.9",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.10",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.11",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.12",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.1.13",
+      "target_ref": "A.8.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.1",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.1",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.2",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.2",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.3",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.3",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.4",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.4",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.5",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.5",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.6",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.6",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.7",
+      "target_ref": "A.6.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.4.7",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.1",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.2",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.3",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.4",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.5",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.5",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.6",
+      "target_ref": "A.6.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.5.6",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.4",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.3.5",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.4",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.5",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.4.6",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "4.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.1.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.1",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.2",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.3",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.4",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.5",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.6",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.7",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.8",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.1.9",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.1",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.2",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "9.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.2.3",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.1",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.2",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.3",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.4",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.5",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC5.3.6",
+      "target_ref": "7.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.1",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.2",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.3",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.4",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.5",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.6",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.7",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.8",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.9",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.10",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.11",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.12",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.13",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.14",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.15",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "A.8.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "7.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.1.16",
+      "target_ref": "6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "4.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "7.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "9.3.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "9.3.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "9.3.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.1",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.2",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.3",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.4",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.5",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.6",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.7",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.8",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.9",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.10",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.11",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.12",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.13",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.14",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.15",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.16",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.17",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.5.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC8.1.18",
+      "target_ref": "A.8.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.1",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.1",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.2",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.2",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.3",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.3",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.4",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.4",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.5",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.5",
+      "target_ref": "A.5.33",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.1",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.2",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.3",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.4",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.5",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.1",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.2",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.3",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.4",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.1",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.2",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.3",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.4",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.5",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.6",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.3.7",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.1",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.2",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.3",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.2.4",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.7.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.1",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.2",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.3",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.4",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.5",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.6",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.7",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.8",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.9",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.10",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "A1.2.11",
+      "target_ref": "A.7.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.1",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.2",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.3",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.4",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.5",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.6",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.7",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.8",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.9",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.10",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.11",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.12",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC2.2.13",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.1",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.2",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.3",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.4",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.5",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.6",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.7",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC4.1.8",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.1",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.2",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.3",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.4.4",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.1",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.2",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.3",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.4",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.5",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.6",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.7",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.8",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.9",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.10",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.11",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.12",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.13",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.1",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.2",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.3",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.4",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.5",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.6",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.7",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.8",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.9",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.10",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.11",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.12",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC9.2.13",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.5",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC1.3.6",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.5.23",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "C1.1.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.1",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.2",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.3",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.4",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.5",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.6",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.7",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC3.2.8",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.1",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.2",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.3",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.4",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC7.1.5",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.1",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.2",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.3",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.4",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "CC6.8.5",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    }
+  ]
+}

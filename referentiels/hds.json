@@ -1,0 +1,649 @@
+{
+  "id": "hds",
+  "version": "2",
+  "label": "HDS",
+  "description": "Référentiel de certification Hébergeur de données de santé (HDS) - Exigences\nVersion publiée par l’arrêté du 26 avril 2024 portant approbation du référentiel d'accréditation des organismes de certification et du référentiel de certification pour l'hébergement de données de santé à caractère personnel.",
+  "description_en": "Référentiel de certification Hébergeur de données de santé (HDS) - Exigences\nVersion publiée par l’arrêté du 26 avril 2024 portant approbation du référentiel d'accréditation des organismes de certification et du référentiel de certification pour l'hébergement de données de santé à caractère personnel.",
+  "color": "#7c3aed",
+  "measures": [
+    {
+      "ref": "EXI-01.a",
+      "theme": "La certification d’un Hébergeur nécessite :",
+      "theme_en": "La certification d’un Hébergeur nécessite :",
+      "mesure": "Qu’il ait mis en œuvre un Système de Management de la Sécurité de l’Information (SMSI) certifié selon la norme ISO 27001, complétée des exigences",
+      "mesure_en": "Qu’il ait mis en œuvre un Système de Management de la Sécurité de l’Information (SMSI) certifié selon la norme ISO 27001, complétée des exigences",
+      "description": "Qu’il ait mis en œuvre un Système de Management de la Sécurité de l’Information (SMSI) certifié selon la norme ISO 27001, complétée des exigences définies au chapitre 5 (exigences 02 à 16) ;",
+      "description_en": "Qu’il ait mis en œuvre un Système de Management de la Sécurité de l’Information (SMSI) certifié selon la norme ISO 27001, complétée des exigences définies au chapitre 5 (exigences 02 à 16) ;"
+    },
+    {
+      "ref": "EXI-01.b",
+      "theme": "La certification d’un Hébergeur nécessite :",
+      "theme_en": "La certification d’un Hébergeur nécessite :",
+      "mesure": "Que le domaine d’application de ce SMSI couvre l’ensemble des activités d’hébergement de données de santé de l’Hébergeur ;",
+      "mesure_en": "Que le domaine d’application de ce SMSI couvre l’ensemble des activités d’hébergement de données de santé de l’Hébergeur ;",
+      "description": "Que le domaine d’application de ce SMSI couvre l’ensemble des activités d’hébergement de données de santé de l’Hébergeur ;",
+      "description_en": "Que le domaine d’application de ce SMSI couvre l’ensemble des activités d’hébergement de données de santé de l’Hébergeur ;"
+    },
+    {
+      "ref": "EXI-01.c",
+      "theme": "La certification d’un Hébergeur nécessite :",
+      "theme_en": "La certification d’un Hébergeur nécessite :",
+      "mesure": "Que les contrats conclus avec ses clients répondent aux exigences définies au chapitre 6 (exigences 17 à 27) ;",
+      "mesure_en": "Que les contrats conclus avec ses clients répondent aux exigences définies au chapitre 6 (exigences 17 à 27) ;",
+      "description": "Que les contrats conclus avec ses clients répondent aux exigences définies au chapitre 6 (exigences 17 à 27) ;",
+      "description_en": "Que les contrats conclus avec ses clients répondent aux exigences définies au chapitre 6 (exigences 17 à 27) ;"
+    },
+    {
+      "ref": "EXI-01.d",
+      "theme": "La certification d’un Hébergeur nécessite :",
+      "theme_en": "La certification d’un Hébergeur nécessite :",
+      "mesure": "Qu’il respecte les exigences relatives à la souveraineté définies au chapitre 7 (exigences 28 à 31) ;",
+      "mesure_en": "Qu’il respecte les exigences relatives à la souveraineté définies au chapitre 7 (exigences 28 à 31) ;",
+      "description": "Qu’il respecte les exigences relatives à la souveraineté définies au chapitre 7 (exigences 28 à 31) ;",
+      "description_en": "Qu’il respecte les exigences relatives à la souveraineté définies au chapitre 7 (exigences 28 à 31) ;"
+    },
+    {
+      "ref": "EXI-01.e",
+      "theme": "La certification d’un Hébergeur nécessite :",
+      "theme_en": "La certification d’un Hébergeur nécessite :",
+      "mesure": "Qu’il communique à ses clients la présentation des garanties formalisée conformément au chapitre 8.",
+      "mesure_en": "Qu’il communique à ses clients la présentation des garanties formalisée conformément au chapitre 8.",
+      "description": "Qu’il communique à ses clients la présentation des garanties formalisée conformément au chapitre 8.",
+      "description_en": "Qu’il communique à ses clients la présentation des garanties formalisée conformément au chapitre 8."
+    },
+    {
+      "ref": "EXI-02",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Dans la détermination de ses enjeux externes et internes, l’Hébergeur doit prendre en compte le fait que sa mission lui impose la protection des DSCP",
+      "mesure_en": "Dans la détermination de ses enjeux externes et internes, l’Hébergeur doit prendre en compte le fait que sa mission lui impose la protection des DSCP",
+      "description": "Dans la détermination de ses enjeux externes et internes, l’Hébergeur doit prendre en compte le fait que sa mission lui impose la protection des DSCP qui lui sont confiées par ses clients.",
+      "description_en": "Dans la détermination de ses enjeux externes et internes, l’Hébergeur doit prendre en compte le fait que sa mission lui impose la protection des DSCP qui lui sont confiées par ses clients."
+    },
+    {
+      "ref": "EXI-03",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Dans la détermination des exigences des parties intéressées, l’Hébergeur doit prendre en compte le cadre juridique applicable en matière de",
+      "mesure_en": "Dans la détermination des exigences des parties intéressées, l’Hébergeur doit prendre en compte le cadre juridique applicable en matière de",
+      "description": "Dans la détermination des exigences des parties intéressées, l’Hébergeur doit prendre en compte le cadre juridique applicable en matière de protection des DSCP.",
+      "description_en": "Dans la détermination des exigences des parties intéressées, l’Hébergeur doit prendre en compte le cadre juridique applicable en matière de protection des DSCP."
+    },
+    {
+      "ref": "EXI-04",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Le domaine d’application du SMSI doit comprendre l’ensemble des traitements de DSCP assurés par l’Hébergeur. Il doit couvrir tous les moyens et",
+      "mesure_en": "Le domaine d’application du SMSI doit comprendre l’ensemble des traitements de DSCP assurés par l’Hébergeur. Il doit couvrir tous les moyens et",
+      "description": "Le domaine d’application du SMSI doit comprendre l’ensemble des traitements de DSCP assurés par l’Hébergeur. Il doit couvrir tous les moyens et processus de traitement des DSCP, notamment les sauvegardes et les transferts de supports matériels de l’information.",
+      "description_en": "Le domaine d’application du SMSI doit comprendre l’ensemble des traitements de DSCP assurés par l’Hébergeur. Il doit couvrir tous les moyens et processus de traitement des DSCP, notamment les sauvegardes et les transferts de supports matériels de l’information."
+    },
+    {
+      "ref": "EXI-05.a",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "A. Défaillance des supports matériels de l’information due à des menaces physiques et environnementales.",
+      "mesure_en": "A. Défaillance des supports matériels de l’information due à des menaces physiques et environnementales.",
+      "description": "A. Défaillance des supports matériels de l’information due à des menaces physiques et environnementales.",
+      "description_en": "A. Défaillance des supports matériels de l’information due à des menaces physiques et environnementales."
+    },
+    {
+      "ref": "EXI-05.b",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "B. Perte de contrôle de supports matériels de l’information, notamment à l’occasion :",
+      "mesure_en": "B. Perte de contrôle de supports matériels de l’information, notamment à l’occasion :",
+      "description": "B. Perte de contrôle de supports matériels de l’information, notamment à l’occasion :",
+      "description_en": "B. Perte de contrôle de supports matériels de l’information, notamment à l’occasion :"
+    },
+    {
+      "ref": "EXI-05.c",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "a. De copie des DSCP sur des supports portables ;",
+      "mesure_en": "a. De copie des DSCP sur des supports portables ;",
+      "description": "a. De copie des DSCP sur des supports portables ;",
+      "description_en": "a. De copie des DSCP sur des supports portables ;"
+    },
+    {
+      "ref": "EXI-05.d",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "b. De matérialisation (éventuelle) sous format documents papier ;",
+      "mesure_en": "b. De matérialisation (éventuelle) sous format documents papier ;",
+      "description": "b. De matérialisation (éventuelle) sous format documents papier ;",
+      "description_en": "b. De matérialisation (éventuelle) sous format documents papier ;"
+    },
+    {
+      "ref": "EXI-05.e",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "c. De réallocation des espaces de stockage.",
+      "mesure_en": "c. De réallocation des espaces de stockage.",
+      "description": "c. De réallocation des espaces de stockage.",
+      "description_en": "c. De réallocation des espaces de stockage."
+    },
+    {
+      "ref": "EXI-05.f",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "C. Dégradation, compromission ou rupture d’un flux d’information interne ou externe sous la responsabilité de l’Hébergeur.",
+      "mesure_en": "C. Dégradation, compromission ou rupture d’un flux d’information interne ou externe sous la responsabilité de l’Hébergeur.",
+      "description": "C. Dégradation, compromission ou rupture d’un flux d’information interne ou externe sous la responsabilité de l’Hébergeur.",
+      "description_en": "C. Dégradation, compromission ou rupture d’un flux d’information interne ou externe sous la responsabilité de l’Hébergeur."
+    },
+    {
+      "ref": "EXI-05.g",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "D. Défaillance de la maîtrise des accès attribués, que ce soit aux personnels sous le contrôle de l’organisation ou à ceux désignés par ses clients :",
+      "mesure_en": "D. Défaillance de la maîtrise des accès attribués, que ce soit aux personnels sous le contrôle de l’organisation ou à ceux désignés par ses clients :",
+      "description": "D. Défaillance de la maîtrise des accès attribués, que ce soit aux personnels sous le contrôle de l’organisation ou à ceux désignés par ses clients :",
+      "description_en": "D. Défaillance de la maîtrise des accès attribués, que ce soit aux personnels sous le contrôle de l’organisation ou à ceux désignés par ses clients :"
+    },
+    {
+      "ref": "EXI-05.h",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "a. Attribution, modification et retrait des droits d’accès ;",
+      "mesure_en": "a. Attribution, modification et retrait des droits d’accès ;",
+      "description": "a. Attribution, modification et retrait des droits d’accès ;",
+      "description_en": "a. Attribution, modification et retrait des droits d’accès ;"
+    },
+    {
+      "ref": "EXI-05.i",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "b. Distribution des moyens d’identification électroniques ;",
+      "mesure_en": "b. Distribution des moyens d’identification électroniques ;",
+      "description": "b. Distribution des moyens d’identification électroniques ;",
+      "description_en": "b. Distribution des moyens d’identification électroniques ;"
+    },
+    {
+      "ref": "EXI-05.j",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "c. Traçabilité et imputabilité des accès ;",
+      "mesure_en": "c. Traçabilité et imputabilité des accès ;",
+      "description": "c. Traçabilité et imputabilité des accès ;",
+      "description_en": "c. Traçabilité et imputabilité des accès ;"
+    },
+    {
+      "ref": "EXI-05.k",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "d. Accès occasionnels lors des audits et tests d’intrusion.",
+      "mesure_en": "d. Accès occasionnels lors des audits et tests d’intrusion.",
+      "description": "d. Accès occasionnels lors des audits et tests d’intrusion.",
+      "description_en": "d. Accès occasionnels lors des audits et tests d’intrusion."
+    },
+    {
+      "ref": "EXI-05.l",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "E. Défaillance de la maîtrise des interventions, qu’elles soient à l’initiative de l’organisation ou commanditées par un client.",
+      "mesure_en": "E. Défaillance de la maîtrise des interventions, qu’elles soient à l’initiative de l’organisation ou commanditées par un client.",
+      "description": "E. Défaillance de la maîtrise des interventions, qu’elles soient à l’initiative de l’organisation ou commanditées par un client.",
+      "description_en": "E. Défaillance de la maîtrise des interventions, qu’elles soient à l’initiative de l’organisation ou commanditées par un client."
+    },
+    {
+      "ref": "EXI-05.m",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "F. Usages imprévus du service, par maladresse ou malveillance.",
+      "mesure_en": "F. Usages imprévus du service, par maladresse ou malveillance.",
+      "description": "F. Usages imprévus du service, par maladresse ou malveillance.",
+      "description_en": "F. Usages imprévus du service, par maladresse ou malveillance."
+    },
+    {
+      "ref": "EXI-05.n",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "G. Défaillances matérielles ou logicielles, avec incapacité à respecter les engagements de continuité ou de reprise d’activité.",
+      "mesure_en": "G. Défaillances matérielles ou logicielles, avec incapacité à respecter les engagements de continuité ou de reprise d’activité.",
+      "description": "G. Défaillances matérielles ou logicielles, avec incapacité à respecter les engagements de continuité ou de reprise d’activité.",
+      "description_en": "G. Défaillances matérielles ou logicielles, avec incapacité à respecter les engagements de continuité ou de reprise d’activité."
+    },
+    {
+      "ref": "EXI-05.o",
+      "theme": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "theme_en": "Lors de l’appréciation des risques, l’Hébergeur doit a minima envisager les événements suivants :",
+      "mesure": "H. Sujétion de l’Hébergeur ou des éventuels sous-traitants à des législations extra-européennes pouvant entrainer une violation des DSCP.",
+      "mesure_en": "H. Sujétion de l’Hébergeur ou des éventuels sous-traitants à des législations extra-européennes pouvant entrainer une violation des DSCP.",
+      "description": "H. Sujétion de l’Hébergeur ou des éventuels sous-traitants à des législations extra-européennes pouvant entrainer une violation des DSCP.",
+      "description_en": "H. Sujétion de l’Hébergeur ou des éventuels sous-traitants à des législations extra-européennes pouvant entrainer une violation des DSCP."
+    },
+    {
+      "ref": "EXI-06",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "En cas de recours à la sous-traitance, l’Hébergeur doit s’assurer qu’il maîtrise les changements des mesures techniques et organisationnelles de ses",
+      "mesure_en": "En cas de recours à la sous-traitance, l’Hébergeur doit s’assurer qu’il maîtrise les changements des mesures techniques et organisationnelles de ses",
+      "description": "En cas de recours à la sous-traitance, l’Hébergeur doit s’assurer qu’il maîtrise les changements des mesures techniques et organisationnelles de ses sous-traitants permettant de traiter les risques identifiés.",
+      "description_en": "En cas de recours à la sous-traitance, l’Hébergeur doit s’assurer qu’il maîtrise les changements des mesures techniques et organisationnelles de ses sous-traitants permettant de traiter les risques identifiés."
+    },
+    {
+      "ref": "EXI-07.a",
+      "theme": "Afin de réduire les risques d’usage imprévu du système, l’Hébergeur doit s’assurer que :",
+      "theme_en": "Afin de réduire les risques d’usage imprévu du système, l’Hébergeur doit s’assurer que :",
+      "mesure": "Les interfaces proposées aux clients sont disponibles au moins en langue française ;",
+      "mesure_en": "Les interfaces proposées aux clients sont disponibles au moins en langue française ;",
+      "description": "Les interfaces proposées aux clients sont disponibles au moins en langue française ;",
+      "description_en": "Les interfaces proposées aux clients sont disponibles au moins en langue française ;"
+    },
+    {
+      "ref": "EXI-07.b",
+      "theme": "Afin de réduire les risques d’usage imprévu du système, l’Hébergeur doit s’assurer que :",
+      "theme_en": "Afin de réduire les risques d’usage imprévu du système, l’Hébergeur doit s’assurer que :",
+      "mesure": "Le support de premier niveau est au moins en langue française.",
+      "mesure_en": "Le support de premier niveau est au moins en langue française.",
+      "description": "Le support de premier niveau est au moins en langue française.",
+      "description_en": "Le support de premier niveau est au moins en langue française."
+    },
+    {
+      "ref": "EXI-08",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "La déclaration d’applicabilité doit être disponible en langue française pour les auditeurs qui en feront la demande.",
+      "mesure_en": "La déclaration d’applicabilité doit être disponible en langue française pour les auditeurs qui en feront la demande.",
+      "description": "La déclaration d’applicabilité doit être disponible en langue française pour les auditeurs qui en feront la demande.",
+      "description_en": "La déclaration d’applicabilité doit être disponible en langue française pour les auditeurs qui en feront la demande."
+    },
+    {
+      "ref": "EXI-09",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Les objectifs de sécurité de l’information établis par l’Hébergeur doivent intégrer la protection des DSCP qui lui sont confiées par ses clients et",
+      "mesure_en": "Les objectifs de sécurité de l’information établis par l’Hébergeur doivent intégrer la protection des DSCP qui lui sont confiées par ses clients et",
+      "description": "Les objectifs de sécurité de l’information établis par l’Hébergeur doivent intégrer la protection des DSCP qui lui sont confiées par ses clients et comporter le respect des obligations du RGPD.",
+      "description_en": "Les objectifs de sécurité de l’information établis par l’Hébergeur doivent intégrer la protection des DSCP qui lui sont confiées par ses clients et comporter le respect des obligations du RGPD."
+    },
+    {
+      "ref": "EXI-10.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Les personnels travaillant pour l’Hébergeur doivent être sensibilisés à la criticité en termes de disponibilité, de confidentialité et d’intégrité",
+      "mesure_en": "Les personnels travaillant pour l’Hébergeur doivent être sensibilisés à la criticité en termes de disponibilité, de confidentialité et d’intégrité",
+      "description": "Les personnels travaillant pour l’Hébergeur doivent être sensibilisés à la criticité en termes de disponibilité, de confidentialité et d’intégrité des DSCP hébergées.",
+      "description_en": "Les personnels travaillant pour l’Hébergeur doivent être sensibilisés à la criticité en termes de disponibilité, de confidentialité et d’intégrité des DSCP hébergées."
+    },
+    {
+      "ref": "EXI-10.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Cette exigence s’applique également au personnel des sous-traitants éventuels de l’Hébergeur.",
+      "mesure_en": "Cette exigence s’applique également au personnel des sous-traitants éventuels de l’Hébergeur.",
+      "description": "Cette exigence s’applique également au personnel des sous-traitants éventuels de l’Hébergeur.",
+      "description_en": "Cette exigence s’applique également au personnel des sous-traitants éventuels de l’Hébergeur."
+    },
+    {
+      "ref": "EXI-11.a",
+      "theme": "L’Hébergeur doit :",
+      "theme_en": "L’Hébergeur doit :",
+      "mesure": "Maintenir une liste des points de contact pour chacun des clients. Ce point de contact doit être en mesure de désigner à l’Hébergeur un professionnel",
+      "mesure_en": "Maintenir une liste des points de contact pour chacun des clients. Ce point de contact doit être en mesure de désigner à l’Hébergeur un professionnel",
+      "description": "Maintenir une liste des points de contact pour chacun des clients. Ce point de contact doit être en mesure de désigner à l’Hébergeur un professionnel de santé habilité à accéder aux DSCP lorsque cela est nécessaire.",
+      "description_en": "Maintenir une liste des points de contact pour chacun des clients. Ce point de contact doit être en mesure de désigner à l’Hébergeur un professionnel de santé habilité à accéder aux DSCP lorsque cela est nécessaire."
+    },
+    {
+      "ref": "EXI-11.b",
+      "theme": "L’Hébergeur doit :",
+      "theme_en": "L’Hébergeur doit :",
+      "mesure": "Être en capacité de transmettre sans délai cette liste à l’autorité compétente sur demande, notamment en cas de suspension ou de retrait de la",
+      "mesure_en": "Être en capacité de transmettre sans délai cette liste à l’autorité compétente sur demande, notamment en cas de suspension ou de retrait de la",
+      "description": "Être en capacité de transmettre sans délai cette liste à l’autorité compétente sur demande, notamment en cas de suspension ou de retrait de la certification.",
+      "description_en": "Être en capacité de transmettre sans délai cette liste à l’autorité compétente sur demande, notamment en cas de suspension ou de retrait de la certification."
+    },
+    {
+      "ref": "EXI-12.a",
+      "theme": "L’Hébergeur doit communiquer à ses clients :",
+      "theme_en": "L’Hébergeur doit communiquer à ses clients :",
+      "mesure": "Une copie du certificat de conformité HDS. Cette copie constitue une garantie pour le Client de l’Hébergeur du respect des exigences de conformité ;",
+      "mesure_en": "Une copie du certificat de conformité HDS. Cette copie constitue une garantie pour le Client de l’Hébergeur du respect des exigences de conformité ;",
+      "description": "Une copie du certificat de conformité HDS. Cette copie constitue une garantie pour le Client de l’Hébergeur du respect des exigences de conformité ;",
+      "description_en": "Une copie du certificat de conformité HDS. Cette copie constitue une garantie pour le Client de l’Hébergeur du respect des exigences de conformité ;"
+    },
+    {
+      "ref": "EXI-12.b",
+      "theme": "L’Hébergeur doit communiquer à ses clients :",
+      "theme_en": "L’Hébergeur doit communiquer à ses clients :",
+      "mesure": "Le certificat de ses sous-traitants participant à l’activité d’hébergement lorsqu’ils sont certifiés HDS.",
+      "mesure_en": "Le certificat de ses sous-traitants participant à l’activité d’hébergement lorsqu’ils sont certifiés HDS.",
+      "description": "Le certificat de ses sous-traitants participant à l’activité d’hébergement lorsqu’ils sont certifiés HDS.",
+      "description_en": "Le certificat de ses sous-traitants participant à l’activité d’hébergement lorsqu’ils sont certifiés HDS."
+    },
+    {
+      "ref": "EXI-13",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L’Hébergeur doit planifier et contrôler la répartition des responsabilités en termes de sécurité de l’information entre l’Hébergeur et son client.",
+      "mesure_en": "L’Hébergeur doit planifier et contrôler la répartition des responsabilités en termes de sécurité de l’information entre l’Hébergeur et son client.",
+      "description": "L’Hébergeur doit planifier et contrôler la répartition des responsabilités en termes de sécurité de l’information entre l’Hébergeur et son client.",
+      "description_en": "L’Hébergeur doit planifier et contrôler la répartition des responsabilités en termes de sécurité de l’information entre l’Hébergeur et son client."
+    },
+    {
+      "ref": "EXI-14",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "En cas de recours à un sous-traitant certifié pour la réalisation de tout ou partie du service d’hébergement, l’Hébergeur doit prévoir une procédure",
+      "mesure_en": "En cas de recours à un sous-traitant certifié pour la réalisation de tout ou partie du service d’hébergement, l’Hébergeur doit prévoir une procédure",
+      "description": "En cas de recours à un sous-traitant certifié pour la réalisation de tout ou partie du service d’hébergement, l’Hébergeur doit prévoir une procédure permettant d’encadrer le risque de perte ou de suspension de la certification du sous-traitant.",
+      "description_en": "En cas de recours à un sous-traitant certifié pour la réalisation de tout ou partie du service d’hébergement, l’Hébergeur doit prévoir une procédure permettant d’encadrer le risque de perte ou de suspension de la certification du sous-traitant."
+    },
+    {
+      "ref": "EXI-15.a",
+      "theme": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "theme_en": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "mesure": "Si l’Hébergeur met à la disposition du client des ressources qui lui sont spécifiques, le client peut réaliser ou mandater des audits de sécurité",
+      "mesure_en": "Si l’Hébergeur met à la disposition du client des ressources qui lui sont spécifiques, le client peut réaliser ou mandater des audits de sécurité",
+      "description": "Si l’Hébergeur met à la disposition du client des ressources qui lui sont spécifiques, le client peut réaliser ou mandater des audits de sécurité technique sur ces seules ressources spécifiques. L’organisation assiste le client ou son intervenant mandaté dans le maintien de la sécurité de l’information durant ces audits ;",
+      "description_en": "Si l’Hébergeur met à la disposition du client des ressources qui lui sont spécifiques, le client peut réaliser ou mandater des audits de sécurité technique sur ces seules ressources spécifiques. L’organisation assiste le client ou son intervenant mandaté dans le maintien de la sécurité de l’information durant ces audits ;"
+    },
+    {
+      "ref": "EXI-15.b",
+      "theme": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "theme_en": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "mesure": "Sur demande du client, l’Hébergeur doit lui communiquer la synthèse managériale d’un rapport d’audit technique portant sur les ressources mutualisées",
+      "mesure_en": "Sur demande du client, l’Hébergeur doit lui communiquer la synthèse managériale d’un rapport d’audit technique portant sur les ressources mutualisées",
+      "description": "Sur demande du client, l’Hébergeur doit lui communiquer la synthèse managériale d’un rapport d’audit technique portant sur les ressources mutualisées dans le cadre du service. Cet audit doit être réalisé par un auditeur indépendant et dater de moins de trois ans ;",
+      "description_en": "Sur demande du client, l’Hébergeur doit lui communiquer la synthèse managériale d’un rapport d’audit technique portant sur les ressources mutualisées dans le cadre du service. Cet audit doit être réalisé par un auditeur indépendant et dater de moins de trois ans ;"
+    },
+    {
+      "ref": "EXI-15.c",
+      "theme": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "theme_en": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "mesure": "L’Hébergeur doit permettre au client de consulter les traces d’accès aux DSCP portées par des ressources spécifiques ou auxdites ressources par les",
+      "mesure_en": "L’Hébergeur doit permettre au client de consulter les traces d’accès aux DSCP portées par des ressources spécifiques ou auxdites ressources par les",
+      "description": "L’Hébergeur doit permettre au client de consulter les traces d’accès aux DSCP portées par des ressources spécifiques ou auxdites ressources par les personnels sous son contrôle ;",
+      "description_en": "L’Hébergeur doit permettre au client de consulter les traces d’accès aux DSCP portées par des ressources spécifiques ou auxdites ressources par les personnels sous son contrôle ;"
+    },
+    {
+      "ref": "EXI-15.d",
+      "theme": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "theme_en": "L’Hébergeur doit permettre au client d’effectuer les vérifications suivantes du niveau de sécurité proposé :",
+      "mesure": "L’Hébergeur doit définir les modalités permettant à son client de consulter son dernier rapport d’audit de certification HDS.",
+      "mesure_en": "L’Hébergeur doit définir les modalités permettant à son client de consulter son dernier rapport d’audit de certification HDS.",
+      "description": "L’Hébergeur doit définir les modalités permettant à son client de consulter son dernier rapport d’audit de certification HDS.",
+      "description_en": "L’Hébergeur doit définir les modalités permettant à son client de consulter son dernier rapport d’audit de certification HDS."
+    },
+    {
+      "ref": "EXI-16.a",
+      "theme": "Les audits internes effectués par l’Hébergeur doivent comprendre a minima :",
+      "theme_en": "Les audits internes effectués par l’Hébergeur doivent comprendre a minima :",
+      "mesure": "Un audit permettant de déterminer si le SMSI est conforme aux exigences du présent référentiel et est efficacement mis en œuvre et maintenu ;",
+      "mesure_en": "Un audit permettant de déterminer si le SMSI est conforme aux exigences du présent référentiel et est efficacement mis en œuvre et maintenu ;",
+      "description": "Un audit permettant de déterminer si le SMSI est conforme aux exigences du présent référentiel et est efficacement mis en œuvre et maintenu ;",
+      "description_en": "Un audit permettant de déterminer si le SMSI est conforme aux exigences du présent référentiel et est efficacement mis en œuvre et maintenu ;"
+    },
+    {
+      "ref": "EXI-16.b",
+      "theme": "Les audits internes effectués par l’Hébergeur doivent comprendre a minima :",
+      "theme_en": "Les audits internes effectués par l’Hébergeur doivent comprendre a minima :",
+      "mesure": "Un audit des traces des accès par les personnes opérant pour le compte de l’organisation aux DSCP ou aux systèmes utilisés pour leur traitement.",
+      "mesure_en": "Un audit des traces des accès par les personnes opérant pour le compte de l’organisation aux DSCP ou aux systèmes utilisés pour leur traitement.",
+      "description": "Un audit des traces des accès par les personnes opérant pour le compte de l’organisation aux DSCP ou aux systèmes utilisés pour leur traitement.",
+      "description_en": "Un audit des traces des accès par les personnes opérant pour le compte de l’organisation aux DSCP ou aux systèmes utilisés pour leur traitement."
+    },
+    {
+      "ref": "EXI-17",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 1° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause",
+      "mesure_en": "Conformément au 1° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause",
+      "description": "Conformément au 1° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause mentionnant l’indication du périmètre du certificat de conformité obtenu par l’Hébergeur, ainsi que ses dates de délivrance et de renouvellement.",
+      "description_en": "Conformément au 1° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause mentionnant l’indication du périmètre du certificat de conformité obtenu par l’Hébergeur, ainsi que ses dates de délivrance et de renouvellement."
+    },
+    {
+      "ref": "EXI-18",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 2° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative",
+      "mesure_en": "Conformément au 2° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative",
+      "description": "Conformément au 2° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative à la description des prestations réalisées, comprenant le contenu des services et résultats attendus notamment aux fins de garantir la disponibilité, l'intégrité, la confidentialité et l'auditabilité des données hébergées.",
+      "description_en": "Conformément au 2° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative à la description des prestations réalisées, comprenant le contenu des services et résultats attendus notamment aux fins de garantir la disponibilité, l'intégrité, la confidentialité et l'auditabilité des données hébergées."
+    },
+    {
+      "ref": "EXI-19",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 4° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative",
+      "mesure_en": "Conformément au 4° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative",
+      "description": "Conformément au 4° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative aux mesures mises en œuvre pour garantir le respect des droits des personnes concernées par les données de santé. Cette clause doit notamment comporter les mentions suivantes : les modalités d’exercice des droits d’accès, de rectification, de limitation, d’opposition, d’effacement et de portabilité des données (lorsqu’ils sont applicables), les modalités de signalement au responsable de traitement d’une violation des données à caractère personnel, les modalités de conduite des audits par le délégué à la protection des données.",
+      "description_en": "Conformément au 4° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause relative aux mesures mises en œuvre pour garantir le respect des droits des personnes concernées par les données de santé. Cette clause doit notamment comporter les mentions suivantes : les modalités d’exercice des droits d’accès, de rectification, de limitation, d’opposition, d’effacement et de portabilité des données (lorsqu’ils sont applicables), les modalités de signalement au responsable de traitement d’une violation des données à caractère personnel, les modalités de conduite des audits par le délégué à la protection des données."
+    },
+    {
+      "ref": "EXI-20",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 5° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause",
+      "mesure_en": "Conformément au 5° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause",
+      "description": "Conformément au 5° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause mentionnant le référent contractuel du client de l'Hébergeur à contacter pour le traitement des incidents ayant un impact sur les données de santé hébergées.",
+      "description_en": "Conformément au 5° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause mentionnant le référent contractuel du client de l'Hébergeur à contacter pour le traitement des incidents ayant un impact sur les données de santé hébergées."
+    },
+    {
+      "ref": "EXI-21",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 6° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause précisant",
+      "mesure_en": "Conformément au 6° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause précisant",
+      "description": "Conformément au 6° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause précisant les indicateurs de qualité et de performance permettant la vérification du niveau de service annoncé, le niveau garanti, la périodicité de leur mesure, ainsi que l'existence ou l'absence de pénalités applicables au non-respect de ceux-ci.",
+      "description_en": "Conformément au 6° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit comporter une clause précisant les indicateurs de qualité et de performance permettant la vérification du niveau de service annoncé, le niveau garanti, la périodicité de leur mesure, ainsi que l'existence ou l'absence de pénalités applicables au non-respect de ceux-ci."
+    },
+    {
+      "ref": "EXI-22",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 7° de l’article R. 1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur",
+      "mesure_en": "Conformément au 7° de l’article R. 1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur",
+      "description": "Conformément au 7° de l’article R. 1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur les conditions de recours à d'éventuels prestataires techniques externes et les engagements de l'Hébergeur pour que ce recours assure un niveau de protection équivalent de garantie au regard des obligations pesant sur l'Hébergeur, dans le respect de l’article 28.4 du RGPD.",
+      "description_en": "Conformément au 7° de l’article R. 1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur les conditions de recours à d'éventuels prestataires techniques externes et les engagements de l'Hébergeur pour que ce recours assure un niveau de protection équivalent de garantie au regard des obligations pesant sur l'Hébergeur, dans le respect de l’article 28.4 du RGPD."
+    },
+    {
+      "ref": "EXI-23",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 8° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit décrire les modalités retenues",
+      "mesure_en": "Conformément au 8° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit décrire les modalités retenues",
+      "description": "Conformément au 8° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit décrire les modalités retenues pour encadrer les accès aux données de santé à caractère personnel hébergées.",
+      "description_en": "Conformément au 8° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit décrire les modalités retenues pour encadrer les accès aux données de santé à caractère personnel hébergées."
+    },
+    {
+      "ref": "EXI-24.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 9° de l’article R. 1111-11 du CSP, le contrat d’hébergement doit préciser les obligations de l’Hébergeur à l’égard de son Client en",
+      "mesure_en": "Conformément au 9° de l’article R. 1111-11 du CSP, le contrat d’hébergement doit préciser les obligations de l’Hébergeur à l’égard de son Client en",
+      "description": "Conformément au 9° de l’article R. 1111-11 du CSP, le contrat d’hébergement doit préciser les obligations de l’Hébergeur à l’égard de son Client en cas de modifications ou d'évolutions techniques introduites par lui ou imposées par le cadre légal applicable.",
+      "description_en": "Conformément au 9° de l’article R. 1111-11 du CSP, le contrat d’hébergement doit préciser les obligations de l’Hébergeur à l’égard de son Client en cas de modifications ou d'évolutions techniques introduites par lui ou imposées par le cadre légal applicable."
+    },
+    {
+      "ref": "EXI-24.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Le contrat d’hébergement doit en outre prévoir l’accord préalable du Client dans le cas où ces modifications ou évolutions introduites par",
+      "mesure_en": "Le contrat d’hébergement doit en outre prévoir l’accord préalable du Client dans le cas où ces modifications ou évolutions introduites par",
+      "description": "Le contrat d’hébergement doit en outre prévoir l’accord préalable du Client dans le cas où ces modifications ou évolutions introduites par l’Hébergeur ne respectent pas :\n- Les niveaux de service tels que requis au chapitre 6.5.\n- Les garanties définies aux chapitres 6.2 et  6.9.",
+      "description_en": "Le contrat d’hébergement doit en outre prévoir l’accord préalable du Client dans le cas où ces modifications ou évolutions introduites par l’Hébergeur ne respectent pas :\n- Les niveaux de service tels que requis au chapitre 6.5.\n- Les garanties définies aux chapitres 6.2 et  6.9."
+    },
+    {
+      "ref": "EXI-25",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 10° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur",
+      "mesure_en": "Conformément au 10° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur",
+      "description": "Conformément au 10° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur les garanties et les procédures mises en place par l’Hébergeur permettant de couvrir toute défaillance éventuelle de sa part.",
+      "description_en": "Conformément au 10° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit prévoir une information sur les garanties et les procédures mises en place par l’Hébergeur permettant de couvrir toute défaillance éventuelle de sa part."
+    },
+    {
+      "ref": "EXI-26",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément au 11° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit rappeler l'interdiction pour",
+      "mesure_en": "Conformément au 11° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit rappeler l'interdiction pour",
+      "description": "Conformément au 11° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit rappeler l'interdiction pour l'Hébergeur d'utiliser les données de santé hébergées à d'autres fins que l'exécution de l'activité d'hébergement de données de santé.",
+      "description_en": "Conformément au 11° de l’article R.1111-11 du CSP, le contrat d’hébergement conclu entre l’Hébergeur et son Client doit rappeler l'interdiction pour l'Hébergeur d'utiliser les données de santé hébergées à d'autres fins que l'exécution de l'activité d'hébergement de données de santé."
+    },
+    {
+      "ref": "EXI-27",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformément aux 12° à 14° de l’article R.1111-11 du CSP, une clause relative à la réversibilité doit en présenter les modalités à la fin de la",
+      "mesure_en": "Conformément aux 12° à 14° de l’article R.1111-11 du CSP, une clause relative à la réversibilité doit en présenter les modalités à la fin de la",
+      "description": "Conformément aux 12° à 14° de l’article R.1111-11 du CSP, une clause relative à la réversibilité doit en présenter les modalités à la fin de la prestation ou en cas d'arrêt anticipé de la prestation quel qu’en soit le motif, avec a minima :",
+      "description_en": "Conformément aux 12° à 14° de l’article R.1111-11 du CSP, une clause relative à la réversibilité doit en présenter les modalités à la fin de la prestation ou en cas d'arrêt anticipé de la prestation quel qu’en soit le motif, avec a minima :"
+    },
+    {
+      "ref": "EXI-27.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L’engagement de restitution de la totalité des informations confiées au titre de la prestation ;",
+      "mesure_en": "L’engagement de restitution de la totalité des informations confiées au titre de la prestation ;",
+      "description": "L’engagement de restitution de la totalité des informations confiées au titre de la prestation ;",
+      "description_en": "L’engagement de restitution de la totalité des informations confiées au titre de la prestation ;"
+    },
+    {
+      "ref": "EXI-27.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L’engagement de destruction de toute copie de ces informations à l’issue de la restitution ;",
+      "mesure_en": "L’engagement de destruction de toute copie de ces informations à l’issue de la restitution ;",
+      "description": "L’engagement de destruction de toute copie de ces informations à l’issue de la restitution ;",
+      "description_en": "L’engagement de destruction de toute copie de ces informations à l’issue de la restitution ;"
+    },
+    {
+      "ref": "EXI-27.c",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Les modalités de calcul des coûts et délais pour la restitution des copies ;",
+      "mesure_en": "Les modalités de calcul des coûts et délais pour la restitution des copies ;",
+      "description": "Les modalités de calcul des coûts et délais pour la restitution des copies ;",
+      "description_en": "Les modalités de calcul des coûts et délais pour la restitution des copies ;"
+    },
+    {
+      "ref": "EXI-27.d",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Les formats de restitution, lisibles et exploitables à des fins de portabilité des données de santé, et le cas échéant les modalités permettant le",
+      "mesure_en": "Les formats de restitution, lisibles et exploitables à des fins de portabilité des données de santé, et le cas échéant les modalités permettant le",
+      "description": "Les formats de restitution, lisibles et exploitables à des fins de portabilité des données de santé, et le cas échéant les modalités permettant le déplacement des machines virtuelles/conteneurs.",
+      "description_en": "Les formats de restitution, lisibles et exploitables à des fins de portabilité des données de santé, et le cas échéant les modalités permettant le déplacement des machines virtuelles/conteneurs."
+    },
+    {
+      "ref": "EXI-28",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Quelle que soit l’activité d’hébergement de DSCP proposée au Client par l’Hébergeur ou l’un de ses sous-traitants, et dès lors que celle-ci implique",
+      "mesure_en": "Quelle que soit l’activité d’hébergement de DSCP proposée au Client par l’Hébergeur ou l’un de ses sous-traitants, et dès lors que celle-ci implique",
+      "description": "Quelle que soit l’activité d’hébergement de DSCP proposée au Client par l’Hébergeur ou l’un de ses sous-traitants, et dès lors que celle-ci implique un stockage de DSCP, alors l’Hébergeur ou ses sous-traitants doivent stocker ces DSCP exclusivement au sein de l’Espace Economique Européen (EEE), sans préjudice des cas d’accès à distance visée à l’exigence n°29. L’Hébergeur documente et communique au Client la localisation de ce stockage.",
+      "description_en": "Quelle que soit l’activité d’hébergement de DSCP proposée au Client par l’Hébergeur ou l’un de ses sous-traitants, et dès lors que celle-ci implique un stockage de DSCP, alors l’Hébergeur ou ses sous-traitants doivent stocker ces DSCP exclusivement au sein de l’Espace Economique Européen (EEE), sans préjudice des cas d’accès à distance visée à l’exigence n°29. L’Hébergeur documente et communique au Client la localisation de ce stockage."
+    },
+    {
+      "ref": "EXI-29.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Lorsque la prestation proposée par l’Hébergeur ou l’un de ses sous-traitants implique un accès à distance depuis un pays qui ne fait pas partie de",
+      "mesure_en": "Lorsque la prestation proposée par l’Hébergeur ou l’un de ses sous-traitants implique un accès à distance depuis un pays qui ne fait pas partie de",
+      "description": "Lorsque la prestation proposée par l’Hébergeur ou l’un de ses sous-traitants implique un accès à distance depuis un pays qui ne fait pas partie de l’Espace Economique Européen (EEE), cet accès doit être fondé sur une décision d’adéquation de la Commission adoptée vertu de l’article 45 du RGPD[1] ou, à défaut, sur l’une des garanties appropriées prévues à l’article 46 du règlement.",
+      "description_en": "Lorsque la prestation proposée par l’Hébergeur ou l’un de ses sous-traitants implique un accès à distance depuis un pays qui ne fait pas partie de l’Espace Economique Européen (EEE), cet accès doit être fondé sur une décision d’adéquation de la Commission adoptée vertu de l’article 45 du RGPD[1] ou, à défaut, sur l’une des garanties appropriées prévues à l’article 46 du règlement."
+    },
+    {
+      "ref": "EXI-29.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Dans ce dernier cas, l’hébergeur informe son client de l’absence de décision d’adéquation, d’une part, et des garanties appropriées au sens de",
+      "mesure_en": "Dans ce dernier cas, l’hébergeur informe son client de l’absence de décision d’adéquation, d’une part, et des garanties appropriées au sens de",
+      "description": "Dans ce dernier cas, l’hébergeur informe son client de l’absence de décision d’adéquation, d’une part, et des garanties appropriées au sens de l’article 46 du RGPD mises en place pour encadrer cet accès à distance, d’autre part.",
+      "description_en": "Dans ce dernier cas, l’hébergeur informe son client de l’absence de décision d’adéquation, d’une part, et des garanties appropriées au sens de l’article 46 du RGPD mises en place pour encadrer cet accès à distance, d’autre part."
+    },
+    {
+      "ref": "EXI-29.c",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L’hébergeur indique au client et documente les garanties appropriées mises en place, ainsi que le cas échéant, tout autre mesure permettant d’assurer",
+      "mesure_en": "L’hébergeur indique au client et documente les garanties appropriées mises en place, ainsi que le cas échéant, tout autre mesure permettant d’assurer",
+      "description": "L’hébergeur indique au client et documente les garanties appropriées mises en place, ainsi que le cas échéant, tout autre mesure permettant d’assurer un niveau de protection des données équivalent à celui garanti par le droit de l’Union Européenne.",
+      "description_en": "L’hébergeur indique au client et documente les garanties appropriées mises en place, ainsi que le cas échéant, tout autre mesure permettant d’assurer un niveau de protection des données équivalent à celui garanti par le droit de l’Union Européenne."
+    },
+    {
+      "ref": "EXI-30",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Lorsque l’Hébergeur, ou l’un de ses sous-traitants intervenant dans la prestation d’hébergement, est soumis à la législation d’un pays tiers",
+      "mesure_en": "Lorsque l’Hébergeur, ou l’un de ses sous-traitants intervenant dans la prestation d’hébergement, est soumis à la législation d’un pays tiers",
+      "description": "Lorsque l’Hébergeur, ou l’un de ses sous-traitants intervenant dans la prestation d’hébergement, est soumis à la législation d’un pays tiers n’assurant pas un niveau de protection adéquat au sens de l’article 45 du RGPD, l’Hébergeur doit indiquer dans le contrat qui le lie à son client et porter à la connaissance de l’organisme certificateur :",
+      "description_en": "Lorsque l’Hébergeur, ou l’un de ses sous-traitants intervenant dans la prestation d’hébergement, est soumis à la législation d’un pays tiers n’assurant pas un niveau de protection adéquat au sens de l’article 45 du RGPD, l’Hébergeur doit indiquer dans le contrat qui le lie à son client et porter à la connaissance de l’organisme certificateur :"
+    },
+    {
+      "ref": "EXI-30.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- La liste des réglementations extra-européennes en vertu desquelles l’Hébergeur, ou l’un de ses soustraitants intervenant dans la prestation",
+      "mesure_en": "- La liste des réglementations extra-européennes en vertu desquelles l’Hébergeur, ou l’un de ses soustraitants intervenant dans la prestation",
+      "description": "- La liste des réglementations extra-européennes en vertu desquelles l’Hébergeur, ou l’un de ses soustraitants intervenant dans la prestation d’hébergement, serait tenu de permettre un accès non autorisé par le droit de l’Union aux DSCP, au sens de l’article 48 du RGPD ;",
+      "description_en": "- La liste des réglementations extra-européennes en vertu desquelles l’Hébergeur, ou l’un de ses soustraitants intervenant dans la prestation d’hébergement, serait tenu de permettre un accès non autorisé par le droit de l’Union aux DSCP, au sens de l’article 48 du RGPD ;"
+    },
+    {
+      "ref": "EXI-30.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- Les mesures mises en œuvre par l’Hébergeur pour atténuer les risques d’accès non autorisé aux DSCP induits par ces réglementations",
+      "mesure_en": "- Les mesures mises en œuvre par l’Hébergeur pour atténuer les risques d’accès non autorisé aux DSCP induits par ces réglementations",
+      "description": "- Les mesures mises en œuvre par l’Hébergeur pour atténuer les risques d’accès non autorisé aux DSCP induits par ces réglementations extra-européennes ;",
+      "description_en": "- Les mesures mises en œuvre par l’Hébergeur pour atténuer les risques d’accès non autorisé aux DSCP induits par ces réglementations extra-européennes ;"
+    },
+    {
+      "ref": "EXI-30.c",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- La description des risques résiduels d’accès non autorisés aux DSCP via des réglementations extraeuropéennes  qui demeureraient malgré ces mesures",
+      "mesure_en": "- La description des risques résiduels d’accès non autorisés aux DSCP via des réglementations extraeuropéennes  qui demeureraient malgré ces mesures",
+      "description": "- La description des risques résiduels d’accès non autorisés aux DSCP via des réglementations extraeuropéennes  qui demeureraient malgré ces mesures",
+      "description_en": "- La description des risques résiduels d’accès non autorisés aux DSCP via des réglementations extraeuropéennes  qui demeureraient malgré ces mesures"
+    },
+    {
+      "ref": "EXI-31.a",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L’Hébergeur doit rendre publique et mettre à jour la cartographie des transferts des DSCP vers un pays n'appartenant pas à l’Espace Economique",
+      "mesure_en": "L’Hébergeur doit rendre publique et mettre à jour la cartographie des transferts des DSCP vers un pays n'appartenant pas à l’Espace Economique",
+      "description": "L’Hébergeur doit rendre publique et mettre à jour la cartographie des transferts des DSCP vers un pays n'appartenant pas à l’Espace Economique Européen y compris les accès distants éventuels mentionnés à l’exigence n° 29 ainsi que la description des risques d’accès non autorisé visés par l’exigence n° 30. Les modalités d’information du public doivent prendre la forme suivante :",
+      "description_en": "L’Hébergeur doit rendre publique et mettre à jour la cartographie des transferts des DSCP vers un pays n'appartenant pas à l’Espace Economique Européen y compris les accès distants éventuels mentionnés à l’exigence n° 29 ainsi que la description des risques d’accès non autorisé visés par l’exigence n° 30. Les modalités d’information du public doivent prendre la forme suivante :"
+    },
+    {
+      "ref": "EXI-31.b",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- Dans le cas où l’activité certifiée bénéficie d’une qualification SecNumCloud (version 3.2), l'Hébergeur doit communiquer l’information suivante :",
+      "mesure_en": "- Dans le cas où l’activité certifiée bénéficie d’une qualification SecNumCloud (version 3.2), l'Hébergeur doit communiquer l’information suivante :",
+      "description": "- Dans le cas où l’activité certifiée bénéficie d’une qualification SecNumCloud (version 3.2), l'Hébergeur doit communiquer l’information suivante : « aucun risque d’accès imposé par la législation d’un pays tiers en violation du droit de l’Union »",
+      "description_en": "- Dans le cas où l’activité certifiée bénéficie d’une qualification SecNumCloud (version 3.2), l'Hébergeur doit communiquer l’information suivante : « aucun risque d’accès imposé par la législation d’un pays tiers en violation du droit de l’Union »"
+    },
+    {
+      "ref": "EXI-31.c",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et ne comporte pas de transfert de DSCP vers un",
+      "mesure_en": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et ne comporte pas de transfert de DSCP vers un",
+      "description": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et ne comporte pas de transfert de DSCP vers un pays n'appartenant pas à l’Espace Economique Européen, l'Hébergeur doit communiquer l’information suivante : « aucun transfert de données de santé à caractère personnel vers un pays tiers à l’espace économique européen »;",
+      "description_en": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et ne comporte pas de transfert de DSCP vers un pays n'appartenant pas à l’Espace Economique Européen, l'Hébergeur doit communiquer l’information suivante : « aucun transfert de données de santé à caractère personnel vers un pays tiers à l’espace économique européen »;"
+    },
+    {
+      "ref": "EXI-31.d",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et comporte un ou plusieurs transferts de DSCP",
+      "mesure_en": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et comporte un ou plusieurs transferts de DSCP",
+      "description": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et comporte un ou plusieurs transferts de DSCP vers un pays n'appartenant pas à l’Espace Economique Européen ou un risque d’accès non autorisé visé par l’exigence n°30, l'Hébergeur doit communiquer les informations figurant dans le tableau fourni au chapitre 8.",
+      "description_en": "- Dans le cas où l’activité certifiée ne bénéficie pas d’une qualification SecNumCloud (version 3.2) et comporte un ou plusieurs transferts de DSCP vers un pays n'appartenant pas à l’Espace Economique Européen ou un risque d’accès non autorisé visé par l’exigence n°30, l'Hébergeur doit communiquer les informations figurant dans le tableau fourni au chapitre 8."
+    },
+    {
+      "ref": "EXI-31.e",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "L'Hébergeur doit mettre ces informations à la disposition du public de manière lisible sur une page dédiée d’un site internet accessible et",
+      "mesure_en": "L'Hébergeur doit mettre ces informations à la disposition du public de manière lisible sur une page dédiée d’un site internet accessible et",
+      "description": "L'Hébergeur doit mettre ces informations à la disposition du public de manière lisible sur une page dédiée d’un site internet accessible et communiquer l’URL de la page à l’organisme certificateur. Cette URL a vocation à être publiée dans la liste des hébergeurs certifiés sur le site de l’ANS.",
+      "description_en": "L'Hébergeur doit mettre ces informations à la disposition du public de manière lisible sur une page dédiée d’un site internet accessible et communiquer l’URL de la page à l’organisme certificateur. Cette URL a vocation à être publiée dans la liste des hébergeurs certifiés sur le site de l’ANS."
+    }
+  ]
+}

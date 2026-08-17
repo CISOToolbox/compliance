@@ -1,0 +1,1387 @@
+{
+  "id": "lpm",
+  "version": "2019",
+  "label": "LPM",
+  "description": "RÈGLES DE SÉCURITÉ RELATIVES AU SECTEUR D'ACTIVITÉS D'IMPORTANCE VITALE \" ACTIVITÉS CIVILES DE L'ÉTAT \"\nArrêté du 29 mai 2019 fixant les règles de sécurité et les modalités de déclaration des systèmes d'information d'importance vitale et des incidents de sécurité relatives au secteur d'activités d'importance vitale « Activités civiles de l'Etat » et pris en application des articles R. 1332-41-1, R. 1332-41-2 et R. 1332-41-10 du code de la défense\nhttps://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038565011",
+  "description_en": "RÈGLES DE SÉCURITÉ RELATIVES AU SECTEUR D'ACTIVITÉS D'IMPORTANCE VITALE \" ACTIVITÉS CIVILES DE L'ÉTAT \"\nArrêté du 29 mai 2019 fixant les règles de sécurité et les modalités de déclaration des systèmes d'information d'importance vitale et des incidents de sécurité relatives au secteur d'activités d'importance vitale « Activités civiles de l'Etat » et pris en application des articles R. 1332-41-1, R. 1332-41-2 et R. 1332-41-10 du code de la défense\nhttps://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038565011",
+  "color": "#1e3a5f",
+  "measures": [
+    {
+      "ref": "1.1",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une politique de sécurité des systèmes d'information (PSSI).",
+      "mesure_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une politique de sécurité des systèmes d'information (PSSI).",
+      "description": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une politique de sécurité des systèmes d'information (PSSI).",
+      "description_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une politique de sécurité des systèmes d'information (PSSI)."
+    },
+    {
+      "ref": "1.2",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "La PSSI décrit l'ensemble des moyens organisationnels et techniques mis en œuvre par l'opérateur afin d'assurer la sécurité de ses systèmes",
+      "mesure_en": "La PSSI décrit l'ensemble des moyens organisationnels et techniques mis en œuvre par l'opérateur afin d'assurer la sécurité de ses systèmes",
+      "description": "La PSSI décrit l'ensemble des moyens organisationnels et techniques mis en œuvre par l'opérateur afin d'assurer la sécurité de ses systèmes d'information d'importance vitale (SIIV). En particulier, elle :",
+      "description_en": "La PSSI décrit l'ensemble des moyens organisationnels et techniques mis en œuvre par l'opérateur afin d'assurer la sécurité de ses systèmes d'information d'importance vitale (SIIV). En particulier, elle :"
+    },
+    {
+      "ref": "1.3",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "- précise les objectifs et les orientations stratégiques en matière de sécurité des SIIV ;",
+      "mesure_en": "- précise les objectifs et les orientations stratégiques en matière de sécurité des SIIV ;",
+      "description": "- précise les objectifs et les orientations stratégiques en matière de sécurité des SIIV ;",
+      "description_en": "- précise les objectifs et les orientations stratégiques en matière de sécurité des SIIV ;"
+    },
+    {
+      "ref": "1.4",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "- décrit l'organisation de la gouvernance de la sécurité et notamment les rôles et les responsabilités du personnel interne et du personnel externe",
+      "mesure_en": "- décrit l'organisation de la gouvernance de la sécurité et notamment les rôles et les responsabilités du personnel interne et du personnel externe",
+      "description": "- décrit l'organisation de la gouvernance de la sécurité et notamment les rôles et les responsabilités du personnel interne et du personnel externe (prestataires, fournisseurs, etc.) à l'égard de la sécurité des SIIV ;",
+      "description_en": "- décrit l'organisation de la gouvernance de la sécurité et notamment les rôles et les responsabilités du personnel interne et du personnel externe (prestataires, fournisseurs, etc.) à l'égard de la sécurité des SIIV ;"
+    },
+    {
+      "ref": "1.5",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "- prévoit un plan de sensibilisation à la sécurité des SIIV au profit de l'ensemble du personnel ainsi qu'un plan de formation à la sécurité des SIIV",
+      "mesure_en": "- prévoit un plan de sensibilisation à la sécurité des SIIV au profit de l'ensemble du personnel ainsi qu'un plan de formation à la sécurité des SIIV",
+      "description": "- prévoit un plan de sensibilisation à la sécurité des SIIV au profit de l'ensemble du personnel ainsi qu'un plan de formation à la sécurité des SIIV au profit des personnes ayant des responsabilités particulières, notamment les personnes en charge de l'administration et de la sécurité des SIIV et les utilisateurs disposant de droits d'accès privilégiés aux SIIV ;",
+      "description_en": "- prévoit un plan de sensibilisation à la sécurité des SIIV au profit de l'ensemble du personnel ainsi qu'un plan de formation à la sécurité des SIIV au profit des personnes ayant des responsabilités particulières, notamment les personnes en charge de l'administration et de la sécurité des SIIV et les utilisateurs disposant de droits d'accès privilégiés aux SIIV ;"
+    },
+    {
+      "ref": "1.6",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "- fixe les mesures de sécurité générales, notamment en matière de contrôle du personnel interne et du personnel externe, de sécurité physique des",
+      "mesure_en": "- fixe les mesures de sécurité générales, notamment en matière de contrôle du personnel interne et du personnel externe, de sécurité physique des",
+      "description": "- fixe les mesures de sécurité générales, notamment en matière de contrôle du personnel interne et du personnel externe, de sécurité physique des SIIV, de gestion des ressources matérielles et logicielles, de contrôle d'accès aux SIIV, d'exploitation et d'administration des SIIV et de sécurité des ressources, des réseaux et des postes de travail ;",
+      "description_en": "- fixe les mesures de sécurité générales, notamment en matière de contrôle du personnel interne et du personnel externe, de sécurité physique des SIIV, de gestion des ressources matérielles et logicielles, de contrôle d'accès aux SIIV, d'exploitation et d'administration des SIIV et de sécurité des ressources, des réseaux et des postes de travail ;"
+    },
+    {
+      "ref": "1.7",
+      "theme": "- définit les procédures suivantes :",
+      "theme_en": "- définit les procédures suivantes :",
+      "mesure": "- la procédure d'homologation de sécurité des SIIV ;",
+      "mesure_en": "- la procédure d'homologation de sécurité des SIIV ;",
+      "description": "- la procédure d'homologation de sécurité des SIIV ;",
+      "description_en": "- la procédure d'homologation de sécurité des SIIV ;"
+    },
+    {
+      "ref": "1.8",
+      "theme": "- définit les procédures suivantes :",
+      "theme_en": "- définit les procédures suivantes :",
+      "mesure": "- les procédures de contrôle et d'audit de la sécurité des SIIV ;",
+      "mesure_en": "- les procédures de contrôle et d'audit de la sécurité des SIIV ;",
+      "description": "- les procédures de contrôle et d'audit de la sécurité des SIIV ;",
+      "description_en": "- les procédures de contrôle et d'audit de la sécurité des SIIV ;"
+    },
+    {
+      "ref": "1.9",
+      "theme": "- définit les procédures suivantes :",
+      "theme_en": "- définit les procédures suivantes :",
+      "mesure": "- la procédure de maintien en conditions de sécurité des ressources des SIIV ;",
+      "mesure_en": "- la procédure de maintien en conditions de sécurité des ressources des SIIV ;",
+      "description": "- la procédure de maintien en conditions de sécurité des ressources des SIIV ;",
+      "description_en": "- la procédure de maintien en conditions de sécurité des ressources des SIIV ;"
+    },
+    {
+      "ref": "1.10",
+      "theme": "- définit les procédures suivantes :",
+      "theme_en": "- définit les procédures suivantes :",
+      "mesure": "- la procédure de traitement des incidents de sécurité affectant les SIIV ;",
+      "mesure_en": "- la procédure de traitement des incidents de sécurité affectant les SIIV ;",
+      "description": "- la procédure de traitement des incidents de sécurité affectant les SIIV ;",
+      "description_en": "- la procédure de traitement des incidents de sécurité affectant les SIIV ;"
+    },
+    {
+      "ref": "1.11",
+      "theme": "- définit les procédures suivantes :",
+      "theme_en": "- définit les procédures suivantes :",
+      "mesure": "- les procédures de gestion de crises en cas d'attaques informatiques visant des SIIV et de continuité des activités d'importance vitale.",
+      "mesure_en": "- les procédures de gestion de crises en cas d'attaques informatiques visant des SIIV et de continuité des activités d'importance vitale.",
+      "description": "- les procédures de gestion de crises en cas d'attaques informatiques visant des SIIV et de continuité des activités d'importance vitale.",
+      "description_en": "- les procédures de gestion de crises en cas d'attaques informatiques visant des SIIV et de continuité des activités d'importance vitale."
+    },
+    {
+      "ref": "1.12",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "L'opérateur élabore au profit de sa direction, au moins annuellement, un rapport sur la mise en œuvre de la PSSI et de ses documents d'application.",
+      "mesure_en": "L'opérateur élabore au profit de sa direction, au moins annuellement, un rapport sur la mise en œuvre de la PSSI et de ses documents d'application.",
+      "description": "L'opérateur élabore au profit de sa direction, au moins annuellement, un rapport sur la mise en œuvre de la PSSI et de ses documents d'application.",
+      "description_en": "L'opérateur élabore au profit de sa direction, au moins annuellement, un rapport sur la mise en œuvre de la PSSI et de ses documents d'application."
+    },
+    {
+      "ref": "1.13",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "Ce rapport précise notamment l'état des lieux des risques, le niveau de sécurité des SIIV et les actions de sécurisation menées.",
+      "mesure_en": "Ce rapport précise notamment l'état des lieux des risques, le niveau de sécurité des SIIV et les actions de sécurisation menées.",
+      "description": "Ce rapport précise notamment l'état des lieux des risques, le niveau de sécurité des SIIV et les actions de sécurisation menées.",
+      "description_en": "Ce rapport précise notamment l'état des lieux des risques, le niveau de sécurité des SIIV et les actions de sécurisation menées."
+    },
+    {
+      "ref": "1.14",
+      "theme": "Règle relative à la politique de sécurité des systèmes d'information",
+      "theme_en": "Règle relative à la politique de sécurité des systèmes d'information",
+      "mesure": "La PSSI, ses documents d'application et les rapports sur leur mise en œuvre sont tenus à la disposition de l'Agence nationale de la sécurité des",
+      "mesure_en": "La PSSI, ses documents d'application et les rapports sur leur mise en œuvre sont tenus à la disposition de l'Agence nationale de la sécurité des",
+      "description": "La PSSI, ses documents d'application et les rapports sur leur mise en œuvre sont tenus à la disposition de l'Agence nationale de la sécurité des systèmes d'information.",
+      "description_en": "La PSSI, ses documents d'application et les rapports sur leur mise en œuvre sont tenus à la disposition de l'Agence nationale de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "2.1",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "L'opérateur d'importance vitale procède à l'homologation de sécurité de chaque système d'information d'importance vitale (SIIV), en mettant en œuvre",
+      "mesure_en": "L'opérateur d'importance vitale procède à l'homologation de sécurité de chaque système d'information d'importance vitale (SIIV), en mettant en œuvre",
+      "description": "L'opérateur d'importance vitale procède à l'homologation de sécurité de chaque système d'information d'importance vitale (SIIV), en mettant en œuvre la procédure d'homologation prévue par sa politique de sécurité des systèmes d'information (PSSI).",
+      "description_en": "L'opérateur d'importance vitale procède à l'homologation de sécurité de chaque système d'information d'importance vitale (SIIV), en mettant en œuvre la procédure d'homologation prévue par sa politique de sécurité des systèmes d'information (PSSI)."
+    },
+    {
+      "ref": "2.2",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "L'homologation d'un système est une décision formelle prise par l'opérateur qui atteste que les risques pesant sur la sécurité de ce système ont été",
+      "mesure_en": "L'homologation d'un système est une décision formelle prise par l'opérateur qui atteste que les risques pesant sur la sécurité de ce système ont été",
+      "description": "L'homologation d'un système est une décision formelle prise par l'opérateur qui atteste que les risques pesant sur la sécurité de ce système ont été identifiés et que les mesures nécessaires pour le protéger sont mises en œuvre. Elle atteste également que les éventuels risques résiduels ont été identifiés et acceptés par l'opérateur.",
+      "description_en": "L'homologation d'un système est une décision formelle prise par l'opérateur qui atteste que les risques pesant sur la sécurité de ce système ont été identifiés et que les mesures nécessaires pour le protéger sont mises en œuvre. Elle atteste également que les éventuels risques résiduels ont été identifiés et acceptés par l'opérateur."
+    },
+    {
+      "ref": "2.3",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "Dans le cadre de l'homologation, un audit de la sécurité du SIIV doit être réalisé. Cet audit vise à vérifier l'application et l'efficacité des",
+      "mesure_en": "Dans le cadre de l'homologation, un audit de la sécurité du SIIV doit être réalisé. Cet audit vise à vérifier l'application et l'efficacité des",
+      "description": "Dans le cadre de l'homologation, un audit de la sécurité du SIIV doit être réalisé. Cet audit vise à vérifier l'application et l'efficacité des mesures de sécurité du SIIV et notamment le respect des règles de sécurité mentionnées dans le présent arrêté. L'audit doit permettre d'évaluer le niveau de sécurité du SIIV au regard des menaces et des vulnérabilités connues. Il comporte notamment la réalisation d'un audit d'architecture, d'un audit de configuration et d'un audit organisationnel et physique.",
+      "description_en": "Dans le cadre de l'homologation, un audit de la sécurité du SIIV doit être réalisé. Cet audit vise à vérifier l'application et l'efficacité des mesures de sécurité du SIIV et notamment le respect des règles de sécurité mentionnées dans le présent arrêté. L'audit doit permettre d'évaluer le niveau de sécurité du SIIV au regard des menaces et des vulnérabilités connues. Il comporte notamment la réalisation d'un audit d'architecture, d'un audit de configuration et d'un audit organisationnel et physique."
+    },
+    {
+      "ref": "2.4",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "Cet audit est réalisé dans le respect des règles fixées par le référentiel en matière d'audit de sécurité des systèmes d'information prévu à",
+      "mesure_en": "Cet audit est réalisé dans le respect des règles fixées par le référentiel en matière d'audit de sécurité des systèmes d'information prévu à",
+      "description": "Cet audit est réalisé dans le respect des règles fixées par le référentiel en matière d'audit de sécurité des systèmes d'information prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information.",
+      "description_en": "Cet audit est réalisé dans le respect des règles fixées par le référentiel en matière d'audit de sécurité des systèmes d'information prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "2.5",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "L'opérateur peut réaliser lui-même l'audit ou recourir à un prestataire qualifié dans les conditions prévues au chapitre III du décret n° 2015-350 du",
+      "mesure_en": "L'opérateur peut réaliser lui-même l'audit ou recourir à un prestataire qualifié dans les conditions prévues au chapitre III du décret n° 2015-350 du",
+      "description": "L'opérateur peut réaliser lui-même l'audit ou recourir à un prestataire qualifié dans les conditions prévues au chapitre III du décret n° 2015-350 du 27 mars 2015 précité.",
+      "description_en": "L'opérateur peut réaliser lui-même l'audit ou recourir à un prestataire qualifié dans les conditions prévues au chapitre III du décret n° 2015-350 du 27 mars 2015 précité."
+    },
+    {
+      "ref": "2.6",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "A l'issue de l'audit, l'opérateur ou, le cas échéant, le prestataire élabore un rapport d'audit qui expose les constatations sur les mesures",
+      "mesure_en": "A l'issue de l'audit, l'opérateur ou, le cas échéant, le prestataire élabore un rapport d'audit qui expose les constatations sur les mesures",
+      "description": "A l'issue de l'audit, l'opérateur ou, le cas échéant, le prestataire élabore un rapport d'audit qui expose les constatations sur les mesures appliquées et sur le respect des règles de sécurité prévues par le présent arrêté. Le rapport précise si le niveau de sécurité atteint est conforme aux objectifs de sécurité, compte tenu des menaces et des vulnérabilités connues. Il formule des recommandations pour remédier aux éventuelles non-conformités et vulnérabilités découvertes.",
+      "description_en": "A l'issue de l'audit, l'opérateur ou, le cas échéant, le prestataire élabore un rapport d'audit qui expose les constatations sur les mesures appliquées et sur le respect des règles de sécurité prévues par le présent arrêté. Le rapport précise si le niveau de sécurité atteint est conforme aux objectifs de sécurité, compte tenu des menaces et des vulnérabilités connues. Il formule des recommandations pour remédier aux éventuelles non-conformités et vulnérabilités découvertes."
+    },
+    {
+      "ref": "2.7",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "L'opérateur prend la décision d'homologuer un SIIV sur la base du dossier d'homologation comportant notamment :",
+      "mesure_en": "L'opérateur prend la décision d'homologuer un SIIV sur la base du dossier d'homologation comportant notamment :",
+      "description": "L'opérateur prend la décision d'homologuer un SIIV sur la base du dossier d'homologation comportant notamment :",
+      "description_en": "L'opérateur prend la décision d'homologuer un SIIV sur la base du dossier d'homologation comportant notamment :"
+    },
+    {
+      "ref": "2.8",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "- l'analyse de risques et les objectifs de sécurité du SIIV ;",
+      "mesure_en": "- l'analyse de risques et les objectifs de sécurité du SIIV ;",
+      "description": "- l'analyse de risques et les objectifs de sécurité du SIIV ;",
+      "description_en": "- l'analyse de risques et les objectifs de sécurité du SIIV ;"
+    },
+    {
+      "ref": "2.9",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "- les mesures de sécurité appliquées au SIIV ;",
+      "mesure_en": "- les mesures de sécurité appliquées au SIIV ;",
+      "description": "- les mesures de sécurité appliquées au SIIV ;",
+      "description_en": "- les mesures de sécurité appliquées au SIIV ;"
+    },
+    {
+      "ref": "2.10",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "- les rapports d'audit de la sécurité du SIIV ;",
+      "mesure_en": "- les rapports d'audit de la sécurité du SIIV ;",
+      "description": "- les rapports d'audit de la sécurité du SIIV ;",
+      "description_en": "- les rapports d'audit de la sécurité du SIIV ;"
+    },
+    {
+      "ref": "2.11",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "- les risques résiduels et les raisons justifiant leur acceptation.",
+      "mesure_en": "- les risques résiduels et les raisons justifiant leur acceptation.",
+      "description": "- les risques résiduels et les raisons justifiant leur acceptation.",
+      "description_en": "- les risques résiduels et les raisons justifiant leur acceptation."
+    },
+    {
+      "ref": "2.12",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "La validité de l'homologation est réexaminée par l'opérateur au moins tous les trois ans et lors de chaque événement ou évolution de nature à",
+      "mesure_en": "La validité de l'homologation est réexaminée par l'opérateur au moins tous les trois ans et lors de chaque événement ou évolution de nature à",
+      "description": "La validité de l'homologation est réexaminée par l'opérateur au moins tous les trois ans et lors de chaque événement ou évolution de nature à modifier le contexte décrit dans le dossier d'homologation. Chaque réexamen de l'homologation est consigné dans le dossier d'homologation. L'opérateur procède au renouvellement de l'homologation dès qu'elle n'est plus valide.",
+      "description_en": "La validité de l'homologation est réexaminée par l'opérateur au moins tous les trois ans et lors de chaque événement ou évolution de nature à modifier le contexte décrit dans le dossier d'homologation. Chaque réexamen de l'homologation est consigné dans le dossier d'homologation. L'opérateur procède au renouvellement de l'homologation dès qu'elle n'est plus valide."
+    },
+    {
+      "ref": "2.13",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "L'opérateur tient à la disposition de l'Agence nationale de la sécurité des systèmes d'information les décisions et dossiers d'homologation,",
+      "mesure_en": "L'opérateur tient à la disposition de l'Agence nationale de la sécurité des systèmes d'information les décisions et dossiers d'homologation,",
+      "description": "L'opérateur tient à la disposition de l'Agence nationale de la sécurité des systèmes d'information les décisions et dossiers d'homologation, notamment les rapports d'audit. Ces documents confidentiels sont susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale.",
+      "description_en": "L'opérateur tient à la disposition de l'Agence nationale de la sécurité des systèmes d'information les décisions et dossiers d'homologation, notamment les rapports d'audit. Ces documents confidentiels sont susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale."
+    },
+    {
+      "ref": "2.14",
+      "theme": "Règle relative à l'homologation de sécurité",
+      "theme_en": "Règle relative à l'homologation de sécurité",
+      "mesure": "La présente règle relative à l'homologation s'applique sans préjudice des dispositions prévues par l'arrêté du 30 novembre 2011 portant approbation",
+      "mesure_en": "La présente règle relative à l'homologation s'applique sans préjudice des dispositions prévues par l'arrêté du 30 novembre 2011 portant approbation",
+      "description": "La présente règle relative à l'homologation s'applique sans préjudice des dispositions prévues par l'arrêté du 30 novembre 2011 portant approbation de l'instruction générale interministérielle n° 1300 sur la protection du secret de la défense nationale, en matière d'homologation des systèmes d'information traitant des informations classifiées.",
+      "description_en": "La présente règle relative à l'homologation s'applique sans préjudice des dispositions prévues par l'arrêté du 30 novembre 2011 portant approbation de l'instruction générale interministérielle n° 1300 sur la protection du secret de la défense nationale, en matière d'homologation des systèmes d'information traitant des informations classifiées."
+    },
+    {
+      "ref": "3.1",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- les noms et les fonctions des applications, supportant les activités de l'opérateur, installées sur le SIIV ;",
+      "mesure_en": "- les noms et les fonctions des applications, supportant les activités de l'opérateur, installées sur le SIIV ;",
+      "description": "- les noms et les fonctions des applications, supportant les activités de l'opérateur, installées sur le SIIV ;",
+      "description_en": "- les noms et les fonctions des applications, supportant les activités de l'opérateur, installées sur le SIIV ;"
+    },
+    {
+      "ref": "3.2",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- le cas échéant, les plages d'adresses IP de sortie du SIIV vers internet ou un réseau tiers, ou accessibles depuis ces réseaux ;",
+      "mesure_en": "- le cas échéant, les plages d'adresses IP de sortie du SIIV vers internet ou un réseau tiers, ou accessibles depuis ces réseaux ;",
+      "description": "- le cas échéant, les plages d'adresses IP de sortie du SIIV vers internet ou un réseau tiers, ou accessibles depuis ces réseaux ;",
+      "description_en": "- le cas échéant, les plages d'adresses IP de sortie du SIIV vers internet ou un réseau tiers, ou accessibles depuis ces réseaux ;"
+    },
+    {
+      "ref": "3.3",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- le cas échéant, les plages d'adresses IP associées aux différents sous-systèmes composant le SIIV ;",
+      "mesure_en": "- le cas échéant, les plages d'adresses IP associées aux différents sous-systèmes composant le SIIV ;",
+      "description": "- le cas échéant, les plages d'adresses IP associées aux différents sous-systèmes composant le SIIV ;",
+      "description_en": "- le cas échéant, les plages d'adresses IP associées aux différents sous-systèmes composant le SIIV ;"
+    },
+    {
+      "ref": "3.4",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- la description fonctionnelle et les lieux d'installation du SIIV et de ses différents sous-systèmes ;",
+      "mesure_en": "- la description fonctionnelle et les lieux d'installation du SIIV et de ses différents sous-systèmes ;",
+      "description": "- la description fonctionnelle et les lieux d'installation du SIIV et de ses différents sous-systèmes ;",
+      "description_en": "- la description fonctionnelle et les lieux d'installation du SIIV et de ses différents sous-systèmes ;"
+    },
+    {
+      "ref": "3.5",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- la description fonctionnelle des points d'interconnexion du SIIV et de ses différents sous-systèmes avec des réseaux tiers, notamment la",
+      "mesure_en": "- la description fonctionnelle des points d'interconnexion du SIIV et de ses différents sous-systèmes avec des réseaux tiers, notamment la",
+      "description": "- la description fonctionnelle des points d'interconnexion du SIIV et de ses différents sous-systèmes avec des réseaux tiers, notamment la description des équipements et des fonctions de filtrage et de protection mis en œuvre au niveau de ces interconnexions ;",
+      "description_en": "- la description fonctionnelle des points d'interconnexion du SIIV et de ses différents sous-systèmes avec des réseaux tiers, notamment la description des équipements et des fonctions de filtrage et de protection mis en œuvre au niveau de ces interconnexions ;"
+    },
+    {
+      "ref": "3.6",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- l'inventaire et l'architecture des dispositifs d'administration du SIIV permettant de réaliser notamment les opérations d'installation à distance,",
+      "mesure_en": "- l'inventaire et l'architecture des dispositifs d'administration du SIIV permettant de réaliser notamment les opérations d'installation à distance,",
+      "description": "- l'inventaire et l'architecture des dispositifs d'administration du SIIV permettant de réaliser notamment les opérations d'installation à distance, de mise à jour, de supervision, de gestion des configurations, d'authentification ainsi que de gestion des comptes et des droits d'accès ;",
+      "description_en": "- l'inventaire et l'architecture des dispositifs d'administration du SIIV permettant de réaliser notamment les opérations d'installation à distance, de mise à jour, de supervision, de gestion des configurations, d'authentification ainsi que de gestion des comptes et des droits d'accès ;"
+    },
+    {
+      "ref": "3.7",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- la liste des comptes disposant de droits d'accès privilégiés (appelés \" comptes privilégiés \") au SIIV. Cette liste précise pour chaque compte le",
+      "mesure_en": "- la liste des comptes disposant de droits d'accès privilégiés (appelés \" comptes privilégiés \") au SIIV. Cette liste précise pour chaque compte le",
+      "description": "- la liste des comptes disposant de droits d'accès privilégiés (appelés \" comptes privilégiés \") au SIIV. Cette liste précise pour chaque compte le niveau et le périmètre des droits d'accès associés, notamment les comptes sur lesquels portent ces droits (comptes d'utilisateurs, comptes de messagerie, comptes de processus, etc.) ;",
+      "description_en": "- la liste des comptes disposant de droits d'accès privilégiés (appelés \" comptes privilégiés \") au SIIV. Cette liste précise pour chaque compte le niveau et le périmètre des droits d'accès associés, notamment les comptes sur lesquels portent ces droits (comptes d'utilisateurs, comptes de messagerie, comptes de processus, etc.) ;"
+    },
+    {
+      "ref": "3.8",
+      "theme": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "theme_en": "L'opérateur d'importance vitale élabore et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les éléments de cartographie suivants :",
+      "mesure": "- l'inventaire, l'architecture et le positionnement des services de résolution de noms d'hôte, de messagerie, de relais internet et d'accès distant",
+      "mesure_en": "- l'inventaire, l'architecture et le positionnement des services de résolution de noms d'hôte, de messagerie, de relais internet et d'accès distant",
+      "description": "- l'inventaire, l'architecture et le positionnement des services de résolution de noms d'hôte, de messagerie, de relais internet et d'accès distant mis en œuvre par le SIIV.",
+      "description_en": "- l'inventaire, l'architecture et le positionnement des services de résolution de noms d'hôte, de messagerie, de relais internet et d'accès distant mis en œuvre par le SIIV."
+    },
+    {
+      "ref": "3.9",
+      "theme": "Règle relative à la cartographie",
+      "theme_en": "Règle relative à la cartographie",
+      "mesure": "Les éléments de cartographie ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée",
+      "mesure_en": "Les éléments de cartographie ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée",
+      "description": "Les éléments de cartographie ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale.",
+      "description_en": "Les éléments de cartographie ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale."
+    },
+    {
+      "ref": "3.10",
+      "theme": "Règle relative à la cartographie",
+      "theme_en": "Règle relative à la cartographie",
+      "mesure": "Sur demande de l'Agence nationale de la sécurité des systèmes d'information, l'opérateur lui communique les éléments de cartographie mis à jour sur",
+      "mesure_en": "Sur demande de l'Agence nationale de la sécurité des systèmes d'information, l'opérateur lui communique les éléments de cartographie mis à jour sur",
+      "description": "Sur demande de l'Agence nationale de la sécurité des systèmes d'information, l'opérateur lui communique les éléments de cartographie mis à jour sur un support électronique, dans un format qui peut être lu par les principaux logiciels bureautiques accessibles au public.",
+      "description_en": "Sur demande de l'Agence nationale de la sécurité des systèmes d'information, l'opérateur lui communique les éléments de cartographie mis à jour sur un support électronique, dans un format qui peut être lu par les principaux logiciels bureautiques accessibles au public."
+    },
+    {
+      "ref": "4.1",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de maintien en conditions de sécurité des ressources matérielles",
+      "mesure_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de maintien en conditions de sécurité des ressources matérielles",
+      "description": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de maintien en conditions de sécurité des ressources matérielles et logicielles de ses systèmes d'information d'importance vitale (SIIV), conformément à sa politique de sécurité des systèmes d'information.",
+      "description_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de maintien en conditions de sécurité des ressources matérielles et logicielles de ses systèmes d'information d'importance vitale (SIIV), conformément à sa politique de sécurité des systèmes d'information."
+    },
+    {
+      "ref": "4.2",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "Cette procédure définit les conditions permettant de maintenir le niveau de sécurité des ressources des SIIV en fonction de l'évolution des",
+      "mesure_en": "Cette procédure définit les conditions permettant de maintenir le niveau de sécurité des ressources des SIIV en fonction de l'évolution des",
+      "description": "Cette procédure définit les conditions permettant de maintenir le niveau de sécurité des ressources des SIIV en fonction de l'évolution des vulnérabilités et des menaces et notamment la politique d'installation de toute nouvelle version et mesure correctrice de sécurité d'une ressource et les vérifications à effectuer avant l'installation. Elle prévoit que :",
+      "description_en": "Cette procédure définit les conditions permettant de maintenir le niveau de sécurité des ressources des SIIV en fonction de l'évolution des vulnérabilités et des menaces et notamment la politique d'installation de toute nouvelle version et mesure correctrice de sécurité d'une ressource et les vérifications à effectuer avant l'installation. Elle prévoit que :"
+    },
+    {
+      "ref": "4.3",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "- l'opérateur se tient informé des vulnérabilités et des mesures correctrices de sécurité susceptibles de concerner les ressources matérielles et",
+      "mesure_en": "- l'opérateur se tient informé des vulnérabilités et des mesures correctrices de sécurité susceptibles de concerner les ressources matérielles et",
+      "description": "- l'opérateur se tient informé des vulnérabilités et des mesures correctrices de sécurité susceptibles de concerner les ressources matérielles et logicielles de ses SIIV, qui sont diffusées notamment par les fournisseurs ou les fabricants de ces ressources ou par des centres de prévention et d'alerte en matière de cyber sécurité tels que le CERT-FR (( www. cert. ssi. gouv. fr) ;",
+      "description_en": "- l'opérateur se tient informé des vulnérabilités et des mesures correctrices de sécurité susceptibles de concerner les ressources matérielles et logicielles de ses SIIV, qui sont diffusées notamment par les fournisseurs ou les fabricants de ces ressources ou par des centres de prévention et d'alerte en matière de cyber sécurité tels que le CERT-FR (( www. cert. ssi. gouv. fr) ;"
+    },
+    {
+      "ref": "4.4",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "- sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur installe et maintient toutes les ressources matérielles et",
+      "mesure_en": "- sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur installe et maintient toutes les ressources matérielles et",
+      "description": "- sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur installe et maintient toutes les ressources matérielles et logicielles de ses SIIV dans des versions supportées par leurs fournisseurs ou leurs fabricants et mises à jour du point de vue de la sécurité ;",
+      "description_en": "- sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur installe et maintient toutes les ressources matérielles et logicielles de ses SIIV dans des versions supportées par leurs fournisseurs ou leurs fabricants et mises à jour du point de vue de la sécurité ;"
+    },
+    {
+      "ref": "4.5",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "- préalablement à l'installation de toute nouvelle version, l'opérateur s'assure de l'origine de cette version et de son intégrité, et analyse",
+      "mesure_en": "- préalablement à l'installation de toute nouvelle version, l'opérateur s'assure de l'origine de cette version et de son intégrité, et analyse",
+      "description": "- préalablement à l'installation de toute nouvelle version, l'opérateur s'assure de l'origine de cette version et de son intégrité, et analyse l'impact de cette version sur le SIIV concerné d'un point de vue technique et opérationnel ;",
+      "description_en": "- préalablement à l'installation de toute nouvelle version, l'opérateur s'assure de l'origine de cette version et de son intégrité, et analyse l'impact de cette version sur le SIIV concerné d'un point de vue technique et opérationnel ;"
+    },
+    {
+      "ref": "4.6",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "- dès qu'il a connaissance d'une mesure correctrice de sécurité concernant une de ses ressources, et sauf en cas de difficultés techniques ou",
+      "mesure_en": "- dès qu'il a connaissance d'une mesure correctrice de sécurité concernant une de ses ressources, et sauf en cas de difficultés techniques ou",
+      "description": "- dès qu'il a connaissance d'une mesure correctrice de sécurité concernant une de ses ressources, et sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur en planifie l'installation après avoir effectué les vérifications mentionnées à l'alinéa précédent, et procède à cette installation dans les délais prévus par la procédure de maintien en conditions de sécurité ;",
+      "description_en": "- dès qu'il a connaissance d'une mesure correctrice de sécurité concernant une de ses ressources, et sauf en cas de difficultés techniques ou opérationnelles justifiées, l'opérateur en planifie l'installation après avoir effectué les vérifications mentionnées à l'alinéa précédent, et procède à cette installation dans les délais prévus par la procédure de maintien en conditions de sécurité ;"
+    },
+    {
+      "ref": "4.7",
+      "theme": "Règle relative au maintien en conditions de sécurité",
+      "theme_en": "Règle relative au maintien en conditions de sécurité",
+      "mesure": "- lorsque des raisons techniques ou opérationnelles le justifient, l'opérateur peut décider, pour certaines ressources de ses SIIV, de ne pas",
+      "mesure_en": "- lorsque des raisons techniques ou opérationnelles le justifient, l'opérateur peut décider, pour certaines ressources de ses SIIV, de ne pas",
+      "description": "- lorsque des raisons techniques ou opérationnelles le justifient, l'opérateur peut décider, pour certaines ressources de ses SIIV, de ne pas installer une version supportée par le fournisseur ou le fabricant de la ressource concernée ou de ne pas installer une mesure correctrice de sécurité. Dans ce cas, l'opérateur met en œuvre des mesures techniques ou organisationnelles prévues par la procédure de maintien en conditions de sécurité pour réduire les risques liés à l'utilisation d'une version obsolète ou comportant des vulnérabilités connues. L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures de réduction des risques et les raisons techniques ou opérationnelles ayant empêché l'installation d'une version supportée ou d'une mesure correctrice de sécurité.",
+      "description_en": "- lorsque des raisons techniques ou opérationnelles le justifient, l'opérateur peut décider, pour certaines ressources de ses SIIV, de ne pas installer une version supportée par le fournisseur ou le fabricant de la ressource concernée ou de ne pas installer une mesure correctrice de sécurité. Dans ce cas, l'opérateur met en œuvre des mesures techniques ou organisationnelles prévues par la procédure de maintien en conditions de sécurité pour réduire les risques liés à l'utilisation d'une version obsolète ou comportant des vulnérabilités connues. L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures de réduction des risques et les raisons techniques ou opérationnelles ayant empêché l'installation d'une version supportée ou d'une mesure correctrice de sécurité."
+    },
+    {
+      "ref": "5.1",
+      "theme": "Règle relative à la journalisation",
+      "theme_en": "Règle relative à la journalisation",
+      "mesure": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre",
+      "mesure_en": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre",
+      "description": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre les événements relatifs à l'authentification des utilisateurs, à la gestion des comptes et des droits d'accès, à l'accès aux ressources, aux modifications des règles de sécurité du SIIV ainsi qu'au fonctionnement du SIIV.",
+      "description_en": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre les événements relatifs à l'authentification des utilisateurs, à la gestion des comptes et des droits d'accès, à l'accès aux ressources, aux modifications des règles de sécurité du SIIV ainsi qu'au fonctionnement du SIIV."
+    },
+    {
+      "ref": "5.2",
+      "theme": "Règle relative à la journalisation",
+      "theme_en": "Règle relative à la journalisation",
+      "mesure": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre",
+      "mesure_en": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre",
+      "description": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre les événements relatifs à l'authentification des utilisateurs, à la gestion des comptes et des droits d'accès, à l'accès aux ressources, aux modifications des règles de sécurité du SIIV ainsi qu'au fonctionnement du SIIV.",
+      "description_en": "L'opérateur d'importance vitale met en œuvre sur chaque système d'information d'importance vitale (SIIV) un système de journalisation qui enregistre les événements relatifs à l'authentification des utilisateurs, à la gestion des comptes et des droits d'accès, à l'accès aux ressources, aux modifications des règles de sécurité du SIIV ainsi qu'au fonctionnement du SIIV."
+    },
+    {
+      "ref": "5.3",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les serveurs applicatifs supportant les activités d'importance vitale ;",
+      "mesure_en": "- les serveurs applicatifs supportant les activités d'importance vitale ;",
+      "description": "- les serveurs applicatifs supportant les activités d'importance vitale ;",
+      "description_en": "- les serveurs applicatifs supportant les activités d'importance vitale ;"
+    },
+    {
+      "ref": "5.4",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les serveurs d'infrastructure système ;",
+      "mesure_en": "- les serveurs d'infrastructure système ;",
+      "description": "- les serveurs d'infrastructure système ;",
+      "description_en": "- les serveurs d'infrastructure système ;"
+    },
+    {
+      "ref": "5.5",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les serveurs d'infrastructure réseau ;",
+      "mesure_en": "- les serveurs d'infrastructure réseau ;",
+      "description": "- les serveurs d'infrastructure réseau ;",
+      "description_en": "- les serveurs d'infrastructure réseau ;"
+    },
+    {
+      "ref": "5.6",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les équipements de sécurité ;",
+      "mesure_en": "- les équipements de sécurité ;",
+      "description": "- les équipements de sécurité ;",
+      "description_en": "- les équipements de sécurité ;"
+    },
+    {
+      "ref": "5.7",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les postes d'ingénierie et de maintenance des systèmes industriels ;",
+      "mesure_en": "- les postes d'ingénierie et de maintenance des systèmes industriels ;",
+      "description": "- les postes d'ingénierie et de maintenance des systèmes industriels ;",
+      "description_en": "- les postes d'ingénierie et de maintenance des systèmes industriels ;"
+    },
+    {
+      "ref": "5.8",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les équipements réseau ;",
+      "mesure_en": "- les équipements réseau ;",
+      "description": "- les équipements réseau ;",
+      "description_en": "- les équipements réseau ;"
+    },
+    {
+      "ref": "5.9",
+      "theme": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "theme_en": "Le système de journalisation porte sur les équipements suivants lorsqu'ils génèrent les événements mentionnés au 1er alinéa :",
+      "mesure": "- les postes d'administration.",
+      "mesure_en": "- les postes d'administration.",
+      "description": "- les postes d'administration.",
+      "description_en": "- les postes d'administration."
+    },
+    {
+      "ref": "5.10",
+      "theme": "Règle relative à la journalisation",
+      "theme_en": "Règle relative à la journalisation",
+      "mesure": "Les événements enregistrés par le système de journalisation sont horodatés au moyen de sources de temps synchronisées.",
+      "mesure_en": "Les événements enregistrés par le système de journalisation sont horodatés au moyen de sources de temps synchronisées.",
+      "description": "Les événements enregistrés par le système de journalisation sont horodatés au moyen de sources de temps synchronisées.",
+      "description_en": "Les événements enregistrés par le système de journalisation sont horodatés au moyen de sources de temps synchronisées."
+    },
+    {
+      "ref": "5.11",
+      "theme": "Règle relative à la journalisation",
+      "theme_en": "Règle relative à la journalisation",
+      "mesure": "Ils sont, pour chaque SIIV, centralisés et archivés pendant une durée d'au moins six mois.",
+      "mesure_en": "Ils sont, pour chaque SIIV, centralisés et archivés pendant une durée d'au moins six mois.",
+      "description": "Ils sont, pour chaque SIIV, centralisés et archivés pendant une durée d'au moins six mois.",
+      "description_en": "Ils sont, pour chaque SIIV, centralisés et archivés pendant une durée d'au moins six mois."
+    },
+    {
+      "ref": "5.12",
+      "theme": "Règle relative à la journalisation",
+      "theme_en": "Règle relative à la journalisation",
+      "mesure": "Le format d'archivage des événements permet de réaliser des recherches automatisées sur ces événements.",
+      "mesure_en": "Le format d'archivage des événements permet de réaliser des recherches automatisées sur ces événements.",
+      "description": "Le format d'archivage des événements permet de réaliser des recherches automatisées sur ces événements.",
+      "description_en": "Le format d'archivage des événements permet de réaliser des recherches automatisées sur ces événements."
+    },
+    {
+      "ref": "6.1",
+      "theme": "Règle relative à la corrélation et l'analyse de journaux",
+      "theme_en": "Règle relative à la corrélation et l'analyse de journaux",
+      "mesure": "L'opérateur d'importance vitale met en œuvre un système de corrélation et d'analyse de journaux qui exploite les événements enregistrés par le",
+      "mesure_en": "L'opérateur d'importance vitale met en œuvre un système de corrélation et d'analyse de journaux qui exploite les événements enregistrés par le",
+      "description": "L'opérateur d'importance vitale met en œuvre un système de corrélation et d'analyse de journaux qui exploite les événements enregistrés par le système de journalisation installé sur chacun des systèmes d'information d'importance vitale (SIIV), afin de détecter des événements susceptibles d'affecter la sécurité des SIIV.",
+      "description_en": "L'opérateur d'importance vitale met en œuvre un système de corrélation et d'analyse de journaux qui exploite les événements enregistrés par le système de journalisation installé sur chacun des systèmes d'information d'importance vitale (SIIV), afin de détecter des événements susceptibles d'affecter la sécurité des SIIV."
+    },
+    {
+      "ref": "6.2",
+      "theme": "Règle relative à la corrélation et l'analyse de journaux",
+      "theme_en": "Règle relative à la corrélation et l'analyse de journaux",
+      "mesure": "Le système de corrélation et d'analyse de journaux est installé et exploité sur un système d'information mis en place exclusivement à des fins de",
+      "mesure_en": "Le système de corrélation et d'analyse de journaux est installé et exploité sur un système d'information mis en place exclusivement à des fins de",
+      "description": "Le système de corrélation et d'analyse de journaux est installé et exploité sur un système d'information mis en place exclusivement à des fins de détection d'événements susceptibles d'affecter la sécurité des systèmes d'information.",
+      "description_en": "Le système de corrélation et d'analyse de journaux est installé et exploité sur un système d'information mis en place exclusivement à des fins de détection d'événements susceptibles d'affecter la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "6.3",
+      "theme": "Règle relative à la corrélation et l'analyse de journaux",
+      "theme_en": "Règle relative à la corrélation et l'analyse de journaux",
+      "mesure": "L'opérateur ou le prestataire mandaté à cet effet installe et exploite ce système de corrélation et d'analyse de journaux en s'appuyant sur les",
+      "mesure_en": "L'opérateur ou le prestataire mandaté à cet effet installe et exploite ce système de corrélation et d'analyse de journaux en s'appuyant sur les",
+      "description": "L'opérateur ou le prestataire mandaté à cet effet installe et exploite ce système de corrélation et d'analyse de journaux en s'appuyant sur les exigences du référentiel en matière de détection des incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information.",
+      "description_en": "L'opérateur ou le prestataire mandaté à cet effet installe et exploite ce système de corrélation et d'analyse de journaux en s'appuyant sur les exigences du référentiel en matière de détection des incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "7.1",
+      "theme": "Règle relative à la détection",
+      "theme_en": "Règle relative à la détection",
+      "mesure": "L'opérateur d'importance vitale met en œuvre, en application de l'article R. 1332-41-3 du code de la défense, un système de détection qualifié de",
+      "mesure_en": "L'opérateur d'importance vitale met en œuvre, en application de l'article R. 1332-41-3 du code de la défense, un système de détection qualifié de",
+      "description": "L'opérateur d'importance vitale met en œuvre, en application de l'article R. 1332-41-3 du code de la défense, un système de détection qualifié de type \" sonde d'analyse de fichiers et de protocoles \".",
+      "description_en": "L'opérateur d'importance vitale met en œuvre, en application de l'article R. 1332-41-3 du code de la défense, un système de détection qualifié de type \" sonde d'analyse de fichiers et de protocoles \"."
+    },
+    {
+      "ref": "7.2",
+      "theme": "Règle relative à la détection",
+      "theme_en": "Règle relative à la détection",
+      "mesure": "Les sondes d'analyse de fichiers et de protocoles analysent les flux de données transitant par ces sondes afin de rechercher des événements",
+      "mesure_en": "Les sondes d'analyse de fichiers et de protocoles analysent les flux de données transitant par ces sondes afin de rechercher des événements",
+      "description": "Les sondes d'analyse de fichiers et de protocoles analysent les flux de données transitant par ces sondes afin de rechercher des événements susceptibles d'affecter la sécurité des systèmes d'information d'importance vitale (SIIV). Elles sont positionnées de manière à pouvoir analyser l'ensemble des flux échangés entre les SIIV et les systèmes d'information tiers à ceux de l'opérateur.",
+      "description_en": "Les sondes d'analyse de fichiers et de protocoles analysent les flux de données transitant par ces sondes afin de rechercher des événements susceptibles d'affecter la sécurité des systèmes d'information d'importance vitale (SIIV). Elles sont positionnées de manière à pouvoir analyser l'ensemble des flux échangés entre les SIIV et les systèmes d'information tiers à ceux de l'opérateur."
+    },
+    {
+      "ref": "7.3",
+      "theme": "Règle relative à la détection",
+      "theme_en": "Règle relative à la détection",
+      "mesure": "Ces systèmes de détection sont exploités selon les règles fixées par le référentiel en matière de détection des incidents de sécurité prévu à",
+      "mesure_en": "Ces systèmes de détection sont exploités selon les règles fixées par le référentiel en matière de détection des incidents de sécurité prévu à",
+      "description": "Ces systèmes de détection sont exploités selon les règles fixées par le référentiel en matière de détection des incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information. Ils sont exploités par un service de l'Etat ou un prestataire qualifié à cet effet dans les conditions prévues par le décret précité.",
+      "description_en": "Ces systèmes de détection sont exploités selon les règles fixées par le référentiel en matière de détection des incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information. Ils sont exploités par un service de l'Etat ou un prestataire qualifié à cet effet dans les conditions prévues par le décret précité."
+    },
+    {
+      "ref": "8.1",
+      "theme": "Règle relative au traitement des incidents de sécurité",
+      "theme_en": "Règle relative au traitement des incidents de sécurité",
+      "mesure": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de traitement des incidents affectant le fonctionnement ou la",
+      "mesure_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de traitement des incidents affectant le fonctionnement ou la",
+      "description": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de traitement des incidents affectant le fonctionnement ou la sécurité de ses systèmes d'information d'importance vitale (SIIV), conformément à sa politique de sécurité des systèmes d'information.",
+      "description_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de traitement des incidents affectant le fonctionnement ou la sécurité de ses systèmes d'information d'importance vitale (SIIV), conformément à sa politique de sécurité des systèmes d'information."
+    },
+    {
+      "ref": "8.2",
+      "theme": "Règle relative au traitement des incidents de sécurité",
+      "theme_en": "Règle relative au traitement des incidents de sécurité",
+      "mesure": "L'opérateur ou le prestataire mandaté à cet effet procède au traitement des incidents en s'appuyant sur les exigences du référentiel en matière de",
+      "mesure_en": "L'opérateur ou le prestataire mandaté à cet effet procède au traitement des incidents en s'appuyant sur les exigences du référentiel en matière de",
+      "description": "L'opérateur ou le prestataire mandaté à cet effet procède au traitement des incidents en s'appuyant sur les exigences du référentiel en matière de réponse aux incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information.",
+      "description_en": "L'opérateur ou le prestataire mandaté à cet effet procède au traitement des incidents en s'appuyant sur les exigences du référentiel en matière de réponse aux incidents de sécurité prévu à l'article 10 du décret n° 2015-350 du 27 mars 2015 relatif à la qualification des produits de sécurité et des prestataires de service de confiance pour les besoins de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "8.3",
+      "theme": "Règle relative au traitement des incidents de sécurité",
+      "theme_en": "Règle relative au traitement des incidents de sécurité",
+      "mesure": "Un système d'information spécifique doit être mis en place pour traiter les incidents, notamment pour stocker les relevés techniques relatifs aux",
+      "mesure_en": "Un système d'information spécifique doit être mis en place pour traiter les incidents, notamment pour stocker les relevés techniques relatifs aux",
+      "description": "Un système d'information spécifique doit être mis en place pour traiter les incidents, notamment pour stocker les relevés techniques relatifs aux analyses des incidents. Ce système est cloisonné vis-à-vis du SIIV concerné par l'incident.",
+      "description_en": "Un système d'information spécifique doit être mis en place pour traiter les incidents, notamment pour stocker les relevés techniques relatifs aux analyses des incidents. Ce système est cloisonné vis-à-vis du SIIV concerné par l'incident."
+    },
+    {
+      "ref": "8.4",
+      "theme": "Règle relative au traitement des incidents de sécurité",
+      "theme_en": "Règle relative au traitement des incidents de sécurité",
+      "mesure": "L'opérateur conserve les relevés techniques relatifs aux analyses des incidents pendant une durée d'au moins six mois. Il tient ces relevés",
+      "mesure_en": "L'opérateur conserve les relevés techniques relatifs aux analyses des incidents pendant une durée d'au moins six mois. Il tient ces relevés",
+      "description": "L'opérateur conserve les relevés techniques relatifs aux analyses des incidents pendant une durée d'au moins six mois. Il tient ces relevés techniques à la disposition de l'Agence nationale de la sécurité des systèmes d'information.",
+      "description_en": "L'opérateur conserve les relevés techniques relatifs aux analyses des incidents pendant une durée d'au moins six mois. Il tient ces relevés techniques à la disposition de l'Agence nationale de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "8.5",
+      "theme": "Règle relative au traitement des incidents de sécurité",
+      "theme_en": "Règle relative au traitement des incidents de sécurité",
+      "mesure": "Les relevés techniques sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les",
+      "mesure_en": "Les relevés techniques sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les",
+      "description": "Les relevés techniques sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale.",
+      "description_en": "Les relevés techniques sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale."
+    },
+    {
+      "ref": "9.1",
+      "theme": "Règle relative au traitement des alertes",
+      "theme_en": "Règle relative au traitement des alertes",
+      "mesure": "L'opérateur d'importance vitale met en place un service de permanence lui permettant de prendre connaissance, à tout moment et sans délai,",
+      "mesure_en": "L'opérateur d'importance vitale met en place un service de permanence lui permettant de prendre connaissance, à tout moment et sans délai,",
+      "description": "L'opérateur d'importance vitale met en place un service de permanence lui permettant de prendre connaissance, à tout moment et sans délai, d'informations transmises par l'Agence nationale de la sécurité des systèmes d'information relatives à des incidents, des vulnérabilités et des menaces.",
+      "description_en": "L'opérateur d'importance vitale met en place un service de permanence lui permettant de prendre connaissance, à tout moment et sans délai, d'informations transmises par l'Agence nationale de la sécurité des systèmes d'information relatives à des incidents, des vulnérabilités et des menaces."
+    },
+    {
+      "ref": "9.2",
+      "theme": "Règle relative au traitement des alertes",
+      "theme_en": "Règle relative au traitement des alertes",
+      "mesure": "Il met en œuvre une procédure pour traiter les informations ainsi reçues et le cas échéant prendre les mesures de sécurité nécessaires à la",
+      "mesure_en": "Il met en œuvre une procédure pour traiter les informations ainsi reçues et le cas échéant prendre les mesures de sécurité nécessaires à la",
+      "description": "Il met en œuvre une procédure pour traiter les informations ainsi reçues et le cas échéant prendre les mesures de sécurité nécessaires à la protection de ses systèmes d'information d'importance vitale (SIIV).",
+      "description_en": "Il met en œuvre une procédure pour traiter les informations ainsi reçues et le cas échéant prendre les mesures de sécurité nécessaires à la protection de ses systèmes d'information d'importance vitale (SIIV)."
+    },
+    {
+      "ref": "9.3",
+      "theme": "Règle relative au traitement des alertes",
+      "theme_en": "Règle relative au traitement des alertes",
+      "mesure": "L'opérateur communique à l'Agence nationale de la sécurité des systèmes d'information les coordonnées (nom du service, numéro de téléphone et adresse",
+      "mesure_en": "L'opérateur communique à l'Agence nationale de la sécurité des systèmes d'information les coordonnées (nom du service, numéro de téléphone et adresse",
+      "description": "L'opérateur communique à l'Agence nationale de la sécurité des systèmes d'information les coordonnées (nom du service, numéro de téléphone et adresse électronique) tenues à jour du service de permanence prévu à l'alinéa précédent.",
+      "description_en": "L'opérateur communique à l'Agence nationale de la sécurité des systèmes d'information les coordonnées (nom du service, numéro de téléphone et adresse électronique) tenues à jour du service de permanence prévu à l'alinéa précédent."
+    },
+    {
+      "ref": "10.1",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de gestion de crises en cas d'attaques informatiques majeures,",
+      "mesure_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de gestion de crises en cas d'attaques informatiques majeures,",
+      "description": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de gestion de crises en cas d'attaques informatiques majeures, conformément à sa politique de sécurité des systèmes d'information.",
+      "description_en": "L'opérateur d'importance vitale élabore, tient à jour et met en œuvre une procédure de gestion de crises en cas d'attaques informatiques majeures, conformément à sa politique de sécurité des systèmes d'information."
+    },
+    {
+      "ref": "10.2",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "Cette procédure décrit les moyens techniques et organisationnels dont dispose l'opérateur pour mettre en œuvre les mesures décidées par le Premier",
+      "mesure_en": "Cette procédure décrit les moyens techniques et organisationnels dont dispose l'opérateur pour mettre en œuvre les mesures décidées par le Premier",
+      "description": "Cette procédure décrit les moyens techniques et organisationnels dont dispose l'opérateur pour mettre en œuvre les mesures décidées par le Premier ministre en cas de crises, notamment les mesures suivantes :",
+      "description_en": "Cette procédure décrit les moyens techniques et organisationnels dont dispose l'opérateur pour mettre en œuvre les mesures décidées par le Premier ministre en cas de crises, notamment les mesures suivantes :"
+    },
+    {
+      "ref": "10.3",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- configurer les systèmes d'information de manière à éviter les attaques ou à en limiter les effets. Cette configuration peut viser :",
+      "mesure_en": "- configurer les systèmes d'information de manière à éviter les attaques ou à en limiter les effets. Cette configuration peut viser :",
+      "description": "- configurer les systèmes d'information de manière à éviter les attaques ou à en limiter les effets. Cette configuration peut viser :",
+      "description_en": "- configurer les systèmes d'information de manière à éviter les attaques ou à en limiter les effets. Cette configuration peut viser :"
+    },
+    {
+      "ref": "10.4",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à proscrire l'utilisation de supports de stockage amovibles ou la connexion d'équipements nomades aux systèmes d'information de l'opérateur ;",
+      "mesure_en": "- à proscrire l'utilisation de supports de stockage amovibles ou la connexion d'équipements nomades aux systèmes d'information de l'opérateur ;",
+      "description": "- à proscrire l'utilisation de supports de stockage amovibles ou la connexion d'équipements nomades aux systèmes d'information de l'opérateur ;",
+      "description_en": "- à proscrire l'utilisation de supports de stockage amovibles ou la connexion d'équipements nomades aux systèmes d'information de l'opérateur ;"
+    },
+    {
+      "ref": "10.5",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à installer une mesure correctrice de sécurité sur un système d'information particulier ;",
+      "mesure_en": "- à installer une mesure correctrice de sécurité sur un système d'information particulier ;",
+      "description": "- à installer une mesure correctrice de sécurité sur un système d'information particulier ;",
+      "description_en": "- à installer une mesure correctrice de sécurité sur un système d'information particulier ;"
+    },
+    {
+      "ref": "10.6",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à restreindre le routage ;",
+      "mesure_en": "- à restreindre le routage ;",
+      "description": "- à restreindre le routage ;",
+      "description_en": "- à restreindre le routage ;"
+    },
+    {
+      "ref": "10.7",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- mettre en place des règles de filtrage sur les réseaux ou des configurations particulières sur les équipements terminaux. Cette mesure peut viser :",
+      "mesure_en": "- mettre en place des règles de filtrage sur les réseaux ou des configurations particulières sur les équipements terminaux. Cette mesure peut viser :",
+      "description": "- mettre en place des règles de filtrage sur les réseaux ou des configurations particulières sur les équipements terminaux. Cette mesure peut viser :",
+      "description_en": "- mettre en place des règles de filtrage sur les réseaux ou des configurations particulières sur les équipements terminaux. Cette mesure peut viser :"
+    },
+    {
+      "ref": "10.8",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à effectuer des restrictions d'accès sous forme de listes blanches et de listes noires d'utilisateurs ;",
+      "mesure_en": "- à effectuer des restrictions d'accès sous forme de listes blanches et de listes noires d'utilisateurs ;",
+      "description": "- à effectuer des restrictions d'accès sous forme de listes blanches et de listes noires d'utilisateurs ;",
+      "description_en": "- à effectuer des restrictions d'accès sous forme de listes blanches et de listes noires d'utilisateurs ;"
+    },
+    {
+      "ref": "10.9",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à bloquer les échanges de fichiers d'un type particulier ;",
+      "mesure_en": "- à bloquer les échanges de fichiers d'un type particulier ;",
+      "description": "- à bloquer les échanges de fichiers d'un type particulier ;",
+      "description_en": "- à bloquer les échanges de fichiers d'un type particulier ;"
+    },
+    {
+      "ref": "10.10",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- à isoler de tout réseau des sites internet, des applications, ou des équipements informatiques de l'opérateur en sollicitant le cas échéant l'appui",
+      "mesure_en": "- à isoler de tout réseau des sites internet, des applications, ou des équipements informatiques de l'opérateur en sollicitant le cas échéant l'appui",
+      "description": "- à isoler de tout réseau des sites internet, des applications, ou des équipements informatiques de l'opérateur en sollicitant le cas échéant l'appui des opérateurs publics de communications électroniques ;",
+      "description_en": "- à isoler de tout réseau des sites internet, des applications, ou des équipements informatiques de l'opérateur en sollicitant le cas échéant l'appui des opérateurs publics de communications électroniques ;"
+    },
+    {
+      "ref": "10.11",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "- isoler du réseau internet les systèmes d'information de l'opérateur. Cette mesure impose de déconnecter physiquement ou logiquement les interfaces",
+      "mesure_en": "- isoler du réseau internet les systèmes d'information de l'opérateur. Cette mesure impose de déconnecter physiquement ou logiquement les interfaces",
+      "description": "- isoler du réseau internet les systèmes d'information de l'opérateur. Cette mesure impose de déconnecter physiquement ou logiquement les interfaces réseau des systèmes d'information concernés.",
+      "description_en": "- isoler du réseau internet les systèmes d'information de l'opérateur. Cette mesure impose de déconnecter physiquement ou logiquement les interfaces réseau des systèmes d'information concernés."
+    },
+    {
+      "ref": "10.12",
+      "theme": "Règle relative à la gestion de crises",
+      "theme_en": "Règle relative à la gestion de crises",
+      "mesure": "La procédure précise les conditions dans lesquelles ces mesures peuvent être appliquées compte tenu des contraintes techniques et organisationnelles",
+      "mesure_en": "La procédure précise les conditions dans lesquelles ces mesures peuvent être appliquées compte tenu des contraintes techniques et organisationnelles",
+      "description": "La procédure précise les conditions dans lesquelles ces mesures peuvent être appliquées compte tenu des contraintes techniques et organisationnelles de mise en œuvre.",
+      "description_en": "La procédure précise les conditions dans lesquelles ces mesures peuvent être appliquées compte tenu des contraintes techniques et organisationnelles de mise en œuvre."
+    },
+    {
+      "ref": "11.1",
+      "theme": "Règle relative à l'identification",
+      "theme_en": "Règle relative à l'identification",
+      "mesure": "L'opérateur d'importance vitale crée des comptes individuels pour tous les utilisateurs (y compris les utilisateurs ayant des comptes privilégiés ou",
+      "mesure_en": "L'opérateur d'importance vitale crée des comptes individuels pour tous les utilisateurs (y compris les utilisateurs ayant des comptes privilégiés ou",
+      "description": "L'opérateur d'importance vitale crée des comptes individuels pour tous les utilisateurs (y compris les utilisateurs ayant des comptes privilégiés ou des comptes d'administration) et pour les processus automatiques accédant aux ressources de ses systèmes d'information d'importance vitale (SIIV).",
+      "description_en": "L'opérateur d'importance vitale crée des comptes individuels pour tous les utilisateurs (y compris les utilisateurs ayant des comptes privilégiés ou des comptes d'administration) et pour les processus automatiques accédant aux ressources de ses systèmes d'information d'importance vitale (SIIV)."
+    },
+    {
+      "ref": "11.2",
+      "theme": "Règle relative à l'identification",
+      "theme_en": "Règle relative à l'identification",
+      "mesure": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus",
+      "mesure_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus",
+      "description": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus automatiques, l'opérateur met en place des mesures permettant de réduire le risque lié à l'utilisation de comptes partagés et d'assurer la traçabilité de l'utilisation de ces comptes.",
+      "description_en": "Lorsque des raisons techniques ou opérationnelles ne permettent pas de créer de comptes individuels pour les utilisateurs ou pour les processus automatiques, l'opérateur met en place des mesures permettant de réduire le risque lié à l'utilisation de comptes partagés et d'assurer la traçabilité de l'utilisation de ces comptes."
+    },
+    {
+      "ref": "11.3",
+      "theme": "Règle relative à l'identification",
+      "theme_en": "Règle relative à l'identification",
+      "mesure": "Dans ce cas, l'opérateur décrit ces mesures dans le dossier d'homologation du SIIV concerné et les raisons justifiant le recours à des comptes",
+      "mesure_en": "Dans ce cas, l'opérateur décrit ces mesures dans le dossier d'homologation du SIIV concerné et les raisons justifiant le recours à des comptes",
+      "description": "Dans ce cas, l'opérateur décrit ces mesures dans le dossier d'homologation du SIIV concerné et les raisons justifiant le recours à des comptes partagés.",
+      "description_en": "Dans ce cas, l'opérateur décrit ces mesures dans le dossier d'homologation du SIIV concerné et les raisons justifiant le recours à des comptes partagés."
+    },
+    {
+      "ref": "11.4",
+      "theme": "Règle relative à l'identification",
+      "theme_en": "Règle relative à l'identification",
+      "mesure": "L'opérateur désactive sans délai les comptes qui ne sont plus nécessaires.",
+      "mesure_en": "L'opérateur désactive sans délai les comptes qui ne sont plus nécessaires.",
+      "description": "L'opérateur désactive sans délai les comptes qui ne sont plus nécessaires.",
+      "description_en": "L'opérateur désactive sans délai les comptes qui ne sont plus nécessaires."
+    },
+    {
+      "ref": "12.1",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "L'opérateur d'importance vitale protège les accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), que ce soit par un",
+      "mesure_en": "L'opérateur d'importance vitale protège les accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), que ce soit par un",
+      "description": "L'opérateur d'importance vitale protège les accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), que ce soit par un utilisateur ou par un processus automatique, au moyen d'un mécanisme d'authentification impliquant un élément secret.",
+      "description_en": "L'opérateur d'importance vitale protège les accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), que ce soit par un utilisateur ou par un processus automatique, au moyen d'un mécanisme d'authentification impliquant un élément secret."
+    },
+    {
+      "ref": "12.2",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion des éléments secrets",
+      "mesure_en": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion des éléments secrets",
+      "description": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion des éléments secrets d'authentification mis en œuvre dans ses SIIV.",
+      "description_en": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion des éléments secrets d'authentification mis en œuvre dans ses SIIV."
+    },
+    {
+      "ref": "12.3",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "Lorsque la ressource le permet techniquement, les éléments secrets d'authentification doivent pouvoir être modifiés par l'opérateur chaque fois que",
+      "mesure_en": "Lorsque la ressource le permet techniquement, les éléments secrets d'authentification doivent pouvoir être modifiés par l'opérateur chaque fois que",
+      "description": "Lorsque la ressource le permet techniquement, les éléments secrets d'authentification doivent pouvoir être modifiés par l'opérateur chaque fois que cela est nécessaire. Dans ce cas, l'opérateur respecte les règles suivantes :",
+      "description_en": "Lorsque la ressource le permet techniquement, les éléments secrets d'authentification doivent pouvoir être modifiés par l'opérateur chaque fois que cela est nécessaire. Dans ce cas, l'opérateur respecte les règles suivantes :"
+    },
+    {
+      "ref": "12.4",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "- l'opérateur doit modifier les éléments secrets d'authentification lorsqu'ils ont été installés par le fabricant ou le fournisseur de la ressource,",
+      "mesure_en": "- l'opérateur doit modifier les éléments secrets d'authentification lorsqu'ils ont été installés par le fabricant ou le fournisseur de la ressource,",
+      "description": "- l'opérateur doit modifier les éléments secrets d'authentification lorsqu'ils ont été installés par le fabricant ou le fournisseur de la ressource, avant sa mise en service. A cet effet, l'opérateur s'assure auprès du fabricant ou du fournisseur qu'il dispose des moyens et des droits permettant de réaliser ces opérations ;",
+      "description_en": "- l'opérateur doit modifier les éléments secrets d'authentification lorsqu'ils ont été installés par le fabricant ou le fournisseur de la ressource, avant sa mise en service. A cet effet, l'opérateur s'assure auprès du fabricant ou du fournisseur qu'il dispose des moyens et des droits permettant de réaliser ces opérations ;"
+    },
+    {
+      "ref": "12.5",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "- l'élément secret d'authentification d'un compte partagé doit être renouvelé régulièrement et à chaque retrait d'un utilisateur de ce compte ;",
+      "mesure_en": "- l'élément secret d'authentification d'un compte partagé doit être renouvelé régulièrement et à chaque retrait d'un utilisateur de ce compte ;",
+      "description": "- l'élément secret d'authentification d'un compte partagé doit être renouvelé régulièrement et à chaque retrait d'un utilisateur de ce compte ;",
+      "description_en": "- l'élément secret d'authentification d'un compte partagé doit être renouvelé régulièrement et à chaque retrait d'un utilisateur de ce compte ;"
+    },
+    {
+      "ref": "12.6",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "- les utilisateurs qui n'en ont pas la responsabilité, ne peuvent pas modifier les éléments secrets d'authentification. Ils ne peuvent pas non plus",
+      "mesure_en": "- les utilisateurs qui n'en ont pas la responsabilité, ne peuvent pas modifier les éléments secrets d'authentification. Ils ne peuvent pas non plus",
+      "description": "- les utilisateurs qui n'en ont pas la responsabilité, ne peuvent pas modifier les éléments secrets d'authentification. Ils ne peuvent pas non plus accéder à ces éléments en clair ;",
+      "description_en": "- les utilisateurs qui n'en ont pas la responsabilité, ne peuvent pas modifier les éléments secrets d'authentification. Ils ne peuvent pas non plus accéder à ces éléments en clair ;"
+    },
+    {
+      "ref": "12.7",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "- lorsque les éléments secrets d'authentification sont des mots de passe, les utilisateurs ne doivent pas les réutiliser entre comptes privilégiés ou",
+      "mesure_en": "- lorsque les éléments secrets d'authentification sont des mots de passe, les utilisateurs ne doivent pas les réutiliser entre comptes privilégiés ou",
+      "description": "- lorsque les éléments secrets d'authentification sont des mots de passe, les utilisateurs ne doivent pas les réutiliser entre comptes privilégiés ou entre un compte privilégié et un compte non privilégié ;",
+      "description_en": "- lorsque les éléments secrets d'authentification sont des mots de passe, les utilisateurs ne doivent pas les réutiliser entre comptes privilégiés ou entre un compte privilégié et un compte non privilégié ;"
+    },
+    {
+      "ref": "12.8",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "- lorsque les éléments secrets d'authentification sont des mots de passe, ceux-ci sont conformes aux règles de l'art telles que celles préconisées",
+      "mesure_en": "- lorsque les éléments secrets d'authentification sont des mots de passe, ceux-ci sont conformes aux règles de l'art telles que celles préconisées",
+      "description": "- lorsque les éléments secrets d'authentification sont des mots de passe, ceux-ci sont conformes aux règles de l'art telles que celles préconisées par l'Agence nationale de la sécurité des systèmes d'information, en matière de complexité (longueur du mot de passe et types de caractères), en tenant compte du niveau de complexité maximal permis par la ressource concernée, et en matière de renouvellement.",
+      "description_en": "- lorsque les éléments secrets d'authentification sont des mots de passe, ceux-ci sont conformes aux règles de l'art telles que celles préconisées par l'Agence nationale de la sécurité des systèmes d'information, en matière de complexité (longueur du mot de passe et types de caractères), en tenant compte du niveau de complexité maximal permis par la ressource concernée, et en matière de renouvellement."
+    },
+    {
+      "ref": "12.9",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "Lorsque la ressource ne permet pas techniquement de modifier l'élément secret d'authentification, l'opérateur met en place un contrôle d'accès",
+      "mesure_en": "Lorsque la ressource ne permet pas techniquement de modifier l'élément secret d'authentification, l'opérateur met en place un contrôle d'accès",
+      "description": "Lorsque la ressource ne permet pas techniquement de modifier l'élément secret d'authentification, l'opérateur met en place un contrôle d'accès approprié à la ressource concernée ainsi que des mesures de traçabilité des accès et de réduction du risque lié à l'utilisation d'un élément secret d'authentification fixe.",
+      "description_en": "Lorsque la ressource ne permet pas techniquement de modifier l'élément secret d'authentification, l'opérateur met en place un contrôle d'accès approprié à la ressource concernée ainsi que des mesures de traçabilité des accès et de réduction du risque lié à l'utilisation d'un élément secret d'authentification fixe."
+    },
+    {
+      "ref": "12.10",
+      "theme": "Règle relative à l'authentification",
+      "theme_en": "Règle relative à l'authentification",
+      "mesure": "L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures et les raisons techniques ayant empêché la modification de l'élément",
+      "mesure_en": "L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures et les raisons techniques ayant empêché la modification de l'élément",
+      "description": "L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures et les raisons techniques ayant empêché la modification de l'élément secret d'authentification.",
+      "description_en": "L'opérateur décrit dans le dossier d'homologation du SIIV concerné ces mesures et les raisons techniques ayant empêché la modification de l'élément secret d'authentification."
+    },
+    {
+      "ref": "13.1",
+      "theme": "Règle relative aux droits d'accès",
+      "theme_en": "Règle relative aux droits d'accès",
+      "mesure": "L'opérateur d'importance vitale définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution",
+      "mesure_en": "L'opérateur d'importance vitale définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution",
+      "description": "L'opérateur d'importance vitale définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des droits d'accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), et respecte les règles suivantes :",
+      "description_en": "L'opérateur d'importance vitale définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des droits d'accès aux ressources de ses systèmes d'information d'importance vitale (SIIV), et respecte les règles suivantes :"
+    },
+    {
+      "ref": "13.2",
+      "theme": "Règle relative aux droits d'accès",
+      "theme_en": "Règle relative aux droits d'accès",
+      "mesure": "- l'opérateur n'attribue à un utilisateur ou à un processus automatique les droits d'accès à une ressource que si cet accès est strictement",
+      "mesure_en": "- l'opérateur n'attribue à un utilisateur ou à un processus automatique les droits d'accès à une ressource que si cet accès est strictement",
+      "description": "- l'opérateur n'attribue à un utilisateur ou à un processus automatique les droits d'accès à une ressource que si cet accès est strictement nécessaire à l'exercice des missions de l'utilisateur ou au fonctionnement du processus automatique ;",
+      "description_en": "- l'opérateur n'attribue à un utilisateur ou à un processus automatique les droits d'accès à une ressource que si cet accès est strictement nécessaire à l'exercice des missions de l'utilisateur ou au fonctionnement du processus automatique ;"
+    },
+    {
+      "ref": "13.3",
+      "theme": "Règle relative aux droits d'accès",
+      "theme_en": "Règle relative aux droits d'accès",
+      "mesure": "- l'opérateur définit les accès aux différentes fonctionnalités de cette ressource et en attribue les droits uniquement aux utilisateurs et aux",
+      "mesure_en": "- l'opérateur définit les accès aux différentes fonctionnalités de cette ressource et en attribue les droits uniquement aux utilisateurs et aux",
+      "description": "- l'opérateur définit les accès aux différentes fonctionnalités de cette ressource et en attribue les droits uniquement aux utilisateurs et aux processus automatiques qui en ont strictement le besoin ;",
+      "description_en": "- l'opérateur définit les accès aux différentes fonctionnalités de cette ressource et en attribue les droits uniquement aux utilisateurs et aux processus automatiques qui en ont strictement le besoin ;"
+    },
+    {
+      "ref": "13.4",
+      "theme": "Règle relative aux droits d'accès",
+      "theme_en": "Règle relative aux droits d'accès",
+      "mesure": "- les droits d'accès sont révisés périodiquement, au moins tous les ans, par l'opérateur. Cette révision porte sur les liens entre les comptes, les",
+      "mesure_en": "- les droits d'accès sont révisés périodiquement, au moins tous les ans, par l'opérateur. Cette révision porte sur les liens entre les comptes, les",
+      "description": "- les droits d'accès sont révisés périodiquement, au moins tous les ans, par l'opérateur. Cette révision porte sur les liens entre les comptes, les droits d'accès associés et les ressources ou les fonctionnalités qui en font l'objet ;",
+      "description_en": "- les droits d'accès sont révisés périodiquement, au moins tous les ans, par l'opérateur. Cette révision porte sur les liens entre les comptes, les droits d'accès associés et les ressources ou les fonctionnalités qui en font l'objet ;"
+    },
+    {
+      "ref": "13.5",
+      "theme": "Règle relative aux droits d'accès",
+      "theme_en": "Règle relative aux droits d'accès",
+      "mesure": "- l'opérateur établit et tient à jour la liste des comptes privilégiés. Toute modification d'un compte privilégié (ajout, suppression, suspension ou",
+      "mesure_en": "- l'opérateur établit et tient à jour la liste des comptes privilégiés. Toute modification d'un compte privilégié (ajout, suppression, suspension ou",
+      "description": "- l'opérateur établit et tient à jour la liste des comptes privilégiés. Toute modification d'un compte privilégié (ajout, suppression, suspension ou modification des droits associés) fait l'objet d'un contrôle formel de l'opérateur destiné à vérifier que les droits d'accès aux ressources et fonctionnalités sont attribués selon le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés) et en cohérence avec les besoins d'utilisation du compte.",
+      "description_en": "- l'opérateur établit et tient à jour la liste des comptes privilégiés. Toute modification d'un compte privilégié (ajout, suppression, suspension ou modification des droits associés) fait l'objet d'un contrôle formel de l'opérateur destiné à vérifier que les droits d'accès aux ressources et fonctionnalités sont attribués selon le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés) et en cohérence avec les besoins d'utilisation du compte."
+    },
+    {
+      "ref": "14.1",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "L'opérateur d'importance vitale crée des comptes (appelés \"comptes d'administration\") destinés aux seules personnes (appelées administrateurs)",
+      "mesure_en": "L'opérateur d'importance vitale crée des comptes (appelés \"comptes d'administration\") destinés aux seules personnes (appelées administrateurs)",
+      "description": "L'opérateur d'importance vitale crée des comptes (appelés \"comptes d'administration\") destinés aux seules personnes (appelées administrateurs) chargées d'effectuer les opérations d'administration (installation, configuration, gestion, maintenance, supervision, etc.) des ressources de ses systèmes d'information d'importance vitale (SIIV).",
+      "description_en": "L'opérateur d'importance vitale crée des comptes (appelés \"comptes d'administration\") destinés aux seules personnes (appelées administrateurs) chargées d'effectuer les opérations d'administration (installation, configuration, gestion, maintenance, supervision, etc.) des ressources de ses systèmes d'information d'importance vitale (SIIV)."
+    },
+    {
+      "ref": "14.2",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des comptes",
+      "mesure_en": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des comptes",
+      "description": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des comptes d'administration de ses SIIV, et respecte les règles suivantes :",
+      "description_en": "L'opérateur définit, conformément à sa politique de sécurité des systèmes d'information, les règles de gestion et d'attribution des comptes d'administration de ses SIIV, et respecte les règles suivantes :"
+    },
+    {
+      "ref": "14.3",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "- l'attribution des droits aux administrateurs respecte le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés). En",
+      "mesure_en": "- l'attribution des droits aux administrateurs respecte le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés). En",
+      "description": "- l'attribution des droits aux administrateurs respecte le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés). En particulier, afin de limiter la portée des droits individuels, ils sont attribués à chaque administrateur en les restreignant autant que possible au périmètre fonctionnel et technique dont cet administrateur est responsable ;",
+      "description_en": "- l'attribution des droits aux administrateurs respecte le principe du moindre privilège (seuls les droits strictement nécessaires sont accordés). En particulier, afin de limiter la portée des droits individuels, ils sont attribués à chaque administrateur en les restreignant autant que possible au périmètre fonctionnel et technique dont cet administrateur est responsable ;"
+    },
+    {
+      "ref": "14.4",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "- un compte d'administration est utilisé exclusivement pour se connecter à un système d'information d'administration (système d'information utilisé",
+      "mesure_en": "- un compte d'administration est utilisé exclusivement pour se connecter à un système d'information d'administration (système d'information utilisé",
+      "description": "- un compte d'administration est utilisé exclusivement pour se connecter à un système d'information d'administration (système d'information utilisé pour les opérations d'administration des ressources) ou à une ressource administrée ;",
+      "description_en": "- un compte d'administration est utilisé exclusivement pour se connecter à un système d'information d'administration (système d'information utilisé pour les opérations d'administration des ressources) ou à une ressource administrée ;"
+    },
+    {
+      "ref": "14.5",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "- les opérations d'administration sont effectuées exclusivement à partir de comptes d'administration, et inversement, les comptes d'administration",
+      "mesure_en": "- les opérations d'administration sont effectuées exclusivement à partir de comptes d'administration, et inversement, les comptes d'administration",
+      "description": "- les opérations d'administration sont effectuées exclusivement à partir de comptes d'administration, et inversement, les comptes d'administration sont utilisés exclusivement pour les opérations d'administration ;",
+      "description_en": "- les opérations d'administration sont effectuées exclusivement à partir de comptes d'administration, et inversement, les comptes d'administration sont utilisés exclusivement pour les opérations d'administration ;"
+    },
+    {
+      "ref": "14.6",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "- lorsque l'administration d'une ressource ne peut pas techniquement être effectuée à partir d'un compte spécifique d'administration, l'opérateur met",
+      "mesure_en": "- lorsque l'administration d'une ressource ne peut pas techniquement être effectuée à partir d'un compte spécifique d'administration, l'opérateur met",
+      "description": "- lorsque l'administration d'une ressource ne peut pas techniquement être effectuée à partir d'un compte spécifique d'administration, l'opérateur met en place des mesures permettant d'assurer la traçabilité et le contrôle des opérations d'administration réalisées sur cette ressource et des mesures de réduction du risque lié à l'utilisation d'un compte non spécifique à l'administration. Il décrit dans le dossier d'homologation du SIIV concerné ces mesures ainsi que les raisons techniques ayant empêché l'utilisation d'un compte d'administration ;",
+      "description_en": "- lorsque l'administration d'une ressource ne peut pas techniquement être effectuée à partir d'un compte spécifique d'administration, l'opérateur met en place des mesures permettant d'assurer la traçabilité et le contrôle des opérations d'administration réalisées sur cette ressource et des mesures de réduction du risque lié à l'utilisation d'un compte non spécifique à l'administration. Il décrit dans le dossier d'homologation du SIIV concerné ces mesures ainsi que les raisons techniques ayant empêché l'utilisation d'un compte d'administration ;"
+    },
+    {
+      "ref": "14.7",
+      "theme": "Règle relative aux comptes d'administration",
+      "theme_en": "Règle relative aux comptes d'administration",
+      "mesure": "- l'opérateur établit et tient à jour la liste des comptes d'administration de ses SIIV et les gère en tant que comptes privilégiés.",
+      "mesure_en": "- l'opérateur établit et tient à jour la liste des comptes d'administration de ses SIIV et les gère en tant que comptes privilégiés.",
+      "description": "- l'opérateur établit et tient à jour la liste des comptes d'administration de ses SIIV et les gère en tant que comptes privilégiés.",
+      "description_en": "- l'opérateur établit et tient à jour la liste des comptes d'administration de ses SIIV et les gère en tant que comptes privilégiés."
+    },
+    {
+      "ref": "15.1",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont gérées et configurées par l'opérateur ou, le cas",
+      "mesure_en": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont gérées et configurées par l'opérateur ou, le cas",
+      "description": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont gérées et configurées par l'opérateur ou, le cas échéant, par le prestataire qu'il a mandaté pour réaliser les opérations d'administration ;",
+      "description_en": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont gérées et configurées par l'opérateur ou, le cas échéant, par le prestataire qu'il a mandaté pour réaliser les opérations d'administration ;"
+    },
+    {
+      "ref": "15.2",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont utilisées exclusivement pour réaliser des opérations",
+      "mesure_en": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont utilisées exclusivement pour réaliser des opérations",
+      "description": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont utilisées exclusivement pour réaliser des opérations d'administration. Cependant, lorsque des raisons techniques ou organisationnelles le justifient, le poste de travail physique de l'administrateur peut être utilisé pour réaliser des opérations autres que des opérations d'administration. Dans ce cas, des mécanismes de durcissement du système d'exploitation du poste de travail et de cloisonnement doivent être mis en place pour permettre d'isoler l'environnement logiciel utilisé pour ces autres opérations de l'environnement logiciel utilisé pour les opérations d'administration ;",
+      "description_en": "- les ressources matérielles et logicielles des systèmes d'information d'administration sont utilisées exclusivement pour réaliser des opérations d'administration. Cependant, lorsque des raisons techniques ou organisationnelles le justifient, le poste de travail physique de l'administrateur peut être utilisé pour réaliser des opérations autres que des opérations d'administration. Dans ce cas, des mécanismes de durcissement du système d'exploitation du poste de travail et de cloisonnement doivent être mis en place pour permettre d'isoler l'environnement logiciel utilisé pour ces autres opérations de l'environnement logiciel utilisé pour les opérations d'administration ;"
+    },
+    {
+      "ref": "15.3",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- un environnement logiciel utilisé pour effectuer des opérations d'administration ne doit pas être utilisé à d'autres fins, comme l'accès à des",
+      "mesure_en": "- un environnement logiciel utilisé pour effectuer des opérations d'administration ne doit pas être utilisé à d'autres fins, comme l'accès à des",
+      "description": "- un environnement logiciel utilisé pour effectuer des opérations d'administration ne doit pas être utilisé à d'autres fins, comme l'accès à des sites ou serveurs de messagerie sur internet ;",
+      "description_en": "- un environnement logiciel utilisé pour effectuer des opérations d'administration ne doit pas être utilisé à d'autres fins, comme l'accès à des sites ou serveurs de messagerie sur internet ;"
+    },
+    {
+      "ref": "15.4",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- un utilisateur ne doit pas se connecter à un système d'information d'administration au moyen d'un environnement logiciel utilisé pour d'autres",
+      "mesure_en": "- un utilisateur ne doit pas se connecter à un système d'information d'administration au moyen d'un environnement logiciel utilisé pour d'autres",
+      "description": "- un utilisateur ne doit pas se connecter à un système d'information d'administration au moyen d'un environnement logiciel utilisé pour d'autres fonctions que des opérations d'administration ;",
+      "description_en": "- un utilisateur ne doit pas se connecter à un système d'information d'administration au moyen d'un environnement logiciel utilisé pour d'autres fonctions que des opérations d'administration ;"
+    },
+    {
+      "ref": "15.5",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- les flux de données associés à des opérations autres que des opérations d'administration doivent, lorsqu'ils transitent sur les systèmes",
+      "mesure_en": "- les flux de données associés à des opérations autres que des opérations d'administration doivent, lorsqu'ils transitent sur les systèmes",
+      "description": "- les flux de données associés à des opérations autres que des opérations d'administration doivent, lorsqu'ils transitent sur les systèmes d'information d'administration, être cloisonnés au moyen de mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information ;",
+      "description_en": "- les flux de données associés à des opérations autres que des opérations d'administration doivent, lorsqu'ils transitent sur les systèmes d'information d'administration, être cloisonnés au moyen de mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information ;"
+    },
+    {
+      "ref": "15.6",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- les systèmes d'information d'administration sont connectés aux ressources à administrer au travers d'une liaison réseau physique utilisée",
+      "mesure_en": "- les systèmes d'information d'administration sont connectés aux ressources à administrer au travers d'une liaison réseau physique utilisée",
+      "description": "- les systèmes d'information d'administration sont connectés aux ressources à administrer au travers d'une liaison réseau physique utilisée exclusivement pour les opérations d'administration. Ces ressources sont administrées au travers de leur interface d'administration physique. Lorsque des raisons techniques empêchent d'administrer une ressource au travers d'une liaison réseau physique ou de son interface d'administration physique, l'opérateur met en œuvre des mesures de réduction du risque telles que des mesures de sécurité logique. Dans ce cas, il décrit ces mesures et leurs justifications dans le dossier d'homologation du SIIV concerné ;",
+      "description_en": "- les systèmes d'information d'administration sont connectés aux ressources à administrer au travers d'une liaison réseau physique utilisée exclusivement pour les opérations d'administration. Ces ressources sont administrées au travers de leur interface d'administration physique. Lorsque des raisons techniques empêchent d'administrer une ressource au travers d'une liaison réseau physique ou de son interface d'administration physique, l'opérateur met en œuvre des mesures de réduction du risque telles que des mesures de sécurité logique. Dans ce cas, il décrit ces mesures et leurs justifications dans le dossier d'homologation du SIIV concerné ;"
+    },
+    {
+      "ref": "15.7",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- lorsqu'ils ne circulent pas dans le système d'information d'administration, les flux d'administration sont protégés par des mécanismes de",
+      "mesure_en": "- lorsqu'ils ne circulent pas dans le système d'information d'administration, les flux d'administration sont protégés par des mécanismes de",
+      "description": "- lorsqu'ils ne circulent pas dans le système d'information d'administration, les flux d'administration sont protégés par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information. Si le chiffrement et l'authentification de ces flux ne sont pas possibles pour des raisons techniques, l'opérateur met en œuvre des mesures permettant de protéger la confidentialité et l'intégrité de ces flux et de renforcer le contrôle et la traçabilité des opérations d'administration. Dans ce cas, il décrit ces mesures et leurs justifications dans le dossier d'homologation du SIIV concerné ;",
+      "description_en": "- lorsqu'ils ne circulent pas dans le système d'information d'administration, les flux d'administration sont protégés par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information. Si le chiffrement et l'authentification de ces flux ne sont pas possibles pour des raisons techniques, l'opérateur met en œuvre des mesures permettant de protéger la confidentialité et l'intégrité de ces flux et de renforcer le contrôle et la traçabilité des opérations d'administration. Dans ce cas, il décrit ces mesures et leurs justifications dans le dossier d'homologation du SIIV concerné ;"
+    },
+    {
+      "ref": "15.8",
+      "theme": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "theme_en": "L'opérateur d'importance vitale applique les règles suivantes aux systèmes d'information utilisés pour effectuer l'administration de ses systèmes d'information d'importance vitale (SIIV), qui sont appelés \"systèmes d'information d'administration\" :",
+      "mesure": "- les journaux enregistrant les événements générés par les ressources utilisées par les administrateurs ne contiennent aucun mot de passe ou autre",
+      "mesure_en": "- les journaux enregistrant les événements générés par les ressources utilisées par les administrateurs ne contiennent aucun mot de passe ou autre",
+      "description": "- les journaux enregistrant les événements générés par les ressources utilisées par les administrateurs ne contiennent aucun mot de passe ou autre élément secret d'authentification en clair ou sous forme d'empreinte cryptographique.",
+      "description_en": "- les journaux enregistrant les événements générés par les ressources utilisées par les administrateurs ne contiennent aucun mot de passe ou autre élément secret d'authentification en clair ou sous forme d'empreinte cryptographique."
+    },
+    {
+      "ref": "16.1",
+      "theme": "Règle relative au cloisonnement",
+      "theme_en": "Règle relative au cloisonnement",
+      "mesure": "L'opérateur d'importance vitale procède au cloisonnement de ses systèmes d'information d'importance vitale (SIIV) afin de limiter la propagation des",
+      "mesure_en": "L'opérateur d'importance vitale procède au cloisonnement de ses systèmes d'information d'importance vitale (SIIV) afin de limiter la propagation des",
+      "description": "L'opérateur d'importance vitale procède au cloisonnement de ses systèmes d'information d'importance vitale (SIIV) afin de limiter la propagation des attaques informatiques au sein de ses systèmes ou ses sous-systèmes. Il respecte les règles suivantes :",
+      "description_en": "L'opérateur d'importance vitale procède au cloisonnement de ses systèmes d'information d'importance vitale (SIIV) afin de limiter la propagation des attaques informatiques au sein de ses systèmes ou ses sous-systèmes. Il respecte les règles suivantes :"
+    },
+    {
+      "ref": "16.2",
+      "theme": "Règle relative au cloisonnement",
+      "theme_en": "Règle relative au cloisonnement",
+      "mesure": "- chaque SIIV est cloisonné physiquement ou logiquement vis-à-vis des autres systèmes d'information de l'opérateur et des systèmes d'information de",
+      "mesure_en": "- chaque SIIV est cloisonné physiquement ou logiquement vis-à-vis des autres systèmes d'information de l'opérateur et des systèmes d'information de",
+      "description": "- chaque SIIV est cloisonné physiquement ou logiquement vis-à-vis des autres systèmes d'information de l'opérateur et des systèmes d'information de tiers ;",
+      "description_en": "- chaque SIIV est cloisonné physiquement ou logiquement vis-à-vis des autres systèmes d'information de l'opérateur et des systèmes d'information de tiers ;"
+    },
+    {
+      "ref": "16.3",
+      "theme": "Règle relative au cloisonnement",
+      "theme_en": "Règle relative au cloisonnement",
+      "mesure": "- lorsqu'un SIIV est lui-même constitué de sous-systèmes, ceux-ci sont cloisonnés entre eux physiquement ou logiquement. Un sous-système peut être",
+      "mesure_en": "- lorsqu'un SIIV est lui-même constitué de sous-systèmes, ceux-ci sont cloisonnés entre eux physiquement ou logiquement. Un sous-système peut être",
+      "description": "- lorsqu'un SIIV est lui-même constitué de sous-systèmes, ceux-ci sont cloisonnés entre eux physiquement ou logiquement. Un sous-système peut être constitué pour assurer une fonctionnalité ou un ensemble homogène de fonctionnalités d'un SIIV ou encore pour isoler des ressources d'un SIIV nécessitant un même besoin de sécurité ;",
+      "description_en": "- lorsqu'un SIIV est lui-même constitué de sous-systèmes, ceux-ci sont cloisonnés entre eux physiquement ou logiquement. Un sous-système peut être constitué pour assurer une fonctionnalité ou un ensemble homogène de fonctionnalités d'un SIIV ou encore pour isoler des ressources d'un SIIV nécessitant un même besoin de sécurité ;"
+    },
+    {
+      "ref": "16.4",
+      "theme": "Règle relative au cloisonnement",
+      "theme_en": "Règle relative au cloisonnement",
+      "mesure": "- seules les interconnexions strictement nécessaires au bon fonctionnement et à la sécurité d'un SIIV sont mises en place entre le SIIV et les autres",
+      "mesure_en": "- seules les interconnexions strictement nécessaires au bon fonctionnement et à la sécurité d'un SIIV sont mises en place entre le SIIV et les autres",
+      "description": "- seules les interconnexions strictement nécessaires au bon fonctionnement et à la sécurité d'un SIIV sont mises en place entre le SIIV et les autres systèmes ou entre les sous-systèmes du SIIV.",
+      "description_en": "- seules les interconnexions strictement nécessaires au bon fonctionnement et à la sécurité d'un SIIV sont mises en place entre le SIIV et les autres systèmes ou entre les sous-systèmes du SIIV."
+    },
+    {
+      "ref": "16.5",
+      "theme": "Règle relative au cloisonnement",
+      "theme_en": "Règle relative au cloisonnement",
+      "mesure": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de cloisonnement qu'il met en place.",
+      "mesure_en": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de cloisonnement qu'il met en place.",
+      "description": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de cloisonnement qu'il met en place.",
+      "description_en": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de cloisonnement qu'il met en place."
+    },
+    {
+      "ref": "17.1",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "L'opérateur d'importance vitale met en place des mécanismes de filtrage des flux de données circulant dans ses systèmes d'information d'importance",
+      "mesure_en": "L'opérateur d'importance vitale met en place des mécanismes de filtrage des flux de données circulant dans ses systèmes d'information d'importance",
+      "description": "L'opérateur d'importance vitale met en place des mécanismes de filtrage des flux de données circulant dans ses systèmes d'information d'importance vitale (SIIV) afin de bloquer la circulation des flux inutiles au fonctionnement de ses systèmes et susceptibles de faciliter des attaques informatiques. Il respecte les règles suivantes :",
+      "description_en": "L'opérateur d'importance vitale met en place des mécanismes de filtrage des flux de données circulant dans ses systèmes d'information d'importance vitale (SIIV) afin de bloquer la circulation des flux inutiles au fonctionnement de ses systèmes et susceptibles de faciliter des attaques informatiques. Il respecte les règles suivantes :"
+    },
+    {
+      "ref": "17.2",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "- l'opérateur définit les règles de filtrage des flux de données (filtrage sur les adresses réseau, sur les protocoles, sur les numéros de port,",
+      "mesure_en": "- l'opérateur définit les règles de filtrage des flux de données (filtrage sur les adresses réseau, sur les protocoles, sur les numéros de port,",
+      "description": "- l'opérateur définit les règles de filtrage des flux de données (filtrage sur les adresses réseau, sur les protocoles, sur les numéros de port, etc.) permettant de limiter la circulation des flux aux seuls flux de données nécessaires au fonctionnement et à la sécurité de ses SIIV ;",
+      "description_en": "- l'opérateur définit les règles de filtrage des flux de données (filtrage sur les adresses réseau, sur les protocoles, sur les numéros de port, etc.) permettant de limiter la circulation des flux aux seuls flux de données nécessaires au fonctionnement et à la sécurité de ses SIIV ;"
+    },
+    {
+      "ref": "17.3",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "- les flux entrants et sortants des SIIV ainsi que les flux entre sous-systèmes des SIIV sont filtrés au niveau de leurs interconnexions de manière à",
+      "mesure_en": "- les flux entrants et sortants des SIIV ainsi que les flux entre sous-systèmes des SIIV sont filtrés au niveau de leurs interconnexions de manière à",
+      "description": "- les flux entrants et sortants des SIIV ainsi que les flux entre sous-systèmes des SIIV sont filtrés au niveau de leurs interconnexions de manière à ne permettre la circulation que des seuls flux strictement nécessaires au fonctionnement et à la sécurité des SIIV. Les flux qui ne sont pas conformes aux règles de filtrage sont bloqués par défaut ;",
+      "description_en": "- les flux entrants et sortants des SIIV ainsi que les flux entre sous-systèmes des SIIV sont filtrés au niveau de leurs interconnexions de manière à ne permettre la circulation que des seuls flux strictement nécessaires au fonctionnement et à la sécurité des SIIV. Les flux qui ne sont pas conformes aux règles de filtrage sont bloqués par défaut ;"
+    },
+    {
+      "ref": "17.4",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "- l'opérateur établit et tient à jour une liste des règles de filtrage mentionnant l'ensemble des règles en vigueur ou supprimées depuis moins d'un",
+      "mesure_en": "- l'opérateur établit et tient à jour une liste des règles de filtrage mentionnant l'ensemble des règles en vigueur ou supprimées depuis moins d'un",
+      "description": "- l'opérateur établit et tient à jour une liste des règles de filtrage mentionnant l'ensemble des règles en vigueur ou supprimées depuis moins d'un an. Cette liste précise pour chaque règle :",
+      "description_en": "- l'opérateur établit et tient à jour une liste des règles de filtrage mentionnant l'ensemble des règles en vigueur ou supprimées depuis moins d'un an. Cette liste précise pour chaque règle :"
+    },
+    {
+      "ref": "17.5",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "- le motif et la date de la mise en œuvre, de la modification ou de la suppression de la règle ;",
+      "mesure_en": "- le motif et la date de la mise en œuvre, de la modification ou de la suppression de la règle ;",
+      "description": "- le motif et la date de la mise en œuvre, de la modification ou de la suppression de la règle ;",
+      "description_en": "- le motif et la date de la mise en œuvre, de la modification ou de la suppression de la règle ;"
+    },
+    {
+      "ref": "17.6",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "- les modalités techniques de mise en œuvre de la règle.",
+      "mesure_en": "- les modalités techniques de mise en œuvre de la règle.",
+      "description": "- les modalités techniques de mise en œuvre de la règle.",
+      "description_en": "- les modalités techniques de mise en œuvre de la règle."
+    },
+    {
+      "ref": "17.7",
+      "theme": "Règle relative au filtrage",
+      "theme_en": "Règle relative au filtrage",
+      "mesure": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de filtrage qu'il met en place.",
+      "mesure_en": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de filtrage qu'il met en place.",
+      "description": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de filtrage qu'il met en place.",
+      "description_en": "L'opérateur décrit dans le dossier d'homologation de chaque SIIV les mécanismes de filtrage qu'il met en place."
+    },
+    {
+      "ref": "18.1",
+      "theme": "Règle relative aux accès à distance",
+      "theme_en": "Règle relative aux accès à distance",
+      "mesure": "L'opérateur d'importance vitale protège les accès à ses systèmes d'information d'importance vitale (SIIV) effectués à travers des systèmes",
+      "mesure_en": "L'opérateur d'importance vitale protège les accès à ses systèmes d'information d'importance vitale (SIIV) effectués à travers des systèmes",
+      "description": "L'opérateur d'importance vitale protège les accès à ses systèmes d'information d'importance vitale (SIIV) effectués à travers des systèmes d'information tiers.",
+      "description_en": "L'opérateur d'importance vitale protège les accès à ses systèmes d'information d'importance vitale (SIIV) effectués à travers des systèmes d'information tiers."
+    },
+    {
+      "ref": "18.2",
+      "theme": "Règle relative aux accès à distance",
+      "theme_en": "Règle relative aux accès à distance",
+      "mesure": "En particulier, lorsque l'opérateur ou un prestataire qu'il a mandaté à cet effet accède à un SIIV à travers un système d'information tiers à ceux de",
+      "mesure_en": "En particulier, lorsque l'opérateur ou un prestataire qu'il a mandaté à cet effet accède à un SIIV à travers un système d'information tiers à ceux de",
+      "description": "En particulier, lorsque l'opérateur ou un prestataire qu'il a mandaté à cet effet accède à un SIIV à travers un système d'information tiers à ceux de l'opérateur ou du prestataire, l'opérateur applique ou fait appliquer à son prestataire les règles suivantes :",
+      "description_en": "En particulier, lorsque l'opérateur ou un prestataire qu'il a mandaté à cet effet accède à un SIIV à travers un système d'information tiers à ceux de l'opérateur ou du prestataire, l'opérateur applique ou fait appliquer à son prestataire les règles suivantes :"
+    },
+    {
+      "ref": "18.3",
+      "theme": "Règle relative aux accès à distance",
+      "theme_en": "Règle relative aux accès à distance",
+      "mesure": "- l'accès au SIIV est protégé par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la",
+      "mesure_en": "- l'accès au SIIV est protégé par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la",
+      "description": "- l'accès au SIIV est protégé par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information ;",
+      "description_en": "- l'accès au SIIV est protégé par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information ;"
+    },
+    {
+      "ref": "18.4",
+      "theme": "Règle relative aux accès à distance",
+      "theme_en": "Règle relative aux accès à distance",
+      "mesure": "- le mécanisme d'authentification utilisé est renforcé en mettant en œuvre une authentification à double facteur (authentification impliquant à la",
+      "mesure_en": "- le mécanisme d'authentification utilisé est renforcé en mettant en œuvre une authentification à double facteur (authentification impliquant à la",
+      "description": "- le mécanisme d'authentification utilisé est renforcé en mettant en œuvre une authentification à double facteur (authentification impliquant à la fois un élément secret et un autre élément propre à l'utilisateur) ;",
+      "description_en": "- le mécanisme d'authentification utilisé est renforcé en mettant en œuvre une authentification à double facteur (authentification impliquant à la fois un élément secret et un autre élément propre à l'utilisateur) ;"
+    },
+    {
+      "ref": "18.5",
+      "theme": "Règle relative aux accès à distance",
+      "theme_en": "Règle relative aux accès à distance",
+      "mesure": "- les équipements utilisés pour accéder au SIIV sont gérés et configurés par l'opérateur ou, le cas échéant, par le prestataire. Les mémoires de",
+      "mesure_en": "- les équipements utilisés pour accéder au SIIV sont gérés et configurés par l'opérateur ou, le cas échéant, par le prestataire. Les mémoires de",
+      "description": "- les équipements utilisés pour accéder au SIIV sont gérés et configurés par l'opérateur ou, le cas échéant, par le prestataire. Les mémoires de masse de ces équipements sont en permanence protégées par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information.",
+      "description_en": "- les équipements utilisés pour accéder au SIIV sont gérés et configurés par l'opérateur ou, le cas échéant, par le prestataire. Les mémoires de masse de ces équipements sont en permanence protégées par des mécanismes de chiffrement et d'authentification conformes aux règles préconisées par l'Agence nationale de la sécurité des systèmes d'information."
+    },
+    {
+      "ref": "19.1",
+      "theme": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "theme_en": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "mesure": "- l'opérateur installe sur ses SIIV les seuls services et fonctionnalités qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV.",
+      "mesure_en": "- l'opérateur installe sur ses SIIV les seuls services et fonctionnalités qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV.",
+      "description": "- l'opérateur installe sur ses SIIV les seuls services et fonctionnalités qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV. L'opérateur désactive les services et les fonctionnalités qui ne sont pas indispensables, notamment ceux installés par défaut, et les désinstalle si cela est possible. Lorsque la désinstallation n'est pas possible, l'opérateur le mentionne dans le dossier d'homologation du SIIV concerné en précisant les services et fonctionnalités concernés et les mesures de réduction du risque mises en œuvre ;",
+      "description_en": "- l'opérateur installe sur ses SIIV les seuls services et fonctionnalités qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV. L'opérateur désactive les services et les fonctionnalités qui ne sont pas indispensables, notamment ceux installés par défaut, et les désinstalle si cela est possible. Lorsque la désinstallation n'est pas possible, l'opérateur le mentionne dans le dossier d'homologation du SIIV concerné en précisant les services et fonctionnalités concernés et les mesures de réduction du risque mises en œuvre ;"
+    },
+    {
+      "ref": "19.2",
+      "theme": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "theme_en": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "mesure": "- l'opérateur ne connecte à ses SIIV que des équipements, matériels périphériques et supports amovibles qu'il a dûment répertoriés et qui sont",
+      "mesure_en": "- l'opérateur ne connecte à ses SIIV que des équipements, matériels périphériques et supports amovibles qu'il a dûment répertoriés et qui sont",
+      "description": "- l'opérateur ne connecte à ses SIIV que des équipements, matériels périphériques et supports amovibles qu'il a dûment répertoriés et qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV ;",
+      "description_en": "- l'opérateur ne connecte à ses SIIV que des équipements, matériels périphériques et supports amovibles qu'il a dûment répertoriés et qui sont indispensables au fonctionnement ou à la sécurité de ses SIIV ;"
+    },
+    {
+      "ref": "19.3",
+      "theme": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "theme_en": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "mesure": "- les supports amovibles inscriptibles connectés aux SIIV sont utilisés exclusivement pour les besoins de ces SIIV ;",
+      "mesure_en": "- les supports amovibles inscriptibles connectés aux SIIV sont utilisés exclusivement pour les besoins de ces SIIV ;",
+      "description": "- les supports amovibles inscriptibles connectés aux SIIV sont utilisés exclusivement pour les besoins de ces SIIV ;",
+      "description_en": "- les supports amovibles inscriptibles connectés aux SIIV sont utilisés exclusivement pour les besoins de ces SIIV ;"
+    },
+    {
+      "ref": "19.4",
+      "theme": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "theme_en": "L'opérateur d'importance vitale respecte les règles suivantes lorsqu'il installe des services et des équipements sur ses systèmes d'information d'importance vitale (SIIV) :",
+      "mesure": "- l'opérateur procède, avant chaque utilisation de supports amovibles, à l'analyse de leur contenu, notamment à la recherche de code malveillant.",
+      "mesure_en": "- l'opérateur procède, avant chaque utilisation de supports amovibles, à l'analyse de leur contenu, notamment à la recherche de code malveillant.",
+      "description": "- l'opérateur procède, avant chaque utilisation de supports amovibles, à l'analyse de leur contenu, notamment à la recherche de code malveillant. L'opérateur met en place, sur les équipements auxquels sont connectés ces supports amovibles, des mécanismes de protection contre les risques d'exécution de code malveillant provenant de ces supports.",
+      "description_en": "- l'opérateur procède, avant chaque utilisation de supports amovibles, à l'analyse de leur contenu, notamment à la recherche de code malveillant. L'opérateur met en place, sur les équipements auxquels sont connectés ces supports amovibles, des mécanismes de protection contre les risques d'exécution de code malveillant provenant de ces supports."
+    },
+    {
+      "ref": "20.1",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "L'opérateur d'importance vitale évalue et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les indicateurs suivants :",
+      "mesure_en": "L'opérateur d'importance vitale évalue et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les indicateurs suivants :",
+      "description": "L'opérateur d'importance vitale évalue et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les indicateurs suivants :",
+      "description_en": "L'opérateur d'importance vitale évalue et tient à jour, pour chaque système d'information d'importance vitale (SIIV), les indicateurs suivants :"
+    },
+    {
+      "ref": "20.2",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "- des indicateurs relatifs au maintien en conditions de sécurité des ressources :",
+      "mesure_en": "- des indicateurs relatifs au maintien en conditions de sécurité des ressources :",
+      "description": "- des indicateurs relatifs au maintien en conditions de sécurité des ressources :",
+      "description_en": "- des indicateurs relatifs au maintien en conditions de sécurité des ressources :"
+    },
+    {
+      "ref": "20.3",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le",
+      "mesure_en": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le",
+      "description": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;",
+      "description_en": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;"
+    },
+    {
+      "ref": "20.4",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;",
+      "mesure_en": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;",
+      "description": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;",
+      "description_en": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas installées dans une version supportée par le fournisseur ou le fabricant ;"
+    },
+    {
+      "ref": "20.5",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au",
+      "mesure_en": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au",
+      "description": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15 jours à compter de la disponibilité des versions mises à jour ;",
+      "description_en": "- le pourcentage de postes utilisateurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15 jours à compter de la disponibilité des versions mises à jour ;"
+    },
+    {
+      "ref": "20.6",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15",
+      "mesure_en": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15",
+      "description": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15 jours à compter de la disponibilité des versions mises à jour ;",
+      "description_en": "- le pourcentage de serveurs dont les ressources systèmes ne sont pas mises à jour ou corrigées du point de vue de la sécurité depuis au moins 15 jours à compter de la disponibilité des versions mises à jour ;"
+    },
+    {
+      "ref": "20.7",
+      "theme": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "theme_en": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "mesure": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes partagés ;",
+      "mesure_en": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes partagés ;",
+      "description": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes partagés ;",
+      "description_en": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes partagés ;"
+    },
+    {
+      "ref": "20.8",
+      "theme": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "theme_en": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "mesure": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes privilégiés ;",
+      "mesure_en": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes privilégiés ;",
+      "description": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes privilégiés ;",
+      "description_en": "- le pourcentage d'utilisateurs accédant au SIIV au moyen de comptes privilégiés ;"
+    },
+    {
+      "ref": "20.9",
+      "theme": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "theme_en": "- des indicateurs relatifs aux droits d'accès des utilisateurs et à l'authentification des accès aux ressources :",
+      "mesure": "- le pourcentage de ressources dont les éléments secrets d'authentification ne peuvent pas être modifiés par l'opérateur ;",
+      "mesure_en": "- le pourcentage de ressources dont les éléments secrets d'authentification ne peuvent pas être modifiés par l'opérateur ;",
+      "description": "- le pourcentage de ressources dont les éléments secrets d'authentification ne peuvent pas être modifiés par l'opérateur ;",
+      "description_en": "- le pourcentage de ressources dont les éléments secrets d'authentification ne peuvent pas être modifiés par l'opérateur ;"
+    },
+    {
+      "ref": "20.10",
+      "theme": "- des indicateurs relatifs à l'administration des ressources :",
+      "theme_en": "- des indicateurs relatifs à l'administration des ressources :",
+      "mesure": "- le pourcentage de ressources administrées dont l'administration est effectuée à partir d'un compte non spécifique d'administration ;",
+      "mesure_en": "- le pourcentage de ressources administrées dont l'administration est effectuée à partir d'un compte non spécifique d'administration ;",
+      "description": "- le pourcentage de ressources administrées dont l'administration est effectuée à partir d'un compte non spécifique d'administration ;",
+      "description_en": "- le pourcentage de ressources administrées dont l'administration est effectuée à partir d'un compte non spécifique d'administration ;"
+    },
+    {
+      "ref": "20.11",
+      "theme": "- des indicateurs relatifs à l'administration des ressources :",
+      "theme_en": "- des indicateurs relatifs à l'administration des ressources :",
+      "mesure": "- le pourcentage de ressources administrées dont l'administration ne peut pas être effectuée au travers d'une liaison réseau physique ou d'une",
+      "mesure_en": "- le pourcentage de ressources administrées dont l'administration ne peut pas être effectuée au travers d'une liaison réseau physique ou d'une",
+      "description": "- le pourcentage de ressources administrées dont l'administration ne peut pas être effectuée au travers d'une liaison réseau physique ou d'une interface d'administration physique ;",
+      "description_en": "- le pourcentage de ressources administrées dont l'administration ne peut pas être effectuée au travers d'une liaison réseau physique ou d'une interface d'administration physique ;"
+    },
+    {
+      "ref": "20.12",
+      "theme": "- des indicateurs relatifs à l'administration des ressources :",
+      "theme_en": "- des indicateurs relatifs à l'administration des ressources :",
+      "mesure": "- le pourcentage de ressources administrées dont les flux d'administration ne peuvent pas être protégés par des mécanismes de chiffrement et",
+      "mesure_en": "- le pourcentage de ressources administrées dont les flux d'administration ne peuvent pas être protégés par des mécanismes de chiffrement et",
+      "description": "- le pourcentage de ressources administrées dont les flux d'administration ne peuvent pas être protégés par des mécanismes de chiffrement et d'authentification lorsque ces flux ne circulent pas dans le système d'information d'administration.",
+      "description_en": "- le pourcentage de ressources administrées dont les flux d'administration ne peuvent pas être protégés par des mécanismes de chiffrement et d'authentification lorsque ces flux ne circulent pas dans le système d'information d'administration."
+    },
+    {
+      "ref": "20.13",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "L'opérateur précise pour chaque indicateur la méthode d'évaluation employée et, le cas échéant, la marge d'incertitude de son évaluation. Lorsqu'un",
+      "mesure_en": "L'opérateur précise pour chaque indicateur la méthode d'évaluation employée et, le cas échéant, la marge d'incertitude de son évaluation. Lorsqu'un",
+      "description": "L'opérateur précise pour chaque indicateur la méthode d'évaluation employée et, le cas échéant, la marge d'incertitude de son évaluation. Lorsqu'un indicateur évolue de façon significative par rapport à l'évaluation précédente, l'opérateur en précise les raisons.",
+      "description_en": "L'opérateur précise pour chaque indicateur la méthode d'évaluation employée et, le cas échéant, la marge d'incertitude de son évaluation. Lorsqu'un indicateur évolue de façon significative par rapport à l'évaluation précédente, l'opérateur en précise les raisons."
+    },
+    {
+      "ref": "20.14",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "Les indicateurs ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les",
+      "mesure_en": "Les indicateurs ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les",
+      "description": "Les indicateurs ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale.",
+      "description_en": "Les indicateurs ainsi réunis sont des documents confidentiels susceptibles de contenir des informations dont la révélation est réprimée par les dispositions de l'article 226-13 du code pénal. Ils sont, le cas échéant, couverts par le secret de la défense nationale."
+    },
+    {
+      "ref": "20.15",
+      "theme": "Règle relative aux indicateurs",
+      "theme_en": "Règle relative aux indicateurs",
+      "mesure": "L'opérateur communique, une fois par an, à l'Agence nationale de la sécurité des systèmes d'information, ces indicateurs mis à jour sur un support",
+      "mesure_en": "L'opérateur communique, une fois par an, à l'Agence nationale de la sécurité des systèmes d'information, ces indicateurs mis à jour sur un support",
+      "description": "L'opérateur communique, une fois par an, à l'Agence nationale de la sécurité des systèmes d'information, ces indicateurs mis à jour sur un support électronique, dans un format qui peut être lu par les principaux logiciels bureautiques accessibles au public.",
+      "description_en": "L'opérateur communique, une fois par an, à l'Agence nationale de la sécurité des systèmes d'information, ces indicateurs mis à jour sur un support électronique, dans un format qui peut être lu par les principaux logiciels bureautiques accessibles au public."
+    }
+  ]
+}

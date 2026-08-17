@@ -1,0 +1,291 @@
+// Compliance — French translations
+// ═══════════════════════════════════════════════════════════════════════
+// TRADUCTIONS — Compliance (FR/EN)
+// ═══════════════════════════════════════════════════════════════════════
+
+_registerTranslations("fr", {
+    "ai.error": "Erreur : {msg}",
+    // Label app
+    "comp.label": "évaluation",
+
+    // Titre
+
+    // Toolbar / Menu
+    "comp.menu.import_ebios": "Import EBIOS RM",
+    "comp.menu.new_assessment": "Nouvelle évaluation",
+
+    // Sidebar — sections
+    "comp.sidebar.global": "Suivi global",
+    "comp.sidebar.context": "Contexte",
+    "comp.sidebar.dashboard": "Tableau de bord",
+    "comp.sidebar.plan": "Plan d'action",
+    "comp.sidebar.controles": "Contrôles",
+    "comp.sidebar.frameworks": "Référentiels",
+
+    // Sidebar — sub-views
+    "comp.subview.dashboard": "Dashboard",
+    "comp.subview.exigences": "Exigences",
+    "comp.subview.mesures": "Mesures",
+    "comp.subview.preuves": "Preuves",
+
+    // Panel descriptions
+    "comp.panel.dashboard_desc": "Vue d'ensemble de la conformité.",
+    "comp.panel.context_desc": "Informations sur l'évaluation et sélection des référentiels.",
+    "comp.panel.plan_desc": "Toutes les mesures non terminées, tous référentiels confondus.",
+    "comp.panel.controles_desc": "Suivi des contrôles récurrents et des preuves arrivant à expiration.",
+
+    // Context form
+    "comp.context.organisation": "Organisation",
+    "comp.context.date": "Date",
+    "comp.context.evaluateur": "Évaluateur",
+    "comp.context.perimetre": "Périmètre",
+    "comp.context.commentaires": "Commentaires",
+    "comp.context.frameworks_heading": "Référentiels de conformité",
+
+    // Statut labels
+    "comp.statut.planifie": "Planifié",
+    "comp.statut.en_cours": "En cours",
+    "comp.statut.termine": "Terminé",
+    "comp.statut.preuve_manquante": "Preuve manquante",
+
+    // Exigence statut
+    "comp.exig_statut.ok": "OK",
+    "comp.exig_statut.ko": "KO",
+    "comp.exig_statut.na": "N/A",
+
+    // Recurrence labels
+    "comp.rec.ponctuel": "Ponctuel",
+    "comp.rec.mensuelle": "Mensuelle",
+    "comp.rec.trimestrielle": "Trimestrielle",
+    "comp.rec.semestrielle": "Semestrielle",
+    "comp.rec.annuelle": "Annuelle",
+
+    // Dashboard
+    "comp.dash.no_framework": "Aucun référentiel sélectionné. Allez dans <strong>Contexte</strong> pour en choisir.",
+    "comp.dash.mesures": "Mesures",
+    "comp.dash.total": "Total",
+    "comp.dash.terminees": "Terminées",
+    "comp.dash.en_cours": "En cours",
+    "comp.dash.planifiees": "Planifiées",
+
+    // FW Dashboard
+    "comp.fw_dash.conformite": "Conformité ({ok} OK / {ko} KO)",
+    "comp.fw_dash.exigences_applicables": "Exigences applicables",
+    "comp.fw_dash.mesures": "Mesures",
+    "comp.fw_dash.preuves": "Preuves",
+    "comp.fw_dash.actions_en_cours": "Actions en cours ({count})",
+    "comp.fw_dash.preuves_expirant": "Preuves expirant sous 90 jours ({count})",
+
+    // FW Dashboard table headers
+    "comp.fw_dash.col_id": "ID",
+    "comp.fw_dash.col_description": "Description",
+    "comp.fw_dash.col_statut": "Statut",
+    "comp.fw_dash.col_echeance": "Échéance",
+    "comp.fw_dash.col_label": "Label",
+    "comp.fw_dash.col_expiration": "Expiration",
+
+    // Exigences
+    "comp.exig.title": "Exigences — {label}",
+    "comp.exig.search": "Rechercher...",
+    "comp.exig.count": "{filtered} / {total} exigences",
+    "comp.exig.col_ref": "Réf.",
+    "comp.exig.col_theme": "Thématique",
+    "comp.exig.col_mesure": "Mesure",
+    "comp.exig.col_appl": "Appl.",
+    "comp.exig.col_statut": "Statut",
+    "comp.exig.col_commentaires": "Commentaires",
+    "comp.exig.col_mesures_liees": "Mesures liées",
+    "comp.exig.placeholder_na": "Raison N/A...",
+    "comp.exig.placeholder_comments": "Commentaires...",
+    "comp.exig.en_place": "En place",
+    "comp.exig.preuve_manquante": "Terminées — preuve manquante",
+    "comp.exig.prevues": "Prévues",
+    "comp.exig.lier_mesure": "Lier une mesure...",
+    "comp.exig.btn_nouvelle": "+ Nouvelle",
+    "comp.exig.btn_proposer": "Proposer",
+    "comp.exig.fw_desc": "Exigences — {label}",
+
+    // Mesures
+    "comp.mes.title": "Mesures — {label}",
+    "comp.mes.btn_nouvelle": "+ Nouvelle mesure",
+    "comp.mes.search": "Rechercher...",
+    "comp.mes.count": "{count} mesure(s)",
+    "comp.mes.btn_supprimer": "Supprimer",
+    "comp.mes.btn_valider": "Valider",
+    "comp.mes.btn_annuler": "Annuler",
+    "comp.mes.new_draft": "Nouvelle mesure",
+    "comp.status.mesure_created": "Mesure créée",
+    "comp.mes.placeholder_desc": "Description...",
+    "comp.mes.placeholder_details": "Détails de mise en œuvre...",
+    "comp.mes.label_statut": "Statut :",
+    "comp.mes.label_echeance": "Échéance :",
+    "comp.mes.label_responsable": "Responsable :",
+    "comp.mes.label_recurrence": "Récurrence :",
+    "comp.mes.label_dernier_controle": "Dernier contrôle :",
+    "comp.mes.exigences_liees": "Exigences liées",
+    "comp.mes.preuves_liees": "Preuves liées",
+    "comp.mes.lier_preuve": "Lier une preuve...",
+    "comp.mes.btn_nouvelle_preuve": "+ Nouvelle preuve",
+    "comp.mes.lier_exigence": "Lier à une exigence...",
+    "comp.mes.fw_desc": "Mesures — {label}",
+
+    // Mesures table headers
+    "comp.mes.col_id": "ID",
+    "comp.mes.col_description": "Description",
+    "comp.mes.col_statut": "Statut",
+    "comp.mes.col_responsable": "Responsable",
+    "comp.mes.col_echeance": "Échéance",
+    "comp.mes.col_recurrence": "Récurrence",
+    "comp.mes.col_preuves": "Preuves",
+    "comp.mes.col_exigences": "Exigences",
+    "measure.selected_n": "{n} mesure(s) sélectionnée(s)",
+
+    // Preuves
+    "comp.prv.title": "Preuves — {label}",
+    "comp.prv.btn_nouvelle": "+ Nouvelle preuve",
+    "comp.prv.search": "Rechercher...",
+    "comp.prv.count": "{count} preuve(s)",
+    "comp.prv.btn_supprimer": "Supprimer",
+    "comp.prv.btn_valider": "Valider",
+    "comp.prv.placeholder_label": "Label...",
+    "comp.prv.placeholder_url": "URL...",
+    "comp.prv.label_kind": "Type :",
+    "comp.prv.label_owner": "Responsable :",
+    "comp.prv.kind.link": "Lien",
+    "comp.prv.kind.file": "Fichier",
+    "comp.prv.kind.observation": "Observation",
+    "comp.prv.label_obtention": "Date d'obtention :",
+    "comp.prv.label_expiration": "Date d'expiration :",
+    "comp.prv.placeholder_comment": "Commentaire...",
+    "comp.prv.mesures_liees": "Mesures liées",
+    "comp.prv.aucune": "Aucune",
+    "comp.prv.fw_desc": "Preuves — {label}",
+
+    // Preuves table headers
+    "comp.prv.col_id": "ID",
+    "comp.prv.col_label": "Label",
+    "comp.prv.col_url": "URL",
+    "comp.prv.col_obtention": "Obtention",
+    "comp.prv.col_expiration": "Expiration",
+    "comp.prv.col_mesures": "Mesures",
+    "comp.prv.col_statut": "Statut",
+
+    // Preuves statut badges
+    "comp.prv.expiree": "Expirée",
+    "comp.prv.bientot": "Bientôt",
+    "comp.prv.ok": "OK",
+
+    // Plan d'action
+    "comp.plan.btn_nouvelle": "+ Nouvelle mesure",
+    "comp.plan.search": "Rechercher...",
+    "comp.plan.count": "{count} mesure(s)",
+    "comp.plan.aucune": "Aucune mesure.",
+
+    // Contrôles
+    "comp.ctrl.aucun": "Aucun contrôle récurrent ni preuve expirant prochainement.",
+    "comp.ctrl.alertes": "{count} alerte(s)",
+    "comp.ctrl.col_type": "Type",
+    "comp.ctrl.col_id": "ID",
+    "comp.ctrl.col_description": "Description",
+    "comp.ctrl.col_details": "Détails",
+    "comp.ctrl.col_statut": "Statut",
+    "comp.ctrl.type_controle": "Contrôle",
+    "comp.ctrl.type_preuve": "Preuve",
+    "comp.ctrl.dernier": "dernier",
+    "comp.ctrl.jamais": "jamais",
+    "comp.ctrl.en_retard": "En retard",
+    "comp.ctrl.ok": "OK",
+    "comp.ctrl.expire": "Expire",
+
+    // History
+    "comp.hist.btn_creer": "+ Créer un point de sauvegarde",
+    "comp.hist.btn_dechiffrer": "Déchiffrer les snapshots",
+    "comp.hist.btn_chiffrer": "Chiffrer les snapshots",
+    "comp.hist.aucun": "Aucun snapshot.",
+    "comp.hist.col_nom": "Nom",
+    "comp.hist.col_date": "Date",
+    "comp.hist.col_org": "Organisation",
+    "comp.hist.col_actions": "Actions",
+    "comp.hist.btn_restaurer": "Restaurer",
+    "comp.hist.btn_exporter": "Exporter",
+    "comp.hist.note": "Les snapshots sont stockés dans le navigateur (localStorage).",
+
+    // Confirm / Alert (app-specific)
+    "comp.confirm.delete_mesure": "Supprimer la mesure {id} ?",
+    "comp.confirm.delete_preuve": "Supprimer la preuve {id} ?",
+    "comp.alert.no_mesure_type": "Aucune mesure type disponible pour cette exigence ({ref}).",
+    "comp.alert.all_linked": "Les {count} mesure(s) proposée(s) pour {ref} sont déjà liées à cette exigence.",
+    "comp.propose.title": "Mesures proposées pour {ref}",
+    "comp.propose.subtitle": "{count} mesure(s) disponible(s) — acceptez ou refusez chacune",
+    "comp.propose.accept_all": "Tout accepter",
+    "comp.propose.close": "Fermer",
+    "comp.propose.accepted": "Acceptée",
+    "comp.propose.rejected": "Refusée",
+    "comp.refctrl.evidence": "Preuves attendues :",
+    "comp.refctrl.cat.policy": "Politique",
+    "comp.refctrl.cat.process": "Processus",
+    "comp.refctrl.cat.procedure": "Procédure",
+    "comp.refctrl.cat.training": "Formation",
+    "comp.refctrl.csf.govern": "Gouverner",
+    "comp.refctrl.csf.identify": "Identifier",
+    "comp.refctrl.csf.protect": "Protéger",
+    "comp.refctrl.csf.detect": "Détecter",
+    "comp.refctrl.csf.respond": "Répondre",
+    "comp.status.mesures_created": "{count} mesure(s) créée(s)",
+    "comp.status.preuve_created": "Preuve {id} créée et liée",
+
+    // Import EBIOS
+    "comp.import.invalid": "Ce fichier ne semble pas être un fichier EBIOS RM valide.",
+    "comp.import.success": "Import EBIOS RM réussi : {name} ({count} mesures)",
+    "comp.import.error": "Erreur d'import : {msg}",
+
+    // Error
+    "comp.error.title": "Erreur",
+
+    // Base frameworks
+    "comp.fw.anssi_desc": "42 mesures",
+    "comp.fw.iso_desc": "120 exigences (27 clauses SMSI + 93 Annexe A)",
+
+    // _REFERENTIELS_CATALOG descriptions
+
+    // Sidebar — Aide
+    "comp.sidebar.section_aide": "Aide",
+    "comp.sidebar.methodo": "Méthodologie",
+    "comp.sidebar.usage": "Utilisation",
+
+    // Help tabs
+    "comp.help.tab_methodo": "Méthodologie Conformité",
+    "comp.help.tab_usage": "Utilisation de l'application",
+
+    // ── Help content ──
+    "comp.help.methodo": "<h1 class=\"heading-blue\">Guide méthodologique — Suivi de Conformité</h1>\n<p class=\"text-muted\">Évaluation multi-référentiel, plan d'action et preuves</p>\n\n<h2>Introduction à la conformité</h2>\n<p>Le <strong>suivi de conformité</strong> permet d'évaluer le niveau de maturité de votre organisation vis-à-vis d'un ou plusieurs <strong>référentiels de sécurité</strong> (normes, réglementations, bonnes pratiques). Il ne s'agit pas d'un audit formel mais d'une <strong>auto-évaluation structurée</strong> qui identifie les écarts et pilote les actions correctives.</p>\n<p>L'approche multi-référentiel est essentielle car une organisation est généralement soumise à <strong>plusieurs exigences simultanées</strong> (ex : ISO 27001 + NIS 2 + HDS). L'outil mutualise les mesures de sécurité entre référentiels : une même mesure peut couvrir des exigences de plusieurs frameworks.</p>\n\n<h2>Référentiels disponibles</h2>\n<p>L'application propose <strong>12 référentiels intégrés</strong> et la possibilité d'importer des <strong>référentiels personnalisés</strong> au format CSV.</p>\n<table><thead><tr><th>Référentiel</th><th>Périmètre</th></tr></thead><tbody>\n<tr><td><strong>ANSSI — Guide d'hygiène</strong></td><td>42 mesures essentielles de cybersécurité publiées par l'ANSSI (France)</td></tr>\n<tr><td><strong>ISO 27001:2022</strong></td><td>Système de Management de la Sécurité de l'Information — 120 exigences (27 clauses SMSI + 93 mesures Annexe A)</td></tr>\n<tr><td><strong>NIS 2</strong></td><td>Directive UE 2022/2555 (article 21) — mesures de cybersécurité pour entités essentielles et importantes</td></tr>\n<tr><td><strong>ReCyF (NIS2)</strong></td><td>Référentiel Cyber France v2.5 — transposition nationale de NIS 2 (ANSSI, mars 2026)</td></tr>\n<tr><td><strong>DORA</strong></td><td>Digital Operational Resilience Act (UE 2022/2554) — résilience numérique du secteur financier</td></tr>\n<tr><td><strong>DORA (détaillé)</strong></td><td>Déclinaison de DORA en 211 exigences au niveau paragraphe</td></tr>\n<tr><td><strong>HDS</strong></td><td>Certification Hébergeur de Données de Santé (France) — exigences complémentaires ISO 27001</td></tr>\n<tr><td><strong>SecNumCloud</strong></td><td>Référentiel de qualification ANSSI pour les prestataires de services Cloud (v3.2)</td></tr>\n<tr><td><strong>SOC 2</strong></td><td>Trust Services Criteria (AICPA) — sécurité, disponibilité, intégrité, confidentialité, vie privée</td></tr>\n<tr><td><strong>Cyber Resilience Act</strong></td><td>Règlement UE sur la cyber-résilience (CRA 2024) — produits avec éléments numériques</td></tr>\n<tr><td><strong>LPM</strong></td><td>Loi de Programmation Militaire (France) — règles ANSSI pour OIV</td></tr>\n<tr><td><strong>Loi 05-20 (Maroc)</strong></td><td>Loi marocaine sur la cybersécurité — obligations des organismes soumis</td></tr>\n</tbody></table>\n\n<h2>Référentiels personnalisés (CSV)</h2>\n<p>Vous pouvez étendre le catalogue avec vos propres référentiels au format <strong>CSV</strong> (séparateur <code>;</code>, <code>,</code> ou tabulation). Colonnes attendues :</p>\n<table><thead><tr><th>Colonne</th><th>Obligatoire</th><th>Description</th></tr></thead><tbody>\n<tr><td><strong>ref</strong></td><td>Oui</td><td>Identifiant unique de l'exigence (ex : CUSTOM-01)</td></tr>\n<tr><td><strong>theme</strong></td><td>Non</td><td>Thématique / catégorie</td></tr>\n<tr><td><strong>mesure</strong></td><td>Oui</td><td>Libellé de l'exigence (ou <code>measure</code>, <code>control</code>)</td></tr>\n<tr><td><strong>description</strong></td><td>Non</td><td>Description détaillée (ou <code>details</code>)</td></tr>\n<tr><td><strong>theme_en</strong></td><td>Non</td><td>Traduction anglaise de la thématique</td></tr>\n<tr><td><strong>mesure_en</strong></td><td>Non</td><td>Traduction anglaise de l'exigence</td></tr>\n<tr><td><strong>description_en</strong></td><td>Non</td><td>Traduction anglaise de la description</td></tr>\n</tbody></table>\n\n<h2>Évaluation de la conformité</h2>\n<p>Pour chaque <strong>exigence</strong> d'un référentiel, vous évaluez :</p>\n<table><thead><tr><th>Champ</th><th>Description</th></tr></thead><tbody>\n<tr><td><strong>Applicable</strong></td><td>L'exigence s'applique-t-elle à votre périmètre ? Une exigence exclue passe au statut N/A et sort du calcul du taux</td></tr>\n<tr><td><strong>Statut</strong></td><td>Calculé automatiquement : OK, KO ou N/A</td></tr>\n<tr><td><strong>Commentaires</strong></td><td>Description de l'écart ou justification de non-applicabilité</td></tr>\n<tr><td><strong>Mesures liées</strong></td><td>Actions de sécurité qui répondent à cette exigence</td></tr>\n</tbody></table>\n<div class=\"help-tip\">Le statut d'une exigence est <strong>calculé automatiquement</strong> : OK si au moins une mesure est liée ET que toutes les mesures liées sont au statut \"Terminé\" avec au moins une preuve valide (non expirée) ; KO sinon ; N/A si l'exigence est déclarée non applicable.</div>\n\n<h2>Calcul du taux de conformité</h2>\n<p>Le <strong>taux de conformité</strong> par référentiel est calculé comme suit :</p>\n<ul>\n<li>Seules les exigences <strong>applicables</strong> sont prises en compte</li>\n<li>Taux = nombre d'exigences au statut <strong>OK</strong> / nombre total d'exigences applicables &times; 100</li>\n<li>Une exigence est OK quand toutes ses mesures liées sont terminées avec preuves valides</li>\n</ul>\n<p>Les jauges de conformité utilisent l'échelle de couleurs harmonisée de la suite (Faible / Moyen / Élevé / Critique) : un taux &ge; 80 % correspond au niveau Faible (vert), &ge; 50 % au niveau Moyen, &ge; 25 % au niveau Élevé, et en dessous au niveau Critique (rouge).</p>\n\n<h2>Plan d'action</h2>\n<p>Les <strong>mesures de sécurité</strong> sont les actions concrètes qui répondent aux exigences. Chaque mesure possède :</p>\n<table><thead><tr><th>Champ</th><th>Description</th></tr></thead><tbody>\n<tr><td><strong>ID</strong></td><td>Identifiant auto-généré (M-001, M-002...)</td></tr>\n<tr><td><strong>Description</strong></td><td>Libellé de la mesure</td></tr>\n<tr><td><strong>Détails</strong></td><td>Description détaillée de la mise en œuvre</td></tr>\n<tr><td><strong>Statut</strong></td><td>Planifié, En cours ou Terminé — plus le statut calculé \"Preuve manquante\" quand une mesure terminée n'a plus de preuve valide</td></tr>\n<tr><td><strong>Responsable</strong></td><td>Personne en charge</td></tr>\n<tr><td><strong>Échéance</strong></td><td>Date cible de réalisation</td></tr>\n<tr><td><strong>Récurrence</strong></td><td>Ponctuel, Mensuelle, Trimestrielle, Semestrielle, Annuelle</td></tr>\n<tr><td><strong>Dernier contrôle</strong></td><td>Date du dernier contrôle pour les mesures récurrentes</td></tr>\n<tr><td><strong>Preuves liées</strong></td><td>Documents ou éléments attestant la mise en œuvre</td></tr>\n<tr><td><strong>Journal de suivi</strong></td><td>Notes horodatées documentant l'avancement</td></tr>\n</tbody></table>\n<div class=\"help-tip\"><strong>Mesures types</strong> : pour certaines exigences, des mesures types recommandées sont disponibles et peuvent être créées en un clic. Une même mesure peut être liée à plusieurs exigences de différents référentiels : mutualisez plutôt que dupliquer.</div>\n\n<h2>Preuves</h2>\n<p>Les <strong>preuves</strong> documentent la mise en œuvre effective des mesures. Chaque preuve possède :</p>\n<table><thead><tr><th>Champ</th><th>Description</th></tr></thead><tbody>\n<tr><td><strong>ID</strong></td><td>Identifiant auto-généré (P-001, P-002...)</td></tr>\n<tr><td><strong>Label</strong></td><td>Nom de la preuve</td></tr>\n<tr><td><strong>Type</strong></td><td>Lien, Fichier ou Observation</td></tr>\n<tr><td><strong>URL</strong></td><td>Lien vers le document (SharePoint, GED, etc.)</td></tr>\n<tr><td><strong>Responsable</strong></td><td>Personne qui détient ou maintient la preuve</td></tr>\n<tr><td><strong>Date d'obtention</strong></td><td>Quand la preuve a été collectée</td></tr>\n<tr><td><strong>Date d'expiration</strong></td><td>Quand la preuve perd sa validité</td></tr>\n</tbody></table>\n<div class=\"help-tip\">Si toutes les preuves d'une mesure \"Terminée\" sont expirées, le statut passe automatiquement à <strong>\"Preuve manquante\"</strong> et l'exigence redevient KO. Cela permet de suivre le renouvellement des preuves.</div>\n\n<h2>Contrôles récurrents</h2>\n<p>Une mesure dotée d'une <strong>récurrence</strong> doit être re-contrôlée périodiquement : la date du prochain contrôle est déduite du dernier contrôle et de la périodicité (mensuelle = 30 jours, trimestrielle = 90, semestrielle = 180, annuelle = 365). Un contrôle dont l'échéance est dépassée est signalé <strong>en retard</strong>, et les preuves expirant sous <strong>90 jours</strong> sont mises en avant afin d'anticiper leur renouvellement.</p>\n\n<h2>Démarche recommandée</h2>\n<ul>\n<li><strong>1. Activer</strong> les référentiels applicables à votre périmètre</li>\n<li><strong>2. Qualifier l'applicabilité</strong> de chaque exigence et justifier les exclusions</li>\n<li><strong>3. Évaluer les écarts</strong> et les documenter en commentaires</li>\n<li><strong>4. Construire le plan d'action</strong> : lier ou créer des mesures, en les mutualisant entre référentiels</li>\n<li><strong>5. Collecter les preuves</strong> et renseigner leurs dates d'expiration</li>\n<li><strong>6. Suivre les contrôles récurrents</strong> et renouveler les preuves expirées</li>\n<li><strong>7. Réévaluer régulièrement</strong> le taux de conformité et ajuster le plan</li>\n</ul>\n\n<h2>Intégration à la suite CISO Toolbox</h2>\n<p>En déploiement suite, les <strong>mesures</strong> de ce module remontent automatiquement dans le <strong>plan d'action de Pilot</strong> (le hub de gouvernance), y sont consolidées avec les items des autres modules sous le terme commun <strong>Action</strong>, et peuvent être regroupées en <strong>projets</strong> pour piloter l'avancement transverse. Le module reste l'autorité de son domaine — Pilot ne fait que consolider.</p>",
+
+    "comp.help.usage": "<h1 class=\"heading-blue\">Guide d'utilisation</h1>\n<p class=\"text-muted\">Comment utiliser l'application de suivi de conformité</p>\n\n<h2>Vue d'ensemble</h2>\n<p>L'application est organisée en <strong>3 zones</strong> : la <strong>barre supérieure</strong> (langue FR/EN, thème clair/sombre, réglages, compte utilisateur), le <strong>menu latéral</strong> à gauche (navigation, aide, annuler/rétablir) et la <strong>zone de travail</strong> au centre.</p>\n<div class=\"help-tip\">En mode suite, vos données sont stockées de manière centralisée sur le serveur et <strong>enregistrées automatiquement</strong> à chaque modification : il n'y a ni menu Fichier ni sauvegarde JSON locale. La connexion s'effectue via la session partagée de la suite (Pilot) ; le bouton &#x23FB; de la barre supérieure permet de se déconnecter.</div>\n\n<h2>Contexte</h2>\n<p>L'écran <strong>Contexte</strong> permet de :</p>\n<ul>\n<li>Renseigner les informations de l'évaluation : organisation, date, évaluateur, périmètre, commentaires</li>\n<li><strong>Activer les référentiels</strong> : cliquer sur les puces colorées pour activer/désactiver un référentiel. Un référentiel activé apparaît dans le menu latéral.</li>\n<li><strong>Importer un référentiel CSV</strong> : cliquer sur le bouton \"Importer un référentiel (CSV)\" pour charger un référentiel personnalisé</li>\n</ul>\n<div class=\"help-tip\">Vous pouvez activer <strong>plusieurs référentiels simultanément</strong>. Les mesures de sécurité sont partagées entre référentiels : une mesure peut couvrir des exigences ANSSI, ISO et NIS 2 à la fois.</div>\n\n<h2>Tableau de bord</h2>\n<p>Le <strong>Tableau de bord</strong> global affiche une carte par référentiel actif : taux de conformité avec jauge colorée, compte OK / KO / N/A. Cliquer sur une carte ouvre le dashboard du référentiel. En dessous, des compteurs résument les mesures (total, terminées, en cours, planifiées).</p>\n\n<h2>Vue par référentiel</h2>\n<p>Cliquer sur un référentiel dans le menu latéral ouvre sa vue dédiée avec 4 sous-onglets :</p>\n<table><thead><tr><th>Sous-onglet</th><th>Contenu</th></tr></thead><tbody>\n<tr><td><strong>Dashboard</strong></td><td>Synthèse du référentiel : conformité, actions en cours, preuves expirant sous 90 jours</td></tr>\n<tr><td><strong>Exigences</strong></td><td>Liste de toutes les exigences avec statut, applicabilité, mesures liées</td></tr>\n<tr><td><strong>Mesures</strong></td><td>Mesures de sécurité liées à ce référentiel</td></tr>\n<tr><td><strong>Preuves</strong></td><td>Preuves liées aux mesures de ce référentiel</td></tr>\n</tbody></table>\n\n<h2>Évaluation des exigences</h2>\n<p>Dans l'onglet <strong>Exigences</strong> de chaque référentiel :</p>\n<ul>\n<li><strong>Rechercher</strong> : le champ de recherche filtre par référence, thématique, libellé ou commentaire</li>\n<li><strong>Applicable</strong> : cocher/décocher pour indiquer si l'exigence s'applique. Si non applicable, un champ de justification apparaît.</li>\n<li><strong>Statut</strong> : badge OK / KO / N/A calculé automatiquement (non modifiable directement)</li>\n<li><strong>Commentaires</strong> : décrire l'écart ou les observations</li>\n<li><strong>Mesures liées</strong> : regroupées en \"En place\", \"Terminées — preuve manquante\" et \"Prévues\". Lier une mesure existante via le sélecteur filtrable, en créer une avec \"+ Nouvelle\", ou en détacher une avec la croix.</li>\n<li><strong>Proposer</strong> : affiche des mesures types recommandées pour cette exigence et permet de les créer en un clic</li>\n</ul>\n<div class=\"help-tip\">Dans tous les tableaux, les colonnes peuvent être masquées et redimensionnées ; le bouton \"+ Colonnes masquées\" les réaffiche.</div>\n\n<h2>Fiche mesure</h2>\n<p>Cliquer sur une ligne dans <strong>Mesures</strong> ou <strong>Plan d'action</strong> ouvre la fiche de la mesure :</p>\n<ul>\n<li>Description, détails, statut (Planifié / En cours / Terminé), échéance, récurrence, dernier contrôle</li>\n<li><strong>Responsable</strong> : recherche dans l'annuaire partagé de la suite</li>\n<li><strong>Journal de suivi</strong> : ajouter des notes horodatées d'avancement</li>\n<li><strong>Exigences liées</strong> et <strong>preuves liées</strong> : lier/délier directement depuis la fiche</li>\n</ul>\n<div class=\"help-tip\">Dans les tableaux Mesures et Plan d'action, cocher plusieurs lignes fait apparaître une <strong>barre d'actions groupées</strong> (marquer Terminé, Supprimer). Le bouton &#x21bb; recharge les données depuis le serveur.</div>\n\n<h2>Plan d'action</h2>\n<p>L'écran <strong>Plan d'action</strong> (menu latéral) affiche toutes les mesures, tous référentiels confondus, avec leur statut, responsable, échéance, récurrence, preuves et exigences couvertes. C'est la vue de pilotage transverse : créez-y de nouvelles mesures (\"+ Nouvelle mesure\") et suivez l'avancement global.</p>\n\n<h2>Preuves</h2>\n<p>Les preuves sont gérées depuis l'onglet <strong>Preuves</strong> d'un référentiel ou depuis les fiches mesures :</p>\n<ul>\n<li>Créer une preuve : label, URL, type (Lien / Fichier / Observation), responsable (annuaire), date d'obtention, date d'expiration, commentaire</li>\n<li>Lier à une ou plusieurs mesures</li>\n<li>Les preuves expirées ou bientôt expirées apparaissent dans les alertes du dashboard et de l'écran Contrôles</li>\n</ul>\n\n<h2>Contrôles</h2>\n<p>L'écran <strong>Contrôles</strong> regroupe les alertes de suivi :</p>\n<ul>\n<li><strong>Contrôles récurrents en retard</strong> : mesures avec récurrence dont le dernier contrôle dépasse l'échéance</li>\n<li><strong>Preuves expirant</strong> : preuves dont la date d'expiration approche (90 jours)</li>\n</ul>\n\n<h2>Import CSV</h2>\n<p>Pour importer un référentiel personnalisé :</p>\n<ul>\n<li>Aller dans <strong>Contexte</strong></li>\n<li>Cliquer sur <strong>\"Importer un référentiel (CSV)\"</strong></li>\n<li>Sélectionner un fichier CSV avec au minimum les colonnes <code>ref</code> et <code>mesure</code></li>\n<li>Nommer le référentiel quand demandé</li>\n<li>Le référentiel apparaît dans les puces activables</li>\n</ul>\n<div class=\"help-tip\">Le séparateur est détecté automatiquement (point-virgule, virgule ou tabulation). Téléchargez le modèle CSV depuis l'écran Contexte pour voir le format attendu.</div>\n\n<h2>Assistant IA</h2>\n<p>L'assistant IA est géré de manière centralisée par la suite : votre administrateur l'active et configure le fournisseur dans Pilot. Quand il est disponible, deux entrées apparaissent dans l'onglet <strong>Exigences</strong> :</p>\n<ul>\n<li><strong>✨ AI</strong> (sur chaque exigence) : propose des mesures adaptées à l'exigence et à votre contexte, avec instructions personnalisables ; acceptez chaque suggestion ou affinez le résultat</li>\n<li><strong>✨ Analyse globale IA</strong> (en haut de l'onglet) : collez un texte ou importez un document (.txt, .md, .csv, .docx, .xlsx) — politique de sécurité, rapport d'audit... — et l'IA le confronte aux exigences du référentiel, par lots ; acceptez les propositions (commentaires et mesures) exigence par exigence ou en bloc</li>\n</ul>\n<div class=\"help-tip\"><strong>Important</strong> : l'utilisation de l'assistant IA implique l'envoi de données d'évaluation au fournisseur IA configuré, via le proxy du serveur. Vérifiez que votre politique de confidentialité le permet.</div>\n\n<h2>Réglages</h2>\n<p>Cliquer sur l'icône <strong>roue crantée</strong> (&#9881;) dans la barre supérieure pour accéder aux réglages :</p>\n<ul>\n<li><strong>Langue</strong> : basculer entre français et anglais (aussi accessible via l'icône globe de la barre supérieure ; l'icône lune bascule le thème clair/sombre)</li>\n<li><strong>Assistant IA</strong> : activer/désactiver pour votre session ; le fournisseur, le modèle et la clé API sont configurés de manière centralisée par l'administrateur</li>\n</ul>\n\n<h2>Historique et annulation</h2>\n<h3>Annuler / Rétablir</h3>\n<p>Chaque modification est enregistrée dans l'historique de session (50 niveaux maximum) :</p>\n<ul>\n<li><strong>Ctrl+Z</strong> (ou Cmd+Z sur Mac) : annuler la dernière modification — ou le bouton &#8630; en bas du menu latéral</li>\n<li><strong>Ctrl+Y</strong> (ou Cmd+Y sur Mac) : rétablir la modification annulée — ou le bouton &#8631;</li>\n</ul>\n<h3>Snapshots / Sauvegardes</h3>\n<p>En mode suite, les points de sauvegarde sont gérés de manière centralisée par <strong>Pilot</strong> : connectez-vous à Pilot puis ouvrez l'onglet <strong>« Sauvegardes »</strong> pour créer, planifier ou restaurer une sauvegarde du module Compliance. L'écran Snapshots du menu latéral rappelle cette organisation.</p>\n\n<h2>Sécurité des données</h2>\n<ul>\n<li><strong>Stockage centralisé</strong> : les données sont enregistrées sur le serveur de la suite, pas dans votre navigateur</li>\n<li><strong>Accès authentifié</strong> : la session est partagée avec Pilot ; sans session valide, l'application redirige vers la page de connexion</li>\n<li><strong>Assistant IA proxifié</strong> : les appels IA passent par le serveur — aucune clé API ne transite par votre navigateur</li>\n</ul>\n\n<h2>Raccourcis clavier</h2>\n<table><thead><tr><th>Raccourci</th><th>Action</th></tr></thead><tbody>\n<tr><td><strong>Ctrl+Z</strong> / <strong>Cmd+Z</strong></td><td>Annuler</td></tr>\n<tr><td><strong>Ctrl+Y</strong> / <strong>Cmd+Y</strong></td><td>Rétablir</td></tr>\n<tr><td><strong>Échap</strong></td><td>Fermer la fenêtre modale ouverte (fiche mesure, fiche preuve...)</td></tr>\n</tbody></table>\n\n<h2>Bonnes pratiques</h2>\n<ul>\n<li><strong>Activer les bons référentiels</strong> : n'activez que les référentiels pertinents pour votre périmètre</li>\n<li><strong>Mutualiser les mesures</strong> : une même mesure peut répondre à plusieurs exigences de différents référentiels</li>\n<li><strong>Documenter les preuves</strong> : une mesure sans preuve valide reste \"Preuve manquante\" et l'exigence reste KO, même si la mesure est marquée \"Terminée\"</li>\n<li><strong>Surveiller les contrôles</strong> : l'écran Contrôles signale les preuves expirées et les contrôles en retard</li>\n<li><strong>Planifier les sauvegardes</strong> : programmez des sauvegardes régulières du module depuis l'onglet Sauvegardes de Pilot</li>\n</ul>\n\n<h2>Fonctionnalités nécessitant l'IA</h2>\n<p>Ces fonctionnalités appellent un modèle de langage et ne sont disponibles qu'une fois l'IA configurée. Elles sont <strong>optionnelles</strong> : sans configuration, elles sont masquées ou inactives et le reste du module fonctionne normalement.</p>\n<ul>\n<li><strong>Suggestion de mesures</strong> pour une exigence donnée</li>\n<li><strong>Suggestion globale</strong> sur l'ensemble du référentiel</li>\n</ul>\n<p class=\"help-tip\">Où configurer : dans une installation autonome, via <strong>Réglages &rarr; IA</strong> du module (votre propre clé API). Dans la suite, les clés sont centralisées par <strong>Pilot</strong> et poussées aux modules &mdash; rien à saisir ici, et l'accès à l'IA se donne par utilisateur dans les habilitations.</p>",
+
+    // Footer
+    "comp.footer": "Suivi de Conformité — Données modifiables, sauvegarde JSON",
+
+    "matrix.low": "Faible",
+    "matrix.moderate": "Modere",
+    "matrix.significant": "Significatif",
+    "matrix.high": "Eleve",
+    "matrix.critical": "Critique",
+    "matrix.extreme": "Extreme",
+    "matrix.x": "Impact",
+    "matrix.y": "Vraisemblance",
+"comp.csv.btn_import": "Importer un referentiel (CSV)",
+    "comp.csv.download_template": "Telecharger le modele CSV",
+    "comp.csv.prompt_name": "Nom du referentiel :",
+    "comp.csv.custom_desc": "Referentiel personnalise ({count} controles)",
+    "comp.csv.imported": "{label} importe ({count} controles)",
+    "comp.csv.error_empty": "Le fichier CSV est vide ou invalide",
+    "comp.csv.error_columns": "Colonnes obligatoires manquantes : ref et mesure (ou measure/control)",
+    "comp.csv.error_no_measures": "Aucune mesure valide trouvee dans le CSV",
+    "settings.language": "Langue",
+    "settings.ai_privacy_warning": "En activant l'assistant IA :\n\n1. PARTAGE DE DONNÉES — Les données de votre analyse (contexte, exigences, mesures) seront envoyées au fournisseur IA sélectionné. Assurez-vous que votre politique de confidentialité et vos engagements contractuels autorisent ce partage.\n\n2. EXPOSITION DE LA CLÉ API — La clé API est transmise depuis votre navigateur. Elle est visible dans les outils de développement (DevTools) et peut être capturée par des extensions navigateur. Utilisez de préférence un navigateur sans extensions ou un profil dédié.\n\n3. RÉSEAU — Les échanges sont chiffrés (HTTPS) mais peuvent être journalisés par un proxy d'entreprise.\n\nVoulez-vous continuer ?",
+    "settings.title": "Réglages",
+    "settings.ai_enable": "Activer l'assistant IA",
+    "settings.ai_section": "Assistant IA",
+    "settings.saved": "Réglages enregistrés",
+    "settings.save": "Enregistrer",
+});

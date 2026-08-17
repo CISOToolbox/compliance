@@ -1,0 +1,2011 @@
+{
+  "source": "loi0520",
+  "target": "iso",
+  "description": "Mapping Loi 05-20 (Maroc) -> ISO 27001:2022",
+  "rules": [
+    {
+      "source_ref": "ART3",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "4.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART3",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "6.1.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "6.1.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "8.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "8.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "A.5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART4",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART5",
+      "target_ref": "A.5.9",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART5",
+      "target_ref": "A.5.12",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART5",
+      "target_ref": "A.5.13",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART6",
+      "target_ref": "5.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART6",
+      "target_ref": "7.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART6",
+      "target_ref": "A.5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART6",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.6.8",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.8.15",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART7",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART8",
+      "target_ref": "A.6.8",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART9",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART9",
+      "target_ref": "A.5.29",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART9",
+      "target_ref": "A.5.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART9",
+      "target_ref": "A.8.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART9",
+      "target_ref": "A.8.14",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART10",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART10",
+      "target_ref": "A.5.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART10",
+      "target_ref": "A.5.22",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART10",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART10",
+      "target_ref": "A.8.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART11",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART11",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART12",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART12",
+      "target_ref": "A.5.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART12",
+      "target_ref": "A.5.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART12",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART12",
+      "target_ref": "A.8.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.22",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART13",
+      "target_ref": "A.8.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART14",
+      "target_ref": "4.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART15",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART15",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART15",
+      "target_ref": "4.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART16",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART16",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART16",
+      "target_ref": "4.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART17",
+      "target_ref": "5.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART17",
+      "target_ref": "A.5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART17",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART18",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART18",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART18",
+      "target_ref": "5.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART18",
+      "target_ref": "A.5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART19",
+      "target_ref": "4.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART19",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART20",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART20",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART20",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART20",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART21",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART21",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART21",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART21",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART22",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART22",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART22",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART22",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART24",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "7.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.22",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART25",
+      "target_ref": "A.8.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "6.1.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "7.5.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "A.5.10",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "A.5.14",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART26",
+      "target_ref": "A.8.15",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "7.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "A.5.17",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "A.5.18",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART27",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "A.8.15",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART28",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.8.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART29",
+      "target_ref": "A.8.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART30",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART31",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART31",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART31",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART31",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART31",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "6.1.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "10.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.5.30",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.8.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART32",
+      "target_ref": "A.8.21",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART33",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "9.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART34",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "6.1.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "9.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART35",
+      "target_ref": "A.6.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "6.1.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART36",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "6.1.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART37",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "6.1.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "9.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.5.35",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART38",
+      "target_ref": "A.6.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART39",
+      "target_ref": "7.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART39",
+      "target_ref": "A.5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART39",
+      "target_ref": "A.5.15",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART39",
+      "target_ref": "A.5.33",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "4.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "9.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "10.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART40",
+      "target_ref": "A.8.8",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "10.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.8.8",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.8.15",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART41",
+      "target_ref": "A.8.16",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART42",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "7.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "7.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "A.6.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART43",
+      "target_ref": "A.8.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "7.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "7.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART44",
+      "target_ref": "A.6.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "5.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "7.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.34",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART45",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART46",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART46",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART46",
+      "target_ref": "7.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART46",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART46",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "9.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "7.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.5",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.6",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART47",
+      "target_ref": "A.5.27",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "A.5.33",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART48",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "4.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "A.5.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "A.5.20",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "A.5.23",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART49",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "8.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "9.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.5.24",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.5.25",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.5.26",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART50",
+      "target_ref": "A.8.7",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "8.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "A.5.28",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "A.7.14",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "A.8.10",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART51",
+      "target_ref": "A.8.19",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "5.1",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "6.1.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "6.1.3",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "10.2",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "A.5.4",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "A.5.31",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    },
+    {
+      "source_ref": "ART52",
+      "target_ref": "A.5.36",
+      "relationship": "intersect",
+      "rationale": "semantic"
+    }
+  ]
+}

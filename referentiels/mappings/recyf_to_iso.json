@@ -1,0 +1,1772 @@
+{
+  "source": "recyf",
+  "target": "iso",
+  "description": "Mapping ReCyF -> ISO 27001:2022",
+  "rules": [
+    {
+      "source_ref": "1.1",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "1.1",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.1",
+      "target_ref": "A.5.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.1",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.2",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.2",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.2",
+      "target_ref": "A.5.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.3",
+      "target_ref": "5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.A.3",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.1",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.1",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.1",
+      "target_ref": "A.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.2",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.2",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.2",
+      "target_ref": "A.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.3",
+      "target_ref": "5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.3",
+      "target_ref": "5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.3",
+      "target_ref": "A.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.4",
+      "target_ref": "A.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.B.5",
+      "target_ref": "A.5.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.C.1",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "2.C.2",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.A.1",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.A.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.A.1",
+      "target_ref": "A.5.19",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.A.1",
+      "target_ref": "A.5.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.B.1",
+      "target_ref": "A.5.19",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.B.1",
+      "target_ref": "A.5.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.B.1",
+      "target_ref": "A.5.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "3.B.2",
+      "target_ref": "A.5.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.1",
+      "target_ref": "A.5.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.1",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.1",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.2",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.3",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.3",
+      "target_ref": "A.6.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "A.5.11",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.4",
+      "target_ref": "A.6.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.5",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.5",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "4.5",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.A.1",
+      "target_ref": "A.5.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.1",
+      "target_ref": "A.5.37",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.1",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.1",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.2",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.3",
+      "target_ref": "A.5.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.3",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.4",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.5",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.6",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.6",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.6",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.6",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.7",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.7",
+      "target_ref": "A.8.19",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.8",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.8",
+      "target_ref": "A.8.19",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.9",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.9",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.9",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "5.B.9",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.1",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.1",
+      "target_ref": "A.7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.1",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.1",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.1",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.2",
+      "target_ref": "A.7.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.3",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.3",
+      "target_ref": "A.7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.3",
+      "target_ref": "A.7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.3",
+      "target_ref": "A.7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "6.4",
+      "target_ref": "A.7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.1",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.1",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.1",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.2",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.3",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.3",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.3",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.4",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.4",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.4",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.5",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.5",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.5",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.6",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.6",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.6",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.7",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.7",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.7",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.7",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.8",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.8",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.8",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.A.8",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.1",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.2",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.3",
+      "target_ref": "A.8.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.3",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.3",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.3",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.4",
+      "target_ref": "A.8.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.4",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.4",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.4",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.5",
+      "target_ref": "A.8.12",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.5",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.5",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "7.B.5",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.1",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.1",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.2",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.2",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.2",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.3",
+      "target_ref": "A.6.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.3",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.4",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.4",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.4",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.5",
+      "target_ref": "A.7.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.5",
+      "target_ref": "A.8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "8.5",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.1",
+      "target_ref": "A.7.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.1",
+      "target_ref": "A.8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.1",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.1",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.1",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.2",
+      "target_ref": "A.8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.2",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.2",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.2",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.5.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.3",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.5.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.8.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.4",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.5.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.7.10",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.5",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.6",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "9.7",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.1",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.2",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.3",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.3",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.3",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.3",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.5",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.A.6",
+      "target_ref": "A.5.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.1",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.1",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.2",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.2",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.3",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.3",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.4",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.4",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.5",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.5",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.6",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.6",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.6",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.6",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.B.7",
+      "target_ref": "A.8.5",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.1",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.1",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.1",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.1",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.2",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.2",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.2",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.2",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.3",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.3",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.3",
+      "target_ref": "A.8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.3",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.4",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "10.C.4",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.1",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.1",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.1",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.2",
+      "target_ref": "A.5.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.2",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.2",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.3",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.3",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.4",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.4",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.5",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.5",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.5",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.5",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.6",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.6",
+      "target_ref": "A.8.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.7",
+      "target_ref": "A.5.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.7",
+      "target_ref": "A.5.18",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "11.A.7",
+      "target_ref": "A.8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.1",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.2",
+      "target_ref": "A.5.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.2",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.2",
+      "target_ref": "A.6.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.3",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.3",
+      "target_ref": "A.5.25",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.4",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.4",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.5",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.5",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.5",
+      "target_ref": "A.5.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.6",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.6",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "12.7",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.1",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.1",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.1",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.2",
+      "target_ref": "A.5.29",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.2",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.2",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.3",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.4",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.4",
+      "target_ref": "A.8.13",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.5",
+      "target_ref": "A.8.6",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.6",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.6",
+      "target_ref": "A.8.7",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "13.7",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.4",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.4",
+      "target_ref": "A.5.20",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.8",
+      "target_ref": "A.5.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.8",
+      "target_ref": "A.5.26",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.8",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.9",
+      "target_ref": "7.4",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "14.10",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.1",
+      "target_ref": "7.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.1",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.1",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.1",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.2",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.2",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.2",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.3",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.3",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.3",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.4",
+      "target_ref": "7.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.4",
+      "target_ref": "A.5.30",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "15.4",
+      "target_ref": "A.6.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "A.5.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.1",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.2",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.2",
+      "target_ref": "A.5.31",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.3",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.3",
+      "target_ref": "6.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.3",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.4",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "16.4",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.1",
+      "target_ref": "9.2.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.1",
+      "target_ref": "9.2.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.1",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.1",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.2",
+      "target_ref": "9.2.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.2",
+      "target_ref": "9.2.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.2",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.2",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "9.2.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "9.2.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "A.8.8",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.3",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.4",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.4",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.4",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.5",
+      "target_ref": "10.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.5",
+      "target_ref": "A.5.35",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "17.5",
+      "target_ref": "A.5.36",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.1",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.2",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.2",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.2",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.2",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.3",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "18.4",
+      "target_ref": "A.8.9",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.1",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.2",
+      "target_ref": "A.8.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.2",
+      "target_ref": "A.8.27",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.8",
+      "target_ref": "A.8.22",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.9",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.9",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.9",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.9",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.10",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.10",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.10",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.11",
+      "target_ref": "A.5.17",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.11",
+      "target_ref": "A.8.21",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.11",
+      "target_ref": "A.8.24",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.12",
+      "target_ref": "6.1.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.12",
+      "target_ref": "6.1.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.12",
+      "target_ref": "8.2",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "19.12",
+      "target_ref": "8.3",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.1",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.2",
+      "target_ref": "10.1",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.2",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.3",
+      "target_ref": "A.5.19",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.4",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.4",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.5",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.5",
+      "target_ref": "A.8.16",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.6",
+      "target_ref": "A.5.28",
+      "relationship": "intersect"
+    },
+    {
+      "source_ref": "20.6",
+      "target_ref": "A.8.15",
+      "relationship": "intersect"
+    }
+  ]
+}

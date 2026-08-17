@@ -1,0 +1,2257 @@
+{
+  "id": "iso",
+  "version": "2022",
+  "label": "ISO 27001:2022",
+  "description": "Sécurité de l'information, cybersécurité et protection de la vie privée — Information système de management de la sécurité — Exigences",
+  "description_en": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+  "color": "#2563eb",
+  "measures": [
+    {
+      "ref": "4.1",
+      "theme": "Contexte de l'organisation",
+      "theme_en": "Context of the organization",
+      "mesure": "Compréhension de l'organisation et de son contexte",
+      "mesure_en": "Understanding the organization and its context",
+      "description": "Identifier les facteurs internes et externes qui influencent la capacité de l’organisation à atteindre ses objectifs de sécurité de l’information, en veillant à ce que le SMSI soit aligné sur son contexte.",
+      "description_en": "Identify internal and external factors that influence the organization’s ability to achieve information security objectives, ensuring the ISMS is aligned with its context.",
+      "linked_controls": [
+        "doc.context"
+      ]
+    },
+    {
+      "ref": "4.2",
+      "theme": "Contexte de l'organisation",
+      "theme_en": "Context of the organization",
+      "mesure": "Compréhension des besoins et attentes des parties intéressées",
+      "mesure_en": "Understanding the needs and expectations of interested parties",
+      "description": "Analyser les besoins et attentes des parties intéressées pour les intégrer dans le SMSI et répondre aux exigences pertinentes en matière de sécurité de l’information.",
+      "description_en": "Analyze the needs and expectations of interested parties to incorporate them into the ISMS and address relevant information security requirements.",
+      "linked_controls": [
+        "doc.context"
+      ]
+    },
+    {
+      "ref": "4.3",
+      "theme": "Contexte de l'organisation",
+      "theme_en": "Context of the organization",
+      "mesure": "Détermination du domaine d'application du système de management de la sécurité de l'information",
+      "mesure_en": "Determining the scope of the information security management system",
+      "description": "Définir le périmètre du SMSI en prenant en compte les facteurs internes et externes, les besoins des parties prenantes et les dépendances dans l’environnement opérationnel.",
+      "description_en": "Define the scope of the ISMS by considering internal and external factors, stakeholder needs, and dependencies within the operational environment.",
+      "linked_controls": [
+        "doc.scope"
+      ]
+    },
+    {
+      "ref": "4.4",
+      "theme": "Contexte de l'organisation",
+      "theme_en": "Context of the organization",
+      "mesure": "Système de management de la sécurité de l'information",
+      "mesure_en": "Information security management system",
+      "description": "Concevoir, exploiter et améliorer en continu un SMSI pour gérer efficacement les risques de sécurité de l’information et atteindre les objectifs organisationnels.",
+      "description_en": "Build, run, and continually improve an ISMS to effectively manage information security risks and meet organizational goals.",
+      "linked_controls": [
+        "doc.overview"
+      ]
+    },
+    {
+      "ref": "5.1",
+      "theme": "Leadership",
+      "theme_en": "Leadership",
+      "mesure": "Leadership et engagement",
+      "mesure_en": "Leadership and commitment",
+      "description": "Démontrer un leadership et un engagement en soutenant le SMSI, en l'alignant sur les objectifs organisationnels, en allouant des ressources, en promouvant une culture de sécurité et en favorisant l'amélioration continue.",
+      "description_en": "Demonstrate leadership and commitment by supporting the ISMS, aligning it with organizational objectives, allocating resources, promoting a security culture, and driving continual improvement.",
+      "linked_controls": [
+        "doc.overview",
+        "doc.controls",
+        "doc.com",
+        "doc.audit_plan",
+        "doc.competency",
+        "pol.main"
+      ]
+    },
+    {
+      "ref": "5.2",
+      "theme": "Leadership",
+      "theme_en": "Leadership",
+      "mesure": "Politique",
+      "mesure_en": "Policy",
+      "description": "Établir une politique de sécurité de l’information alignée sur les objectifs et la direction stratégique de l'organisation, précisant les engagements en matière de conformité, d'amélioration continue et de promotion de la sécurité de l’information.",
+      "description_en": "Establish an information security policy aligned with the organization's objectives and strategic direction, outlining commitments to compliance, continual improvement, and the promotion of information security.",
+      "linked_controls": [
+        "pol.main"
+      ]
+    },
+    {
+      "ref": "5.3",
+      "theme": "Leadership",
+      "theme_en": "Leadership",
+      "mesure": "Rôles, responsabilités et autorités au sein de l'organisation",
+      "mesure_en": "Organizational roles, responsibilities and authorities",
+      "description": "Définir, attribuer et communiquer les rôles, responsabilités et autorités pour assurer la mise en œuvre et le fonctionnement efficaces du SMSI, avec une responsabilité alignée sur les objectifs organisationnels.",
+      "description_en": "Define, assign, and communicate roles, responsibilities, and authorities to ensure the effective implementation and operation of the ISMS, with accountability aligned to organizational objectives.",
+      "linked_controls": [
+        "doc.raci"
+      ]
+    },
+    {
+      "ref": "6.1.1",
+      "theme": "Actions à mettre en oeuvre face aux risques et opportunités",
+      "theme_en": "Actions to address risks and opportunities",
+      "mesure": "Généralités",
+      "mesure_en": "General",
+      "description": "Établir un processus pour identifier les risques et opportunités en matière de sécurité de l’information, en prenant en compte les facteurs internes et externes, les besoins des parties prenantes et les exigences applicables, afin d’assurer que le SMSI atteigne ses objectifs.",
+      "description_en": "Establish a process to identify information security risks and opportunities, considering internal and external factors, stakeholder needs, and applicable requirements to ensure the ISMS achieves its objectives.",
+      "linked_controls": [
+        "pol.risk",
+        "doc.risk_register"
+      ]
+    },
+    {
+      "ref": "6.1.2",
+      "theme": "Actions à mettre en oeuvre face aux risques et opportunités",
+      "theme_en": "Actions to address risks and opportunities",
+      "mesure": "Appréciation des risques de sécurité de l'information",
+      "mesure_en": "Information security risk assessment requirement",
+      "description": "Établir un processus pour évaluer les risques liés à la sécurité de l’information à des intervalles planifiés, en utilisant des critères définis pour évaluer les menaces sur la confidentialité, l’intégrité et la disponibilité, garantissant des résultats cohérents et fiables.",
+      "description_en": "Establish a process to assess information security risks at planned intervals, using defined criteria to evaluate threats to confidentiality, integrity, and availability, ensuring consistent and reliable results.",
+      "linked_controls": [
+        "pol.risk",
+        "doc.risk_register"
+      ]
+    },
+    {
+      "ref": "6.1.3",
+      "theme": "Actions à mettre en oeuvre face aux risques et opportunités",
+      "theme_en": "Actions to address risks and opportunities",
+      "mesure": "Traitement des risques de sécurité de l'information",
+      "mesure_en": "Information security risk treatment",
+      "description": "Définir un processus pour traiter les risques identifiés en matière de sécurité de l’information en sélectionnant des contrôles appropriés, en assurant leur alignement avec les critères d’acceptation des risques et en les documentant dans un plan de traitement des risques.",
+      "description_en": "Define a process to address identified information security risks by selecting appropriate controls, ensuring alignment with risk acceptance criteria, and documenting them in a risk treatment plan.",
+      "linked_controls": [
+        "pol.risk",
+        "doc.risk_register",
+        "doc.soa"
+      ]
+    },
+    {
+      "ref": "6.2",
+      "theme": "Planification",
+      "theme_en": "Planning",
+      "mesure": "Objectifs de sécurité de l'information et plans pour les atteindre",
+      "mesure_en": "Information security objectives and planning to achieve them",
+      "description": "Définir des objectifs mesurables en matière de sécurité de l’information alignés sur le SMSI et les objectifs stratégiques, et planifier des actions détaillant les responsabilités, les ressources, les échéances et les méthodes d’évaluation pour les atteindre.",
+      "description_en": "Set measurable information security objectives aligned with the ISMS and strategic goals, and plan actions detailing responsibilities, resources, timelines, and evaluation methods to achieve them.",
+      "linked_controls": [
+        "pol.main",
+        "doc.so_register",
+        "doc.risk_register",
+        "doc.mgmt_review"
+      ]
+    },
+    {
+      "ref": "6.3",
+      "theme": "Planification",
+      "theme_en": "Planning",
+      "mesure": "Planification des modifications",
+      "mesure_en": "Planning for changes",
+      "description": "Planifier les changements au SMSI de manière systématique pour garantir leur alignement avec les exigences de sécurité de l’information, leur intégration transparente dans les processus existants et une gestion efficace des risques.",
+      "description_en": "Plan changes to the ISMS systematically to ensure alignment with information security requirements, seamless integration into existing processes, and effective risk management.",
+      "linked_controls": [
+        "pol.maintenance"
+      ]
+    },
+    {
+      "ref": "7.1",
+      "theme": "Supports",
+      "theme_en": "Support",
+      "mesure": "Ressources",
+      "mesure_en": "Resources",
+      "description": "Fournir les ressources nécessaires pour construire, exploiter et améliorer en continu le SMSI, en garantissant son fonctionnement efficace et son alignement avec les objectifs organisationnels.",
+      "description_en": "Provide the necessary resources to build, run, and continually improve the ISMS, ensuring its effective operation and alignment with organizational goals.",
+      "linked_controls": [
+        "doc.raci",
+        "doc.competency",
+        "doc.controls"
+      ]
+    },
+    {
+      "ref": "7.2",
+      "theme": "Supports",
+      "theme_en": "Support",
+      "mesure": "Compétences",
+      "mesure_en": "Competence",
+      "description": "Garantir que le personnel impliqué dans le SMSI dispose des compétences nécessaires grâce à une formation, une éducation ou une expérience appropriées pour remplir efficacement leurs responsabilités.",
+      "description_en": "Ensure personnel involved in the ISMS possess the necessary competence through appropriate education, training, or experience to fulfill their responsibilities effectively.",
+      "linked_controls": [
+        "pol.educ",
+        "doc.educ_register"
+      ]
+    },
+    {
+      "ref": "7.3",
+      "theme": "Supports",
+      "theme_en": "Support",
+      "mesure": "Sensibilisation",
+      "mesure_en": "Awareness",
+      "description": "Promouvoir la sensibilisation du personnel concerné au SMSI, à leur rôle dans la sécurité de l’information et à l’importance de se conformer aux politiques et exigences de sécurité.",
+      "description_en": "Promote awareness among relevant personnel about the ISMS, their role in information security, and the importance of compliance with security policies and requirements.",
+      "linked_controls": [
+        "pol.educ",
+        "doc.educ_register"
+      ]
+    },
+    {
+      "ref": "7.4",
+      "theme": "Supports",
+      "theme_en": "Support",
+      "mesure": "Communication",
+      "mesure_en": "Communication",
+      "description": "Établir des processus de communication internes et externes efficaces, assurant un échange d’informations opportun et approprié en lien avec le SMSI et ses objectifs.",
+      "description_en": "Establish effective internal and external communication processes, ensuring the timely and appropriate exchange of information relevant to the ISMS and its objectives.",
+      "linked_controls": [
+        "doc.com"
+      ]
+    },
+    {
+      "ref": "7.5.1",
+      "theme": "Informations documentées",
+      "theme_en": "Documented Information",
+      "mesure": "Généralités",
+      "mesure_en": "General",
+      "description": "Documenter le SMSI selon les besoins pour garantir une planification efficace, le fonctionnement, le contrôle des processus et l’alignement avec les exigences organisationnelles.",
+      "description_en": "Document the ISMS as needed to ensure effective planning, operation, control of processes, and alignment with organizational requirements.",
+      "linked_controls": [
+        "doc.doc_register"
+      ]
+    },
+    {
+      "ref": "7.5.2",
+      "theme": "Informations documentées",
+      "theme_en": "Documented Information",
+      "mesure": "Création et mise à jour",
+      "mesure_en": "Creating and Updating documented information",
+      "description": "S’assurer que la documentation du SMSI est correctement créée, mise à jour et contrôlée, y compris avec une approbation et une gestion des versions appropriées.",
+      "description_en": "Ensure ISMS documentation is appropriately created, updated, and controlled, including proper approval and version management.",
+      "linked_controls": [
+        "doc.doc_register"
+      ]
+    },
+    {
+      "ref": "7.5.3",
+      "theme": "Informations documentées",
+      "theme_en": "Documented Information",
+      "mesure": "Contrôle des informations documentées",
+      "mesure_en": "Control of documented information",
+      "description": "Rendre la documentation du SMSI accessible et utilisable pour ceux qui en ont besoin, tout en la protégeant contre tout accès non autorisé ou perte.",
+      "description_en": "Make ISMS documentation accessible and usable for those who need it, while protecting it from unauthorized access or loss.",
+      "linked_controls": [
+        "doc.doc_register"
+      ]
+    },
+    {
+      "ref": "8.1",
+      "theme": "Fonctionnement",
+      "theme_en": "Operations",
+      "mesure": "Planification et contrôle opérationnels",
+      "mesure_en": "Operational planning and control",
+      "description": "Planifier et contrôler les processus du SMSI, en garantissant leur cohérence avec les exigences et en apportant les ajustements nécessaires pour traiter les risques et opportunités.",
+      "description_en": "Plan and control ISMS processes, ensuring consistency with requirements and making necessary adjustments to address risks and opportunities.",
+      "linked_controls": [
+        "doc.raci",
+        "doc.proc_register"
+      ]
+    },
+    {
+      "ref": "8.2",
+      "theme": "Fonctionnement",
+      "theme_en": "Operations",
+      "mesure": "Appréciation des risques de sécurité de l'information",
+      "mesure_en": "Information security risk assessment",
+      "description": "Mettre en œuvre le processus d’évaluation des risques pour identifier, évaluer et prioriser les risques liés à la sécurité de l’information, tel que défini dans le cadre du SMSI.",
+      "description_en": "Implement the risk assessment process to identify, evaluate, and prioritize information security risks as defined in the ISMS framework.",
+      "linked_controls": [
+        "doc.proc_register",
+        "doc.risk_register"
+      ]
+    },
+    {
+      "ref": "8.3",
+      "theme": "Fonctionnement",
+      "theme_en": "Operations",
+      "mesure": "Traitement des risques de sécurité de l'information",
+      "mesure_en": "Information security risk treatment",
+      "description": "Appliquer le processus de traitement des risques en sélectionnant et en mettant en œuvre des contrôles appropriés pour traiter les risques identifiés, en assurant leur alignement avec les critères d’acceptation des risques de l’organisation.",
+      "description_en": "Apply the risk treatment process by selecting and implementing appropriate controls to address identified risks, ensuring alignment with the organization’s risk acceptance criteria.",
+      "linked_controls": [
+        "doc.proc_register",
+        "doc.risk_register"
+      ]
+    },
+    {
+      "ref": "9.1",
+      "theme": "Évaluation de la performance",
+      "theme_en": "Performance evaluation",
+      "mesure": "Surveillance, mesurages, analyse et évaluation",
+      "mesure_en": "Monitoring, measurement, analysis, evaluation",
+      "description": "Surveiller, mesurer, analyser et évaluer la performance et l’efficacité du SMSI en utilisant des méthodes appropriées alignées sur les objectifs de l’organisation.",
+      "description_en": "Monitor, measure, analyze, and evaluate the ISMS’s performance and effectiveness using appropriate methods aligned with the organization’s objectives.",
+      "linked_controls": [
+        "pol.monitor",
+        "doc.audit_plan"
+      ]
+    },
+    {
+      "ref": "9.2.1",
+      "theme": "Audit interne",
+      "theme_en": "Internal audit",
+      "mesure": "Généralités",
+      "mesure_en": "General",
+      "description": "Effectuer des audits internes à des intervalles planifiés pour garantir que le SMSI est conforme aux exigences de l’ISO/CEI 27001 et qu’il est efficacement mis en œuvre et maintenu.",
+      "description_en": "Conduct internal audits at planned intervals to ensure the ISMS complies with ISO/IEC 27001 requirements and is effectively implemented and maintained.",
+      "linked_controls": [
+        "pol.audit"
+      ]
+    },
+    {
+      "ref": "9.2.2",
+      "theme": "Audit interne",
+      "theme_en": "Internal audit",
+      "mesure": "Programme d'audit interne",
+      "mesure_en": "Internal audit programme",
+      "description": "Planifier et réaliser des audits internes, y compris la définition des critères, du périmètre, des méthodes et des responsabilités, et rapporter les résultats à la direction concernée.",
+      "description_en": "Plan and perform internal audits, including defining criteria, scope, methods, and responsibilities, and report the results to relevant management.",
+      "linked_controls": [
+        "doc.audit_plan"
+      ]
+    },
+    {
+      "ref": "9.3.1",
+      "theme": "Revue de la direction",
+      "theme_en": "Management review",
+      "mesure": "Généralités",
+      "mesure_en": "General",
+      "description": "Examiner le SMSI périodiquement pour s’assurer de son adéquation, de son efficacité et de sa capacité à atteindre les objectifs organisationnels.",
+      "description_en": "Review the ISMS periodically to ensure its suitability, adequacy, and effectiveness in achieving organizational objectives.",
+      "linked_controls": [
+        "pol.main"
+      ]
+    },
+    {
+      "ref": "9.3.2",
+      "theme": "Revue de la direction",
+      "theme_en": "Management review",
+      "mesure": "Eléments d'entrée de la revue de direction",
+      "mesure_en": "Management review inputs",
+      "description": "Inclure des éléments tels que les résultats d’audits, la performance du SMSI, l’état des risques, les opportunités d’amélioration et les changements nécessaires dans la revue de direction.",
+      "description_en": "Include inputs such as audit results, ISMS performance, risk status, improvement opportunities, and required changes in the management review.",
+      "linked_controls": [
+        "doc.mgmt_review"
+      ]
+    },
+    {
+      "ref": "9.3.3",
+      "theme": "Revue de la direction",
+      "theme_en": "Management review",
+      "mesure": "Résultats des revues de direction",
+      "mesure_en": "Management review results",
+      "description": "Documenter les résultats des revues de direction, y compris les décisions sur les améliorations, les modifications du SMSI et les besoins en ressources.",
+      "description_en": "Document the results of the management reviews, including decisions on improvements, ISMS changes, and resource requirements.",
+      "linked_controls": [
+        "doc.mgmt_review"
+      ]
+    },
+    {
+      "ref": "10.1",
+      "theme": "Amélioration",
+      "theme_en": "Improvement",
+      "mesure": "Amélioration continue",
+      "mesure_en": "Continual improvement",
+      "description": "Identifier et agir sur les opportunités d’amélioration continue pour renforcer l’efficacité du SMSI et son alignement avec les objectifs organisationnels.",
+      "description_en": "Identify and act on opportunities for continual improvement to enhance the ISMS's effectiveness and alignment with organizational goals.",
+      "linked_controls": [
+        "pol.main"
+      ]
+    },
+    {
+      "ref": "10.2",
+      "theme": "Amélioration",
+      "theme_en": "Improvement",
+      "mesure": "Non-conformité et action corrective",
+      "mesure_en": "Nonconformity and corrective action",
+      "description": "Traiter les non-conformités en prenant des actions correctives, en identifiant les causes profondes et en mettant en œuvre des mesures pour éviter leur récurrence, tout en documentant le processus.",
+      "description_en": "Address nonconformities by taking corrective actions, identifying root causes, and implementing measures to prevent recurrence while documenting the process.",
+      "linked_controls": [
+        "pol.main",
+        "pol.incident",
+        "doc.nc_log",
+        "doc.proc_register",
+        "doc.raci",
+        "doc.mgmt_review"
+      ]
+    },
+    {
+      "ref": "A.5.1",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Politiques de sécurité de l'information",
+      "mesure_en": "Policies for information security",
+      "description": "Cette mesure de sécurité établit et maintient des politiques de sécurité de l'information alignées sur les objectifs organisationnels. Les mesures incluent la définition de la portée, la fixation des objectifs et l'alignement avec les exigences de conformité.",
+      "description_en": "This control establishes and maintains information security policies aligned with organizational objectives. Measures include defining scope, setting goals, and ensuring alignment with compliance requirements.",
+      "type": "organisationnel",
+      "category": "policy"
+    },
+    {
+      "ref": "A.5.2",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Fonctions et responsabilités liées à la sécurité de l'information",
+      "mesure_en": "Information security roles and responsibilities",
+      "description": "Cette mesure de sécurité définit et attribue des rôles et responsabilités en matière de sécurité de l'information pour garantir la responsabilité. Les mesures incluent une documentation claire des responsabilités, des revues périodiques et des mécanismes d'application.",
+      "description_en": "This control defines and assigns roles and responsibilities for information security to ensure accountability. Measures include clear documentation of responsibilities, periodic reviews, and enforcement mechanisms.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.3",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Séparation des tâches",
+      "mesure_en": "Segregation of duties",
+      "description": "Cette mesure de sécurité garantit la séparation des tâches pour réduire le risque d'erreurs, de fraude et d'accès non autorisé. Les mesures incluent la séparation des rôles, des restrictions d'accès et des audits réguliers.",
+      "description_en": "This control ensures segregation of duties to reduce the risk of errors, fraud, and unauthorized access. Measures include role separation, access restrictions, and regular audits.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.4",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Responsabilités de la direction",
+      "mesure_en": "Management responsibilities",
+      "description": "Cette mesure de sécurité garantit que les responsabilités de gestion en matière de sécurité de l'information sont clairement définies et mises en œuvre. Les mesures incluent la fixation d'objectifs, l'allocation de ressources et la supervision de la conformité.",
+      "description_en": "This control ensures management responsibilities for information security are clearly defined and implemented. Measures include setting objectives, allocating resources, and overseeing compliance.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.5",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Contact avec les autorités",
+      "mesure_en": "Contact with authorities",
+      "description": "Cette mesure de sécurité garantit une communication rapide avec les autorités compétentes en cas d'incidents de sécurité de l'information. Les mesures incluent des protocoles de contact, des listes de contacts à jour et l'attribution de responsabilités.",
+      "description_en": "This control ensures timely communication with relevant authorities during information security incidents. Measures include establishing contact protocols, maintaining updated contact lists, and assigning responsibilities.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.6",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Contact avec des groupes d'intérêt spécifiques",
+      "mesure_en": "Contact with special interest groups",
+      "description": "Cette mesure de sécurité facilite le contact avec des groupes d'intérêt pour rester informé des tendances et pratiques en matière de sécurité. Les mesures incluent la participation à des forums, des adhésions et des initiatives collaboratives.",
+      "description_en": "This control facilitates contact with special interest groups to stay informed about security trends and practices. Measures include participation in forums, memberships, and collaborative initiatives.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.7",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Renseignements sur les menaces",
+      "mesure_en": "Threat intelligence",
+      "description": "Cette mesure de sécurité garantit que des renseignements sur les menaces sont développés et maintenus pour identifier et atténuer les risques de sécurité. Les mesures incluent le suivi des flux de menaces, l'analyse des tendances et le partage d'informations exploitables.",
+      "description_en": "This control ensures threat intelligence is developed and maintained to identify and mitigate security risks. Measures include monitoring threat feeds, analyzing trends, and sharing actionable insights.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.8",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité de l'information dans la gestion de projet",
+      "mesure_en": "Information security in project management",
+      "description": "Cette mesure de sécurité intègre la sécurité de l'information dans les pratiques de gestion de projet. Les mesures incluent les évaluations des risques, les revues de conformité et les points de contrôle de sécurité tout au long du cycle de vie du projet.",
+      "description_en": "This control incorporates information security into project management practices. Measures include risk assessments, compliance reviews, and security checkpoints during project lifecycles.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.9",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Inventaire des informations et autres actifs associés",
+      "mesure_en": "Inventory of information and other associated assets",
+      "description": "Cette mesure de sécurité garantit qu’un inventaire précis des informations et des actifs associés est maintenu. Les mesures incluent le suivi des actifs, des audits périodiques et une classification par sensibilité.",
+      "description_en": "This control ensures an accurate inventory of information and associated assets is maintained. Measures include asset tracking, periodic audits, and classification by sensitivity.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.10",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Utilisation correcte des informations et autres actifs associés",
+      "mesure_en": "Acceptable use of information and other associated assets",
+      "description": "Cette mesure de sécurité définit les règles d'utilisation acceptable des informations et des actifs associés pour assurer une manipulation appropriée. Les mesures incluent des politiques documentées, la formation des utilisateurs et des mécanismes d'application.",
+      "description_en": "This control defines acceptable use of information and associated assets to ensure proper handling. Measures include documented policies, user training, and enforcement mechanisms.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.11",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Restitution des actifs",
+      "mesure_en": "Return of assets",
+      "description": "Cette mesure de sécurité garantit le retour sécurisé des actifs lorsque des employés ou des sous-traitants quittent ou changent de rôle. Les mesures incluent des listes de contrôle, le suivi des actifs et des protocoles de désactivation.",
+      "description_en": "This control ensures the secure return of assets when employees or contractors leave or change roles. Measures include checklists, asset tracking, and decommissioning protocols.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.12",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Classification des informations",
+      "mesure_en": "Classification of information",
+      "description": "Cette mesure de sécurité garantit que les informations sont classées en fonction de leur sensibilité et de leur valeur pour assurer une protection adéquate. Les mesures incluent des schémas de classification, des restrictions d'accès et des directives d'étiquetage.",
+      "description_en": "This control ensures information is classified based on its sensitivity and value to ensure appropriate protection. Measures include classification schemes, access restrictions, and labeling guidelines.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.13",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Marquage des informations",
+      "mesure_en": "Labelling of information",
+      "description": "Cette mesure de sécurité garantit un étiquetage cohérent des informations pour refléter leur classification et leurs exigences de traitement. Les mesures incluent des modèles standardisés, des formations et des audits.",
+      "description_en": "This control ensures consistent labeling of information to reflect its classification and handling requirements. Measures include standardized templates, training, and audits.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.14",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Transfert des informations",
+      "mesure_en": "Information transfer",
+      "description": "Cette mesure de sécurité établit des processus sécurisés pour le transfert d'informations entre systèmes ou organisations. Les mesures incluent le chiffrement, les contrôles d'accès et les protocoles de transfert sécurisés.",
+      "description_en": "This control establishes secure processes for transferring information between systems or organizations. Measures include encryption, access controls, and secure transfer protocols.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.15",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Contrôle d'accès",
+      "mesure_en": "Access control",
+      "description": "Cette mesure de sécurité met en œuvre et maintient des mécanismes de contrôle d'accès pour limiter l'accès aux individus autorisés. Les mesures incluent des contrôles basés sur les rôles, l'authentification multifacteur et des revues périodiques.",
+      "description_en": "This control implements and maintains access control mechanisms to restrict access to authorized individuals. Measures include role-based access, multi-factor authentication, and periodic reviews.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.16",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Gestion des identités",
+      "mesure_en": "Identity management",
+      "description": "Cette mesure de sécurité garantit que les identités sont gérées de manière sécurisée pour garantir un accès précis et fiable aux systèmes. Les mesures incluent la vérification d'identité, la gestion du cycle de vie et l'approvisionnement des accès.",
+      "description_en": "This control ensures identities are managed securely to guarantee accurate and reliable access to systems. Measures include identity verification, lifecycle management, and access provisioning.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.17",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Informations d'authentification",
+      "mesure_en": "Authentication information",
+      "description": "Cette mesure de sécurité protège les informations d'authentification, telles que les mots de passe, pour empêcher tout accès non autorisé. Les mesures incluent le chiffrement, le stockage sécurisé et les mises à jour périodiques des mots de passe.",
+      "description_en": "This control protects authentication information, such as passwords, to prevent unauthorized access. Measures include encryption, secure storage, and periodic password updates.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.18",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Droits d'accès",
+      "mesure_en": "Access rights",
+      "description": "Cette mesure de sécurité garantit que les droits d'accès sont régulièrement revus et gérés pour s'aligner sur les rôles et responsabilités. Les mesures incluent des audits périodiques, la révocation des accès et la gestion automatisée des accès.",
+      "description_en": "This control ensures access rights are regularly reviewed and managed to align with roles and responsibilities. Measures include periodic audits, access revocation, and automated access management.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.19",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité de l'information dans les relations avec les fournisseurs",
+      "mesure_en": "Information security in supplier relationships",
+      "description": "Cette mesure de sécurité garantit que la sécurité de l'information est intégrée dans les relations et processus avec les fournisseurs. Les mesures incluent la diligence raisonnable, les revues de sécurité et la surveillance continue.",
+      "description_en": "This control ensures information security is embedded in supplier relationships and processes. Measures include due diligence, security reviews, and ongoing monitoring.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.20",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "La sécurité de l'information dans les accords conclus avec les fournisseurs",
+      "mesure_en": "Addressing information security within supplier agreements",
+      "description": "Cette mesure de sécurité aborde les exigences de sécurité de l'information dans les accords avec les fournisseurs. Les mesures incluent des clauses contractuelles explicites, des audits de conformité et des pénalités définies pour les violations.",
+      "description_en": "This control addresses information security requirements within supplier agreements. Measures include explicit contract clauses, compliance audits, and defined penalties for violations.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.21",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Gestion de la sécurité de l'information dans la chaîne d'approvisionnement des technologies de l'information et de la communication (TIC)",
+      "mesure_en": "Managing information security in the ICT supply chain",
+      "description": "Cette mesure de sécurité gère les risques de sécurité de l'information dans la chaîne d'approvisionnement TIC pour garantir la sécurité des services et des composants. Les mesures incluent des évaluations des risques, des évaluations des fournisseurs et des protocoles de réponse aux incidents.",
+      "description_en": "This control manages information security risks in the ICT supply chain to ensure security of services and components. Measures include risk assessments, supplier evaluations, and incident response protocols.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.22",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Surveillance, révision et gestion des changements des services fournisseurs",
+      "mesure_en": "Monitor, review and change management of supplier services",
+      "description": "Cette mesure de sécurité garantit que les services des fournisseurs sont surveillés, revus et ajustés pour maintenir la sécurité de l'information. Les mesures incluent des accords de niveau de service, des revues périodiques et des mises à jour contractuelles.",
+      "description_en": "This control ensures supplier services are monitored, reviewed, and adjusted to maintain information security. Measures include service level agreements, periodic reviews, and contract updates.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.23",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité de l'information dans l'utilisation de services en nuage",
+      "mesure_en": "Information security for use of cloud services",
+      "description": "Cette mesure de sécurité garantit l'utilisation sécurisée des services cloud en abordant les risques associés. Les mesures incluent le chiffrement des données, les contrôles d'accès et les revues de conformité des fournisseurs.",
+      "description_en": "This control ensures the secure use of cloud services by addressing associated risks. Measures include data encryption, access controls, and provider compliance reviews.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.24",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Planification et préparation de la gestion des incidents de sécurité de l'information",
+      "mesure_en": "Information security incident management planning and preparation",
+      "description": "Cette mesure de sécurité garantit une planification et une préparation adéquates pour la gestion des incidents de sécurité de l'information. Les mesures incluent des plans de réponse aux incidents, des exercices de formation et des protocoles de communication.",
+      "description_en": "This control ensures proper planning and preparation for managing information security incidents. Measures include incident response plans, training exercises, and communication protocols.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.25",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Évaluation des événements de sécurité de l'information et prise de décision",
+      "mesure_en": "Assessment and decision on information security events",
+      "description": "Cette mesure de sécurité établit des processus pour évaluer et décider des actions liées aux événements de sécurité de l'information. Les mesures incluent l'analyse des causes profondes, l'évaluation des risques et des plans d'atténuation.",
+      "description_en": "This control establishes processes for assessing and deciding on actions related to information security events. Measures include root cause analysis, risk evaluation, and mitigation plans.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.26",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Réponse aux incidents de sécurité de l'information",
+      "mesure_en": "Response to information security incidents",
+      "description": "Cette mesure de sécurité garantit une réponse efficace aux incidents de sécurité de l'information pour minimiser l'impact et récupérer rapidement. Les mesures incluent le signalement des incidents, des protocoles d'escalade et des stratégies de confinement.",
+      "description_en": "This control ensures effective response to information security incidents to minimize impact and recover quickly. Measures include incident reporting, escalation protocols, and containment strategies.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.27",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Tirer des enseignements des incidents de sécurité de l'information",
+      "mesure_en": "Learning from information security incidents",
+      "description": "Cette mesure de sécurité garantit que les leçons tirées des incidents de sécurité de l'information sont documentées et mises en œuvre pour améliorer les processus. Les mesures incluent des revues post-incidents, des plans d'action et des mises à jour des politiques.",
+      "description_en": "This control ensures lessons learned from information security incidents are documented and implemented to improve processes. Measures include post-incident reviews, action plans, and policy updates.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.28",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Collecte de preuves",
+      "mesure_en": "Collection of evidence",
+      "description": "Cette mesure de sécurité garantit que les preuves sont collectées et conservées lors des incidents de sécurité pour soutenir les enquêtes. Les mesures incluent des procédures de chaîne de conservation, le stockage sécurisé et les contrôles d'accès.",
+      "description_en": "This control ensures evidence is collected and preserved during security incidents to support investigations. Measures include chain-of-custody procedures, secure storage, and access controls.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.29",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité de l'information pendant une perturbation",
+      "mesure_en": "Information security during disruption",
+      "description": "Cette mesure de sécurité garantit que la sécurité de l'information est maintenue pendant les perturbations pour assurer la continuité des opérations. Les mesures incluent des plans de contingence, des systèmes de sauvegarde et des mécanismes de basculement.",
+      "description_en": "This control ensures information security is maintained during disruptions to guarantee continuity of operations. Measures include contingency plans, backup systems, and failover mechanisms.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.30",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Préparation des TIC la continuité d'activité",
+      "mesure_en": "ICT readiness for business continuity",
+      "description": "Cette mesure de sécurité garantit la préparation TIC pour la continuité des activités afin de minimiser les temps d'arrêt pendant les perturbations. Les mesures incluent des tests de plans de reprise, des systèmes redondants et des sites de reprise après sinistre.",
+      "description_en": "This control ensures ICT readiness for business continuity to minimize downtime during disruptions. Measures include testing recovery plans, redundant systems, and disaster recovery sites.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.31",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Exigences légales, statutaires, réglementaires et contractuelles",
+      "mesure_en": "Legal, statutory, regulatory and contractual requirements",
+      "description": "Cette mesure de sécurité garantit la conformité aux exigences légales, réglementaires et contractuelles en matière de sécurité de l'information. Les mesures incluent des revues de politiques, des audits et la documentation des preuves.",
+      "description_en": "This control ensures compliance with legal, statutory, regulatory, and contractual information security requirements. Measures include policy reviews, audits, and evidence documentation.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.32",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Droits de propriété intellectuelle",
+      "mesure_en": "Intellectual property rights",
+      "description": "Cette mesure de sécurité garantit la protection des droits de propriété intellectuelle par des mesures de sécurité de l'information appropriées. Les mesures incluent des restrictions d'accès, le chiffrement et des accords légaux.",
+      "description_en": "This control ensures intellectual property rights are protected through appropriate information security measures. Measures include access restrictions, encryption, and legal agreements.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.33",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Protection des enregistrements",
+      "mesure_en": "Protection of records",
+      "description": "Cette mesure de sécurité garantit que les enregistrements sont stockés et protégés de manière sécurisée pour prévenir toute perte ou accès non autorisé. Les mesures incluent des politiques de rétention, un stockage sécurisé et des contrôles d'accès.",
+      "description_en": "This control ensures records are securely stored and protected to prevent loss or unauthorized access. Measures include retention policies, secure storage, and access controls.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.34",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Protection de la vie privée et des données à caractère personnel (DCP)",
+      "mesure_en": "Privacy and protection of PII",
+      "description": "Cette mesure de sécurité protège la confidentialité et garantit le traitement sécurisé des informations personnellement identifiables (PII). Les mesures incluent l'anonymisation, le chiffrement et la conformité aux lois sur la confidentialité.",
+      "description_en": "This control protects privacy and ensures the secure handling of personally identifiable information (PII). Measures include anonymization, encryption, and compliance with privacy laws.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.35",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Révision indépendante de la sécurité de l'information",
+      "mesure_en": "Independent review of information security",
+      "description": "Cette mesure de sécurité garantit des revues indépendantes de la sécurité de l'information pour évaluer l'efficacité et la conformité. Les mesures incluent des audits externes, des évaluations des risques et des actions de suivi.",
+      "description_en": "This control ensures independent reviews of information security to evaluate effectiveness and compliance. Measures include external audits, risk assessments, and follow-up actions.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.36",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Conformité aux politiques, règles et normes de sécurité de l'information",
+      "mesure_en": "Compliance with policies, rules and standards for information security",
+      "description": "Cette mesure de sécurité garantit la conformité à toutes les politiques, règles et normes en matière de sécurité de l'information. Les mesures incluent des formations régulières, des revues de politiques et des mécanismes d'application.",
+      "description_en": "This control ensures compliance with all policies, rules, and standards for information security. Measures include regular training, policy reviews, and enforcement mechanisms.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.5.37",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Procédures d'exploitation documentées",
+      "mesure_en": "Documented operating procedures",
+      "description": "Cette mesure de sécurité développe et maintient des procédures opérationnelles documentées pour garantir la cohérence des pratiques de sécurité. Les mesures incluent la documentation des processus, le contrôle des versions et l'accessibilité.",
+      "description_en": "This control develops and maintains documented operating procedures to ensure consistency in security practices. Measures include process documentation, version control, and accessibility.",
+      "type": "organisationnel",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.1",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sélection des candidats",
+      "mesure_en": "Screening",
+      "description": "Cette mesure de sécurité garantit la mise en œuvre de processus de vérification pour évaluer l'adéquation des candidats avant leur embauche. Les mesures incluent des vérifications des antécédents, la vérification d'identité et l'évaluation des qualifications pour réduire les risques de sécurité.",
+      "description_en": "This control ensures the implementation of screening processes to verify the suitability of candidates before employment. Measures include background checks, identity verification, and assessment of qualifications to reduce security risks.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.2",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Termes et conditions du contrat de travail",
+      "mesure_en": "Terms and conditions of employment",
+      "description": "Cette mesure de sécurité garantit que les termes et conditions d'emploi incluent des responsabilités en matière de sécurité de l'information. Les mesures incluent des clauses explicites sur la confidentialité, le respect des politiques et les conséquences des violations.",
+      "description_en": "This control ensures that terms and conditions of employment include information security responsibilities. Measures include explicit clauses about confidentiality, compliance with policies, and consequences for breaches.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.3",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sensibilisation, enseignement et formation en sécurité de l'information",
+      "mesure_en": "Information security awareness, education and training",
+      "description": "Cette mesure de sécurité garantit que les employés reçoivent une sensibilisation, une éducation et une formation régulières en matière de sécurité de l'information. Les mesures incluent des sessions de formation planifiées, des programmes d'apprentissage en ligne et des exercices de phishing simulés.",
+      "description_en": "This control ensures that employees receive regular information security awareness, education, and training. Measures include scheduled training sessions, e-learning programs, and simulated phishing exercises.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.4",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Procédure disciplinaire",
+      "mesure_en": "Disciplinary process",
+      "description": "Cette mesure de sécurité établit un processus disciplinaire pour traiter les violations des politiques de sécurité de l'information. Les mesures incluent des lignes directrices claires, des procédures d'escalade et une application cohérente pour maintenir la responsabilité.",
+      "description_en": "This control establishes a disciplinary process to address breaches of information security policies. Measures include clear guidelines, escalation procedures, and consistent enforcement to maintain accountability.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.5",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Responsabilités après la fin ou le changement d'emploi",
+      "mesure_en": "Responsibilities after termination or change of employment",
+      "description": "Cette mesure de sécurité garantit que les responsabilités liées à la sécurité de l'information sont définies et appliquées après la fin d’un contrat ou un changement de rôle. Les mesures incluent la révocation des droits d'accès, la récupération des actifs de l'organisation et la réalisation d'entretiens de sortie.",
+      "description_en": "This control ensures that responsibilities related to information security are defined and enforced after termination or role changes. Measures include revoking access rights, collecting organizational assets, and conducting exit interviews.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.6",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Accords de confidentialité ou de non-divulgation",
+      "mesure_en": "Confidentiality or non-disclosure agreements",
+      "description": "Cette mesure de sécurité met en œuvre des accords de confidentialité ou de non-divulgation pour protéger les informations sensibles. Les mesures incluent des accords signés au début de l'emploi, des rappels périodiques et l'application d'actions légales en cas de violations.",
+      "description_en": "This control implements confidentiality or non-disclosure agreements to protect sensitive information. Measures include signed agreements at the start of employment, periodic reminders, and enforcement of legal actions in case of violations.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.7",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Travail à distance",
+      "mesure_en": "Remote working",
+      "description": "Cette mesure de sécurité garantit la gestion sécurisée des risques liés à la sécurité de l'information pendant le télétravail. Les mesures incluent un accès sécurisé aux systèmes de l'entreprise, l'utilisation obligatoire de VPN et des politiques pour la gestion des données sensibles à distance.",
+      "description_en": "This control ensures the secure management of information security risks during remote working. Measures include secure access to corporate systems, mandatory use of VPNs, and policies for handling sensitive data remotely.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.6.8",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Déclaration des événements de sécurité de l'information",
+      "mesure_en": "Information security event reporting",
+      "description": "Cette mesure de sécurité garantit que les employés peuvent signaler rapidement les événements de sécurité de l'information. Les mesures incluent des canaux de signalement d'incidents, des campagnes de sensibilisation et des procédures de suivi pour enquêter et traiter les événements signalés.",
+      "description_en": "This control ensures employees can promptly report information security events. Measures include incident reporting channels, awareness campaigns, and follow-up procedures to investigate and address reported events.",
+      "type": "people",
+      "category": "process"
+    },
+    {
+      "ref": "A.7.1",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Périmètres de sécurité physique",
+      "mesure_en": "Physical security perimeters",
+      "description": "Cette mesure de sécurité établit des périmètres de sécurité physique pour protéger les zones critiques contre les accès non autorisés. Les mesures incluent des barrières, des contrôles d'accès et des systèmes de surveillance pour garantir que seules les personnes autorisées peuvent entrer.",
+      "description_en": "This control establishes physical security perimeters to protect critical areas from unauthorized access. Measures include barriers, access controls, and monitoring systems to ensure only authorized individuals can enter.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.2",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Les entrées physiques",
+      "mesure_en": "Physical entry",
+      "description": "Cette mesure de sécurité garantit que les points d'entrée physiques sont contrôlés et surveillés pour empêcher les accès non autorisés. Les mesures incluent des systèmes de badges, du personnel de sécurité et des registres des visiteurs.",
+      "description_en": "This control ensures physical entry points are controlled and monitored to prevent unauthorized access. Measures include badge systems, security personnel, and visitor logs.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.3",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurisation des bureaux, des salles et des installations",
+      "mesure_en": "Securing offices, rooms and facilities",
+      "description": "Cette mesure de sécurité garantit que les bureaux, les pièces et les installations sont sécurisés pour protéger les informations et les ressources. Les mesures incluent des portes verrouillées, des zones restreintes et des systèmes de surveillance.",
+      "description_en": "This control ensures that offices, rooms, and facilities are secured to protect information and resources. Measures include locked doors, restricted areas, and surveillance systems.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.4",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Surveillance de la sécurité physique",
+      "mesure_en": "Physical security monitoring",
+      "description": "Cette mesure de sécurité met en œuvre une surveillance de la sécurité physique pour détecter et répondre rapidement aux menaces. Les mesures incluent des systèmes de vidéosurveillance, des détecteurs de mouvement et des alertes en temps réel.",
+      "description_en": "This control implements physical security monitoring to detect and respond promptly to threats. Measures include CCTV systems, motion detectors, and real-time alerts.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.5",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Protection contre les menaces physiques et environnementales",
+      "mesure_en": "Protecting against physical and environmental threats",
+      "description": "Cette mesure de sécurité protège les systèmes et les ressources contre les menaces physiques et environnementales. Les mesures incluent des systèmes de suppression d'incendie, des contrôles de température et des barrières anti-inondation.",
+      "description_en": "This control protects systems and resources from physical and environmental threats. Measures include fire suppression systems, temperature controls, and flood prevention barriers.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.6",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Travail dans les zones sécurisées",
+      "mesure_en": "Working In secure areas",
+      "description": "Cette mesure de sécurité garantit que les zones sécurisées sont gérées pour permettre l'accès uniquement aux personnes autorisées. Les mesures incluent des systèmes de contrôle d'accès, des escortes pour visiteurs et la surveillance des activités.",
+      "description_en": "This control ensures that secure areas are managed to allow authorized access only. Measures include access control systems, visitor escorts, and activity monitoring.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.7",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Bureau propre et écran vide",
+      "mesure_en": "Clear desk and clear screen",
+      "description": "Cette mesure de sécurité garantit que les informations sensibles ne sont pas laissées exposées en adoptant des politiques de bureau propre et d'écran clair. Les mesures incluent le verrouillage des documents sensibles et le verrouillage automatique des écrans en cas d'inutilisation.",
+      "description_en": "This control ensures sensitive information is not left exposed by adopting clear desk and clear screen policies. Measures include locking sensitive documents away and auto-locking screens when not in use.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.8",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Emplacement et protection du matériel",
+      "mesure_en": "Equipment siting and protection",
+      "description": "Cette mesure de sécurité garantit que les équipements sont positionnés et protégés pour prévenir les accès non autorisés ou les dommages. Les mesures incluent des montages sécurisés, des armoires verrouillées et des zones d'accès restreintes.",
+      "description_en": "This control ensures that equipment is positioned and protected to prevent unauthorized access or damage. Measures include secure mounting, locked cabinets, and restricted access areas.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.9",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité des actifs hors des locaux",
+      "mesure_en": "Security of assets off-premises",
+      "description": "Cette mesure de sécurité garantit que les actifs utilisés ou stockés hors des locaux sont sécurisés pour maintenir leur confidentialité et leur intégrité. Les mesures incluent le chiffrement, le transport sécurisé et le suivi des accès.",
+      "description_en": "This control ensures assets used or stored off-premises are secured to maintain confidentiality and integrity. Measures include encryption, secure transport, and access tracking.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.10",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Supports de stockage",
+      "mesure_en": "Storage media",
+      "description": "Cette mesure de sécurité protège les supports de stockage pour empêcher tout accès ou altération non autorisé. Les mesures incluent le stockage sécurisé, le chiffrement et les restrictions d'accès.",
+      "description_en": "This control safeguards storage media to prevent unauthorized access or tampering. Measures include secure storage, encryption, and access restrictions.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.11",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Services supports",
+      "mesure_en": "Supporting utilities",
+      "description": "Cette mesure de sécurité garantit que les utilitaires de soutien, tels que les systèmes d'alimentation et de refroidissement, sont fiables et protégés contre les perturbations. Les mesures incluent des systèmes redondants et une sécurité physique.",
+      "description_en": "This control ensures that supporting utilities, such as power and cooling systems, are reliable and protected from disruptions. Measures include redundant systems and physical security.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.12",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité du câblage",
+      "mesure_en": "Cabling security",
+      "description": "Cette mesure de sécurité garantit que les câbles sont sécurisés pour prévenir toute interception ou tout dommage non autorisé. Les mesures incluent des conduits de protection, un étiquetage approprié et un routage sécurisé.",
+      "description_en": "This control ensures that cables are secured to prevent unauthorized interception or damage. Measures include protective conduits, proper labeling, and secure routing.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.13",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Maintenance du matériel",
+      "mesure_en": "Equipment maintenance",
+      "description": "Cette mesure de sécurité garantit que les équipements sont maintenus pour assurer leur bon fonctionnement et prévenir les pannes. Les mesures incluent un entretien régulier, des pratiques de maintenance sécurisées et un accès réservé au personnel autorisé.",
+      "description_en": "This control ensures that equipment is maintained to guarantee proper functioning and prevent failures. Measures include regular servicing, secure maintenance practices, and authorized personnel access.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.7.14",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Élimination ou recyclage sécurisé(e) du matériel",
+      "mesure_en": "Secure disposal or re-use of equipment",
+      "description": "Cette mesure de sécurité garantit l'élimination ou la réutilisation sécurisée des équipements pour protéger les informations sensibles. Les mesures incluent la désinfection des données, la destruction physique et les processus de mise au rebut certifiés.",
+      "description_en": "This control ensures the secure disposal or reuse of equipment to protect sensitive information. Measures include data sanitization, physical destruction, and certified disposal processes.",
+      "type": "physical",
+      "category": "physical"
+    },
+    {
+      "ref": "A.8.1",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Terminaux finaux des utilisateurs",
+      "mesure_en": "User end point devices",
+      "description": "Cette mesure de sécurité garantit la protection des dispositifs de point de terminaison tels que les ordinateurs portables, de bureau et les appareils mobiles en mettant en œuvre des mesures comme la détection des terminaux, le chiffrement et des configurations sécurisées pour minimiser les risques.",
+      "description_en": "This control ensures the protection of endpoint devices such as laptops, desktops, and mobile devices by implementing security measures like endpoint detection, encryption, and secure configurations to minimize risks.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.2",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Droits d'accès privilégiés",
+      "mesure_en": "Privileged access rights",
+      "description": "Cette mesure de sécurité garantit que les droits d'accès privilégiés sont accordés, gérés et surveillés avec soin pour prévenir les abus et renforcer la sécurité. Les mesures comprennent des contrôles d'accès basés sur les rôles, des revues périodiques et une gestion stricte des comptes.",
+      "description_en": "This control ensures that privileged access rights are granted, managed, and monitored carefully to prevent misuse and enhance security. Measures include role-based access controls, periodic reviews, and strict account management.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.3",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Restriction d'accès aux informations",
+      "mesure_en": "Information access restriction",
+      "description": "Cette mesure de sécurité limite l'accès aux informations sensibles selon le principe du besoin d'en connaître. Les mesures incluent l'authentification des utilisateurs, les permissions basées sur les rôles et des revues régulières des accès.",
+      "description_en": "This control restricts access to sensitive information based on need-to-know principles. Measures include user authentication, role-based permissions, and regular access reviews.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.4",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Accès aux codes source",
+      "mesure_en": "Access to source code",
+      "description": "Cette mesure de sécurité sécurise l'accès au code source en empêchant la visualisation, la modification ou l'exposition non autorisées. Les mesures incluent le contrôle de version, les dépôts sécurisés et l'accès restreint aux développeurs.",
+      "description_en": "This control secures access to source code by preventing unauthorized viewing, modification, or exposure. Measures include version control, secure repositories, and restricted developer access.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.5",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Authentification sécurisée",
+      "mesure_en": "Secure authentication",
+      "description": "Cette mesure de sécurité met en œuvre des mécanismes d'authentification solides, tels que l'authentification multifacteur, pour vérifier l'identité des utilisateurs et empêcher les accès non autorisés.",
+      "description_en": "This control implements strong authentication mechanisms, such as multi-factor authentication, to verify user identities and prevent unauthorized access.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.6",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Dimensionnement",
+      "mesure_en": "Capacity management",
+      "description": "Cette mesure de sécurité garantit que la capacité des systèmes est gérée pour assurer des performances adéquates et éviter les perturbations. Les mesures incluent la surveillance de l'utilisation des ressources et la planification des besoins futurs.",
+      "description_en": "This control ensures system capacity is managed to provide adequate performance and prevent disruptions. Measures include monitoring resource usage and planning for future needs.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.7",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Protection contre les programmes malveillants (malware)",
+      "mesure_en": "Protection against malware",
+      "description": "Cette mesure de sécurité déploie des mesures comme des logiciels antivirus, des outils de détection des menaces et des mises à jour régulières pour protéger les systèmes contre les logiciels malveillants et les attaques.",
+      "description_en": "This control deploys measures like antivirus software, threat detection tools, and regular updates to protect systems from malware and malicious attacks.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.8",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Gestion des vulnérabilités techniques",
+      "mesure_en": "Management of technical vulnerabilities",
+      "description": "Cette mesure de sécurité identifie, évalue et remédie rapidement aux vulnérabilités techniques pour minimiser les risques de sécurité. Les mesures incluent les analyses de vulnérabilités et la gestion des correctifs.",
+      "description_en": "This control identifies, evaluates, and remediates technical vulnerabilities promptly to minimize security risks. Measures include vulnerability scanning and patch management.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.9",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Gestion des configurations",
+      "mesure_en": "Configuration management",
+      "description": "Cette mesure de sécurité garantit une gestion cohérente des configurations des systèmes pour maintenir des paramètres sécurisés et prévenir les changements non autorisés.",
+      "description_en": "This control ensures consistent management of system configurations to maintain security settings and prevent unauthorized changes.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.10",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Suppression des informations",
+      "mesure_en": "Information deletion",
+      "description": "Cette mesure de sécurité garantit que les informations sensibles sont supprimées de manière sécurisée lorsqu'elles ne sont plus nécessaires pour éviter toute récupération ou exposition non autorisée.",
+      "description_en": "This control ensures sensitive information is securely deleted when no longer required to prevent unauthorized recovery or exposure.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.11",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Masquage des données",
+      "mesure_en": "Data masking",
+      "description": "Cette mesure de sécurité protège les informations sensibles lors de leur traitement ou affichage en utilisant des techniques de masquage des données pour les rendre inaccessibles aux utilisateurs non autorisés.",
+      "description_en": "This control protects sensitive information during processing or display by using data masking techniques to obscure data from unauthorized users.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.12",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Prévention de la fuite de données",
+      "mesure_en": "Data leakage prevention",
+      "description": "Cette mesure de sécurité met en œuvre des mécanismes pour empêcher l'exposition accidentelle des données sensibles via des e-mails, des supports amovibles ou d'autres canaux.",
+      "description_en": "This control implements mechanisms to prevent the accidental exposure of sensitive data through email, removable media, or other channels.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.13",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sauvegarde des informations",
+      "mesure_en": "Information backup",
+      "description": "Cette mesure de sécurité garantit que les informations critiques sont sauvegardées régulièrement et en toute sécurité pour assurer leur disponibilité en cas d'incidents ou de catastrophes.",
+      "description_en": "This control ensures critical information is backed up regularly and securely to ensure its availability in case of incidents or disasters.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.14",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Redondance des moyens de traitement de l'information",
+      "mesure_en": "Redundancy of information processing facilities",
+      "description": "Cette mesure de sécurité garantit que la redondance est intégrée dans les installations de traitement pour maintenir la disponibilité et les opérations en cas de défaillances ou d'urgences.",
+      "description_en": "This control ensures redundancy is built into processing facilities to maintain availability and operations during system failures or emergencies.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.15",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Journalisation",
+      "mesure_en": "Logging",
+      "description": "Cette mesure de sécurité permet la journalisation des activités au sein des systèmes pour soutenir la surveillance, la détection des incidents et les analyses forensiques.",
+      "description_en": "This control enables logging of activities within systems to support monitoring, incident detection, and forensic investigations.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.16",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Activités de surveillance",
+      "mesure_en": "Monitoring activities",
+      "description": "Cette mesure de sécurité garantit la surveillance continue des activités du système pour détecter, répondre et atténuer les menaces à la sécurité.",
+      "description_en": "This control ensures the ongoing monitoring of system activities to detect, respond to, and mitigate security threats.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.17",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Synchronisation des horloges",
+      "mesure_en": "Clock synchronization",
+      "description": "Cette mesure de sécurité garantit que les horloges des systèmes sont synchronisées pour maintenir des horodatages précis et cohérents pour les journaux et d'autres processus critiques.",
+      "description_en": "This control ensures system clocks are synchronized to maintain accurate and consistent timestamps for logs and other critical processes.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.18",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Utilisation de programmes utilitaires à privilèges",
+      "mesure_en": "Use of privileged utility programs",
+      "description": "Cette mesure de sécurité restreint et surveille l'utilisation des programmes utilitaires privilégiés pour prévenir les abus et les actions non autorisées.",
+      "description_en": "This control restricts and monitors the use of privileged utility programs to prevent misuse and unauthorized actions.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.19",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Installation de logiciels sur des systèmes opérationnels",
+      "mesure_en": "Installation of software on operational systems",
+      "description": "Cette mesure de sécurité garantit que l'installation de logiciels sur les systèmes opérationnels est gérée de manière sécurisée pour éviter les vulnérabilités ou les modifications non autorisées.",
+      "description_en": "This control ensures software installation on operational systems is managed securely to prevent vulnerabilities or unauthorized changes.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.20",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité des réseaux",
+      "mesure_en": "Networks security",
+      "description": "Cette mesure de sécurité garantit la sécurité du réseau grâce à des pare-feu, des systèmes de détection d'intrusion et des contrôles d'accès pour protéger contre les accès non autorisés et les attaques.",
+      "description_en": "This control ensures network security through firewalls, intrusion detection systems, and access controls to protect against unauthorized access and attacks.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.21",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Sécurité des services réseau",
+      "mesure_en": "Security of network services",
+      "description": "Cette mesure de sécurité garantit que les services réseau sont protégés pour maintenir la confidentialité, l'intégrité et la disponibilité pendant leur utilisation.",
+      "description_en": "This control ensures network services are protected to maintain confidentiality, integrity, and availability during use.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.22",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Cloisonnement des réseaux",
+      "mesure_en": "Segregation of networks",
+      "description": "Cette mesure de sécurité met en œuvre la segmentation des réseaux pour limiter la propagation des menaces et minimiser l'impact des violations potentielles.",
+      "description_en": "This control implements network segregation to limit the spread of threats and minimize the impact of potential breaches.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.23",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Filtrage web",
+      "mesure_en": "Web filtering",
+      "description": "Cette mesure de sécurité utilise des outils de filtrage Web pour bloquer le contenu non autorisé ou nuisible accessible sur Internet.",
+      "description_en": "This control uses web filtering tools to block unauthorized or harmful content from being accessed over the internet.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.24",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Utilisation de la cryptographie",
+      "mesure_en": "Use of cryptography",
+      "description": "Cette mesure de sécurité garantit que des techniques cryptographiques sont appliquées pour protéger la confidentialité, l'intégrité et l'authenticité des données.",
+      "description_en": "This control ensures cryptographic techniques are applied to protect data confidentiality, integrity, and authenticity.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.25",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Cycle de vie de développement sécurisé",
+      "mesure_en": "Secure development life cycle",
+      "description": "Cette mesure de sécurité intègre la sécurité à toutes les étapes du cycle de vie du développement pour garantir que les systèmes et applications sont construits de manière sécurisée.",
+      "description_en": "This control integrates security into all stages of the development life cycle to ensure systems and applications are built securely.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.26",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Exigences de sécurité des applications",
+      "mesure_en": "Application security requirements",
+      "description": "Cette mesure de sécurité définit et applique des exigences de sécurité pour les applications afin de protéger contre les vulnérabilités.",
+      "description_en": "This control defines and enforces security requirements for applications to safeguard against vulnerabilities.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.27",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Principes d'ingénierie et d'architecture des systèmes sécurisés",
+      "mesure_en": "Secure system architecture and engineering principles",
+      "description": "Cette mesure de sécurité garantit que des principes de conception sécurisés sont adoptés lors du développement des architectures système.",
+      "description_en": "This control ensures secure design principles are adopted during the development of system architectures.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.28",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Codage sécurisé",
+      "mesure_en": "Secure coding",
+      "description": "Cette mesure de sécurité met en œuvre des pratiques de codage sécurisé pour minimiser les vulnérabilités des logiciels développés.",
+      "description_en": "This control implements secure coding practices to minimize vulnerabilities in developed software.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.29",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Tests de sécurité dans le développement et l'acceptation",
+      "mesure_en": "Security testing in development and acceptance",
+      "description": "Cette mesure de sécurité garantit que des tests de sécurité sont effectués pendant les phases de développement et d'acceptation pour identifier les faiblesses.",
+      "description_en": "This control ensures security testing is conducted during development and acceptance phases to identify weaknesses.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.30",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Développement externalisé",
+      "mesure_en": "Outsourced development",
+      "description": "Cette mesure de sécurité garantit que les risques de sécurité sont gérés efficacement lorsque le développement est externalisé à des fournisseurs tiers.",
+      "description_en": "This control ensures security risks are managed effectively when development is outsourced to third-party vendors.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.31",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Séparation des environnements de développement, de test et opérationnels",
+      "mesure_en": "Separation of development, test and production environments",
+      "description": "Cette mesure de sécurité garantit que les environnements de développement, de test et de production sont séparés pour éviter les interactions involontaires et les accès non autorisés.",
+      "description_en": "This control ensures development, test, and production environments are segregated to prevent unintended interactions and unauthorized access.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.32",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Gestion des changements",
+      "mesure_en": "Change management",
+      "description": "Cette mesure de sécurité garantit que les modifications des systèmes sont gérées de manière sécurisée pour minimiser les risques et maintenir la stabilité opérationnelle.",
+      "description_en": "This control ensures changes to systems are managed securely to minimize risks and maintain operational stability.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.33",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Informations de test",
+      "mesure_en": "Test information",
+      "description": "Cette mesure de sécurité protège les données de test pour éviter l'exposition d'informations sensibles ou confidentielles lors des processus de test.",
+      "description_en": "This control protects test data to prevent the exposure of sensitive or confidential information during testing processes.",
+      "type": "technological",
+      "category": "technical"
+    },
+    {
+      "ref": "A.8.34",
+      "theme": "",
+      "theme_en": "",
+      "mesure": "Protection des systèmes d'information pendant les tests d'audit",
+      "mesure_en": "Protection of information systems during audit testing",
+      "description": "Cette mesure de sécurité garantit que les systèmes et les données sont protégés pendant les audits en empêchant les accès non autorisés, les fuites de données ou les perturbations. Les mesures incluent l'utilisation d'environnements non productifs, des restrictions d'accès et des accords de confidentialité pour préserver la sécurité et l'intégrité des systèmes.",
+      "description_en": "This control ensures that systems and data are safeguarded during audits by preventing unauthorized access, data leakage, or disruptions. Measures include using non-production environments, access restrictions, and confidentiality agreements to maintain system security and integrity.",
+      "type": "technological",
+      "category": "technical"
+    }
+  ],
+  "reference_controls": [
+    {
+      "ref": "A.5.1",
+      "mesure": "Politiques de sécurité de l'information",
+      "mesure_en": "Policies for information security",
+      "description": "Définir, approuver et publier un ensemble de politiques de sécurité de l'information couvrant les objectifs, le périmètre, les rôles et les responsabilités. Les politiques doivent être révisées à intervalles planifiés ou lors de changements significatifs, communiquées à l'ensemble du personnel et rendues accessibles aux parties intéressées. L'ensemble documentaire doit inclure au minimum une politique générale, des politiques thématiques (contrôle d'accès, classification, cryptographie, etc.) et des procédures opérationnelles associées.",
+      "description_en": "Define, approve and publish a set of information security policies covering objectives, scope, roles and responsibilities. Policies must be reviewed at planned intervals or when significant changes occur, communicated to all personnel and made available to interested parties. The documentation set should include at minimum a top-level policy, topic-specific policies (access control, classification, cryptography, etc.) and associated operational procedures.",
+      "category": "policy",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.2",
+      "mesure": "Fonctions et responsabilités liées à la sécurité de l'information",
+      "mesure_en": "Information security roles and responsibilities",
+      "description": "Attribuer et communiquer les rôles et responsabilités en matière de sécurité de l'information à tous les niveaux de l'organisation. Chaque fonction doit être clairement documentée (matrice RACI), inclure les responsabilités de protection des actifs, d'exécution des processus de sécurité et de signalement des incidents. La séparation entre les fonctions opérationnelles et les fonctions de contrôle doit être établie. Les conflits d'intérêts potentiels doivent être identifiés et gérés.",
+      "description_en": "Assign and communicate information security roles and responsibilities at all organizational levels. Each function must be clearly documented (RACI matrix), include responsibilities for asset protection, execution of security processes and incident reporting. Separation between operational and oversight functions must be established. Potential conflicts of interest must be identified and managed.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.3",
+      "mesure": "Séparation des tâches",
+      "mesure_en": "Segregation of duties",
+      "description": "Mettre en œuvre la séparation des tâches pour les fonctions et responsabilités conflictuelles afin de réduire les risques de modification non autorisée, d'erreur ou de fraude. Aucun individu ne doit pouvoir accéder, modifier ou utiliser des actifs sans autorisation indépendante. Lorsque la séparation est impossible (petites structures), des contrôles compensatoires doivent être mis en place : surveillance renforcée, journaux d'audit, revues managériales régulières.",
+      "description_en": "Implement segregation of duties for conflicting functions and responsibilities to reduce risks of unauthorized modification, error or fraud. No individual should be able to access, modify or use assets without independent authorization. Where segregation is impractical (small organizations), compensating controls must be implemented: enhanced monitoring, audit trails, regular management reviews.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.4",
+      "mesure": "Responsabilités de la direction",
+      "mesure_en": "Management responsibilities",
+      "description": "La direction doit exiger que l'ensemble du personnel et des sous-traitants appliquent la sécurité de l'information conformément aux politiques et procédures établies. Cela inclut l'approbation formelle des politiques, l'allocation de ressources suffisantes, la communication régulière de l'importance de la sécurité, la participation aux revues de direction et la promotion d'une culture de sécurité intégrée aux processus métier.",
+      "description_en": "Management shall require all personnel and contractors to apply information security in accordance with established policies and procedures. This includes formal policy approval, allocation of sufficient resources, regular communication on the importance of security, participation in management reviews and promotion of a security culture integrated into business processes.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.5",
+      "mesure": "Contact avec les autorités",
+      "mesure_en": "Contact with authorities",
+      "description": "Établir et maintenir des contacts avec les autorités compétentes (ANSSI/CNIL en France, forces de l'ordre, régulateurs sectoriels). Documenter les procédures de notification d'incidents aux autorités conformément aux exigences légales (notification RGPD sous 72h, notification NIS2, etc.). Identifier les autorités pertinentes selon le secteur d'activité et la localisation géographique. Tester régulièrement les canaux de communication.",
+      "description_en": "Establish and maintain contacts with relevant authorities (national cybersecurity agencies, law enforcement, sector regulators). Document incident notification procedures to authorities in accordance with legal requirements (GDPR 72h notification, NIS2 notification, etc.). Identify relevant authorities based on industry sector and geographical location. Regularly test communication channels.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.6",
+      "mesure": "Contact avec des groupes d'intérêt spécifiques",
+      "mesure_en": "Contact with special interest groups",
+      "description": "Maintenir des contacts avec des groupes d'intérêt spécialisés, des forums de sécurité et des associations professionnelles (CERT, ISAC sectoriels, groupes de veille). Participer activement aux échanges de renseignements sur les menaces (Threat Intelligence), s'abonner aux alertes de sécurité pertinentes et intégrer ces informations dans les processus de gestion des risques et de réponse aux incidents.",
+      "description_en": "Maintain contacts with special interest groups, security forums and professional associations (CERTs, sector ISACs, threat watch groups). Actively participate in threat intelligence sharing, subscribe to relevant security alerts and integrate this information into risk management and incident response processes.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.7",
+      "mesure": "Renseignements sur les menaces",
+      "mesure_en": "Threat intelligence",
+      "description": "Collecter, analyser et exploiter les renseignements sur les menaces (Threat Intelligence) pour anticiper les cybermenaces et adapter les mesures de sécurité. Couvrir les trois niveaux : stratégique (tendances, acteurs), tactique (TTPs, indicateurs de compromission) et opérationnel (vulnérabilités actives, campagnes en cours). Intégrer la veille dans les processus de gestion des risques, la détection des incidents et la prise de décision sécurité.",
+      "description_en": "Collect, analyze and use threat intelligence to anticipate cyber threats and adapt security measures. Cover three levels: strategic (trends, threat actors), tactical (TTPs, indicators of compromise) and operational (active vulnerabilities, ongoing campaigns). Integrate threat intelligence into risk management processes, incident detection and security decision-making.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.8",
+      "mesure": "Sécurité de l'information dans la gestion de projet",
+      "mesure_en": "Information security in project management",
+      "description": "Intégrer la sécurité de l'information dans la gestion de projet, quel que soit le type de projet. Inclure des exigences de sécurité dans les phases de conception, développement, test et déploiement. Réaliser des évaluations de risques spécifiques aux projets, valider les exigences de sécurité comme critères d'acceptation, et nommer un référent sécurité pour chaque projet significatif. Appliquer ces principes aussi bien aux projets IT qu'aux projets métier.",
+      "description_en": "Integrate information security into project management regardless of project type. Include security requirements in design, development, testing and deployment phases. Conduct project-specific risk assessments, validate security requirements as acceptance criteria, and appoint a security representative for each significant project. Apply these principles to both IT and business projects.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.9",
+      "mesure": "Inventaire des informations et autres actifs associés",
+      "mesure_en": "Inventory of information and other associated assets",
+      "description": "Établir et maintenir un inventaire exhaustif des actifs informationnels et des ressources de traitement de l'information associées. L'inventaire doit couvrir les données, logiciels, matériels, services, personnes et actifs immatériels. Chaque actif doit avoir un propriétaire identifié, une classification de sensibilité et des règles d'utilisation acceptable définies. L'inventaire doit être tenu à jour et vérifié périodiquement.",
+      "description_en": "Establish and maintain a comprehensive inventory of information assets and associated information processing resources. The inventory must cover data, software, hardware, services, personnel and intangible assets. Each asset must have an identified owner, a sensitivity classification and defined acceptable use rules. The inventory must be kept current and periodically verified.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.10",
+      "mesure": "Utilisation correcte des informations et autres actifs associés",
+      "mesure_en": "Acceptable use of information and other associated assets",
+      "description": "Définir, documenter et mettre en œuvre des règles d'utilisation acceptable pour les actifs informationnels et les ressources de traitement. Couvrir l'utilisation des équipements (poste de travail, mobile), l'accès Internet et messagerie, le stockage de données, l'utilisation des médias amovibles, le BYOD et le télétravail. Chaque utilisateur doit reconnaître formellement les règles avant d'obtenir l'accès aux ressources. Contrôler la restitution des actifs en fin de contrat.",
+      "description_en": "Define, document and implement acceptable use rules for information assets and processing resources. Cover equipment usage (workstations, mobile), Internet and email access, data storage, removable media use, BYOD and remote working. Each user must formally acknowledge the rules before being granted access. Control asset return upon contract termination.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.11",
+      "mesure": "Restitution des actifs",
+      "mesure_en": "Return of assets",
+      "description": "Assurer la restitution de tous les actifs de l'organisation en possession du personnel et des tiers à la fin de leur contrat, emploi ou accord. Maintenir un registre des actifs attribués (matériel, badges, clés, comptes, données). Définir une procédure de départ couvrant la restitution physique, la révocation des accès logiques, le transfert des connaissances et la suppression des données personnelles des équipements.",
+      "description_en": "Ensure return of all organizational assets in the possession of personnel and third parties upon termination of their contract, employment or agreement. Maintain a register of assigned assets (hardware, badges, keys, accounts, data). Define an offboarding procedure covering physical return, logical access revocation, knowledge transfer and deletion of personal data from equipment.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.12",
+      "mesure": "Classification des informations",
+      "mesure_en": "Classification of information",
+      "description": "Classifier les informations selon leur besoin de protection en termes de confidentialité, d'intégrité et de disponibilité, en tenant compte des exigences légales, réglementaires et contractuelles. Définir un schéma de classification (ex: public, interne, confidentiel, secret) avec des critères de classification clairs. Mettre en place des procédures d'étiquetage cohérentes sur tous les supports (physiques, numériques, email, cloud). Réviser périodiquement les classifications.",
+      "description_en": "Classify information according to its protection needs in terms of confidentiality, integrity and availability, taking into account legal, regulatory and contractual requirements. Define a classification scheme (e.g., public, internal, confidential, secret) with clear classification criteria. Implement consistent labeling procedures across all media (physical, digital, email, cloud). Periodically review classifications.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.13",
+      "mesure": "Marquage des informations",
+      "mesure_en": "Labelling of information",
+      "description": "Développer et mettre en œuvre des procédures d'étiquetage conformes au schéma de classification. L'étiquetage doit être appliqué sur tous les supports : documents physiques, fichiers numériques, emails, bases de données, médias amovibles. Définir les responsabilités d'étiquetage, les outils automatisés de marquage (DLP, classification automatique), les règles de déclassification et les procédures de traitement des informations non étiquetées.",
+      "description_en": "Develop and implement labeling procedures consistent with the classification scheme. Labeling must be applied across all media: physical documents, digital files, emails, databases, removable media. Define labeling responsibilities, automated marking tools (DLP, auto-classification), declassification rules and procedures for handling unlabeled information.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.14",
+      "mesure": "Transfert des informations",
+      "mesure_en": "Information transfer",
+      "description": "Définir et appliquer des règles, procédures et accords de transfert d'informations pour tous les types de canaux de communication (électronique, physique, verbal). Couvrir le chiffrement en transit (TLS, S/MIME, VPN), les accords de non-divulgation, les procédures d'envoi de supports physiques, la protection contre l'écoute et l'interception. Mettre en place des mécanismes de vérification de l'intégrité et de la réception.",
+      "description_en": "Define and apply rules, procedures and agreements for information transfer across all types of communication channels (electronic, physical, verbal). Cover encryption in transit (TLS, S/MIME, VPN), non-disclosure agreements, physical media shipping procedures, protection against eavesdropping and interception. Implement integrity verification and receipt confirmation mechanisms.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.15",
+      "mesure": "Contrôle d'accès",
+      "mesure_en": "Access control",
+      "description": "Établir et appliquer une politique de contrôle d'accès basée sur les besoins métier et les exigences de sécurité. Appliquer les principes du moindre privilège et du besoin d'en connaître. Couvrir l'accès physique et logique, les accès réseau, applicatifs et données. Définir les processus de demande, d'approbation, de provisionnement et de révocation des accès. Implémenter le contrôle d'accès basé sur les rôles (RBAC) ou sur les attributs (ABAC).",
+      "description_en": "Establish and enforce an access control policy based on business needs and security requirements. Apply least privilege and need-to-know principles. Cover physical and logical access, network, application and data access. Define access request, approval, provisioning and revocation processes. Implement role-based (RBAC) or attribute-based (ABAC) access control.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.16",
+      "mesure": "Gestion des identités",
+      "mesure_en": "Identity management",
+      "description": "Gérer le cycle de vie complet des identités : création, vérification, attribution, révision et suppression. Assurer l'unicité des identités et la vérification de l'identité des utilisateurs avant l'attribution d'accès. Couvrir les identités humaines (employés, prestataires, visiteurs) et non-humaines (comptes de service, API, IoT). Mettre en place des revues d'identités périodiques et des processus de désactivation automatique des comptes inactifs.",
+      "description_en": "Manage the full identity lifecycle: creation, verification, assignment, review and deletion. Ensure identity uniqueness and verify user identity before granting access. Cover human identities (employees, contractors, visitors) and non-human identities (service accounts, APIs, IoT). Implement periodic identity reviews and automatic deactivation of inactive accounts.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.17",
+      "mesure": "Informations d'authentification",
+      "mesure_en": "Authentication information",
+      "description": "Gérer les informations d'authentification (mots de passe, certificats, tokens, clés) de manière sécurisée tout au long de leur cycle de vie. Exiger une complexité minimale et un renouvellement adapté au risque. Interdire le partage et la réutilisation. Protéger le stockage (hachage, coffres-forts). Mettre en œuvre l'authentification multi-facteur (MFA) pour les accès à risque. Sensibiliser les utilisateurs aux bonnes pratiques d'authentification.",
+      "description_en": "Manage authentication information (passwords, certificates, tokens, keys) securely throughout their lifecycle. Require minimum complexity and risk-appropriate renewal. Prohibit sharing and reuse. Protect storage (hashing, vaults). Implement multi-factor authentication (MFA) for high-risk access. Educate users on authentication best practices.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.18",
+      "mesure": "Droits d'accès",
+      "mesure_en": "Access rights",
+      "description": "Mettre en œuvre des mécanismes de contrôle des droits d'accès couvrant l'ensemble du cycle : attribution initiale, modification lors de changement de fonction, suspension et révocation au départ. Appliquer des processus d'approbation formels par les propriétaires d'actifs. Conduire des revues périodiques des droits d'accès (au minimum annuelles, trimestrielles pour les accès privilégiés). Documenter et journaliser toutes les modifications d'accès.",
+      "description_en": "Implement access rights control mechanisms covering the full lifecycle: initial assignment, modification upon role change, suspension and revocation upon departure. Apply formal approval processes by asset owners. Conduct periodic access rights reviews (at minimum annually, quarterly for privileged access). Document and log all access changes.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.19",
+      "mesure": "Sécurité de l'information dans les relations avec les fournisseurs",
+      "mesure_en": "Information security in supplier relationships",
+      "description": "Définir et appliquer des processus et des procédures pour gérer les risques de sécurité liés à l'utilisation de produits et services fournis par des tiers. Évaluer la posture de sécurité des fournisseurs avant contractualisation (due diligence). Inclure des exigences de sécurité dans les contrats, les SLA et les clauses de sous-traitance. Couvrir les fournisseurs cloud, les prestataires IT, les partenaires ayant accès aux systèmes d'information.",
+      "description_en": "Define and apply processes and procedures to manage security risks associated with the use of third-party products and services. Assess supplier security posture before contracting (due diligence). Include security requirements in contracts, SLAs and subcontracting clauses. Cover cloud providers, IT service providers, partners with access to information systems.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.20",
+      "mesure": "La sécurité de l'information dans les accords conclus avec les fournisseurs",
+      "mesure_en": "Addressing information security within supplier agreements",
+      "description": "Intégrer des exigences de sécurité pertinentes dans les accords avec les fournisseurs et partenaires. Les clauses doivent couvrir : classification et traitement des informations partagées, contrôles d'accès, droit d'audit, notification d'incidents, protection des données personnelles, sous-traitance ultérieure, transfert de compétences et réversibilité en fin de contrat, et responsabilités en cas de non-conformité.",
+      "description_en": "Incorporate relevant security requirements into agreements with suppliers and partners. Clauses must cover: classification and handling of shared information, access controls, audit rights, incident notification, personal data protection, further subcontracting, knowledge transfer and reversibility upon contract end, and liabilities for non-compliance.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.21",
+      "mesure": "Gestion de la sécurité de l'information dans la chaîne d'approvisionnement des technologies de l'information et de la communication (TIC)",
+      "mesure_en": "Managing information security in the ICT supply chain",
+      "description": "Gérer les risques de sécurité de l'information liés à la chaîne d'approvisionnement des produits et services TIC. Évaluer les risques de compromission de la supply chain (backdoors, composants malveillants, dépendances vulnérables). Exiger des garanties de sécurité de la part des fournisseurs sur l'intégrité de leurs produits. Surveiller les vulnérabilités des composants tiers (SBOM, veille CVE). Définir des critères de sélection intégrant la sécurité.",
+      "description_en": "Manage information security risks related to the ICT supply chain. Assess supply chain compromise risks (backdoors, malicious components, vulnerable dependencies). Require security assurances from suppliers regarding product integrity. Monitor third-party component vulnerabilities (SBOM, CVE monitoring). Define selection criteria integrating security.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.22",
+      "mesure": "Surveillance, révision et gestion des changements des services fournisseurs",
+      "mesure_en": "Monitor, review and change management of supplier services",
+      "description": "Surveiller, réviser, évaluer et gérer les changements dans les pratiques de sécurité des fournisseurs et la prestation de services. Réaliser des audits réguliers des fournisseurs critiques. Suivre les incidents de sécurité chez les fournisseurs. Évaluer l'impact des changements chez le fournisseur (personnel, sous-traitance, localisation). Maintenir un registre des fournisseurs avec leur niveau de risque et la date de dernière évaluation.",
+      "description_en": "Monitor, review, evaluate and manage changes in supplier security practices and service delivery. Conduct regular audits of critical suppliers. Track security incidents at suppliers. Assess the impact of changes at the supplier (personnel, subcontracting, location). Maintain a supplier register with risk level and date of last assessment.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.23",
+      "mesure": "Sécurité de l'information dans l'utilisation de services en nuage",
+      "mesure_en": "Information security for use of cloud services",
+      "description": "Définir et mettre en œuvre des processus de sécurité pour l'utilisation des services cloud, couvrant l'acquisition, l'utilisation, la gestion et la sortie. Évaluer les risques spécifiques au cloud (souveraineté des données, localisation, multi-tenancy). Exiger des certifications (ISO 27017, SOC 2, SecNumCloud). Définir les responsabilités partagées (modèle de responsabilité cloud). Assurer la portabilité des données et la réversibilité contractuelle.",
+      "description_en": "Define and implement security processes for cloud service use, covering acquisition, usage, management and exit. Assess cloud-specific risks (data sovereignty, location, multi-tenancy). Require certifications (ISO 27017, SOC 2, SecNumCloud). Define shared responsibilities (cloud responsibility model). Ensure data portability and contractual reversibility.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.24",
+      "mesure": "Planification et préparation de la gestion des incidents de sécurité de l'information",
+      "mesure_en": "Information security incident management planning and preparation",
+      "description": "Planifier et préparer la gestion des incidents de sécurité en définissant les processus, les rôles, les responsabilités et les procédures de réponse. Mettre en place une équipe de réponse aux incidents (CSIRT/SOC) avec des compétences, des outils et une autorité définis. Définir une classification des incidents par gravité, des procédures d'escalade, des canaux de communication internes et externes, et des modèles de documentation d'incident.",
+      "description_en": "Plan and prepare incident management by defining processes, roles, responsibilities and response procedures. Establish an incident response team (CSIRT/SOC) with defined skills, tools and authority. Define incident classification by severity, escalation procedures, internal and external communication channels, and incident documentation templates.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.25",
+      "mesure": "Évaluation des événements de sécurité de l'information et prise de décision",
+      "mesure_en": "Assessment and decision on information security events",
+      "description": "Évaluer les événements de sécurité et décider s'ils doivent être classifiés comme incidents de sécurité. Définir des critères de triage clairs (impact sur la confidentialité, l'intégrité, la disponibilité, périmètre affecté, données exposées). Former le personnel au signalement des événements suspects. Documenter les décisions de triage et leur justification. Assurer un délai de triage conforme aux engagements de service.",
+      "description_en": "Assess security events and decide whether to classify them as security incidents. Define clear triage criteria (impact on confidentiality, integrity, availability, affected scope, exposed data). Train personnel on suspicious event reporting. Document triage decisions and their rationale. Ensure triage timelines meet service commitments.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.26",
+      "mesure": "Réponse aux incidents de sécurité de l'information",
+      "mesure_en": "Response to information security incidents",
+      "description": "Répondre aux incidents de sécurité conformément aux procédures documentées. Les étapes de réponse doivent couvrir : le confinement (limiter la propagation), l'éradication (supprimer la cause), la récupération (restaurer les services), la collecte de preuves (préservation forensique), la communication aux parties concernées et la notification aux autorités le cas échéant. Documenter toutes les actions prises et les décisions.",
+      "description_en": "Respond to security incidents in accordance with documented procedures. Response steps must cover: containment (limit propagation), eradication (remove the cause), recovery (restore services), evidence collection (forensic preservation), communication to affected parties and authority notification where required. Document all actions taken and decisions.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.27",
+      "mesure": "Tirer des enseignements des incidents de sécurité de l'information",
+      "mesure_en": "Learning from information security incidents",
+      "description": "Tirer les enseignements des incidents de sécurité pour améliorer le dispositif de sécurité. Réaliser des analyses post-incident (post-mortem/retour d'expérience) pour chaque incident significatif. Identifier les causes racines, évaluer l'efficacité de la réponse, proposer des actions correctives et préventives. Partager les leçons apprises avec les équipes concernées. Mettre à jour les procédures, les contrôles et la formation en conséquence.",
+      "description_en": "Learn from security incidents to improve the security posture. Conduct post-incident analyses (post-mortem/lessons learned) for each significant incident. Identify root causes, evaluate response effectiveness, propose corrective and preventive actions. Share lessons learned with relevant teams. Update procedures, controls and training accordingly.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.28",
+      "mesure": "Collecte de preuves",
+      "mesure_en": "Collection of evidence",
+      "description": "Collecter, conserver et protéger les preuves relatives aux événements de sécurité pour les besoins d'investigations internes, d'actions disciplinaires ou de procédures judiciaires. Définir des procédures de collecte respectant la chaîne de preuve (chain of custody). Protéger l'intégrité des preuves (horodatage, empreintes cryptographiques). Respecter les exigences légales de rétention et de protection des données personnelles.",
+      "description_en": "Collect, retain and protect evidence related to security events for internal investigations, disciplinary actions or legal proceedings. Define collection procedures respecting the chain of custody. Protect evidence integrity (timestamping, cryptographic hashes). Comply with legal requirements for retention and personal data protection.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.29",
+      "mesure": "Sécurité de l'information pendant une perturbation",
+      "mesure_en": "Information security during disruption",
+      "description": "Planifier et mettre en œuvre la continuité de la sécurité de l'information en cas de perturbation. Intégrer les exigences de sécurité dans les plans de continuité d'activité (PCA/PRA). Définir les contrôles de sécurité minimaux à maintenir en mode dégradé. Identifier les scénarios de crise cyber (ransomware, DDoS, compromission massive). Tester la continuité de sécurité via des exercices et mettre à jour les plans régulièrement.",
+      "description_en": "Plan and implement information security continuity during disruptions. Integrate security requirements into business continuity plans (BCP/DRP). Define minimum security controls to maintain in degraded mode. Identify cyber crisis scenarios (ransomware, DDoS, massive compromise). Test security continuity through exercises and update plans regularly.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.30",
+      "mesure": "Préparation des TIC la continuité d'activité",
+      "mesure_en": "ICT readiness for business continuity",
+      "description": "Garantir le niveau de disponibilité requis par les objectifs métier pour les infrastructures TIC. Identifier les exigences de disponibilité (RTO/RPO) par service et les composants critiques. Mettre en œuvre la redondance des infrastructures critiques (serveurs, réseau, stockage, alimentation, climatisation). Surveiller la disponibilité en continu, planifier la capacité, et tester les mécanismes de basculement et de reprise.",
+      "description_en": "Ensure ICT infrastructure availability meets business objectives. Identify availability requirements (RTO/RPO) per service and critical components. Implement redundancy for critical infrastructure (servers, network, storage, power, cooling). Monitor availability continuously, plan capacity, and test failover and recovery mechanisms.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.31",
+      "mesure": "Exigences légales, statutaires, réglementaires et contractuelles",
+      "mesure_en": "Legal, statutory, regulatory and contractual requirements",
+      "description": "Identifier, documenter et satisfaire les exigences légales, réglementaires et contractuelles applicables à la sécurité de l'information. Maintenir un registre des obligations (RGPD, NIS2, DORA, HDS, LPM, réglementations sectorielles). Évaluer régulièrement la conformité. Intégrer les exigences dans les politiques, procédures et contrôles du SMSI. Documenter les mesures prises pour assurer la conformité et les écarts identifiés.",
+      "description_en": "Identify, document and meet legal, regulatory and contractual requirements applicable to information security. Maintain a compliance register (GDPR, NIS2, DORA, sector regulations). Regularly assess compliance. Integrate requirements into ISMS policies, procedures and controls. Document measures taken to ensure compliance and identified gaps.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.32",
+      "mesure": "Droits de propriété intellectuelle",
+      "mesure_en": "Intellectual property rights",
+      "description": "Protéger les droits de propriété intellectuelle et l'utilisation des logiciels propriétaires. Maintenir un inventaire des licences logicielles et assurer le respect des conditions d'utilisation. Mettre en place des contrôles pour empêcher l'installation de logiciels non autorisés. Définir des politiques d'utilisation des logiciels open source couvrant les obligations de licence et les risques de sécurité associés.",
+      "description_en": "Protect intellectual property rights and proprietary software use. Maintain a software license inventory and ensure compliance with usage terms. Implement controls to prevent unauthorized software installation. Define open source software policies covering license obligations and associated security risks.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.33",
+      "mesure": "Protection des enregistrements",
+      "mesure_en": "Protection of records",
+      "description": "Protéger les enregistrements de l'organisation contre la perte, la destruction, la falsification, l'accès non autorisé et la divulgation. Définir des durées de conservation conformes aux exigences légales et réglementaires. Mettre en œuvre des mécanismes de protection de l'intégrité des enregistrements (signature, horodatage, contrôle d'accès). Assurer la destruction sécurisée à l'expiration de la période de conservation.",
+      "description_en": "Protect organizational records against loss, destruction, falsification, unauthorized access and disclosure. Define retention periods in compliance with legal and regulatory requirements. Implement record integrity protection mechanisms (signing, timestamping, access control). Ensure secure destruction upon retention period expiry.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.34",
+      "mesure": "Protection de la vie privée et des données à caractère personnel (DCP)",
+      "mesure_en": "Privacy and protection of PII",
+      "description": "Évaluer et traiter les exigences de protection de la vie privée et des données personnelles conformément aux lois et réglementations applicables (RGPD, etc.). Nommer un délégué à la protection des données si requis. Réaliser des analyses d'impact (AIPD/PIA) pour les traitements à risque. Mettre en œuvre les principes de minimisation, de limitation de la finalité et de protection dès la conception (Privacy by Design). Documenter les traitements dans un registre.",
+      "description_en": "Assess and address privacy and personal data protection requirements in accordance with applicable laws and regulations (GDPR, etc.). Appoint a data protection officer if required. Conduct impact assessments (DPIA/PIA) for high-risk processing. Implement minimization, purpose limitation and privacy by design principles. Document processing activities in a register.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.35",
+      "mesure": "Révision indépendante de la sécurité de l'information",
+      "mesure_en": "Independent review of information security",
+      "description": "Effectuer des revues indépendantes et régulières de l'approche de l'organisation en matière de sécurité de l'information et de sa mise en œuvre. Planifier des audits internes couvrant l'ensemble du SMSI à intervalles définis. Faire réaliser des évaluations externes par des auditeurs indépendants. Vérifier que les politiques, procédures et contrôles sont effectivement mis en œuvre et efficaces. Suivre la correction des non-conformités identifiées.",
+      "description_en": "Conduct independent and regular reviews of the organization's information security approach and its implementation. Plan internal audits covering the entire ISMS at defined intervals. Commission external assessments by independent auditors. Verify that policies, procedures and controls are effectively implemented and effective. Track remediation of identified non-conformities.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.36",
+      "mesure": "Conformité aux politiques, règles et normes de sécurité de l'information",
+      "mesure_en": "Compliance with policies, rules and standards for information security",
+      "description": "Assurer la conformité aux politiques, règles et normes de sécurité de l'information. Les responsables doivent vérifier régulièrement que le traitement de l'information dans leur domaine est conforme aux politiques et procédures. Réaliser des tests de conformité technique (scans de vulnérabilités, audits de configuration, tests de pénétration). Documenter les résultats et suivre les actions correctives jusqu'à leur clôture.",
+      "description_en": "Ensure compliance with information security policies, rules and standards. Managers must regularly verify that information processing within their area complies with policies and procedures. Conduct technical compliance testing (vulnerability scans, configuration audits, penetration tests). Document results and track corrective actions to closure.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.5.37",
+      "mesure": "Procédures d'exploitation documentées",
+      "mesure_en": "Documented operating procedures",
+      "description": "Documenter les procédures opérationnelles pour les activités de traitement de l'information et les rendre accessibles au personnel concerné. Les procédures doivent couvrir les opérations quotidiennes, la gestion des changements, la surveillance, la sauvegarde, la restauration, la gestion des incidents opérationnels et la gestion des supports. Maintenir les procédures à jour et les réviser lors de changements significatifs.",
+      "description_en": "Document operational procedures for information processing activities and make them available to relevant personnel. Procedures must cover daily operations, change management, monitoring, backup, restoration, operational incident management and media handling. Keep procedures current and review them upon significant changes.",
+      "category": "process",
+      "type": "organisationnel"
+    },
+    {
+      "ref": "A.6.1",
+      "mesure": "Sélection des candidats",
+      "mesure_en": "Screening",
+      "description": "Réaliser des vérifications de l'historique de tous les candidats avant l'embauche et de manière continue pour le personnel existant, proportionnellement au niveau de risque et à la sensibilité des informations accessibles. Les vérifications doivent couvrir : identité, qualifications, références professionnelles, casier judiciaire (si légalement autorisé), et vérification des compétences déclarées. Documenter les résultats et les décisions d'acceptation du risque résiduel.",
+      "description_en": "Conduct background checks on all candidates before hiring and on an ongoing basis for existing personnel, proportionate to risk level and sensitivity of accessible information. Checks must cover: identity, qualifications, professional references, criminal records (where legally permitted), and verification of declared competencies. Document results and residual risk acceptance decisions.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.2",
+      "mesure": "Termes et conditions du contrat de travail",
+      "mesure_en": "Terms and conditions of employment",
+      "description": "Définir les obligations de sécurité de l'information dans les contrats de travail et les accords avec les prestataires. Les clauses doivent couvrir : respect des politiques de sécurité, confidentialité (pendant et après le contrat), responsabilité en cas de non-conformité, propriété intellectuelle, obligations de signalement des incidents, et restitution des actifs en fin de contrat. Faire signer un engagement de confidentialité spécifique.",
+      "description_en": "Define information security obligations in employment contracts and agreements with contractors. Clauses must cover: compliance with security policies, confidentiality (during and after the contract), liability for non-compliance, intellectual property, incident reporting obligations, and asset return upon contract end. Have a specific confidentiality agreement signed.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.3",
+      "mesure": "Sensibilisation, enseignement et formation en sécurité de l'information",
+      "mesure_en": "Information security awareness, education and training",
+      "description": "Assurer que le personnel et les parties prenantes reçoivent une sensibilisation, une formation et une éducation à la sécurité de l'information adaptées à leurs fonctions. Définir un programme de sensibilisation annuel couvrant : phishing, ingénierie sociale, gestion des mots de passe, classification des données, signalement des incidents. Mesurer l'efficacité (tests de phishing, quiz, métriques de participation). Former les profils techniques sur les pratiques de développement sécurisé, la configuration durcie et la réponse aux incidents.",
+      "description_en": "Ensure personnel and stakeholders receive information security awareness, training and education appropriate to their roles. Define an annual awareness program covering: phishing, social engineering, password management, data classification, incident reporting. Measure effectiveness (phishing tests, quizzes, participation metrics). Train technical profiles on secure development practices, hardened configuration and incident response.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.4",
+      "mesure": "Procédure disciplinaire",
+      "mesure_en": "Disciplinary process",
+      "description": "Établir et communiquer un processus disciplinaire formel et équitable pour le personnel qui commet une violation de la politique de sécurité de l'information. Définir les niveaux de sanction proportionnels à la gravité de la violation et à l'intention (erreur, négligence, malveillance). Assurer la cohérence du traitement des violations. Protéger les droits des individus conformément à la législation du travail. Communiquer les conséquences potentielles aux salariés.",
+      "description_en": "Establish and communicate a formal and fair disciplinary process for personnel who commit information security policy violations. Define sanction levels proportional to violation severity and intent (error, negligence, malice). Ensure consistent handling of violations. Protect individual rights in accordance with labor law. Communicate potential consequences to employees.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.5",
+      "mesure": "Responsabilités après la fin ou le changement d'emploi",
+      "mesure_en": "Responsibilities after termination or change of employment",
+      "description": "Définir et mettre en œuvre les responsabilités et les procédures de sécurité qui restent valides après la fin ou le changement de contrat de travail. Maintenir les clauses de confidentialité actives après le départ. Révoquer tous les accès physiques et logiques dans les délais définis (idéalement le jour du départ). Récupérer tous les actifs. Transférer les connaissances critiques. Communiquer le départ aux parties concernées.",
+      "description_en": "Define and implement security responsibilities and procedures that remain valid after employment termination or change. Maintain confidentiality clauses active after departure. Revoke all physical and logical access within defined timelines (ideally on the day of departure). Recover all assets. Transfer critical knowledge. Communicate the departure to relevant parties.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.6",
+      "mesure": "Accords de confidentialité ou de non-divulgation",
+      "mesure_en": "Confidentiality or non-disclosure agreements",
+      "description": "Exiger que le personnel et les parties contractuelles respectent des accords de confidentialité et de non-divulgation conformes aux besoins de l'organisation. Les accords doivent définir les informations couvertes, la durée de la confidentialité (y compris post-contractuelle), les exceptions autorisées, les obligations de destruction ou de restitution, et les recours en cas de violation. Réviser et mettre à jour les accords lors de changements significatifs.",
+      "description_en": "Require personnel and contractual parties to comply with confidentiality and non-disclosure agreements that meet organizational needs. Agreements must define covered information, confidentiality duration (including post-contractual), authorized exceptions, destruction or return obligations, and remedies for breach. Review and update agreements upon significant changes.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.7",
+      "mesure": "Travail à distance",
+      "mesure_en": "Remote working",
+      "description": "Mettre en œuvre des mesures de sécurité pour protéger les informations accessibles, traitées ou stockées lors du travail à distance. Couvrir : la sécurisation de la connexion (VPN, chiffrement), la protection des équipements en mobilité (verrouillage, chiffrement du disque), les règles d'utilisation des réseaux publics, la séparation des environnements personnel et professionnel, et la protection physique des documents et écrans contre les regards indiscrets (filtre de confidentialité).",
+      "description_en": "Implement security measures to protect information accessed, processed or stored during remote working. Cover: connection security (VPN, encryption), mobile device protection (locking, disk encryption), public network usage rules, personal and professional environment separation, and physical protection of documents and screens from shoulder surfing (privacy filters).",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.6.8",
+      "mesure": "Déclaration des événements de sécurité de l'information",
+      "mesure_en": "Information security event reporting",
+      "description": "Mettre en place des canaux de signalement pour que le personnel puisse rapporter les événements de sécurité observés ou suspectés de manière rapide et appropriée. Encourager une culture de signalement sans peur de représailles. Définir les canaux de signalement (portail interne, email dédié, hotline, signalement anonyme). Former le personnel à reconnaître les événements suspects et à les signaler dans les délais prescrits.",
+      "description_en": "Establish reporting channels for personnel to report observed or suspected security events quickly and appropriately. Foster a reporting culture without fear of retaliation. Define reporting channels (internal portal, dedicated email, hotline, anonymous reporting). Train personnel to recognize suspicious events and report them within prescribed timelines.",
+      "category": "process",
+      "type": "people"
+    },
+    {
+      "ref": "A.7.1",
+      "mesure": "Périmètres de sécurité physique",
+      "mesure_en": "Physical security perimeters",
+      "description": "Définir et mettre en œuvre des périmètres de sécurité physique pour protéger les zones contenant des informations sensibles et des ressources de traitement. Les périmètres doivent inclure : murs, portes sécurisées, clôtures, portails d'accès contrôlé. Définir les niveaux de zones (publique, accueil, bureau, zone sécurisée, salle serveur/datacenter) avec des contrôles croissants. Surveiller les périmètres en continu (vidéosurveillance, détection d'intrusion).",
+      "description_en": "Define and implement physical security perimeters to protect areas containing sensitive information and processing resources. Perimeters must include: walls, secure doors, fences, controlled access gates. Define zone levels (public, reception, office, secure zone, server room/datacenter) with increasing controls. Monitor perimeters continuously (CCTV, intrusion detection).",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.2",
+      "mesure": "Les entrées physiques",
+      "mesure_en": "Physical entry",
+      "description": "Protéger les zones sécurisées par des contrôles d'entrée appropriés pour s'assurer que seul le personnel autorisé y accède. Mettre en place des contrôles d'accès physiques (badges, biométrie, codes d'accès, gardes). Enregistrer les entrées et sorties avec horodatage. Gérer les visiteurs (accompagnement, badges temporaires, registre). Révoquer immédiatement les accès des personnes non autorisées (fin de contrat, changement de poste).",
+      "description_en": "Protect secure areas with appropriate entry controls to ensure only authorized personnel gain access. Implement physical access controls (badges, biometrics, access codes, guards). Record entries and exits with timestamps. Manage visitors (escorting, temporary badges, register). Immediately revoke access for unauthorized individuals (contract end, role change).",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.3",
+      "mesure": "Sécurisation des bureaux, des salles et des installations",
+      "mesure_en": "Securing offices, rooms and facilities",
+      "description": "Concevoir et appliquer des mesures de sécurité physique pour les bureaux, les salles et les installations. Couvrir l'aménagement sécurisé des espaces de travail (positionnement des écrans, armoires verrouillées, politique de bureau propre). Protéger les équipements sensibles (imprimantes sécurisées, destructeurs de documents). Sécuriser les locaux techniques (ventilation, climatisation, accès restreint). Appliquer des mesures anti-incendie et de protection contre les dégâts des eaux.",
+      "description_en": "Design and apply physical security measures for offices, rooms and facilities. Cover secure workspace layout (screen positioning, locked cabinets, clean desk policy). Protect sensitive equipment (secure printers, document shredders). Secure technical rooms (ventilation, cooling, restricted access). Apply fire protection and water damage prevention measures.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.4",
+      "mesure": "Surveillance de la sécurité physique",
+      "mesure_en": "Physical security monitoring",
+      "description": "Mettre en place une surveillance physique continue des locaux pour détecter les accès non autorisés et les menaces environnementales. Installer des systèmes de vidéosurveillance avec enregistrement et rétention conformes à la réglementation (RGPD, CNIL). Déployer des alarmes d'intrusion et des détecteurs de mouvement. Surveiller les menaces environnementales (fumée, eau, température). Tester régulièrement les systèmes de surveillance.",
+      "description_en": "Implement continuous physical monitoring of premises to detect unauthorized access and environmental threats. Install CCTV systems with recording and retention compliant with regulations (GDPR). Deploy intrusion alarms and motion detectors. Monitor environmental threats (smoke, water, temperature). Regularly test monitoring systems.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.5",
+      "mesure": "Protection contre les menaces physiques et environnementales",
+      "mesure_en": "Protecting against physical and environmental threats",
+      "description": "Concevoir et mettre en œuvre des protections contre les menaces physiques et environnementales : incendie, inondation, séisme, tempête, explosion, troubles civils, coupure électrique. Réaliser une analyse de risques physiques par site. Installer des systèmes de détection et d'extinction automatique d'incendie. Prévoir une alimentation électrique de secours (UPS, groupe électrogène). Implémenter la redondance géographique pour les actifs critiques.",
+      "description_en": "Design and implement protections against physical and environmental threats: fire, flood, earthquake, storm, explosion, civil unrest, power failure. Conduct physical risk analysis per site. Install automatic fire detection and suppression systems. Provide backup power supply (UPS, generator). Implement geographic redundancy for critical assets.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.6",
+      "mesure": "Travail dans les zones sécurisées",
+      "mesure_en": "Working In secure areas",
+      "description": "Appliquer des mesures de sécurité spécifiques aux zones de travail sensibles au-delà des contrôles d'accès standards. Restreindre l'utilisation d'appareils photo, d'enregistreurs et d'équipements mobiles dans les zones sensibles. Interdire le travail non supervisé dans les zones critiques. Contrôler les livraisons et expéditions. Séparer physiquement les zones de chargement/déchargement des zones de traitement de l'information.",
+      "description_en": "Apply specific security measures to sensitive work areas beyond standard access controls. Restrict use of cameras, recording devices and mobile equipment in sensitive areas. Prohibit unsupervised work in critical areas. Control deliveries and shipments. Physically separate loading/unloading areas from information processing areas.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.7",
+      "mesure": "Bureau propre et écran vide",
+      "mesure_en": "Clear desk and clear screen",
+      "description": "Adopter une politique de bureau propre pour les documents et les supports amovibles, et une politique d'écran verrouillé pour les équipements informatiques. Les documents sensibles doivent être rangés en fin de journée (armoires fermées à clé). Les écrans doivent se verrouiller automatiquement après un délai d'inactivité court (max 5 minutes). Les imprimantes doivent utiliser l'impression sécurisée (pull-print). Les tableaux blancs doivent être effacés après les réunions.",
+      "description_en": "Adopt a clear desk policy for documents and removable media, and a clear screen policy for IT equipment. Sensitive documents must be stored at end of day (locked cabinets). Screens must auto-lock after a short inactivity period (max 5 minutes). Printers should use secure printing (pull-print). Whiteboards must be cleared after meetings.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.8",
+      "mesure": "Emplacement et protection du matériel",
+      "mesure_en": "Equipment siting and protection",
+      "description": "Protéger les équipements contre les défaillances de services généraux (électricité, climatisation, réseau, eau). Installer des alimentations sans interruption (UPS) et des groupes électrogènes avec tests réguliers. Maintenir les systèmes de climatisation des salles serveurs avec surveillance de température et d'humidité. Prévoir des circuits réseau redondants. Documenter et tester les procédures de fonctionnement en mode dégradé.",
+      "description_en": "Protect equipment from supporting utility failures (power, cooling, network, water). Install uninterruptible power supplies (UPS) and generators with regular testing. Maintain server room cooling systems with temperature and humidity monitoring. Provide redundant network circuits. Document and test degraded mode operating procedures.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.9",
+      "mesure": "Sécurité des actifs hors des locaux",
+      "mesure_en": "Security of assets off-premises",
+      "description": "Protéger les actifs hors des locaux de l'organisation avec des mesures adaptées au risque de l'environnement extérieur. Couvrir les équipements en déplacement (laptops, mobiles, supports amovibles), les équipements en maintenance externe, et les actifs stockés hors site. Appliquer le chiffrement intégral des disques pour les équipements mobiles. Définir des procédures en cas de perte ou de vol. Interdire de laisser les équipements sans surveillance dans les véhicules ou les lieux publics.",
+      "description_en": "Protect assets outside organizational premises with measures appropriate to the external environment risk. Cover equipment in transit (laptops, mobile devices, removable media), equipment in external maintenance, and assets stored off-site. Apply full disk encryption for mobile equipment. Define procedures for loss or theft. Prohibit leaving equipment unattended in vehicles or public places.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.10",
+      "mesure": "Supports de stockage",
+      "mesure_en": "Storage media",
+      "description": "Assurer que les supports de stockage (disques, clés USB, bandes, documents papier) sont gérés tout au long de leur cycle de vie : acquisition, utilisation, transport et destruction. Appliquer des contrôles proportionnels à la classification des informations contenues. Utiliser le chiffrement pour les supports transportés. Mettre en œuvre la destruction sécurisée des supports en fin de vie (broyage, démagnétisation, effacement certifié). Maintenir un registre des supports sensibles.",
+      "description_en": "Ensure storage media (disks, USB drives, tapes, paper documents) are managed throughout their lifecycle: acquisition, use, transport and destruction. Apply controls proportional to the classification of contained information. Use encryption for transported media. Implement secure media disposal at end of life (shredding, degaussing, certified wiping). Maintain a register of sensitive media.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.11",
+      "mesure": "Services supports",
+      "mesure_en": "Supporting utilities",
+      "description": "Fournir et protéger les câblages électriques et de télécommunications transportant des données ou supportant des services d'information. Protéger les câbles contre les interceptions, les interférences et les dommages physiques. Séparer les câbles d'alimentation des câbles de données. Utiliser des conduits protégés et des armoires de brassage verrouillées. Documenter le câblage avec des plans à jour. Inspecter régulièrement les infrastructures de câblage.",
+      "description_en": "Provide and protect power and telecommunications cabling carrying data or supporting information services. Protect cables against interception, interference and physical damage. Separate power cables from data cables. Use protected conduits and locked patch panels. Document cabling with up-to-date plans. Regularly inspect cabling infrastructure.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.12",
+      "mesure": "Sécurité du câblage",
+      "mesure_en": "Cabling security",
+      "description": "Assurer la maintenance régulière des équipements pour garantir leur disponibilité, leur intégrité et leur bon fonctionnement. Planifier la maintenance préventive selon les recommandations des fabricants. Autoriser uniquement du personnel qualifié pour les interventions de maintenance. Effacer les données sensibles avant toute maintenance externe. Journaliser les interventions de maintenance avec détail des actions réalisées et des pièces remplacées.",
+      "description_en": "Ensure regular equipment maintenance to guarantee availability, integrity and proper operation. Plan preventive maintenance according to manufacturer recommendations. Authorize only qualified personnel for maintenance interventions. Erase sensitive data before external maintenance. Log maintenance interventions with details of actions performed and parts replaced.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.13",
+      "mesure": "Maintenance du matériel",
+      "mesure_en": "Equipment maintenance",
+      "description": "Mettre en œuvre des mesures pour protéger les équipements en vue de leur réutilisation ou de leur mise au rebut afin d'empêcher la fuite d'informations. Avant réutilisation ou cession, effacer de manière sécurisée toutes les données (effacement cryptographique, écrasement multicouche certifié). En cas de mise au rebut, détruire physiquement les supports. Vérifier que les équipements loués ou en leasing sont correctement nettoyés avant restitution. Obtenir un certificat de destruction.",
+      "description_en": "Implement measures to protect equipment intended for reuse or disposal to prevent information leakage. Before reuse or disposal, securely erase all data (cryptographic erasure, certified multi-pass overwriting). For disposal, physically destroy storage media. Verify that leased equipment is properly sanitized before return. Obtain a destruction certificate.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.7.14",
+      "mesure": "Élimination ou recyclage sécurisé(e) du matériel",
+      "mesure_en": "Secure disposal or re-use of equipment",
+      "description": "Protéger les équipements contenant des supports de stockage contre l'accès non autorisé et l'altération. Appliquer le chiffrement intégral des supports de stockage (BitLocker, LUKS, FileVault). Contrôler l'accès physique aux équipements contenant des données sensibles. Mettre en œuvre la détection d'ouverture de boîtier (tamper detection) pour les équipements critiques. S'assurer que les sauvegardes sur supports amovibles sont chiffrées et stockées dans un emplacement sécurisé séparé.",
+      "description_en": "Protect equipment containing storage media against unauthorized access and tampering. Apply full storage media encryption (BitLocker, LUKS, FileVault). Control physical access to equipment containing sensitive data. Implement chassis tamper detection for critical equipment. Ensure backups on removable media are encrypted and stored in a separate secure location.",
+      "category": "physical",
+      "type": "physical"
+    },
+    {
+      "ref": "A.8.1",
+      "mesure": "Terminaux finaux des utilisateurs",
+      "mesure_en": "User end point devices",
+      "description": "Sécuriser les équipements terminaux des utilisateurs (postes de travail, laptops, tablettes, smartphones). Appliquer le durcissement des configurations (CIS Benchmarks), le chiffrement intégral du disque, le verrouillage automatique d'écran, l'antimalware à jour, le pare-feu personnel, la gestion des correctifs automatisée. Contrôler l'installation de logiciels. Mettre en œuvre un MDM/UEM pour les terminaux mobiles. Séparer les données professionnelles et personnelles sur les appareils BYOD.",
+      "description_en": "Secure user endpoint devices (workstations, laptops, tablets, smartphones). Apply configuration hardening (CIS Benchmarks), full disk encryption, automatic screen lock, up-to-date anti-malware, personal firewall, automated patch management. Control software installation. Implement MDM/UEM for mobile devices. Separate professional and personal data on BYOD devices.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.2",
+      "mesure": "Droits d'accès privilégiés",
+      "mesure_en": "Privileged access rights",
+      "description": "Restreindre et gérer l'attribution et l'utilisation des droits d'accès privilégiés (administrateur, root, DBA). Appliquer le principe du moindre privilège. Utiliser des comptes privilégiés séparés des comptes standards. Mettre en place un PAM (Privileged Access Management) avec enregistrement des sessions. Exiger l'authentification multi-facteur. Réviser les accès privilégiés trimestriellement. Limiter la durée des accès privilégiés (just-in-time, élévation temporaire).",
+      "description_en": "Restrict and manage the allocation and use of privileged access rights (administrator, root, DBA). Apply the least privilege principle. Use privileged accounts separate from standard accounts. Implement PAM (Privileged Access Management) with session recording. Require multi-factor authentication. Review privileged access quarterly. Limit privileged access duration (just-in-time, temporary elevation).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.3",
+      "mesure": "Restriction d'accès aux informations",
+      "mesure_en": "Information access restriction",
+      "description": "Restreindre l'accès aux informations et aux fonctions des systèmes applicatifs conformément à la politique de contrôle d'accès. Implémenter le contrôle d'accès au niveau des menus, des fonctions et des données. Masquer ou désactiver les fonctions non autorisées. Limiter l'accès en lecture seule lorsque la modification n'est pas nécessaire. Contrôler l'accès aux données sensibles via des vues ou des API avec filtrage. Journaliser les accès aux données critiques.",
+      "description_en": "Restrict access to information and application system functions in accordance with the access control policy. Implement access control at menu, function and data level. Hide or disable unauthorized functions. Limit to read-only access where modification is unnecessary. Control access to sensitive data via views or APIs with filtering. Log access to critical data.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.4",
+      "mesure": "Accès aux codes source",
+      "mesure_en": "Access to source code",
+      "description": "Restreindre l'accès au code source des programmes aux personnes autorisées pour prévenir les modifications non autorisées et protéger la propriété intellectuelle. Stocker le code source dans des dépôts contrôlés (Git) avec contrôle d'accès basé sur les rôles. Protéger les branches de production (branch protection, revue de code obligatoire, CI/CD avec contrôles de sécurité). Journaliser tous les accès et modifications. Séparer les environnements de développement et de production.",
+      "description_en": "Restrict access to program source code to authorized individuals to prevent unauthorized modifications and protect intellectual property. Store source code in controlled repositories (Git) with role-based access control. Protect production branches (branch protection, mandatory code review, CI/CD with security checks). Log all access and modifications. Separate development and production environments.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.5",
+      "mesure": "Authentification sécurisée",
+      "mesure_en": "Secure authentication",
+      "description": "Mettre en œuvre des mécanismes d'authentification sécurisés pour vérifier l'identité des utilisateurs, systèmes et applications. Exiger l'authentification multi-facteur (MFA) pour les accès à distance, les systèmes critiques et les comptes privilégiés. Utiliser des protocoles d'authentification modernes (OIDC, SAML, FIDO2). Protéger les mécanismes d'authentification contre les attaques par force brute (verrouillage, délai progressif). Implémenter le SSO pour réduire la fatigue d'authentification.",
+      "description_en": "Implement secure authentication mechanisms to verify the identity of users, systems and applications. Require multi-factor authentication (MFA) for remote access, critical systems and privileged accounts. Use modern authentication protocols (OIDC, SAML, FIDO2). Protect authentication mechanisms against brute force attacks (lockout, progressive delay). Implement SSO to reduce authentication fatigue.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.6",
+      "mesure": "Dimensionnement",
+      "mesure_en": "Capacity management",
+      "description": "Planifier et gérer la capacité des ressources de traitement de l'information (CPU, mémoire, stockage, bande passante) pour assurer les performances requises. Surveiller l'utilisation des ressources en continu avec des seuils d'alerte. Prévoir la croissance et dimensionner les infrastructures en conséquence (capacity planning). Mettre en place des mécanismes d'auto-scaling pour les environnements cloud. Tester la charge avant les mises en production. Documenter les besoins de capacité par service critique.",
+      "description_en": "Plan and manage the capacity of information processing resources (CPU, memory, storage, bandwidth) to ensure required performance. Monitor resource utilization continuously with alert thresholds. Forecast growth and size infrastructure accordingly (capacity planning). Implement auto-scaling for cloud environments. Load test before production deployments. Document capacity requirements per critical service.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.7",
+      "mesure": "Protection contre les programmes malveillants (malware)",
+      "mesure_en": "Protection against malware",
+      "description": "Mettre en œuvre des protections contre les logiciels malveillants (malware) sur l'ensemble des systèmes. Déployer des solutions anti-malware (EPP/EDR) sur tous les postes et serveurs avec mise à jour automatique des signatures. Analyser les fichiers entrants (email, téléchargements, supports amovibles) avant exécution. Restreindre l'exécution de logiciels non autorisés (application whitelisting). Former les utilisateurs à reconnaître les menaces (phishing, pièces jointes suspectes). Surveiller et corréler les alertes de sécurité (SIEM).",
+      "description_en": "Implement protections against malware across all systems. Deploy anti-malware solutions (EPP/EDR) on all workstations and servers with automatic signature updates. Scan incoming files (email, downloads, removable media) before execution. Restrict unauthorized software execution (application whitelisting). Train users to recognize threats (phishing, suspicious attachments). Monitor and correlate security alerts (SIEM).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.8",
+      "mesure": "Gestion des vulnérabilités techniques",
+      "mesure_en": "Management of technical vulnerabilities",
+      "description": "Identifier, évaluer et remédier les vulnérabilités techniques des systèmes d'information en temps opportun. Mettre en place un processus de gestion des vulnérabilités couvrant : inventaire des actifs, scans réguliers (au minimum mensuels), évaluation du risque (CVSS, exploitabilité, exposition), priorisation et application des correctifs dans les délais définis (critiques sous 48h, élevées sous 7j, moyennes sous 30j). Surveiller les sources de veille CVE et les alertes CERT.",
+      "description_en": "Identify, assess and remediate technical vulnerabilities of information systems in a timely manner. Establish a vulnerability management process covering: asset inventory, regular scanning (at minimum monthly), risk assessment (CVSS, exploitability, exposure), prioritization and patch application within defined timelines (critical within 48h, high within 7d, medium within 30d). Monitor CVE watch sources and CERT alerts.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.9",
+      "mesure": "Gestion des configurations",
+      "mesure_en": "Configuration management",
+      "description": "Gérer les configurations des systèmes, réseaux et applications de manière sécurisée tout au long de leur cycle de vie. Définir des standards de configuration durcie (baselines) pour chaque type d'actif (serveurs, postes, équipements réseau, applications). Utiliser des outils de gestion de configuration (Ansible, Terraform, GPO). Contrôler les écarts par rapport aux baselines (drift detection). Valider les configurations avant déploiement. Documenter et versionner les configurations.",
+      "description_en": "Manage configurations of systems, networks and applications securely throughout their lifecycle. Define hardened configuration standards (baselines) for each asset type (servers, workstations, network equipment, applications). Use configuration management tools (Ansible, Terraform, GPO). Monitor deviations from baselines (drift detection). Validate configurations before deployment. Document and version configurations.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.10",
+      "mesure": "Suppression des informations",
+      "mesure_en": "Information deletion",
+      "description": "Protéger les données stockées (au repos) contre l'accès non autorisé, la modification et la suppression. Supprimer ou rendre anonymes les données dès qu'elles ne sont plus nécessaires (rétention minimale). Appliquer le chiffrement au repos pour les données sensibles (chiffrement de base de données, de fichiers, de volumes). Contrôler l'accès aux données par classification. Mettre en œuvre des sauvegardes sécurisées. Protéger les données de test (anonymisation, pseudonymisation).",
+      "description_en": "Protect stored data (at rest) against unauthorized access, modification and deletion. Delete or anonymize data as soon as no longer needed (minimal retention). Apply encryption at rest for sensitive data (database, file, volume encryption). Control data access by classification. Implement secure backups. Protect test data (anonymization, pseudonymization).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.11",
+      "mesure": "Masquage des données",
+      "mesure_en": "Data masking",
+      "description": "Mettre en œuvre le masquage des données pour limiter l'exposition des données sensibles conformément à la politique de contrôle d'accès et aux exigences réglementaires. Appliquer le masquage dans les environnements hors production (développement, test, formation) via anonymisation ou pseudonymisation. Masquer les données sensibles dans les interfaces utilisateur (numéros de carte, identifiants personnels). Utiliser la tokenisation pour les données de paiement (PCI DSS).",
+      "description_en": "Implement data masking to limit sensitive data exposure in accordance with access control policy and regulatory requirements. Apply masking in non-production environments (development, test, training) via anonymization or pseudonymization. Mask sensitive data in user interfaces (card numbers, personal identifiers). Use tokenization for payment data (PCI DSS).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.12",
+      "mesure": "Prévention de la fuite de données",
+      "mesure_en": "Data leakage prevention",
+      "description": "Mettre en place des mécanismes de prévention de la fuite de données (DLP) pour détecter et empêcher la divulgation non autorisée d'informations sensibles. Couvrir les canaux de fuite : email (pièces jointes), web (upload), supports amovibles (USB), impression, copier-coller, captures d'écran, partage cloud. Définir des règles de détection basées sur la classification, les mots-clés, les expressions régulières et les empreintes de documents. Mettre en place des alertes et des blocages proportionnés.",
+      "description_en": "Implement data leakage prevention (DLP) mechanisms to detect and prevent unauthorized disclosure of sensitive information. Cover leakage channels: email (attachments), web (upload), removable media (USB), printing, copy-paste, screenshots, cloud sharing. Define detection rules based on classification, keywords, regular expressions and document fingerprints. Implement proportionate alerts and blocks.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.13",
+      "mesure": "Sauvegarde des informations",
+      "mesure_en": "Information backup",
+      "description": "Assurer la sauvegarde régulière des informations, des logiciels et des configurations conformément à une politique de sauvegarde documentée. Définir les fréquences de sauvegarde (quotidienne, hebdomadaire), les types (complète, incrémentale, différentielle), les durées de rétention et les sites de stockage (sur site, hors site, cloud). Chiffrer les sauvegardes. Tester la restauration régulièrement (au minimum trimestriel). Surveiller les échecs de sauvegarde. Isoler les sauvegardes des accès réseau (protection anti-ransomware).",
+      "description_en": "Ensure regular backup of information, software and configurations in accordance with a documented backup policy. Define backup frequencies (daily, weekly), types (full, incremental, differential), retention periods and storage sites (on-site, off-site, cloud). Encrypt backups. Test restoration regularly (at minimum quarterly). Monitor backup failures. Isolate backups from network access (anti-ransomware protection).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.14",
+      "mesure": "Redondance des moyens de traitement de l'information",
+      "mesure_en": "Redundancy of information processing facilities",
+      "description": "Garantir la redondance des composants de traitement de l'information pour satisfaire les exigences de disponibilité. Mettre en œuvre la haute disponibilité pour les systèmes critiques (clustering, load-balancing, réplication). Distribuer les services sur plusieurs zones de disponibilité ou centres de données. Définir et tester les mécanismes de basculement automatique (failover). Documenter les architectures de redondance et les procédures de reprise. Surveiller la santé des composants redondants.",
+      "description_en": "Ensure redundancy of information processing components to meet availability requirements. Implement high availability for critical systems (clustering, load balancing, replication). Distribute services across multiple availability zones or data centers. Define and test automatic failover mechanisms. Document redundancy architectures and recovery procedures. Monitor the health of redundant components.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.15",
+      "mesure": "Journalisation",
+      "mesure_en": "Logging",
+      "description": "Collecter, stocker et analyser les journaux d'événements pour détecter les activités anormales et les incidents de sécurité. Journaliser les événements de sécurité critiques : authentifications (succès et échecs), accès aux données sensibles, modifications de configuration, actions administratives, erreurs système. Protéger l'intégrité des journaux (écriture seule, horodatage synchronisé, centralisation SIEM). Définir les durées de rétention conformément aux exigences légales. Mettre en place des alertes automatisées sur les événements critiques.",
+      "description_en": "Collect, store and analyze event logs to detect abnormal activities and security incidents. Log critical security events: authentication (successes and failures), sensitive data access, configuration changes, administrative actions, system errors. Protect log integrity (write-only, synchronized timestamps, SIEM centralization). Define retention periods in compliance with legal requirements. Implement automated alerts on critical events.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.16",
+      "mesure": "Activités de surveillance",
+      "mesure_en": "Monitoring activities",
+      "description": "Surveiller en continu les réseaux, les systèmes et les applications pour détecter les comportements anormaux et les menaces potentielles. Mettre en place un SOC (Security Operations Center) ou un service de surveillance managé. Déployer des outils de détection (IDS/IPS, NDR, EDR, SIEM) avec des règles de corrélation et de détection comportementale. Définir des playbooks de réponse pour les alertes critiques. Mesurer les temps de détection (MTTD) et de réponse (MTTR).",
+      "description_en": "Continuously monitor networks, systems and applications to detect abnormal behavior and potential threats. Establish a SOC (Security Operations Center) or managed surveillance service. Deploy detection tools (IDS/IPS, NDR, EDR, SIEM) with correlation and behavioral detection rules. Define response playbooks for critical alerts. Measure detection (MTTD) and response (MTTR) times.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.17",
+      "mesure": "Synchronisation des horloges",
+      "mesure_en": "Clock synchronization",
+      "description": "Synchroniser les horloges de tous les systèmes de traitement de l'information sur une source de temps de référence commune. Utiliser le protocole NTP ou PTP avec des serveurs de temps fiables (strate 1 ou 2). Configurer tous les systèmes (serveurs, équipements réseau, postes de travail, caméras, contrôles d'accès physique) sur la même base temporelle. La synchronisation horaire est critique pour la corrélation des journaux, l'analyse forensique et la validité des preuves numériques.",
+      "description_en": "Synchronize clocks of all information processing systems to a common reference time source. Use NTP or PTP protocol with reliable time servers (stratum 1 or 2). Configure all systems (servers, network equipment, workstations, cameras, physical access controls) to the same time base. Clock synchronization is critical for log correlation, forensic analysis and digital evidence validity.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.18",
+      "mesure": "Utilisation de programmes utilitaires à privilèges",
+      "mesure_en": "Use of privileged utility programs",
+      "description": "Restreindre l'utilisation des utilitaires systèmes privilégiés qui peuvent contourner les contrôles de sécurité normaux (debug, audit, capture réseau, modification de registre). Limiter l'accès à ces utilitaires au personnel autorisé. Journaliser toute utilisation. Retirer les utilitaires inutiles des systèmes de production. Contrôler l'installation de nouveaux utilitaires via un processus de demande et d'approbation.",
+      "description_en": "Restrict the use of privileged system utilities that can bypass normal security controls (debug, audit, network capture, registry modification). Limit access to these utilities to authorized personnel. Log all usage. Remove unnecessary utilities from production systems. Control installation of new utilities through a request and approval process.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.19",
+      "mesure": "Installation de logiciels sur des systèmes opérationnels",
+      "mesure_en": "Installation of software on operational systems",
+      "description": "Gérer l'installation des logiciels sur les systèmes opérationnels de manière contrôlée. Définir une politique d'installation autorisée (liste blanche de logiciels approuvés). Contrôler les droits d'installation (seuls les administrateurs ou un système de déploiement). Vérifier l'intégrité des logiciels avant installation (signatures numériques, checksums). Maintenir un inventaire des logiciels installés. Désinstaller les logiciels obsolètes ou non autorisés.",
+      "description_en": "Manage software installation on operational systems in a controlled manner. Define an authorized installation policy (approved software whitelist). Control installation rights (administrators or deployment system only). Verify software integrity before installation (digital signatures, checksums). Maintain an installed software inventory. Uninstall obsolete or unauthorized software.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.20",
+      "mesure": "Sécurité des réseaux",
+      "mesure_en": "Networks security",
+      "description": "Sécuriser les réseaux et les dispositifs réseau pour protéger les informations transitant par les systèmes et les applications. Segmenter les réseaux selon les niveaux de confiance et de classification (DMZ, zone serveur, zone utilisateur, zone IoT, zone invités). Appliquer le filtrage réseau (pare-feu, ACL) basé sur le principe du refus par défaut. Surveiller le trafic réseau. Sécuriser les protocoles de gestion réseau (SNMPv3, SSH). Documenter les architectures réseau.",
+      "description_en": "Secure networks and network devices to protect information flowing through systems and applications. Segment networks by trust and classification levels (DMZ, server zone, user zone, IoT zone, guest zone). Apply network filtering (firewall, ACL) based on default-deny principle. Monitor network traffic. Secure network management protocols (SNMPv3, SSH). Document network architectures.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.21",
+      "mesure": "Sécurité des services réseau",
+      "mesure_en": "Security of network services",
+      "description": "Mettre en œuvre des mécanismes de sécurité pour les services réseau (DNS, DHCP, VPN, proxy, load-balancer). Définir des accords de service réseau incluant les exigences de sécurité. Utiliser le chiffrement pour les flux sensibles (TLS 1.3, IPSec). Authentifier les dispositifs réseau. Surveiller la disponibilité et la performance des services réseau. Appliquer le durcissement des configurations des équipements réseau (désactiver les services inutiles, changer les mots de passe par défaut).",
+      "description_en": "Implement security mechanisms for network services (DNS, DHCP, VPN, proxy, load balancer). Define network service agreements including security requirements. Use encryption for sensitive flows (TLS 1.3, IPSec). Authenticate network devices. Monitor network service availability and performance. Apply network equipment configuration hardening (disable unnecessary services, change default passwords).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.22",
+      "mesure": "Cloisonnement des réseaux",
+      "mesure_en": "Segregation of networks",
+      "description": "Segmenter les réseaux en domaines distincts selon les groupes d'utilisateurs, les services et les systèmes d'information. Appliquer la micro-segmentation pour les environnements sensibles. Contrôler les flux entre segments (east-west) en plus des flux entrants/sortants (north-south). Utiliser des VLAN, des pare-feux internes et des contrôles d'accès réseau (NAC). Isoler les systèmes de gestion, les environnements de développement et les systèmes legacy non patchables.",
+      "description_en": "Segment networks into distinct domains based on user groups, services and information systems. Apply micro-segmentation for sensitive environments. Control inter-segment flows (east-west) in addition to ingress/egress flows (north-south). Use VLANs, internal firewalls and network access controls (NAC). Isolate management systems, development environments and unpatched legacy systems.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.23",
+      "mesure": "Filtrage web",
+      "mesure_en": "Web filtering",
+      "description": "Mettre en place un filtrage Web pour contrôler et restreindre l'accès aux contenus non autorisés, malveillants ou inappropriés sur Internet. Définir des catégories de sites autorisés et interdits. Bloquer l'accès aux sites malveillants connus (threat intelligence feeds). Analyser les téléchargements (sandbox, antimalware). Contrôler l'accès aux services de stockage cloud personnels. Journaliser la navigation Web pour analyse en cas d'incident. Appliquer le déchiffrement SSL/TLS inspection pour les flux chiffrés (avec respect de la vie privée).",
+      "description_en": "Implement web filtering to control and restrict access to unauthorized, malicious or inappropriate Internet content. Define allowed and blocked site categories. Block access to known malicious sites (threat intelligence feeds). Analyze downloads (sandbox, anti-malware). Control access to personal cloud storage services. Log web browsing for incident analysis. Apply SSL/TLS inspection for encrypted traffic (with privacy considerations).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.24",
+      "mesure": "Utilisation de la cryptographie",
+      "mesure_en": "Use of cryptography",
+      "description": "Définir et mettre en œuvre une politique d'utilisation de la cryptographie pour protéger la confidentialité, l'intégrité et l'authenticité des informations. Couvrir : le choix des algorithmes (AES-256, RSA-4096, SHA-256 minimum), la gestion du cycle de vie des clés (génération, distribution, stockage, rotation, archivage, destruction), le chiffrement des données au repos et en transit, la signature numérique, et la gestion des certificats (PKI). Interdire les algorithmes obsolètes (DES, MD5, SHA-1, RC4).",
+      "description_en": "Define and implement a cryptography usage policy to protect information confidentiality, integrity and authenticity. Cover: algorithm selection (AES-256, RSA-4096, SHA-256 minimum), key lifecycle management (generation, distribution, storage, rotation, archival, destruction), encryption of data at rest and in transit, digital signatures, and certificate management (PKI). Prohibit obsolete algorithms (DES, MD5, SHA-1, RC4).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.25",
+      "mesure": "Cycle de vie de développement sécurisé",
+      "mesure_en": "Secure development life cycle",
+      "description": "Définir et appliquer un cycle de développement sécurisé (SDLC) pour la conception, le codage, le test et la maintenance des logiciels. Intégrer la sécurité à chaque phase : analyse de menaces en conception (threat modeling), revue de code sécurisé, tests de sécurité (SAST, DAST, SCA, fuzzing), validation avant déploiement. Maintenir les environnements de développement séparés de la production. Former les développeurs aux pratiques de codage sécurisé (OWASP Top 10, SANS Top 25).",
+      "description_en": "Define and apply a secure development lifecycle (SDLC) for software design, coding, testing and maintenance. Integrate security at each phase: threat modeling in design, secure code review, security testing (SAST, DAST, SCA, fuzzing), pre-deployment validation. Keep development environments separate from production. Train developers on secure coding practices (OWASP Top 10, SANS Top 25).",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.26",
+      "mesure": "Exigences de sécurité des applications",
+      "mesure_en": "Application security requirements",
+      "description": "Définir, documenter et appliquer des exigences de sécurité pour les applications, couvrant les interfaces d'entrée/sortie, le traitement des transactions, l'authentification, la gestion des sessions et la protection contre les vulnérabilités courantes (injection, XSS, CSRF, désérialisation non sécurisée). Valider systématiquement les entrées utilisateur côté serveur. Mettre en œuvre des en-têtes de sécurité HTTP (CSP, HSTS, X-Frame-Options). Protéger les API avec authentification, autorisation et limitation de débit.",
+      "description_en": "Define, document and enforce application security requirements, covering input/output interfaces, transaction processing, authentication, session management and protection against common vulnerabilities (injection, XSS, CSRF, insecure deserialization). Systematically validate user input server-side. Implement HTTP security headers (CSP, HSTS, X-Frame-Options). Protect APIs with authentication, authorization and rate limiting.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.27",
+      "mesure": "Principes d'ingénierie et d'architecture des systèmes sécurisés",
+      "mesure_en": "Secure system architecture and engineering principles",
+      "description": "Appliquer des principes d'architecture et de conception sécurisés dès les premières phases de développement des systèmes. Implémenter la défense en profondeur (multiple couches de contrôles). Appliquer le principe du moindre privilège dans l'architecture. Concevoir pour la résilience (tolérance aux pannes, dégradation gracieuse). Séparer les composants selon leur niveau de confiance. Minimiser la surface d'attaque. Valider la sécurité de l'architecture via des revues de conception (design review).",
+      "description_en": "Apply secure architecture and design principles from the earliest development phases. Implement defense in depth (multiple control layers). Apply the least privilege principle in architecture. Design for resilience (fault tolerance, graceful degradation). Separate components by trust level. Minimize attack surface. Validate architecture security through design reviews.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.28",
+      "mesure": "Codage sécurisé",
+      "mesure_en": "Secure coding",
+      "description": "Appliquer des principes de codage sécurisé lors du développement logiciel pour minimiser les vulnérabilités. Suivre les guides de codage sécurisé reconnus (OWASP, CERT, CWE). Valider toutes les entrées côté serveur (never trust client input). Utiliser des requêtes paramétrées (pas de concaténation SQL). Encoder les sorties selon le contexte (HTML, JavaScript, URL). Gérer les erreurs sans divulguer d'informations techniques. Utiliser des bibliothèques et frameworks sécurisés et à jour. Automatiser l'analyse de code (SAST) dans la pipeline CI/CD.",
+      "description_en": "Apply secure coding principles during software development to minimize vulnerabilities. Follow recognized secure coding guides (OWASP, CERT, CWE). Validate all inputs server-side (never trust client input). Use parameterized queries (no SQL concatenation). Encode outputs according to context (HTML, JavaScript, URL). Handle errors without disclosing technical information. Use secure and up-to-date libraries and frameworks. Automate code analysis (SAST) in the CI/CD pipeline.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.29",
+      "mesure": "Tests de sécurité dans le développement et l'acceptation",
+      "mesure_en": "Security testing in development and acceptance",
+      "description": "Réaliser des tests de sécurité pendant le développement et avant la mise en production pour vérifier le respect des exigences de sécurité. Intégrer les tests dans la pipeline CI/CD : analyse statique de code (SAST), analyse dynamique (DAST), analyse de composition logicielle (SCA/SBOM), tests de pénétration pour les applications critiques. Définir des critères d'acceptation de sécurité (zero critical/high findings avant déploiement). Tracer les résultats et suivre la remédiation des vulnérabilités identifiées.",
+      "description_en": "Conduct security testing during development and before production deployment to verify compliance with security requirements. Integrate tests into the CI/CD pipeline: static code analysis (SAST), dynamic analysis (DAST), software composition analysis (SCA/SBOM), penetration testing for critical applications. Define security acceptance criteria (zero critical/high findings before deployment). Track results and follow up on identified vulnerability remediation.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.30",
+      "mesure": "Développement externalisé",
+      "mesure_en": "Outsourced development",
+      "description": "Superviser et contrôler les activités de développement externalisées pour s'assurer que les exigences de sécurité sont respectées par les prestataires. Inclure les exigences de sécurité dans les contrats de développement. Exiger l'application d'un SDLC sécurisé par le prestataire. Conduire des revues de code et des audits de sécurité sur le code livré. Vérifier la provenance et l'intégrité des composants tiers utilisés. Contrôler les accès du prestataire aux environnements et données de l'organisation.",
+      "description_en": "Supervise and control outsourced development activities to ensure security requirements are met by contractors. Include security requirements in development contracts. Require application of a secure SDLC by the contractor. Conduct code reviews and security audits on delivered code. Verify the provenance and integrity of third-party components used. Control contractor access to organizational environments and data.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.31",
+      "mesure": "Séparation des environnements de développement, de test et opérationnels",
+      "mesure_en": "Separation of development, test and production environments",
+      "description": "Séparer les environnements de développement, de test et de production pour réduire les risques d'accès non autorisé ou de modification des systèmes en production. Appliquer des contrôles d'accès distincts par environnement. Ne pas utiliser de données de production en développement/test (utiliser des données anonymisées). Contrôler le transfert de code entre environnements via un processus de promotion (dev→test→staging→prod). Documenter les différences de configuration entre environnements.",
+      "description_en": "Separate development, testing and production environments to reduce risks of unauthorized access or modification to production systems. Apply separate access controls per environment. Do not use production data in development/testing (use anonymized data). Control code transfer between environments via a promotion process (dev→test→staging→prod). Document configuration differences between environments.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.32",
+      "mesure": "Gestion des changements",
+      "mesure_en": "Change management",
+      "description": "Gérer les changements apportés aux systèmes d'information et aux infrastructures de manière contrôlée pour minimiser les risques d'interruption et d'introduction de vulnérabilités. Définir un processus de gestion des changements couvrant : demande, évaluation d'impact (y compris sécurité), approbation, planification, test, implémentation, vérification post-changement et retour arrière. Classer les changements par niveau de risque (standard, normal, urgence). Journaliser tous les changements.",
+      "description_en": "Manage changes to information systems and infrastructure in a controlled manner to minimize risks of disruption and vulnerability introduction. Define a change management process covering: request, impact assessment (including security), approval, planning, testing, implementation, post-change verification and rollback. Classify changes by risk level (standard, normal, emergency). Log all changes.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.33",
+      "mesure": "Informations de test",
+      "mesure_en": "Test information",
+      "description": "Protéger les informations de test pour empêcher l'utilisation non autorisée de données sensibles dans les environnements de test. Interdire l'utilisation de données de production réelles dans les environnements de test et de développement. Appliquer des techniques d'anonymisation ou de pseudonymisation pour générer des jeux de données de test réalistes. Contrôler l'accès aux environnements de test avec la même rigueur que pour les données sensibles. Supprimer les données de test à la fin de la campagne de tests.",
+      "description_en": "Protect test information to prevent unauthorized use of sensitive data in test environments. Prohibit use of real production data in test and development environments. Apply anonymization or pseudonymization techniques to generate realistic test datasets. Control access to test environments with the same rigor as for sensitive data. Delete test data at the end of the testing campaign.",
+      "category": "technical",
+      "type": "technological"
+    },
+    {
+      "ref": "A.8.34",
+      "mesure": "Protection des systèmes d'information pendant les tests d'audit",
+      "mesure_en": "Protection of information systems during audit testing",
+      "description": "Protéger les systèmes d'information et les données pendant les audits pour minimiser les perturbations sur les processus métier et assurer l'intégrité des résultats. Planifier les audits techniques (tests d'intrusion, scans de vulnérabilités) en coordination avec les équipes opérationnelles. Limiter l'accès des auditeurs au périmètre nécessaire. Protéger les outils d'audit et les résultats contre l'accès non autorisé. Journaliser les actions des auditeurs sur les systèmes de production. Supprimer les comptes et accès d'audit temporaires à la fin de la mission.",
+      "description_en": "Protect information systems and data during audits to minimize disruption to business processes and ensure result integrity. Plan technical audits (penetration tests, vulnerability scans) in coordination with operational teams. Limit auditor access to the necessary scope. Protect audit tools and results against unauthorized access. Log auditor actions on production systems. Remove temporary audit accounts and access at end of mission.",
+      "category": "technical",
+      "type": "technological"
+    }
+  ]
+}

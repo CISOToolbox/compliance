@@ -1,0 +1,127 @@
+{
+  "id": "nis2",
+  "version": "2022",
+  "label": "NIS 2",
+  "description": "Article 21 de la directive (UE) 2022/2555 du Parlement européen et du Conseil du 14 décembre 2022 concernant des mesures destinées à assurer un niveau élevé commun de cybersécurité dans l’ensemble de l’Union, modifiant le règlement (UE) no 910/2014 et la directive (UE) 2018/1972, et abrogeant la directive (UE) 2016/1148 (directive SRI 2) (Texte présentant de l’intérêt pour l’EEE)",
+  "description_en": "Requirements from article 21 of directive 2022/2555 of the european parliament and of the council of 14 December 2022 on measures for a high common level of cybersecurity across the Union.",
+  "color": "#7c3aed",
+  "measures": [
+    {
+      "ref": "21.1",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "Les États membres veillent à ce que les entités essentielles et importantes prennent les mesures techniques, opérationnelles et organisationnelles",
+      "mesure_en": "Member States shall ensure that essential and important entities take appropriate and proportionate technical, operational and organisational",
+      "description": "Les États membres veillent à ce que les entités essentielles et importantes prennent les mesures techniques, opérationnelles et organisationnelles appropriées et proportionnées pour gérer les risques qui menacent la sécurité des réseaux et des systèmes d’information que ces entités utilisent dans le cadre de leurs activités ou de la fourniture de leurs services, ainsi que pour éliminer ou réduire les conséquences que les incidents ont sur les destinataires de leurs services et sur d’autres services.",
+      "description_en": "Member States shall ensure that essential and important entities take appropriate and proportionate technical, operational and organisational measures to manage the risks posed to the security of network and information systems which those entities use for their operations or for the provision of their services, and to prevent or minimise the impact of incidents on recipients of their services and on other services."
+    },
+    {
+      "ref": "21.1.sp2",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "Les mesures visées au premier alinéa garantissent, pour les réseaux et les systèmes d’information, un niveau de sécurité adapté au risque existant,",
+      "mesure_en": "Taking into account the state-of-the-art and, where applicable, relevant European and international standards, as well as the cost of implementation,",
+      "description": "Les mesures visées au premier alinéa garantissent, pour les réseaux et les systèmes d’information, un niveau de sécurité adapté au risque existant, en tenant compte de l’état des connaissances et, s’il y a lieu, des normes européennes et internationales applicables, ainsi que du coût de mise en œuvre. Lors de l’évaluation de la proportionnalité de ces mesures, il convient de tenir dûment compte du degré d’exposition de l’entité aux risques, de la taille de l’entité et de la probabilité de survenance d’incidents et de leur gravité, y compris leurs conséquences sociétales et économiques.",
+      "description_en": "Taking into account the state-of-the-art and, where applicable, relevant European and international standards, as well as the cost of implementation, the measures referred to in the first subparagraph shall ensure a level of security of network and information systems appropriate to the risks posed."
+    },
+    {
+      "ref": "21.2",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "Les mesures visées au paragraphe 1 sont fondées sur une approche «tous risques» qui vise à protéger les réseaux et les systèmes d’information ainsi",
+      "mesure_en": "The measures referred to in paragraph 1 shall be based on an all-hazards approach that aims to protect network and information systems and the",
+      "description": "Les mesures visées au paragraphe 1 sont fondées sur une approche «tous risques» qui vise à protéger les réseaux et les systèmes d’information ainsi que leur environnement physique contre les incidents, et elles comprennent au moins:",
+      "description_en": "The measures referred to in paragraph 1 shall be based on an all-hazards approach that aims to protect network and information systems and the physical environment of those systems from incidents, and shall include at least the following:"
+    },
+    {
+      "ref": "21.2.a",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "les politiques relatives à l’analyse des risques et à la sécurité des systèmes d’information;",
+      "mesure_en": "policies on risk analysis and information system security;",
+      "description": "les politiques relatives à l’analyse des risques et à la sécurité des systèmes d’information;",
+      "description_en": "policies on risk analysis and information system security;"
+    },
+    {
+      "ref": "21.2.b",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "la gestion des incidents;",
+      "mesure_en": "incident handling;",
+      "description": "la gestion des incidents;",
+      "description_en": "incident handling;"
+    },
+    {
+      "ref": "21.2.c",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "la continuité des activités, par exemple la gestion des sauvegardes et la reprise des activités, et la gestion des crises;",
+      "mesure_en": "business continuity, such as backup management and disaster recovery, and crisis management;",
+      "description": "la continuité des activités, par exemple la gestion des sauvegardes et la reprise des activités, et la gestion des crises;",
+      "description_en": "business continuity, such as backup management and disaster recovery, and crisis management;"
+    },
+    {
+      "ref": "21.2.d",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "la sécurité de la chaîne d’approvisionnement, y compris les aspects liés à la sécurité concernant les relations entre chaque entité et ses",
+      "mesure_en": "supply chain security, including security-related aspects concerning the relationships between each entity and its direct suppliers or service",
+      "description": "la sécurité de la chaîne d’approvisionnement, y compris les aspects liés à la sécurité concernant les relations entre chaque entité et ses fournisseurs ou prestataires de services directs;",
+      "description_en": "supply chain security, including security-related aspects concerning the relationships between each entity and its direct suppliers or service providers;"
+    },
+    {
+      "ref": "21.2.e",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "la sécurité de l’acquisition, du développement et de la maintenance des réseaux et des systèmes d’information, y compris le traitement et la",
+      "mesure_en": "security in network and information systems acquisition, development and maintenance, including vulnerability handling and disclosure;",
+      "description": "la sécurité de l’acquisition, du développement et de la maintenance des réseaux et des systèmes d’information, y compris le traitement et la divulgation des vulnérabilités;",
+      "description_en": "security in network and information systems acquisition, development and maintenance, including vulnerability handling and disclosure;"
+    },
+    {
+      "ref": "21.2.f",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "des politiques et des procédures pour évaluer l’efficacité des mesures de gestion des risques en matière de cybersécurité;",
+      "mesure_en": "policies and procedures to assess the effectiveness of cybersecurity risk-management measures;",
+      "description": "des politiques et des procédures pour évaluer l’efficacité des mesures de gestion des risques en matière de cybersécurité;",
+      "description_en": "policies and procedures to assess the effectiveness of cybersecurity risk-management measures;"
+    },
+    {
+      "ref": "21.2.g",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "les pratiques de base en matière de cyberhygiène et la formation à la cybersécurité;",
+      "mesure_en": "basic cyber hygiene practices and cybersecurity training;",
+      "description": "les pratiques de base en matière de cyberhygiène et la formation à la cybersécurité;",
+      "description_en": "basic cyber hygiene practices and cybersecurity training;"
+    },
+    {
+      "ref": "21.2.h",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "des politiques et des procédures relatives à l’utilisation de la cryptographie et, le cas échéant, du chiffrement;",
+      "mesure_en": "policies and procedures regarding the use of cryptography and, where appropriate, encryption;",
+      "description": "des politiques et des procédures relatives à l’utilisation de la cryptographie et, le cas échéant, du chiffrement;",
+      "description_en": "policies and procedures regarding the use of cryptography and, where appropriate, encryption;"
+    },
+    {
+      "ref": "21.2.i",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "la sécurité des ressources humaines, des politiques de contrôle d’accès et la gestion des actifs;",
+      "mesure_en": "human resources security, access control policies and asset management;",
+      "description": "la sécurité des ressources humaines, des politiques de contrôle d’accès et la gestion des actifs;",
+      "description_en": "human resources security, access control policies and asset management;"
+    },
+    {
+      "ref": "21.2.j",
+      "theme": "Article 21",
+      "theme_en": "Article 21",
+      "mesure": "l’utilisation de solutions d’authentification à plusieurs facteurs ou d’authentification continue, de communications vocales, vidéo et textuelles",
+      "mesure_en": "the use of multi-factor authentication or continuous authentication solutions, secured voice, video and text communications and secured emergency",
+      "description": "l’utilisation de solutions d’authentification à plusieurs facteurs ou d’authentification continue, de communications vocales, vidéo et textuelles sécurisées et de systèmes sécurisés de communication d’urgence au sein de l’entité, selon les besoins.",
+      "description_en": "the use of multi-factor authentication or continuous authentication solutions, secured voice, video and text communications and secured emergency communication systems within the entity, where appropriate."
+    }
+  ]
+}

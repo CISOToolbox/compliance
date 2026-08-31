@@ -155,7 +155,7 @@ textarea {{ width: 100%; resize: vertical; }}
 .btn-add:hover {{ opacity: 0.9; }}
 .btn-del {{ background: var(--red); color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.8em; }}
 .badge {{ display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: 600; color: white; }}
-.ref-chip {{ display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; cursor: pointer; margin: 3px 4px; border: 2px solid; transition: all 0.15s; user-select: none; }}
+.ct-ref-chip {{ display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; cursor: pointer; margin: 3px 4px; border: 2px solid; transition: all 0.15s; user-select: none; }}
 
 .indicators {{ display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }}
 .indicator {{ background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }}
@@ -282,12 +282,12 @@ textarea {{ width: 100%; resize: vertical; }}
 <div class="sidebar-expand" id="sidebar-expand" data-click="toggleSidebar" title="Afficher le menu">&#8250;</div>
 <main class="main-content">
 <div class="container">
-<div class="tab-panel active" id="panel-dashboard"><div class="panel-desc">Vue d'ensemble de la conformité.</div><div id="dashboard-content"></div></div>
-<div class="tab-panel" id="panel-context"><div class="panel-desc">Informations sur l'évaluation et sélection des référentiels.</div><div id="context-content"></div></div>
-<div class="tab-panel" id="panel-fw"><div class="panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
-<div class="tab-panel" id="panel-plan"><div class="panel-desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
-<div class="tab-panel" id="panel-controles"><div class="panel-desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
-<div class="tab-panel" id="panel-history"><div class="panel-desc">Points de sauvegarde et historique des modifications.</div><div id="history-content"></div></div>
+<div class="tab-panel active" id="panel-dashboard"><div class="ct-panel-desc">Vue d'ensemble de la conformité.</div><div id="dashboard-content"></div></div>
+<div class="tab-panel" id="panel-context"><div class="ct-panel-desc">Informations sur l'évaluation et sélection des référentiels.</div><div id="context-content"></div></div>
+<div class="tab-panel" id="panel-fw"><div class="ct-panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
+<div class="tab-panel" id="panel-plan"><div class="ct-panel-desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
+<div class="tab-panel" id="panel-controles"><div class="ct-panel-desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
+<div class="tab-panel" id="panel-history"><div class="ct-panel-desc">Points de sauvegarde et historique des modifications.</div><div id="history-content"></div></div>
 </div>
 </main>
 </div>
@@ -295,15 +295,15 @@ textarea {{ width: 100%; resize: vertical; }}
 <footer style="display:none">Suivi de Conformité — Données modifiables, sauvegarde JSON</footer>
 
 <!-- Dialog mot de passe -->
-<div class="pwd-overlay" id="pwd-overlay">
-<div class="pwd-panel">
-    <div class="pwd-title" id="pwd-title">Mot de passe</div>
-    <input type="password" class="pwd-input" id="pwd-input" placeholder="Mot de passe" autocomplete="off">
-    <input type="password" class="pwd-input hidden" id="pwd-input2" placeholder="Confirmer le mot de passe" autocomplete="off">
-    <div class="pwd-error" id="pwd-error"></div>
+<div class="ct-pwd-overlay" id="pwd-overlay">
+<div class="ct-pwd-panel">
+    <div class="ct-pwd-title" id="pwd-title">Mot de passe</div>
+    <input type="password" class="ct-pwd-input" id="pwd-input" placeholder="Mot de passe" autocomplete="off">
+    <input type="password" class="ct-pwd-input hidden" id="pwd-input2" placeholder="Confirmer le mot de passe" autocomplete="off">
+    <div class="ct-pwd-error" id="pwd-error"></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-        <button class="pwd-btn pwd-cancel" id="pwd-cancel">Annuler</button>
-        <button class="pwd-btn pwd-ok" id="pwd-ok">OK</button>
+        <button class="ct-pwd-btn ct-pwd-cancel" id="pwd-cancel">Annuler</button>
+        <button class="ct-pwd-btn ct-pwd-ok" id="pwd-ok">OK</button>
     </div>
 </div>
 </div>
@@ -758,20 +758,20 @@ function renderContext() {{
     const m = D.meta;
     let h = "<div class='meta'>";
     for (const [key, label] of [["societe","Organisation"],["date_evaluation","Date"],["evaluateur","Évaluateur"],["perimetre","Périmètre"]]) {{
-        h += `<div class="meta-item mb-12"><div class="label">${{label}}</div><div class="value">
+        h += `<div class="ct-meta-item mb-12"><div class="label">${{label}}</div><div class="value">
             <input type="text" value="${{esc(m[key])}}" class="w-full" data-change="_setMeta" data-args='${{_da(key)}}' data-pass-value />
         </div></div>`;
     }}
-    h += `<div class="meta-item mb-12" style="min-width:100%"><div class="label">Commentaires</div><div class="value">
+    h += `<div class="ct-meta-item mb-12" style="min-width:100%"><div class="label">Commentaires</div><div class="value">
         <textarea rows="3" class="w-full" data-change="_setMeta" data-args='["commentaires"]' data-pass-value data-input="_autoHeight" data-pass-el>${{esc(m.commentaires||"")}}</textarea>
     </div></div></div>`;
 
     h += `<h3 class="section-heading">Référentiels de conformité</h3>`;
-    h += `<div class="meta-item mb-12"><div class="value" style="padding:4px 0;display:flex;flex-wrap:wrap;gap:4px">`;
+    h += `<div class="ct-meta-item mb-12"><div class="value" style="padding:4px 0;display:flex;flex-wrap:wrap;gap:4px">`;
     for (const [fwId, meta] of Object.entries(_getAllFrameworks())) {{
         const active = D.referentiels_actifs.includes(fwId);
         const chipStyle = `border-color:${{meta.color}};color:${{active?"white":meta.color}};background:${{active?meta.color:"white"}}`;
-        h += `<span class="ref-chip" style="${{chipStyle}}" data-click="toggleReferentiel" data-args='${{_da(fwId)}}' title="${{esc(meta.description)}}">${{active?"✓":"+"}} ${{esc(meta.label)}}</span>`;
+        h += `<span class="ct-ref-chip" style="${{chipStyle}}" data-click="toggleReferentiel" data-args='${{_da(fwId)}}' title="${{esc(meta.description)}}">${{active?"✓":"+"}} ${{esc(meta.label)}}</span>`;
     }}
     h += "</div></div>";
     document.getElementById("context-content").innerHTML = h;
@@ -820,7 +820,7 @@ function renderDashboard() {{
         frameworks.push({{ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, pct, excluded }});
     }}
     if (frameworks.length === 0) {{
-        h = '<div class="synth-card"><p class="text-muted">Aucun référentiel sélectionné. Allez dans <strong>Contexte</strong> pour en choisir.</p></div>';
+        h = '<div class="ct-synth-card"><p class="text-muted">Aucun référentiel sélectionné. Allez dans <strong>Contexte</strong> pour en choisir.</p></div>';
     }} else {{
         h += '<div class="indicators">';
         for (const fw of frameworks) {{
@@ -839,7 +839,7 @@ function renderDashboard() {{
         const planifie = D.mesures.filter(m => m.statut === "planifie").length;
         const termine = D.mesures.filter(m => m.statut === "termine").length;
         if (D.mesures.length > 0) {{
-            h += `<div class="synth-card"><h3>Mesures</h3><div class="indicators">
+            h += `<div class="ct-synth-card"><h3>Mesures</h3><div class="indicators">
                 <div class="indicator"><div class="value">${{D.mesures.length}}</div><div class="ind-label">Total</div></div>
                 <div class="indicator"><div class="value" style="color:var(--green)">${{termine}}</div><div class="ind-label">Terminées</div></div>
                 <div class="indicator"><div class="value" style="color:var(--light-blue)">${{enCours}}</div><div class="ind-label">En cours</div></div>
@@ -882,7 +882,7 @@ function _renderFwDashboard(fwId, label) {{
     // Actions en cours
     const actions = mesures.filter(m => m.statut !== "termine");
     if (actions.length > 0) {{
-        h += `<div class="synth-card"><h3>Actions en cours (${{actions.length}})</h3><table><thead><tr><th>ID</th><th>Description</th><th>Statut</th><th>Échéance</th></tr></thead><tbody>`;
+        h += `<div class="ct-synth-card"><h3>Actions en cours (${{actions.length}})</h3><table><thead><tr><th>ID</th><th>Description</th><th>Statut</th><th>Échéance</th></tr></thead><tbody>`;
         actions.forEach(m => {{
             h += `<tr style="cursor:pointer" data-click="_goEditMesure" data-args='${{_da(fwId,m.id)}}'><td class="fw-600">${{esc(m.id)}}</td><td>${{esc(m.description)}}</td><td>${{_mesureBadge(m)}}</td><td>${{esc(m.date_cible||"—")}}</td></tr>`;
         }});
@@ -896,7 +896,7 @@ function _renderFwDashboard(fwId, label) {{
         return (exp - today) < 90 * 86400000;
     }});
     if (expiring.length > 0) {{
-        h += `<div class="synth-card" style="border-color:var(--orange)"><h3 style="color:var(--orange)">Preuves expirant sous 90 jours (${{expiring.length}})</h3><table><thead><tr><th>ID</th><th>Label</th><th>Expiration</th></tr></thead><tbody>`;
+        h += `<div class="ct-synth-card" style="border-color:var(--orange)"><h3 style="color:var(--orange)">Preuves expirant sous 90 jours (${{expiring.length}})</h3><table><thead><tr><th>ID</th><th>Label</th><th>Expiration</th></tr></thead><tbody>`;
         expiring.forEach(p => {{
             const expired = new Date(p.date_expiration) < today;
             h += `<tr style="${{expired?"background:#fdf2f2":""}}"><td class="fw-600">${{esc(p.id)}}</td><td>${{esc(p.label)}}</td><td>${{expired?badge("Expirée","var(--red)"):esc(p.date_expiration)}}</td></tr>`;
@@ -990,8 +990,8 @@ function _renderFwExigences(fwId, label) {{
         // Sélecteur pour lier une mesure existante
         const mesOpts = D.mesures.filter(m => !(e.mesures_ids||[]).includes(m.id)).map(m => ({{value: m.id, label: m.id + " " + (m.description||"").substring(0,40)}}));
         h += `<div class="mt-8">${{_searchSelect("Lier une mesure...", mesOpts, "_linkExistingMesure", [fwId, i])}}
-            <button class="btn-add fs-xs" style="padding:2px 6px;margin-left:4px" data-click="_createAndLinkMesure" data-args='${{_da(fwId,i)}}'>+ Nouvelle</button>
-            <button class="btn-add fs-xs" style="padding:2px 6px;margin-left:4px;background:var(--light-blue)" data-click="_proposerMesures" data-args='${{_da(fwId,i)}}'>Proposer</button>
+            <button class="ct-btn-add fs-xs" style="padding:2px 6px;margin-left:4px" data-click="_createAndLinkMesure" data-args='${{_da(fwId,i)}}'>+ Nouvelle</button>
+            <button class="ct-btn-add fs-xs" style="padding:2px 6px;margin-left:4px;background:var(--light-blue)" data-click="_proposerMesures" data-args='${{_da(fwId,i)}}'>Proposer</button>
         </div></td>`;
         h += '</tr>';
     }});
@@ -1081,7 +1081,7 @@ function _renderFwMesures(fwId, label) {{
 
     let h = `<h2 style="color:var(--blue);margin-bottom:16px">Mesures — ${{esc(label)}}</h2>`;
     h += `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-        <button class="btn-add" data-click="_addMesure" data-args='${{_da(fwId)}}'>+ Nouvelle mesure</button>
+        <button class="ct-btn-add" data-click="_addMesure" data-args='${{_da(fwId)}}'>+ Nouvelle mesure</button>
         <input type="text" placeholder="Rechercher..." value="${{esc(_mesureFilter)}}" style="flex:1;max-width:300px" data-input="_filterMesures" data-args='${{_da(fwId)}}' data-pass-value />
         <span class="fs-xs text-muted">${{mesures.length}} mesure(s)</span>
     </div>`;
@@ -1095,7 +1095,7 @@ function _renderFwMesures(fwId, label) {{
                     <strong>${{esc(m.id)}}</strong>
                     <span class="flex-spacer"></span>
                     <button class="btn-del" data-click="_deleteMesure" data-args='${{_da(m.id,fwId)}}'>Supprimer</button>
-                    <button class="btn-add fs-xs" data-click="_closeMesureEdit" data-args='${{_da(fwId)}}'>Valider</button>
+                    <button class="ct-btn-add fs-xs" data-click="_closeMesureEdit" data-args='${{_da(fwId)}}'>Valider</button>
                 </div>
                 <textarea rows="2" class="w-full mb-8" placeholder="Description..." data-change="_updateMesure" data-args='${{_da(m.id,"description")}}' data-pass-value data-input="_autoHeight" data-pass-el>${{esc(m.description||"")}}</textarea>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
@@ -1123,7 +1123,7 @@ function _renderFwMesures(fwId, label) {{
                     return p ? `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditPreuveFromMesure" data-args='${{_da(fwId,m.id,pid)}}'>${{esc(p.id)}} ${{esc(p.label)}}</span><span class="tag-x" data-click="_unlinkPreuve" data-args='${{_da(m.id,pid,fwId)}}' data-stop>×</span></div>` : "";
                 }}).join("")}}
                 ${{_searchSelect("Lier une preuve...", D.preuves.filter(p => !(m.preuves_ids||[]).includes(p.id)).map(p => ({{value:p.id,label:p.id+" "+p.label}})), "_linkExistingPreuve", [m.id, fwId])}}
-                <button class="btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuve" data-args='${{_da(m.id,fwId)}}'>+ Nouvelle preuve</button>
+                <button class="ct-btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuve" data-args='${{_da(m.id,fwId)}}'>+ Nouvelle preuve</button>
             </div>`;
         }}
     }}
@@ -1390,7 +1390,7 @@ function _renderFwPreuves(fwId, label) {{
 
     let h = `<h2 style="color:var(--blue);margin-bottom:16px">Preuves — ${{esc(label)}}</h2>`;
     h += `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-        <button class="btn-add" data-click="_addPreuveGlobal" data-args='${{_da(fwId)}}'>+ Nouvelle preuve</button>
+        <button class="ct-btn-add" data-click="_addPreuveGlobal" data-args='${{_da(fwId)}}'>+ Nouvelle preuve</button>
         <input type="text" placeholder="Rechercher..." value="${{esc(_preuveFilter)}}" style="flex:1;max-width:300px" data-input="_filterPreuves" data-args='${{_da(fwId)}}' data-pass-value />
         <span class="fs-xs text-muted">${{preuves.length}} preuve(s)</span>
     </div>`;
@@ -1403,7 +1403,7 @@ function _renderFwPreuves(fwId, label) {{
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
                     <strong>${{esc(p.id)}}</strong><span class="flex-spacer"></span>
                     <button class="btn-del" data-click="_deletePreuve" data-args='${{_da(p.id,fwId)}}'>Supprimer</button>
-                    <button class="btn-add fs-xs" data-click="_closePreuveEdit" data-args='${{_da(fwId)}}'>Valider</button>
+                    <button class="ct-btn-add fs-xs" data-click="_closePreuveEdit" data-args='${{_da(fwId)}}'>Valider</button>
                 </div>
                 <input type="text" class="w-full mb-8" placeholder="Label..." value="${{esc(p.label||"")}}" data-change="_updatePreuveField" data-args='${{_da(p.id,"label")}}' data-pass-value />
                 <input type="text" class="w-full mb-8" placeholder="URL..." value="${{esc(p.url||"")}}" data-change="_updatePreuveField" data-args='${{_da(p.id,"url")}}' data-pass-value />
@@ -1528,7 +1528,7 @@ function renderPlan() {{
     }});
 
     let h = `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-        <button class="btn-add" data-click="_addMesurePlan">+ Nouvelle mesure</button>
+        <button class="ct-btn-add" data-click="_addMesurePlan">+ Nouvelle mesure</button>
         <input type="text" placeholder="Rechercher..." value="${{esc(_planFilter)}}" style="flex:1;max-width:300px" data-input="_filterPlan" data-pass-value />
         <span class="fs-xs text-muted">${{mesures.length}} mesure(s)</span>
     </div>`;
@@ -1542,7 +1542,7 @@ function renderPlan() {{
                     <strong>${{esc(m.id)}}</strong>
                     <span class="flex-spacer"></span>
                     <button class="btn-del" data-click="_deleteMesurePlan" data-args='${{_da(m.id)}}'>Supprimer</button>
-                    <button class="btn-add fs-xs" data-click="_closePlanEdit">Valider</button>
+                    <button class="ct-btn-add fs-xs" data-click="_closePlanEdit">Valider</button>
                 </div>
                 <textarea rows="2" class="w-full mb-8" placeholder="Description..." data-change="_updateMesure" data-args='${{_da(m.id,"description")}}' data-pass-value data-input="_autoHeight" data-pass-el>${{esc(m.description||"")}}</textarea>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
@@ -1570,14 +1570,14 @@ function renderPlan() {{
                     return p ? `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditPreuveFromPlan" data-args='${{_da(m.id,pid)}}'>${{esc(p.id)}} ${{esc(p.label)}}</span><span class="tag-x" data-click="_unlinkPreuvePlan" data-args='${{_da(m.id,pid)}}' data-stop>×</span></div>` : "";
                 }}).join("")}}
                 ${{_searchSelect("Lier une preuve...", D.preuves.filter(p => !(m.preuves_ids||[]).includes(p.id)).map(p => ({{value:p.id,label:p.id+" "+p.label}})), "_linkExistingPreuvePlan", [m.id])}}
-                <button class="btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuvePlan" data-args='${{_da(m.id)}}'>+ Nouvelle preuve</button>
+                <button class="ct-btn-add fs-xs" style="margin-left:4px" data-click="_createAndLinkPreuvePlan" data-args='${{_da(m.id)}}'>+ Nouvelle preuve</button>
             </div>`;
         }}
     }}
 
     // Tableau
     if (mesures.length === 0) {{
-        h += '<div class="synth-card"><p class="text-muted">Aucune mesure.</p></div>';
+        h += '<div class="ct-synth-card"><p class="text-muted">Aucune mesure.</p></div>';
     }} else {{
         h += `<table id="plan-table"><thead><tr>
             <th style="width:70px">ID</th>
@@ -1725,10 +1725,10 @@ function renderControles() {{
 
     let h = "";
     if (rows.length === 0) {{
-        h = '<div class="synth-card"><p class="text-muted">Aucun contrôle récurrent ni preuve expirant prochainement.</p></div>';
+        h = '<div class="ct-synth-card"><p class="text-muted">Aucun contrôle récurrent ni preuve expirant prochainement.</p></div>';
     }} else {{
         const retards = rows.filter(r => r.enRetard || r.expired).length;
-        if (retards > 0) h += `<div class="synth-card mb-16" style="border-color:var(--red);background:#fdf2f2"><p style="color:var(--red);font-weight:600">${{retards}} alerte(s)</p></div>`;
+        if (retards > 0) h += `<div class="ct-synth-card mb-16" style="border-color:var(--red);background:#fdf2f2"><p style="color:var(--red);font-weight:600">${{retards}} alerte(s)</p></div>`;
         h += '<table><thead><tr><th>Type</th><th>ID</th><th>Description</th><th>Détails</th><th>Statut</th></tr></thead><tbody>';
         rows.forEach(r => {{
             h += `<tr style="${{(r.enRetard||r.expired)?"background:#fdf2f2":""}}">`;
@@ -1752,11 +1752,11 @@ function renderControles() {{
 // ═══════════════════════════════════════════════════════════════════════
 async function renderHistory() {{
     const snaps = await _getSnapshots();
-    let h = '<button class="btn-add" data-click="createSnapshot">+ Créer un point de sauvegarde</button>';
+    let h = '<button class="ct-btn-add" data-click="createSnapshot">+ Créer un point de sauvegarde</button>';
     if (_isSnapEncrypted()) {{
-        h += ' <button class="btn-add" style="background:#e74c3c;margin-left:8px" data-click="disableSnapEncryption">Déchiffrer les snapshots</button>';
+        h += ' <button class="ct-btn-add" style="background:#e74c3c;margin-left:8px" data-click="disableSnapEncryption">Déchiffrer les snapshots</button>';
     }} else {{
-        h += ' <button class="btn-add" style="background:var(--light-blue);margin-left:8px" data-click="enableSnapEncryption">Chiffrer les snapshots</button>';
+        h += ' <button class="ct-btn-add" style="background:var(--light-blue);margin-left:8px" data-click="enableSnapEncryption">Chiffrer les snapshots</button>';
     }}
     if (snaps.length === 0) {{
         h += '<p class="text-muted mt-8">Aucun snapshot.</p>';
@@ -1766,8 +1766,8 @@ async function renderHistory() {{
             const d = new Date(s.date);
             const dateStr = d.toLocaleDateString("fr-FR") + " " + d.toLocaleTimeString("fr-FR", {{hour:"2-digit",minute:"2-digit"}});
             h += `<tr><td><strong>${{esc(s.name)}}</strong></td><td>${{dateStr}}</td><td class="fs-sm">${{esc(s.societe||"")}}</td>`;
-            h += `<td><button class="btn-add" style="margin:0 4px 0 0" data-click="restoreSnapshot" data-args='${{_da(i)}}'>Restaurer</button>`;
-            h += `<button class="btn-add" style="margin:0 4px 0 0;background:var(--light-blue)" data-click="exportSnapshot" data-args='${{_da(i)}}'>Exporter</button>`;
+            h += `<td><button class="ct-btn-add" style="margin:0 4px 0 0" data-click="restoreSnapshot" data-args='${{_da(i)}}'>Restaurer</button>`;
+            h += `<button class="ct-btn-add" style="margin:0 4px 0 0;background:var(--light-blue)" data-click="exportSnapshot" data-args='${{_da(i)}}'>Exporter</button>`;
             h += `<button class="btn-del" data-click="deleteSnapshot" data-args='${{_da(i)}}'>X</button></td></tr>`;
         }});
         h += '</tbody></table>';

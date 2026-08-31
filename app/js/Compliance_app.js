@@ -148,7 +148,7 @@ function _showPropositionsModal(fwId, idx, exigRef, entry, available) {
         h += '</div>';
         h += '<div style="display:flex;gap:var(--ct-s1);margin-left:var(--ct-s3);flex-shrink:0">';
         h += '<button class="ct-btn" data-variant="primary" data-size="sm" data-click="_acceptProposition" data-args=\'' + _da(i) + '\'>✓</button>';
-        h += '<button class="ct-btn ct-py-1 ct-px-3 ct-kpi-tone ct-text-onsolid ct-no-border ct-r-sm ct-clickable ct-text-meta" data-variant="danger" data-size="sm" data-click="_rejectProposition" data-args=\'' + _da(i) + '\'>✗</button>';
+        h += '<button class="ct-btn ct-py-1 ct-px-3 ct-text-onsolid ct-no-border ct-r-sm ct-clickable ct-text-meta" data-variant="danger" data-size="sm" data-click="_rejectProposition" data-args=\'' + _da(i) + '\'>✗</button>';
         h += '</div></div></div>';
     });
     h += '<div style="display:flex;gap:var(--ct-s2);justify-content:flex-end;margin-top:var(--ct-s4);padding-top:12px;border-top:1px solid var(--ct-line)">';
@@ -714,22 +714,22 @@ function renderContext() {
     let h = "<div class='meta'>";
     for (const [key, tKey] of [["societe", "comp.context.organisation"], ["date_evaluation", "comp.context.date"], ["evaluateur", "comp.context.evaluateur"], ["perimetre", "comp.context.perimetre"]]) {
         const label = t(tKey);
-        h += `<div class="meta-item mb-12"><div class="label">${label}</div><div class="value">
+        h += `<div class="ct-meta-item mb-12"><div class="label">${label}</div><div class="value">
             <input type="text" value="${esc(m[key])}" class="w-full" data-change="_setMeta" data-args='${_da(key)}' data-pass-value />
         </div></div>`;
     }
-    h += `<div class="meta-item mb-12" style="min-width:100%"><div class="label">${t("comp.context.commentaires")}</div><div class="value">
+    h += `<div class="ct-meta-item mb-12" style="min-width:100%"><div class="label">${t("comp.context.commentaires")}</div><div class="value">
         <textarea rows="3" class="w-full" data-change="_setMeta" data-args='["commentaires"]' data-pass-value data-input="_autoHeight" data-pass-el>${esc(m.commentaires || "")}</textarea>
     </div></div></div>`;
     h += `<h3 class="section-heading">${t("comp.context.frameworks_heading")}</h3>`;
-    h += `<div class="meta-item mb-12"><div class="value ct-py-1 ct-px-0 ct-flex ct-row-wrap ct-gap-1">`;
+    h += `<div class="ct-meta-item mb-12"><div class="value ct-py-1 ct-px-0 ct-flex ct-row-wrap ct-gap-1">`;
     for (const [fwId, meta] of Object.entries(_getAllFrameworks())) {
         const active = D.referentiels_actifs.includes(fwId);
         const chipStyle = `border-color:${meta.color};color:${active ? "white" : meta.color};background:${active ? meta.color : "white"}`;
         // La classe d'état (is-active / is-inactive) ne porte aucun style en
         // light ; elle sert d'ancre aux overrides dark de Compliance.css
         // (les couleurs inline par référentiel restent le rendu light).
-        h += `<span class="ref-chip ${active ? "is-active" : "is-inactive"}" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active ? "✓" : "+"} ${esc(meta.label)}</span>`;
+        h += `<span class="ct-ref-chip ${active ? "is-active" : "is-inactive"}" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active ? "✓" : "+"} ${esc(meta.label)}</span>`;
     }
     h += '</div>';
     h += '<button class="ct-btn mt-8 ct-mt-2 ct-text-label" data-write data-variant="primary" data-click="importCustomCSV">' + t("comp.csv.btn_import") + '</button>';
@@ -968,7 +968,7 @@ function renderDashboard() {
         frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, pct, excluded });
     }
     if (frameworks.length === 0) {
-        h = '<div class="synth-card"><p class="text-muted">' + t("comp.dash.no_framework") + '</p></div>';
+        h = '<div class="ct-synth-card"><p class="text-muted">' + t("comp.dash.no_framework") + '</p></div>';
     }
     else {
         h += '<div class="ct-kpigrid ct-mb-4">';
@@ -990,12 +990,16 @@ function renderDashboard() {
         const planifie = D.mesures.filter(m => m.statut === "planifie").length;
         const termine = D.mesures.filter(m => m.statut === "termine").length;
         if (D.mesures.length > 0) {
-            h += `<div class="synth-card"><h3>${t("comp.dash.mesures")}</h3><div class="ct-kpigrid ct-mb-4">
+            // Pas de carte autour de cette grille : les .ct-kpi portent deja
+            // leur fond et leur bordure, et la grille des referentiels juste
+            // au-dessus n'est pas encartee non plus. La carte s'etirait sur
+            // toute la largeur — un bloc sans contrainte dans #dashboard-content.
+            h += `<h3 class="section-heading">${t("comp.dash.mesures")}</h3><div class="ct-kpigrid ct-mb-4">
                 <div class="ct-kpi"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.total")}</div><div class="ct-kpi-value">${D.mesures.length}</div></div></div>
                 <div class="ct-kpi" data-emphasis="value"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.terminees")}</div><div class="ct-kpi-value">${termine}</div></div></div>
                 <div class="ct-kpi" data-emphasis="value"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.en_cours")}</div><div class="ct-kpi-value">${enCours}</div></div></div>
                 <div class="ct-kpi" data-emphasis="value"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.planifiees")}</div><div class="ct-kpi-value">${planifie}</div></div></div>
-            </div></div>`;
+            </div>`;
         }
     }
     document.getElementById("dashboard-content").innerHTML = h;
@@ -1032,7 +1036,7 @@ function _renderFwDashboard(fwId, label) {
     // Actions en cours
     const actions = mesures.filter(m => m.statut !== "termine");
     if (actions.length > 0) {
-        h += `<div class="synth-card"><h3>${t("comp.fw_dash.actions_en_cours", { count: actions.length })}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_description")}</th><th>${t("comp.fw_dash.col_statut")}</th><th>${t("comp.fw_dash.col_echeance")}</th></tr></thead><tbody>`;
+        h += `<div class="ct-synth-card"><h3>${t("comp.fw_dash.actions_en_cours", { count: actions.length })}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_description")}</th><th>${t("comp.fw_dash.col_statut")}</th><th>${t("comp.fw_dash.col_echeance")}</th></tr></thead><tbody>`;
         actions.forEach(m => {
             h += `<tr class="ct-clickable" data-click="_goEditMesure" data-args='${_da(fwId, m.id)}'><td class="fw-600">${esc(m.id)}</td><td>${esc(m.description)}</td><td>${_mesureBadge(m)}</td><td>${esc(m.date_cible || "—")}</td></tr>`;
         });
@@ -1046,7 +1050,7 @@ function _renderFwDashboard(fwId, label) {
         return dst === "expired" || dst === "soon";
     });
     if (expiring.length > 0) {
-        h += `<div class="synth-card" style="border-color:var(--ct-high)"><h3 class="ct-text-high">${t("comp.fw_dash.preuves_expirant", { count: expiring.length })}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_label")}</th><th>${t("comp.fw_dash.col_expiration")}</th></tr></thead><tbody>`;
+        h += `<div class="ct-synth-card" style="border-color:var(--ct-high)"><h3 class="ct-text-high">${t("comp.fw_dash.preuves_expirant", { count: expiring.length })}</h3><table><thead><tr><th>${t("comp.fw_dash.col_id")}</th><th>${t("comp.fw_dash.col_label")}</th><th>${t("comp.fw_dash.col_expiration")}</th></tr></thead><tbody>`;
         expiring.forEach(p => {
             const expired = ctDateStatus(p.date_expiration, 90) === "expired";
             h += `<tr style="${expired ? "background:var(--ct-critical-tint)" : ""}"><td class="fw-600">${esc(p.id)}</td><td>${esc(p.label)}</td><td>${expired ? _tBadge(t("comp.prv.expiree"), "red") : esc(p.date_expiration)}</td></tr>`;
@@ -1258,7 +1262,7 @@ function _renderFwMesures(fwId, label) {
     }
     else if (mesures.length > 0) {
         // Fallback (ct_table not loaded yet)
-        h += '<div class="empty-state">' + t("comp.mes.count", { count: mesures.length }) + '</div>';
+        h += '<div class="ct-empty-state">' + t("comp.mes.count", { count: mesures.length }) + '</div>';
     }
     document.getElementById("fw-desc").textContent = t("comp.mes.fw_desc", { label: label });
     document.getElementById("fw-content").innerHTML = h;
@@ -1838,7 +1842,7 @@ function _showMesureModal() {
         h += '<button class="ct-btn mt-8" data-write data-variant="primary" data-size="sm" data-click="_validateDraftMesure">' + esc(t("comp.mes.btn_valider")) + '</button>';
     }
     else {
-        h += '<button class="ct-btn mt-8 ct-kpi-tone" data-write data-variant="primary" data-size="sm" data-click="_deleteMesureModal" data-args=\'' + _da(mid) + '\'>' + esc(t("comp.mes.btn_supprimer")) + '</button>';
+        h += '<button class="ct-btn mt-8" data-write data-variant="primary" data-size="sm" data-click="_deleteMesureModal" data-args=\'' + _da(mid) + '\'>' + esc(t("comp.mes.btn_supprimer")) + '</button>';
         h += '<button class="ct-btn mt-8" data-write data-variant="primary" data-size="sm" data-click="_closeMesureModal">' + esc(t("comp.mes.btn_valider")) + '</button>';
     }
     h += '</div>';
@@ -2346,7 +2350,7 @@ function renderPlan() {
     </div>`;
     const scope = "compliance-plan";
     if (mesures.length === 0) {
-        h += '<div class="synth-card"><p class="text-muted">' + t("comp.plan.aucune") + '</p></div>';
+        h += '<div class="ct-synth-card"><p class="text-muted">' + t("comp.plan.aucune") + '</p></div>';
     }
     else if (window.ct_table) {
         const rows = mesures.map(m => Object.assign({}, m, {
@@ -2514,7 +2518,7 @@ function renderControles() {
     rows.sort((a, b) => Number(b.enRetard || b.expired || 0) - Number(a.enRetard || a.expired || 0));
     let h = "";
     if (rows.length === 0) {
-        h = '<div class="synth-card"><p class="text-muted">' + t("comp.ctrl.aucun") + '</p></div>';
+        h = '<div class="ct-synth-card"><p class="text-muted">' + t("comp.ctrl.aucun") + '</p></div>';
     }
     else {
         const retards = rows.filter(r => r.enRetard || r.expired).length;

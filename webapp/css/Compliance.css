@@ -1,10 +1,10 @@
 /* ── Compliance — App-specific styles ─────────────────────────── */
 
 .meta { gap: 12px; margin: 16px 0; }
-.meta-item { background: var(--ct-surface); border: 1px solid var(--ct-line); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 200px; }
-.meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
-.meta-item .value { margin-top: 2px; }
-.synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
+.ct-meta-item { background: var(--ct-surface); border: 1px solid var(--ct-line); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 200px; }
+.ct-meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
+.ct-meta-item .value { margin-top: 2px; }
+.ct-synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
 
 .indicators { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
 .indicator { background: var(--ct-surface); border: 1px solid var(--ct-line); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }
@@ -44,7 +44,7 @@ textarea { width: 100%; resize: vertical; }
    autre module n'utilisait. _tBadge() (Compliance_app.ts) émet désormais la
    paire -tint/-ink dans les deux thèmes : plus rien à corriger côté CSS. */
 
-/* Boutons pleins saturés (.btn-add : vert --green par défaut, variantes
+/* Boutons pleins saturés (.ct-btn-add : vert --green par défaut, variantes
    inline accent/rouge/gris) : en dark le texte blanc manque de contraste
    sur les fills saturés clairs — convention texte #11121a, alignée sur
    :root[data-theme="dark"] .ct-btn[data-variant="primary"].
@@ -64,12 +64,12 @@ textarea { width: 100%; resize: vertical; }
    référentiel si sélectionné) restent le rendu light. En dark :
    non sélectionné → surface neutre ; sélectionné → tint/ink accent
    (sémantique sélection), identique pour tous les référentiels. */
-:root[data-theme="dark"] .ref-chip.is-inactive {
+:root[data-theme="dark"] .ct-ref-chip.is-inactive {
     background: var(--ct-surface-2) !important;
     color: var(--ct-ink-1) !important;
     border-color: var(--ct-line-strong) !important;
 }
-:root[data-theme="dark"] .ref-chip.is-active {
+:root[data-theme="dark"] .ct-ref-chip.is-active {
     background: var(--ct-accent-tint) !important;
     color: var(--ct-accent-ink) !important;
     border-color: var(--ct-accent) !important;

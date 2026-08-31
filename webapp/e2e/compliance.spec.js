@@ -209,7 +209,7 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         // must then list the ones that are active.
         await page.locator(NAV_ITEMS, { hasText: /Contexte|Context/i }).first().click();
         await expect(page.locator('#panel-context')).toHaveClass(/active/);
-        await page.locator('#context-content .ref-chip.is-inactive').first().click();
+        await page.locator('#context-content .ct-ref-chip.is-inactive').first().click();
         await expect(page.locator('#sidebar-frameworks')).not.toBeEmpty();
 
         await page.locator(NAV_ITEMS, { hasText: /Tableau de bord|Dashboard/i }).first().click();

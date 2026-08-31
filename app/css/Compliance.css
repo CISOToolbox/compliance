@@ -1,9 +1,9 @@
 /* ── Compliance — App-specific styles ─────────────────────────── */
 
 .meta { gap: 12px; margin: 16px 0; }
-.meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
-.meta-item .value { margin-top: 2px; }
-.synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
+.ct-meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
+.ct-meta-item .value { margin-top: 2px; }
+.ct-synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
 
 /* Grille des tuiles KPI (indicateurs). Les tuiles sont désormais des primitives
    du socle : .ct-kpi (simple) et .ct-kpi-adv (avancée, avec .ct-meter). */
@@ -41,7 +41,7 @@ textarea { width: 100%; resize: vertical; }
    autre module n'utilisait. _tBadge() (Compliance_app.ts) émet désormais la
    paire -tint/-ink dans les deux thèmes : plus rien à corriger côté CSS. */
 
-/* Boutons pleins saturés (.btn-add : vert --green par défaut, variantes
+/* Boutons pleins saturés (.ct-btn-add : vert --green par défaut, variantes
    inline accent/rouge/gris) : en dark le texte blanc manque de contraste
    sur les fills saturés clairs — convention texte #11121a, alignée sur
    :root[data-theme="dark"] .ct-btn[data-variant="primary"].

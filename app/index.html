@@ -36,7 +36,7 @@
     <div class="ct-appbar-actions">
         <button class="ct-iconaction" data-click="ct_toggleLang" data-icon="globe" aria-label="Langue" title="Langue FR / EN"></button>
         <button class="ct-iconaction" data-click="ct_toggleTheme" data-icon="moon" aria-label="Thème" title="Thème clair / sombre"></button>
-        <span class="toolbar-right" id="toolbar-right"></span>
+        <span class="ct-toolbar-right" id="toolbar-right"></span>
     </div>
 </header>
 
@@ -73,11 +73,11 @@
 </nav>
 
 <main class="ct-content">
-<div class="tab-panel active" id="panel-dashboard"><div class="panel-desc" data-i18n="comp.panel.dashboard_desc">Vue d'ensemble de la conformité.</div><div id="dashboard-content"></div></div>
-<div class="tab-panel" id="panel-context"><div class="panel-desc" data-i18n="comp.panel.context_desc">Informations sur l'évaluation et sélection des référentiels.</div><div id="context-content"></div></div>
-<div class="tab-panel" id="panel-fw"><div class="panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
-<div class="tab-panel" id="panel-plan"><div class="panel-desc" data-i18n="comp.panel.plan_desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
-<div class="tab-panel" id="panel-controles"><div class="panel-desc" data-i18n="comp.panel.controles_desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
+<div class="tab-panel active" id="panel-dashboard"><div class="ct-panel-desc" data-i18n="comp.panel.dashboard_desc">Vue d'ensemble de la conformité.</div><div id="dashboard-content"></div></div>
+<div class="tab-panel" id="panel-context"><div class="ct-panel-desc" data-i18n="comp.panel.context_desc">Informations sur l'évaluation et sélection des référentiels.</div><div id="context-content"></div></div>
+<div class="tab-panel" id="panel-fw"><div class="ct-panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
+<div class="tab-panel" id="panel-plan"><div class="ct-panel-desc" data-i18n="comp.panel.plan_desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
+<div class="tab-panel" id="panel-controles"><div class="ct-panel-desc" data-i18n="comp.panel.controles_desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
 </main><!-- ct-content -->
 </div><!-- ct-body -->
 </div><!-- ct-app -->
@@ -85,12 +85,12 @@
 <footer class="ct-hidden" data-i18n="comp.footer">Suivi de Conformité — Données modifiables, sauvegarde JSON</footer>
 
 <!-- Dialog mot de passe -->
-<div class="pwd-overlay" id="pwd-overlay">
-<div class="pwd-panel">
-    <div class="pwd-title" id="pwd-title">Mot de passe</div>
-    <input type="password" class="pwd-input" id="pwd-input" data-i18n-placeholder="pwd_placeholder" placeholder="Mot de passe" autocomplete="off">
-    <input type="password" class="pwd-input hidden" id="pwd-input2" data-i18n-placeholder="pwd_confirm_placeholder" placeholder="Confirmer le mot de passe" autocomplete="off">
-    <div class="pwd-error" id="pwd-error"></div>
+<div class="ct-pwd-overlay" id="pwd-overlay">
+<div class="ct-pwd-panel">
+    <div class="ct-pwd-title" id="pwd-title">Mot de passe</div>
+    <input type="password" class="ct-pwd-input" id="pwd-input" data-i18n-placeholder="pwd_placeholder" placeholder="Mot de passe" autocomplete="off">
+    <input type="password" class="ct-pwd-input hidden" id="pwd-input2" data-i18n-placeholder="pwd_confirm_placeholder" placeholder="Confirmer le mot de passe" autocomplete="off">
+    <div class="ct-pwd-error" id="pwd-error"></div>
     <div class="ct-flex ct-gap-2 ct-justify-end ct-mt-2">
         <button class="ct-btn" id="pwd-cancel" data-i18n="btn_cancel">Annuler</button>
         <button class="ct-btn" data-variant="primary" id="pwd-ok" data-i18n="btn_ok">OK</button>

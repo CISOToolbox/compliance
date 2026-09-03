@@ -57,7 +57,6 @@
         del: function (id) { return _fetch("/projects/" + id, { method: "DELETE" }); },
         importFile: function (file) { var fd = new FormData(); fd.append("file", file); return _fetch("/projects/import", { method: "POST", body: fd, headers: {} }); },
         exportUrl: function (id) { return BASE + "/projects/" + id + "/export"; },
-        aiComplete: function (s, u, p, m) { return _fetch("/ai/complete", { method: "POST", body: { system: s, user: u, provider: p || (window._aiRuntime && window._aiRuntime.provider) || "anthropic", model: m || (window._aiRuntime && window._aiRuntime.model) || "claude-sonnet-4-6" } }); },
         aiConfig: function () { return _fetch("/ai/config"); },
         aiGetKeys: function () { return _fetch("/ai/keys"); },
         aiSetKeys: function (d) { return _fetch("/ai/keys", { method: "PUT", body: d }); },

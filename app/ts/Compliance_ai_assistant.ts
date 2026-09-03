@@ -24,62 +24,105 @@
     // Backend deployment: POST the per-feature user prompt to the métier
     // endpoint. `kind` selects the server-side system prompt
     // (suggest / global / scope). Returns the parsed JSON result.
-    async function _callComplianceAI(kind: string, userPrompt: string): Promise<any> {
+    // FEAT-41 — le serveur relit le projet en base et compose le prompt
+    // (src/ai_prompts.py). Le frontend ne déclare que ce qu'il veut. Le
+    // document déposé est la seule donnée qui monte encore : il n'existe
+    // nulle part ailleurs que dans ce navigateur.
+    interface ComplianceAsk {
+        kind: string;
+        framework: string;
+        index?: number;
+        refs?: string[];
+        custom_instruction?: string;
+        include_existing_measures?: boolean;
+        document?: string;
+        batch_num?: number;
+        total_batches?: number;
+        instruction?: string;
+    }
+
+    async function _callComplianceAI(ask: ComplianceAsk): Promise<any> {
+        var projectId = window._getActiveProjectId ? window._getActiveProjectId() : null;
+        if (!projectId) throw new Error(t("ai.no_project"));
         var resp = await fetch("api/ai/compliance/suggest", {
             method: "POST",
             credentials: "same-origin",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                kind: kind,
-                user: userPrompt,
-                language: _locale === "en" ? "en" : "fr"
+                kind: ask.kind,
+                project_id: projectId,
+                framework: ask.framework,
+                language: _locale === "en" ? "en" : "fr",
+                index: ask.index === undefined ? null : ask.index,
+                refs: ask.refs || null,
+                document: ask.document || null,
+                batch_num: ask.batch_num || 1,
+                total_batches: ask.total_batches || 1,
+                instruction: ask.instruction || null,
+                custom_instruction: ask.custom_instruction || null,
+                include_existing_measures: ask.include_existing_measures !== false
             })
         });
         if (!resp.ok) {
             var errTxt = await resp.text();
             var detail = errTxt.substring(0, 300);
-            // Surface FastAPI's {"detail":"..."} cleanly — covers explicit
-            // refusals (422) raised by _parse_lax_or_refuse server-side.
-            try { var j = JSON.parse(errTxt); if (j && j.detail) detail = j.detail; } catch (_) { /* keep raw */ }
+            try { var jj = JSON.parse(errTxt); if (jj && jj.detail) detail = jj.detail; } catch (_) {}
             throw new Error(detail);
         }
         var data = await resp.json();
         return data.result;
     }
 
-    function _buildUserPrompt(fwId: string, idx: number) {
-        var entry = _getExigEntry(fwId, idx);
-        var exigs = _getExigences(fwId);
-        var exig = exigs[idx] || {};
+    // FEAT-41 — _buildUserPrompt a migré vers src/ai_prompts.py::build_suggest.
 
-        var ref = _getExigRef(fwId, exig);
-        var theme = _rt(exig, "thematique") || _rt(exig, "theme") || "";
-        var mesure = _rt(exig, "mesure") || "";
-        var description = _rt(exig, "description") || "";
+    /** Ce que _mergeDetails ajoutera réellement : "" si rien ne change. */
+    function _detailsAddition(ancien: string, ajout: string): string {
+        var a = (ancien || "").trim();
+        var b = (ajout || "").trim();
+        if (!b) return "";
+        if (a && a.indexOf(b) !== -1) return "";
+        return b;
+    }
 
-        var org = D.meta ? D.meta.societe || "" : "";
-        var scope = D.meta ? D.meta.perimetre || "" : "";
+    /** FEAT-40 — aperçu de ce que l'acceptation va écrire dans la mesure visée.
+     *  Sans lui, la carte montre le fragment proposé et l'utilisateur ne peut
+     *  savoir s'il complète ou s'il écrase, ni ce que devient le titre. */
+    function _enrichPreviewHTML(s: ComplianceAiSuggestion): string {
+        if (!s || !s.id || (s.action !== "enrich" && s.action !== "link")) return "";
+        var cible = D.mesures.find(function(m) { return m.id === s.id; }) as any;
+        if (!cible) return "";
+        var h = '<div class="ai-diff ct-mb-2 ct-p-2 ct-r-md" style="background:var(--ct-bg-alt)">';
+        h += '<div class="ct-text-label ct-strong ct-mb-1">'
+           + esc(t(s.action === "link" ? "ai.preview.link" : "ai.preview.title")) + '</div>';
+        h += '<div class="ct-text-label ct-muted">' + esc(cible.id + " — " + (cible.description || "")) + '</div>';
+        if (s.action === "link") { return h + '</div>'; }
 
-        var linkedIds = entry.mesures_ids || [];
-        var existingControls = D.mesures
-            .filter(function(m) { return linkedIds.indexOf(m.id) !== -1; })
-            .map(function(m) { return m.description; })
-            .join("; ");
+        var nouveau = (s.description || "").trim();
+        if (nouveau && nouveau !== cible.description) {
+            h += '<div class="ct-text-label ct-muted ct-mt-1">' + esc(t("ai.preview.name")) + '</div>';
+            h += '<div class="ct-text-label"><s class="ct-muted">' + esc(cible.description || "") + '</s></div>';
+            h += '<div class="ct-text-label ct-strong">' + esc(nouveau) + '</div>';
+        } else {
+            h += '<div class="ct-text-label ct-muted ct-mt-1">' + esc(t("ai.preview.name_kept")) + '</div>';
+        }
+        if (s.details) {
+            var ajout = _detailsAddition(cible.details || "", s.details);
+            h += '<div class="ct-text-label ct-muted ct-mt-2">' + esc(t("ai.preview.details")) + '</div>';
+            if (cible.details) h += '<div class="ct-text-label ct-muted">' + esc(cible.details) + '</div>';
+            h += ajout
+                ? '<div class="ct-text-label ct-text-ok ct-strong">+ ' + esc(ajout) + '</div>'
+                : '<div class="ct-text-label ct-muted"><em>' + esc(t("ai.preview.no_change")) + '</em></div>';
+        }
+        return h + '</div>';
+    }
 
-        var ecart = entry.ecart || "";
-
-        var lang = _locale === "en" ? "English" : "French";
-        return "Organization: " + (org || "Not specified") + "\n" +
-            "Scope: " + (scope || "Not specified") + "\n" +
-            "Framework: " + fwId.toUpperCase() + "\n" +
-            "Requirement ref: " + ref + "\n" +
-            "Category: " + theme + "\n" +
-            "Requirement: " + mesure + "\n" +
-            (description ? "Description: " + description + "\n" : "") +
-            (ecart ? "Current assessment / comments: " + ecart + "\n" : "") +
-            (existingControls ? "Controls already linked: " + existingControls + "\n" : "") +
-            "\nPropose security controls. If the comments describe things already in place, propose them as 'termine'. " +
-            "If gaps are identified, propose measures as 'planifie'. Respond in " + lang + ".";
+    /** FEAT-40 — étend une description sans écraser l'existante. */
+    function _mergeDetails(ancien: string, ajout: string): string {
+        var a = (ancien || "").trim();
+        var b = (ajout || "").trim();
+        if (!a) return b;
+        if (!b || a.indexOf(b) !== -1) return a;
+        return a + "\n\n" + b;
     }
 
     // ═══════════════════════════════════════════════════════════════════
@@ -99,6 +142,13 @@
         (window._aiOpenPanel as (title?: string) => void)(panelTitle);
         pp.body.innerHTML =
             '<p class="fs-sm ct-mb-4 ct-muted">' + t("ai.prompt_intro") + '</p>' +
+            // FEAT-40 — cochée par défaut : le cas normal est de ne pas
+            // vouloir de doublon. L'option sert l'exception.
+            '<label class="ct-flex ct-items-start ct-gap-2 ct-mb-4 ct-clickable">'
+              + '<input type="checkbox" id="ai-include-measures" class="ct-mt-1" checked>'
+              + '<span class="fs-sm"><strong>' + esc(t("ai.include_measures")) + '</strong>'
+              + '<br><span class="ct-muted">' + esc(t("ai.include_measures_help")) + '</span></span>'
+              + '</label>' +
             '<button class="ct-btn ai-btn-accept ct-w-full ct-p-2 ct-text-data ct-mb-4" data-variant="primary" id="ai-auto-suggest">' + t("ai.auto_suggest") + '</button>' +
             '<div class="settings-label fs-sm ct-mb-1">' + t("ai.custom_instruction_label") + '</div>' +
             '<textarea id="ai-custom-instruction" class="w-full ct-bordered ct-r-md ct-p-2 ct-text-meta ct-resize-y" rows="4" placeholder="' + esc(t("ai.custom_instruction_placeholder")) + '"></textarea>' +
@@ -106,14 +156,23 @@
         pp.footer.innerHTML = '<button class="ct-btn ai-btn-close" id="ai-prompt-close">' + t("ai.close") + '</button>';
 
         document.getElementById("ai-prompt-close")!.onclick = window._aiClosePanel!;
-        document.getElementById("ai-auto-suggest")!.onclick = function() { _runComplianceSuggest(fwId, idx, ""); };
+        document.getElementById("ai-auto-suggest")!.onclick = function() {
+            _runComplianceSuggest(fwId, idx, "", _includeMeasures());
+        };
         document.getElementById("ai-send-custom")!.onclick = function() {
             var textarea = document.getElementById("ai-custom-instruction") as HTMLTextAreaElement | null;
-            _runComplianceSuggest(fwId, idx, textarea ? textarea.value.trim() : "");
+            // La case est lue MAINTENANT : _aiShowLoading va vider le panneau.
+            _runComplianceSuggest(fwId, idx, textarea ? textarea.value.trim() : "", _includeMeasures());
         };
     };
 
-    async function _runComplianceSuggest(fwId: string, idx: number, customInstruction: string) {
+    function _includeMeasures(): boolean {
+        var el = document.getElementById("ai-include-measures") as HTMLInputElement | null;
+        return el ? el.checked : true;
+    }
+
+    async function _runComplianceSuggest(fwId: string, idx: number, customInstruction: string,
+                                         avecMesures?: boolean) {
         var exigs = _getExigences(fwId);
         var exig = exigs[idx] || {};
         var ref = _getExigRef(fwId, exig);
@@ -121,23 +180,9 @@
         window._aiShowLoading!("✨ AI — " + ref);
 
         try {
-            var userPrompt;
-
-            if (customInstruction) {
-                // Custom mode: use the full auto prompt context but replace instruction with user's text
-                var autoPrompt = _buildUserPrompt(fwId, idx);
-                var contextData = window._aiPromptContext!(autoPrompt);
-
-                userPrompt = contextData +
-                    "\n\nIMPORTANT: You must ONLY propose security controls for this requirement. Do not propose anything else." +
-                    "\n\nUser instruction: " + customInstruction +
-                    "\n\nRespond in " + (_locale === "en" ? "English" : "French") + "." +
-                    '\n\nRespond with valid JSON matching this schema: [{"description":"...","details":"...","responsable":"..."}]';
-            } else {
-                userPrompt = _buildUserPrompt(fwId, idx);
-            }
-
-            var parsed = await _callComplianceAI("suggest", userPrompt);
+            var parsed = await _callComplianceAI({ kind: "suggest", framework: fwId, index: idx,
+                custom_instruction: customInstruction || undefined,
+                include_existing_measures: avecMesures !== false });
             var suggestions = Array.isArray(parsed) ? parsed : [parsed];
             window._aiRenderCards!({
                 suggestions: suggestions,
@@ -153,7 +198,8 @@
                     };
                 },
                 renderCard: function(s: ComplianceAiSuggestion) {
-                    return '<div class="ai-card-title">' + esc(s.description) + '</div>' +
+                    return _enrichPreviewHTML(s) +
+                        '<div class="ai-card-title">' + esc(s.description || "") + '</div>' +
                         (s.details ? '<div class="ai-card-details">' + esc(s.details) + '</div>' : '') +
                         '<div class="ai-card-meta">' +
                             (s.statut === "termine" ? '<span class="ct-text-low ct-strong">✓ ' + _statutLabel("termine") + '</span>' : '<span class="ct-text-high">○ ' + _statutLabel("planifie") + '</span>') +
@@ -166,15 +212,36 @@
                     var id!: string;
                     var isUpdate = false;
 
-                    // Check if this is an update of an existing measure
-                    if (s.id) {
-                        var existing = D.mesures.find(function(m) { return m.id === s.id; });
+                    // FEAT-40 — trois issues possibles, et deux d'entre elles
+                    // ne créent rien :
+                    //   link   : la mesure existante couvre déjà l'exigence,
+                    //            il suffit de l'y rattacher ;
+                    //   enrich : elle la couvre partiellement — on ÉTEND sa
+                    //            description sans écraser celle déjà rédigée ;
+                    //   new    : rien d'existant ne convient.
+                    // Écraser `description` sur un enrichissement perdrait le
+                    // libellé sous lequel la mesure est connue partout ailleurs.
+                    if (s.id && (s.action === "link" || s.action === "enrich" || !s.action)) {
+                        var existing = D.mesures.find(function(m) { return m.id === s.id; }) as any;
                         if (existing) {
                             isUpdate = true;
                             id = s.id;
-                            if (s.description) existing.description = s.description;
-                            if (s.details) existing.details = s.details;
-                            if (s.responsable) existing.responsable = s.responsable;
+                            if (s.action === "enrich") {
+                                if (s.details) existing.details = _mergeDetails(existing.details || "", s.details);
+                                // Titre ajusté SEULEMENT si le modèle en propose
+                                // un autre : c'est sous ce libellé que la mesure
+                                // apparaît sur toutes les exigences qu'elle couvre.
+                                var nt = (s.description || "").trim();
+                                if (nt && nt !== existing.description) existing.description = nt;
+                                if (!existing.responsable && s.responsable) existing.responsable = s.responsable;
+                            } else if (!s.action) {
+                                // Ancien format (sans discriminant) : comportement d'avant.
+                                if (s.description) existing.description = s.description;
+                                if (s.details) existing.details = s.details;
+                                if (s.responsable) existing.responsable = s.responsable;
+                            }
+                            // `link` ne touche à rien : le rattachement à
+                            // l'exigence est fait plus bas, pour les trois cas.
                         }
                     }
 
@@ -197,7 +264,22 @@
                         _persistCreate("measure", newMesure);
                         _persist("control", entry.id!, { mesures_ids: entry.mesures_ids });
                     } else {
-                        _persist("measure", id, { description: s.description, details: s.details, responsable: s.responsable });
+                        // Rattacher la mesure existante à l'exigence traitée :
+                        // c'est TOUT l'intérêt de `link` et `enrich`. Sans ce
+                        // rattachement, accepter la suggestion ne produit rien
+                        // de visible et l'utilisateur recrée une mesure à la
+                        // main — le doublon revient par la porte de service.
+                        if (!entry.mesures_ids) entry.mesures_ids = [];
+                        if (entry.mesures_ids.indexOf(id) === -1) {
+                            entry.mesures_ids.push(id);
+                            _persist("control", entry.id!, { mesures_ids: entry.mesures_ids });
+                        }
+                        // On persiste la valeur FUSIONNÉE, pas le fragment
+                        // renvoyé par le modèle.
+                        var maj = D.mesures.find(function(m) { return m.id === id; }) as any;
+                        if (maj) _persist("measure", id, { description: maj.description,
+                                                          details: maj.details,
+                                                          responsable: maj.responsable });
                     }
 
                     showStatus(isUpdate ? t("ai.control_updated", {id: id}) : t("ai.control_created", {id: id}));
@@ -428,15 +510,11 @@
                 resultEl.scrollTop = resultEl.scrollHeight;
             }
 
-            var userPrompt =
-                "Organization: " + (D.meta ? D.meta.societe || "" : "") + "\n" +
-                "Framework: " + fwId.toUpperCase() + "\n\n" +
-                "Requirements (batch " + batchNum + "/" + totalBatches + "):\n" +
-                batch.map(function(e) { return e.ref + " — " + e.theme + " — " + e.mesure; }).join("\n") + "\n\n" +
-                "Document to analyze:\n" + text.substring(0, 30000);
 
             try {
-                var updates = await _callComplianceAI("global", userPrompt);
+                var updates = await _callComplianceAI({ kind: "global", framework: fwId,
+                    refs: batch.map(function(e) { return e.ref; }),
+                    document: text, batch_num: batchNum, total_batches: totalBatches });
                 if (!Array.isArray(updates)) continue;
 
                 updates.forEach(function(u: ComplianceAiGlobalUpdate) {
@@ -533,6 +611,25 @@
             var mesures = u.mesures || [];
             if (!entry.mesures_ids) entry.mesures_ids = [];
             mesures.forEach(function(m) {
+                // FEAT-40 — réutiliser avant de créer, ici aussi : l'analyse
+                // documentaire proposait des mesures sans jamais consulter le
+                // plan, et en créait une par exigence traitée.
+                if (m.action === "link" || m.action === "enrich") {
+                    var dejaM = D.mesures.find(function(x) { return x.id === m.id; }) as any;
+                    if (dejaM) {
+                        if (m.action === "enrich" && m.details) {
+                            dejaM.details = _mergeDetails(dejaM.details || "", m.details);
+                            var ntg = (m.description || "").trim();
+                            if (ntg && ntg !== dejaM.description) dejaM.description = ntg;
+                            _persist("measure", dejaM.id, { description: dejaM.description,
+                                                            details: dejaM.details });
+                        }
+                        if (entry.mesures_ids!.indexOf(dejaM.id) === -1) {
+                            entry.mesures_ids!.push(dejaM.id);
+                        }
+                        return;
+                    }
+                }
                 var id = _genMesureId();
                 var newMesure = {
                     id: id,
@@ -587,14 +684,10 @@
             return { idx: i, ref: _getExigRef(fwId, e), theme: _rt(e, "thematique") || _rt(e, "theme") || "", mesure: (_rt(e, "mesure") || "").substring(0, 80), conformite: e.conformite || "", ecart: (e.ecart || "").substring(0, 60) };
         });
 
-        var scopeUser =
-            "Framework: " + fwId.toUpperCase() + "\n" +
-            "Requirements:\n" + exigSummary.map(function(e) { return e.ref + " — " + e.mesure; }).join("\n") + "\n\n" +
-            "User instruction: " + instruction;
 
         var targetRefs: string[] | null = null;
         try {
-            var scopeParsed = await _callComplianceAI("scope", scopeUser);
+            var scopeParsed = await _callComplianceAI({ kind: "scope", framework: fwId, instruction: instruction });
             if (Array.isArray(scopeParsed)) targetRefs = scopeParsed;
         } catch (e) { /* fall through to all */ }
 
@@ -634,17 +727,11 @@
                 resultEl.scrollTop = resultEl.scrollHeight;
             }
 
-            var userPrompt =
-                "Organization: " + (D.meta ? D.meta.societe || "" : "") + "\n" +
-                "Framework: " + fwId.toUpperCase() + "\n\n" +
-                "Requirements:\n" +
-                batch.map(function(e) {
-                    return e.ref + " — " + e.theme + " — " + e.mesure + " [current: " + (e.conformite || "not evaluated") + (e.ecart ? " / " + e.ecart : "") + "]";
-                }).join("\n") + "\n\n" +
-                "User instruction: " + instruction;
-
             try {
-                var updates = await _callComplianceAI("global", userPrompt);
+                // Mode personnalisé : instruction libre confrontée à la
+                // conformité en cours, pas à un document (build_global_custom).
+                var updates = await _callComplianceAI({ kind: "global_custom", framework: fwId,
+                    refs: batch.map(function(e) { return e.ref; }), instruction: instruction });
                 if (!Array.isArray(updates)) continue;
 
                 updates.forEach(function(u: ComplianceAiGlobalUpdate) {

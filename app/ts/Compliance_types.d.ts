@@ -171,6 +171,9 @@ interface ComplianceData extends ComplianceInitData {
 /* ── Suggestions / analyse IA (Compliance_ai_assistant) ─────────── */
 
 interface ComplianceAiSuggestion {
+    /** FEAT-40 — "new" | "enrich" | "link". Absent = ancien format, traité
+     *  comme avant (mise à jour complète si `id` correspond). */
+    action?: string;
     id?: string;
     description?: string;
     details?: string;
@@ -233,7 +236,6 @@ interface ComplianceAPIShape {
     del(id: string): Promise<null>;
     importFile(file: File): Promise<unknown>;
     exportUrl(id: string): string;
-    aiComplete(system: string, user: string, provider?: string, model?: string): Promise<unknown>;
     aiConfig(): Promise<unknown>;
     aiGetKeys(): Promise<unknown>;
     aiSetKeys(d: Record<string, unknown>): Promise<unknown>;

@@ -8,7 +8,9 @@ See docs/CHANTIER_IA_BACKEND.md §Phase 2.
 """
 from __future__ import annotations
 
-from fastapi import Depends
+import uuid
+
+from fastapi import Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -23,10 +25,16 @@ from src.ai_proxy_common import (
 )
 from src.auth import get_current_user
 from src.database import get_db
-from src.models import User
+from src.models import Project, User
+# _can / _reconstruct_data vivent dans routes/projects.py : l'assistant applique
+# EXACTEMENT le même contrôle d'accès et la même reconstruction que la lecture
+# normale d'un projet. Les redéfinir ici ferait diverger les deux chemins.
+from src.routes.projects import _can, _reconstruct_data
+from src.ai_prompts import (KINDS, build_global, build_global_custom,
+                            build_scope, build_suggest, validate_output)
 
 # Common /api/ai endpoints; the métier endpoint below is appended to it.
-router = make_ai_router()
+router = make_ai_router(generic_complete=False)
 
 
 def _compliance_system(kind: str, language: str) -> str:
@@ -54,7 +62,14 @@ def _compliance_system(kind: str, language: str) -> str:
             "For each requirement, propose concrete security measures (mesures). "
             "Respond ONLY with a valid JSON array. Each entry: "
             '{"ref": "requirement reference", "status": "OK|KO", "ecart": "brief comment on coverage", '
-            '"mesures": [{"description": "measure title", "details": "implementation details", "statut": "termine|planifie"}]} '
+            '"mesures": [{"action": "new|enrich|link", "id": "M-XX only when action is enrich or link", '
+            '"description": "measure title", "details": "implementation details", "statut": "termine|planifie"}]} '
+            # Sans ces deux champs dans le schéma SYSTÈME, l'instruction
+            # anti-doublon du prompt utilisateur contredisait la forme imposée
+            # ici — et le modèle suivait la forme, donc créait des doublons.
+            "Before proposing a NEW measure, check the existing measure plan given in the user prompt: "
+            "if an existing measure already covers the requirement, use action 'link' with its id; "
+            "if it partially covers it, use action 'enrich' with its id and only the ADDED details. "
             "OK = the requirement is covered → propose measures with statut 'termine' describing what IS already done. "
             "KO = gap identified → propose measures with statut 'planifie' describing what NEEDS to be done. "
             "Each requirement should have 1-3 measures. "
@@ -69,7 +84,11 @@ def _compliance_system(kind: str, language: str) -> str:
         "You must respond in " + lang + ". "
         "You must respond ONLY with a valid JSON array of objects. No markdown, no explanation, no preamble. "
         "Each object has: "
-        '{"description": "...", "details": "...", "responsable": "...", "statut": "termine|planifie"} '
+        '{"action": "new|enrich|link", "id": "M-XX only when action is enrich or link", '
+        '"description": "...", "details": "...", "responsable": "...", "statut": "termine|planifie"} '
+        "Before proposing a NEW control, check the existing measure plan given in the user prompt: "
+        "if an existing measure already covers the requirement, use action 'link' with its id; "
+        "if it partially covers it, use action 'enrich' with its id and only the ADDED details. "
         "where 'description' is a concise control title (max 100 chars), "
         "'details' is the implementation guidance (2-3 sentences), "
         "'responsable' is the suggested owner role (e.g. CISO, IT Manager, DPO), "
@@ -82,23 +101,87 @@ def _compliance_system(kind: str, language: str) -> str:
 
 
 class ComplianceSuggestRequest(BaseModel):
+    """FEAT-41 — le client déclare QUOI suggérer, pas quoi envoyer au modèle.
+
+    Aucun champ ne porte de prompt pré-composé, et il ne doit pas en
+    réapparaître : `CLAUDE.md` §5.1 et le test de contrat
+    `test_ai_requests_carry_no_precomposed_prompt`.
+
+    `document` est la seule donnée qui monte encore du client : elle vient
+    d'être déposée dans le navigateur et n'existe pas en base.
+    """
     kind: str = "suggest"
-    user: str
+    project_id: uuid.UUID
+    framework: str
     language: str = "fr"
+    index: int | None = None                  # kind=suggest : rang de l'exigence
+    refs: list[str] | None = None             # kind=global : le lot d'exigences
+    document: str | None = None               # kind=global : le document déposé
+    batch_num: int = 1
+    total_batches: int = 1
+    instruction: str | None = None            # kind=scope : l'instruction libre
+    custom_instruction: str | None = None     # kind=suggest : remplace l'instruction auto
+    # FEAT-40 — intention, pas données : le serveur lit le plan en base.
+    include_existing_measures: bool = True
 
 
 @router.post("/compliance/suggest")
 async def compliance_suggest(body: ComplianceSuggestRequest,
                              user: User = Depends(get_current_user),
                              db: AsyncSession = Depends(get_db)):
-    """Compliance suggestion endpoint. The frontend builds the per-feature user
-    prompt from the live data and posts it with a `kind` discriminator
-    (suggest / global / scope); the compliance methodology system prompts are
-    owned here, server-side. Returns the lax-parsed JSON payload (an array for
-    every current kind)."""
+    """Point d'entrée des suggestions Compliance.
+
+    Le serveur relit le projet en base et compose le prompt (FEAT-41). Avant,
+    le navigateur envoyait la chaîne complète : le contenu réellement soumis au
+    fournisseur échappait au serveur, et **aucun contrôle d'accès au projet
+    n'était possible** — le prompt arrivait déjà rempli de ses données.
+    """
     _check_ai_access(user)
     _check_rate_limit(str(user.id) if user else "anonymous")
+
+    if body.kind not in KINDS:
+        raise HTTPException(status_code=422, detail=f"unknown kind '{body.kind}'")
+
+    project = await db.get(Project, body.project_id)
+    if project is None:
+        raise HTTPException(status_code=404, detail="project not found")
+    # Lire le projet d'autrui via l'assistant serait une exfiltration déguisée.
+    if not _can("read", project, user):
+        raise HTTPException(status_code=403, detail="no access to this project")
+
+    D = await _reconstruct_data(db, project.id)
+    try:
+        if body.kind == "suggest":
+            user_prompt = build_suggest(D, body.framework, body.index or 0,
+                                        body.language, body.custom_instruction,
+                                        body.include_existing_measures)
+        elif body.kind == "global_custom":
+            user_prompt = build_global_custom(D, body.framework, body.refs or [],
+                                              body.instruction or "", body.language,
+                                              body.include_existing_measures)
+        elif body.kind == "global":
+            user_prompt = build_global(D, body.framework, body.refs or [],
+                                       body.document or "", body.batch_num,
+                                       body.total_batches, body.language,
+                                       body.include_existing_measures)
+        else:
+            user_prompt = build_scope(D, body.framework, body.instruction or "",
+                                      body.language)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
     provider, model = await _runtime_provider_model(db)
-    system = _compliance_system(body.kind, body.language) + _REFUSAL_HINT
-    raw = await call_llm(db, system, body.user, provider, model)
-    return {"result": _parse_lax_or_refuse(raw)}
+    # `global_custom` n'a pas de prompt système propre : il partage celui de
+    # `global`, comme c'était le cas quand le frontend postait kind="global".
+    system_kind = "global" if body.kind == "global_custom" else body.kind
+    system = _compliance_system(system_kind, body.language) + _REFUSAL_HINT
+    raw = await call_llm(db, system, user_prompt, provider, model)
+    parsed = _parse_lax_or_refuse(raw)
+    # `scope` rend une liste de références d'exigences, pas des suggestions.
+    if body.kind == "scope":
+        return {"result": [str(x)[:60] for x in parsed[:500]] if isinstance(parsed, list) else []}
+    try:
+        forme = "global" if body.kind in ("global", "global_custom") else "suggest"
+        return {"result": validate_output(parsed, forme)}
+    except ValueError as e:
+        raise HTTPException(status_code=502, detail=f"unusable AI response: {e}")

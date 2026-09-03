@@ -51,7 +51,6 @@ window.ComplianceAPI = {
     importFile: function(file: File) { var fd = new FormData(); fd.append("file", file); return _fetch("/projects/import", { method: "POST", body: fd, headers: {} }); },
     exportUrl: function(id: string) { return BASE + "/projects/" + id + "/export"; },
 
-    aiComplete: function(s: string, u: string, p?: string, m?: string) { return _fetch("/ai/complete", { method: "POST", body: { system: s, user: u, provider: p || (window._aiRuntime && window._aiRuntime.provider) || "anthropic", model: m || (window._aiRuntime && window._aiRuntime.model) || "claude-sonnet-4-6" } }); },
     aiConfig: function() { return _fetch("/ai/config"); },
     aiGetKeys: function() { return _fetch("/ai/keys"); },
     aiSetKeys: function(d: Record<string, unknown>) { return _fetch("/ai/keys", { method: "PUT", body: d }); },

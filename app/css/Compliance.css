@@ -5,8 +5,8 @@
 .ct-meta-item .value { margin-top: 2px; }
 .ct-synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
 
-/* Grille des tuiles KPI (indicateurs). Les tuiles sont désormais des primitives
-   du socle : .ct-kpi (simple) et .ct-kpi-adv (avancée, avec .ct-meter). */
+/* KPI tile grid (indicators). The tiles are now socle primitives:
+   .ct-kpi (simple) and .ct-kpi-adv (advanced, with .ct-meter). */
 
 .measure-card { border: 1px solid var(--ct-line); border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; }
 .measure-card.compact { cursor: pointer; transition: background 0.15s; }
@@ -16,7 +16,7 @@
 .linked-tag { display: inline-flex; align-items: center; gap: 2px; background: var(--ct-accent-tint); border-radius: 4px; padding: 1px 6px; font-size: 0.75em; margin: 1px 2px; }
 .linked-tag .tag-x { cursor: pointer; color: var(--ct-critical); font-weight: bold; margin-left: 2px; }
 
-/* Search select (dropdown filtrable) */
+/* Search select (filterable dropdown) */
 .ss-wrap { position: relative; display: inline-block; }
 .ss-input { padding: 3px 6px; border: 1px solid var(--ct-line); border-radius: 4px; font-size: 0.8em; width: 200px; }
 .ss-drop { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 200; background: var(--ct-surface); border: 1px solid var(--ct-accent); border-radius: 0 0 6px 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 200px; overflow-y: auto; }
@@ -35,32 +35,32 @@ textarea { width: 100%; resize: vertical; }
    light rendering is untouched. Tokens come from cisotoolbox.css.
    ═══════════════════════════════════════════════════════════════ */
 
-/* Les badges de statut passaient par ctBadge() (partagé), qui code en dur les
-   pastels hérités de CT_COLORS dans le style inline. On les re-thémait ici en
-   dark uniquement, ce qui laissait le light afficher des couleurs qu'aucun
-   autre module n'utilisait. _tBadge() (Compliance_app.ts) émet désormais la
-   paire -tint/-ink dans les deux thèmes : plus rien à corriger côté CSS. */
+/* Status badges used to go through ctBadge() (shared), which hard-codes the
+   pastels inherited from CT_COLORS in the inline style. We re-themed them here
+   in dark only, which left light showing colors no other module used.
+   _tBadge() (Compliance_app.ts) now emits the -tint/-ink pair in both themes:
+   nothing left to fix on the CSS side. */
 
-/* Boutons pleins saturés (.ct-btn-add : vert --green par défaut, variantes
-   inline accent/rouge/gris) : en dark le texte blanc manque de contraste
-   sur les fills saturés clairs — convention texte #11121a, alignée sur
+/* Solid saturated buttons (.ct-btn-add: --green by default, inline
+   accent/red/grey variants): in dark, white text lacks contrast on light
+   saturated fills — #11121a text convention, aligned with
    :root[data-theme="dark"] .ct-btn[data-variant="primary"].
-   Concerne : "Importer un referentiel (CSV)", "+ Nouvelle mesure",
-   "+ Nouvelle preuve", refresh ↻, petits "+ Nouvelle" et "Proposer"
-   (colonne MESURES LIÉES), boutons des modales mesure/preuve. */
+   Affects: "Importer un referentiel (CSV)", "+ Nouvelle mesure",
+   "+ Nouvelle preuve", refresh ↻, small "+ Nouvelle" and "Proposer"
+   (MESURES LIÉES column), buttons of the measure/proof modals. */
 
-/* Modale "Proposer des mesures" : boutons verts inline #22c55e + #fff
-   et bouton rejet plein --ct-critical + #fff. */
+/* "Proposer des mesures" modal: inline green buttons #22c55e + #fff
+   and solid reject button --ct-critical + #fff. */
 
-/* Panneau IA (styles injectés par js/ai_common.js, généré) : mêmes boutons
-   verts pleins + texte blanc. */
+/* AI panel (styles injected by js/ai_common.js, generated): same solid green
+   buttons + white text. */
 
-/* Pills de sélection des référentiels (page Contexte) : les couleurs
-   inline par référentiel (fond blanc si non sélectionné, fond couleur du
-   référentiel si sélectionné) restent le rendu light. En dark :
-   non sélectionné → surface neutre ; sélectionné → tint/ink accent
-   (sémantique sélection), identique pour tous les référentiels. */
+/* Framework selection pills (Contexte page): the per-framework inline
+   colors (white background if unselected, framework color background if
+   selected) remain the light rendering. In dark:
+   unselected → neutral surface; selected → accent tint/ink
+   (selection semantics), identical for every framework. */
 
-/* Extrait des styles inline : la classe portait deja le nom, la mise en
-   forme vivait a cote dans un attribut style. Rendu identique. */
+/* Extracted from inline styles: the class already carried the name, the
+   formatting lived next to it in a style attribute. Identical rendering. */
 .proposition-card { border:1px solid var(--ct-line); border-radius:8px; padding:12px; margin:8px 0; }

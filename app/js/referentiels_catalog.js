@@ -4,22 +4,22 @@
 // Fix the master in the shared repository and re-propagate. See CONTRIBUTING.md.
 // -----------------------------------------------------------------------------
 /**
- * CISO Toolbox — Référentiels complémentaires (catalogue)
+ * CISO Toolbox — additional frameworks (catalog)
  *
- * Source unique pour les deux apps (EBIOS RM + Compliance).
- * Chaque app copie ce fichier dans son répertoire js/.
+ * Single source for both apps (EBIOS RM + Compliance).
+ * Each app copies this file into its js/ directory.
  *
- * Label, description FR/EN, couleur pour chaque référentiel.
- * Les mesures détaillées sont chargées à la demande via _ensureFramework().
+ * Label, FR/EN description and colour for each framework.
+ * The detailed measures are lazy-loaded through _ensureFramework().
  */
-/* ── Types locaux ─────────────────────────────────────────────── */
-/* Cette variante backend est generee depuis shared/referentiels/catalog.json
-   (via shared/js/referentiels_catalog.js) et ne s'en ecarte que par « gamp »,
-   dont les mesures sont livrees partout mais qui n'a plus de source JSON et
-   n'est declare que par les arbres backend. Toute autre divergence est une
-   derive : ts-build fait primer ce fichier sur le maitre pour les apps
-   backend, donc elle se traduit directement par deux rendus differents du
-   meme produit. Resynchroniser plutot qu'editer a la main. */
+/* ── Local types ──────────────────────────────────────────────── */
+/* This backend variant is generated from shared/referentiels/catalog.json
+   (via shared/js/referentiels_catalog.js) and departs from it only for « gamp »,
+   whose measures ship everywhere but which no longer has a JSON source and is
+   declared by the backend trees alone. Any other divergence is drift:
+   ts-build gives this file precedence over the master for the backend apps,
+   so it translates directly into two different renderings of the same
+   product. Resynchronize rather than edit by hand. */
 window._REFERENTIELS_CATALOG = {
     "anssi": {
         "label": "ANSSI Hygi\u00e8ne",

@@ -1,9 +1,9 @@
-"""Validation de sortie IA par FORME DE RÉPONSE (post-incident 2026-09-02).
+"""AI output validation by RESPONSE SHAPE (post-incident 2026-09-02).
 
-Le `_CHAMPS` unique du module ne contenait pas `mesures` : le mode global
-rendait des exigences sans aucune mesure — tout le volet FEAT-40 de l'analyse
-documentaire était mort, en silence. Le module n'avait AUCUN test. Chaque
-forme a désormais son nettoyeur, et chaque nettoyeur son test.
+The module's single `_CHAMPS` did not contain `mesures`: the global mode
+returned requirements without any measure — the whole FEAT-40 side of the
+document analysis was dead, silently. The module had NO test. Each shape now
+has its cleaner, and each cleaner its test.
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from src.ai_prompts import MAX_ENTREES_GLOBAL, validate_output  # noqa: E402
 
 
-# ── forme "suggest" ──────────────────────────────────────────────────────
+# ── "suggest" shape ──────────────────────────────────────────────────────
 
 def test_suggest_keeps_the_fields_the_frontend_reads():
     out = validate_output([{
@@ -36,10 +36,10 @@ def test_an_invalid_action_takes_the_id_with_it():
     assert out == [{"description": "x"}]
 
 
-# ── forme "global" ───────────────────────────────────────────────────────
+# ── "global" shape ───────────────────────────────────────────────────────
 
 def test_global_entries_keep_their_mesures():
-    # LE bug : `mesures` absent du _CHAMPS unique, supprimé de chaque entrée.
+    # THE bug: `mesures` missing from the single _CHAMPS, stripped from every entry.
     out = validate_output([{
         "ref": "A.5.1", "status": "KO", "ecart": "Pas de politique formelle",
         "mesures": [{"action": "new", "description": "Rédiger la politique",
@@ -59,8 +59,8 @@ def test_nested_mesures_are_constrained_like_top_level_ones():
 
 
 def test_global_accepts_a_full_batch_of_requirements():
-    # Le frontend envoie des lots jusqu'à 50 refs ; le plafond « suggestions »
-    # (25) tronquait la moitié du lot en silence.
+    # The frontend sends batches of up to 50 refs; the "suggestions" cap
+    # (25) silently truncated half the batch.
     entrees = [{"ref": f"A.{i}", "status": "OK"} for i in range(50)]
     assert len(validate_output(entrees, "global")) == 50
     assert MAX_ENTREES_GLOBAL >= 50
@@ -77,11 +77,11 @@ def test_an_unusable_response_raises():
         validate_output(["rien", 42], "global")
 
 
-# ── garde-fou transversal ────────────────────────────────────────────────
+# ── cross-cutting guard ──────────────────────────────────────────────────
 
 def test_the_routes_module_imports_what_it_raises():
-    # Le bug d'origine : `raise HTTPException` sans import — NameError → 500
-    # sur les 5 chemins d'erreur de la route, invisible du happy path.
+    # The original bug: `raise HTTPException` without the import — NameError
+    # → 500 on the route's 5 error paths, invisible from the happy path.
     import importlib
     mod = importlib.import_module("src.routes.ai")
     assert hasattr(mod, "HTTPException")

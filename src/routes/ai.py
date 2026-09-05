@@ -26,14 +26,14 @@ from src.ai_proxy_common import (
 from src.auth import get_current_user
 from src.database import get_db
 from src.models import Project, User
-# _can / _reconstruct_data vivent dans routes/projects.py : l'assistant applique
-# EXACTEMENT le même contrôle d'accès et la même reconstruction que la lecture
-# normale d'un projet. Les redéfinir ici ferait diverger les deux chemins.
+# _can / _reconstruct_data live in routes/projects.py: the assistant applies
+# EXACTLY the same access control and the same reconstruction as a normal
+# project read. Redefining them here would make the two paths diverge.
 from src.routes.projects import _can, _reconstruct_data
 from src.ai_prompts import (KINDS, build_global, build_global_custom,
                             build_scope, build_suggest, validate_output)
 
-# Common /api/ai endpoints; the métier endpoint below is appended to it.
+# Common /api/ai endpoints; the business endpoint below is appended to it.
 router = make_ai_router(generic_complete=False)
 
 
@@ -64,9 +64,9 @@ def _compliance_system(kind: str, language: str) -> str:
             '{"ref": "requirement reference", "status": "OK|KO", "ecart": "brief comment on coverage", '
             '"mesures": [{"action": "new|enrich|link", "id": "M-XX only when action is enrich or link", '
             '"description": "measure title", "details": "implementation details", "statut": "termine|planifie"}]} '
-            # Sans ces deux champs dans le schéma SYSTÈME, l'instruction
-            # anti-doublon du prompt utilisateur contredisait la forme imposée
-            # ici — et le modèle suivait la forme, donc créait des doublons.
+            # Without these two fields in the SYSTEM schema, the anti-duplicate
+            # instruction of the user prompt contradicted the shape imposed
+            # here — and the model followed the shape, hence created duplicates.
             "Before proposing a NEW measure, check the existing measure plan given in the user prompt: "
             "if an existing measure already covers the requirement, use action 'link' with its id; "
             "if it partially covers it, use action 'enrich' with its id and only the ADDED details. "
@@ -101,27 +101,27 @@ def _compliance_system(kind: str, language: str) -> str:
 
 
 class ComplianceSuggestRequest(BaseModel):
-    """FEAT-41 — le client déclare QUOI suggérer, pas quoi envoyer au modèle.
+    """FEAT-41 — the client declares WHAT to suggest, not what to send to the model.
 
-    Aucun champ ne porte de prompt pré-composé, et il ne doit pas en
-    réapparaître : `CLAUDE.md` §5.1 et le test de contrat
+    No field carries a pre-composed prompt, and none must reappear:
+    `CLAUDE.md` §5.1 and the contract test
     `test_ai_requests_carry_no_precomposed_prompt`.
 
-    `document` est la seule donnée qui monte encore du client : elle vient
-    d'être déposée dans le navigateur et n'existe pas en base.
+    `document` is the only data still coming up from the client: it has
+    just been dropped in the browser and does not exist in the database.
     """
     kind: str = "suggest"
     project_id: uuid.UUID
     framework: str
     language: str = "fr"
-    index: int | None = None                  # kind=suggest : rang de l'exigence
-    refs: list[str] | None = None             # kind=global : le lot d'exigences
-    document: str | None = None               # kind=global : le document déposé
+    index: int | None = None                  # kind=suggest: rank of the requirement
+    refs: list[str] | None = None             # kind=global: the batch of requirements
+    document: str | None = None               # kind=global: the uploaded document
     batch_num: int = 1
     total_batches: int = 1
-    instruction: str | None = None            # kind=scope : l'instruction libre
-    custom_instruction: str | None = None     # kind=suggest : remplace l'instruction auto
-    # FEAT-40 — intention, pas données : le serveur lit le plan en base.
+    instruction: str | None = None            # kind=scope: the free-form instruction
+    custom_instruction: str | None = None     # kind=suggest: replaces the auto instruction
+    # FEAT-40 — intent, not data: the server reads the plan from the DB.
     include_existing_measures: bool = True
 
 
@@ -129,12 +129,12 @@ class ComplianceSuggestRequest(BaseModel):
 async def compliance_suggest(body: ComplianceSuggestRequest,
                              user: User = Depends(get_current_user),
                              db: AsyncSession = Depends(get_db)):
-    """Point d'entrée des suggestions Compliance.
+    """Entry point for Compliance suggestions.
 
-    Le serveur relit le projet en base et compose le prompt (FEAT-41). Avant,
-    le navigateur envoyait la chaîne complète : le contenu réellement soumis au
-    fournisseur échappait au serveur, et **aucun contrôle d'accès au projet
-    n'était possible** — le prompt arrivait déjà rempli de ses données.
+    The server re-reads the project from the DB and composes the prompt
+    (FEAT-41). Before, the browser sent the full string: the content actually
+    submitted to the provider escaped the server, and **no access control on
+    the project was possible** — the prompt arrived already filled with its data.
     """
     _check_ai_access(user)
     _check_rate_limit(str(user.id) if user else "anonymous")
@@ -145,7 +145,7 @@ async def compliance_suggest(body: ComplianceSuggestRequest,
     project = await db.get(Project, body.project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="project not found")
-    # Lire le projet d'autrui via l'assistant serait une exfiltration déguisée.
+    # Reading someone else's project via the assistant would be disguised exfiltration.
     if not _can("read", project, user):
         raise HTTPException(status_code=403, detail="no access to this project")
 
@@ -171,13 +171,13 @@ async def compliance_suggest(body: ComplianceSuggestRequest,
         raise HTTPException(status_code=422, detail=str(e))
 
     provider, model = await _runtime_provider_model(db)
-    # `global_custom` n'a pas de prompt système propre : il partage celui de
-    # `global`, comme c'était le cas quand le frontend postait kind="global".
+    # `global_custom` has no system prompt of its own: it shares the one of
+    # `global`, as was the case when the frontend posted kind="global".
     system_kind = "global" if body.kind == "global_custom" else body.kind
     system = _compliance_system(system_kind, body.language) + _REFUSAL_HINT
     raw = await call_llm(db, system, user_prompt, provider, model)
     parsed = _parse_lax_or_refuse(raw)
-    # `scope` rend une liste de références d'exigences, pas des suggestions.
+    # `scope` returns a list of requirement references, not suggestions.
     if body.kind == "scope":
         return {"result": [str(x)[:60] for x in parsed[:500]] if isinstance(parsed, list) else []}
     try:

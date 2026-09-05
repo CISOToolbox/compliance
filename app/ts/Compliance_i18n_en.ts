@@ -47,13 +47,13 @@ _registerTranslations("en", {
     "comp.context.commentaires": "Comments",
     "comp.context.frameworks_heading": "Compliance frameworks",
 
-    // Statut labels
+    // Status labels
     "comp.statut.planifie": "Planned",
     "comp.statut.en_cours": "In progress",
     "comp.statut.termine": "Completed",
     "comp.statut.preuve_manquante": "Missing evidence",
 
-    // Exigence statut
+    // Requirement status
     "comp.exig_statut.ok": "OK",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
@@ -89,7 +89,7 @@ _registerTranslations("en", {
     "comp.fw_dash.col_label": "Label",
     "comp.fw_dash.col_expiration": "Expiration",
 
-    // Exigences
+    // Requirements
     "comp.exig.title": "Requirements — {label}",
     "comp.exig.search": "Search...",
     "comp.exig.count": "{filtered} / {total} requirements",
@@ -109,7 +109,7 @@ _registerTranslations("en", {
     "comp.exig.btn_proposer": "Suggest",
     "comp.exig.fw_desc": "Requirements — {label}",
 
-    // Mesures
+    // Measures
     "comp.mes.title": "Controls — {label}",
     "comp.mes.btn_nouvelle": "+ New control",
     "comp.mes.search": "Search...",
@@ -130,7 +130,7 @@ _registerTranslations("en", {
     "comp.mes.lier_exigence": "Link to a requirement...",
     "comp.mes.fw_desc": "Controls — {label}",
 
-    // Mesures table headers
+    // Measures table headers
     "comp.mes.col_id": "ID",
     "comp.mes.col_description": "Description",
     "comp.mes.col_statut": "Status",
@@ -141,7 +141,7 @@ _registerTranslations("en", {
     "comp.mes.col_exigences": "Requirements",
     "measure.selected_n": "{n} control(s) selected",
 
-    // Preuves
+    // Proofs
     "comp.prv.title": "Evidence — {label}",
     "comp.prv.btn_nouvelle": "+ New evidence",
     "comp.prv.search": "Search...",
@@ -162,7 +162,7 @@ _registerTranslations("en", {
     "comp.prv.aucune": "None",
     "comp.prv.fw_desc": "Evidence — {label}",
 
-    // Preuves table headers
+    // Proofs table headers
     "comp.prv.col_id": "ID",
     "comp.prv.col_label": "Label",
     "comp.prv.col_url": "URL",
@@ -171,18 +171,18 @@ _registerTranslations("en", {
     "comp.prv.col_mesures": "Controls",
     "comp.prv.col_statut": "Status",
 
-    // Preuves statut badges
+    // Proof status badges
     "comp.prv.expiree": "Expired",
     "comp.prv.bientot": "Soon",
     "comp.prv.ok": "OK",
 
-    // Plan d'action
+    // Action plan
     "comp.plan.btn_nouvelle": "+ New control",
     "comp.plan.search": "Search...",
     "comp.plan.count": "{count} control(s)",
     "comp.plan.aucune": "No controls.",
 
-    // Contrôles
+    // Controls
     "comp.ctrl.aucun": "No recurring reviews or evidence expiring soon.",
     "comp.ctrl.alertes": "{count} alert(s)",
     "comp.ctrl.col_type": "Type",

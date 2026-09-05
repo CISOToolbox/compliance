@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════
-// CONFIG & DONNÉES
+// CONFIG & DATA
 // ═══════════════════════════════════════════════════════════════════════
 window.CT_CONFIG = {
     edition: "suite",
@@ -38,7 +38,7 @@ function _ensureMesuresTypes(cb) {
         cb();
     });
 }
-// Trouver les mesures types applicables à une exigence
+// Find the template measures applicable to a requirement
 function _getMesuresTypesFor(fwId, exigRef) {
     const mt = window.COMPLIANCE_MESURES_TYPES || [];
     return mt.filter(m => {
@@ -46,7 +46,7 @@ function _getMesuresTypesFor(fwId, exigRef) {
         return refs.includes(exigRef);
     });
 }
-// ── Catalogue de contrôles de référence (maison) ────────────────────────
+// ── Reference control catalog (in-house) ────────────────────────────────
 let _referenceControlsLoaded = false;
 function _ensureReferenceControls(cb) {
     if (_referenceControlsLoaded) {
@@ -55,24 +55,24 @@ function _ensureReferenceControls(cb) {
     }
     _loadAsset(_ASSET_BASE + "_reference_controls.js", () => { _referenceControlsLoaded = true; cb(); });
 }
-// Mesures de référence applicables à une exigence : refs explicites par
-// référentiel (framework_refs[fwId]). Fonctionne pour tous les référentiels
-// pour lesquels la mesure déclare des refs.
+// Reference measures applicable to a requirement: explicit refs per
+// framework (framework_refs[fwId]). Works for every framework for which
+// the measure declares refs.
 function _getReferenceControlsFor(fwId, exigRef) {
     const rcs = window.COMPLIANCE_REFERENCE_CONTROLS || [];
     if (!exigRef)
         return [];
-    // Match exact, ou un ref catalogue plus fin que l'exigence (granularité :
-    // une exigence « critère » CC1.1 propose les mesures des points de focus
-    // CC1.1.x), ou l'inverse (exigence fine, ref catalogue plus large).
+    // Exact match, or a catalog ref finer than the requirement (granularity:
+    // a "criterion" requirement CC1.1 offers the measures of the focus points
+    // CC1.1.x), or the reverse (fine requirement, broader catalog ref).
     const childPrefix = exigRef + ".";
     return rcs.filter(rc => {
         const refs = (rc.framework_refs && rc.framework_refs[fwId]) || [];
         return refs.some(r => r === exigRef || r.indexOf(childPrefix) === 0 || exigRef.indexOf(r + ".") === 0);
     });
 }
-// Convertit un contrôle de référence en « mesure type » consommable par la
-// modale de proposition existante (mutualisation via exigences.iso).
+// Converts a reference control into a "template measure" consumable by the
+// existing proposal modal (shared through exigences.iso).
 function _refControlToMesureType(rc) {
     const evFr = rc.typical_evidence || [];
     const evEn = rc.typical_evidence_en || evFr;
@@ -88,7 +88,8 @@ function _refControlToMesureType(rc) {
         exigences: rc.framework_refs || {}
     };
 }
-// Filtre les mesures déjà liées puis ouvre la modale (ou message si rien à proposer).
+// Filters out already-linked measures then opens the modal (or a message
+// if there is nothing to propose).
 function _openPropositions(fwId, idx, exigRef, entry, types) {
     const linkedIds = new Set(entry.mesures_ids || []);
     const linkedDescs = new Set(D.mesures.filter(m => linkedIds.has(m.id)).map(m => m.description));
@@ -99,9 +100,9 @@ function _openPropositions(fwId, idx, exigRef, entry, types) {
     }
     _showPropositionsModal(fwId, idx, exigRef, entry, available);
 }
-// Proposer des mesures pour une exigence.
-// Priorité au catalogue de contrôles de référence (maison) ; repli sur l'ancien
-// catalogue COMPLIANCE_MESURES_TYPES pour ce qu'il ne couvre pas encore.
+// Propose measures for a requirement.
+// Reference control catalog (in-house) first; fall back to the older
+// COMPLIANCE_MESURES_TYPES catalog for what it does not cover yet.
 function _proposerMesures(fwId, idx) {
     _ensureReferenceControls(() => {
         const entry = _getExigEntry(fwId, idx);
@@ -277,9 +278,9 @@ function _genPreuveId() {
 function _getMesure(id) { return D.mesures.find(m => m.id === id); }
 function _getPreuve(id) { return D.preuves.find(p => p.id === id); }
 function _findMesuresForPreuve(preuveId) { return D.mesures.filter(m => (m.preuves_ids || []).includes(preuveId)).map(m => m.id); }
-// ── Search Select : dropdown filtrable ────────────────────────────────
+// ── Search Select: filterable dropdown ────────────────────────────────
 let _ssCounter = 0;
-// Génère un dropdown filtrable. options = liste de {value, label}, callbackFn = nom de la fonction globale
+// Builds a filterable dropdown. options = list of {value, label}, callbackFn = name of the global function
 function _searchSelect(placeholder, options, callbackFn, callbackArgs) {
     const uid = "ss-" + (_ssCounter++);
     let h = `<div class="ss-wrap" id="${uid}">`;
@@ -299,7 +300,7 @@ function _ssFilterAndOpen(uid, val) {
 function _ssOpen(uid) {
     const drop = document.getElementById(uid + "-drop");
     if (drop) {
-        // Réafficher toutes les options
+        // Show every option again
         drop.querySelectorAll(".ss-opt").forEach(o => o.style.display = "");
         drop.classList.add("open");
     }
@@ -344,34 +345,34 @@ document.addEventListener("focusin", function (e) {
             _ssOpen(wrap.id);
     }
 });
-// Fermer les dropdowns search-select au clic extérieur
+// Close the search-select dropdowns on an outside click
 document.addEventListener("click", function (e) {
     if (!e.target.closest(".ss-wrap")) {
         document.querySelectorAll(".ss-drop.open").forEach(d => d.classList.remove("open"));
     }
 });
-// Récupérer toutes les exigences d'un référentiel comme tableau d'objets
+// Get every requirement of a framework as an array of objects
 function _getExigences(fwId) {
     return (D.referentiels && D.referentiels[fwId]) || [];
 }
 function _getExigRef(fwId, entry) {
     return entry.ref || "";
 }
-// Mesures liées à un référentiel (au moins une exigence de ce fw)
+// Measures linked to a framework (at least one requirement of that fw)
 function _getMesuresForFw(fwId) {
     const exigences = _getExigences(fwId);
     const allIds = new Set();
     exigences.forEach(e => (e.mesures_ids || []).forEach(id => allIds.add(id)));
     return D.mesures.filter(m => allIds.has(m.id));
 }
-// Preuves liées à un référentiel (via les mesures)
+// Proofs linked to a framework (through the measures)
 function _getPreuvesForFw(fwId) {
     const mesures = _getMesuresForFw(fwId);
     const pIds = new Set();
     mesures.forEach(m => (m.preuves_ids || []).forEach(id => pIds.add(id)));
     return D.preuves.filter(p => pIds.has(p.id));
 }
-// Statut labels
+// Status labels
 function _normStatut(key) {
     var k = String(key || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     var map = { "planifie": "planifie", "en cours": "en_cours", "en_cours": "en_cours",
@@ -381,12 +382,12 @@ function _normStatut(key) {
 }
 function _statutLabel(key) { return t("comp.statut." + _normStatut(key)) || key; }
 const _statutColors = { planifie: "orange", en_cours: "blue", termine: "green", preuve_manquante: "red" };
-// ── Calcul automatique des statuts ───────────────────────────────────
-// Statut effectif d'une mesure (tient compte de l'expiration des preuves)
+// ── Automatic status computation ─────────────────────────────────────
+// Effective status of a measure (accounts for proof expiry)
 function _mesureEffectiveStatut(m) {
     if (m.statut !== "termine")
         return m.statut || "planifie";
-    // Terminée : vérifier qu'il y a au moins une preuve valide (non expirée)
+    // Done: check there is at least one valid (non-expired) proof
     const preuves = (m.preuves_ids || []).map(id => _getPreuve(id)).filter(Boolean);
     if (preuves.length === 0)
         return "preuve_manquante";
@@ -394,7 +395,7 @@ function _mesureEffectiveStatut(m) {
     const hasValid = preuves.some(p => !p.date_expiration || new Date(p.date_expiration) >= today);
     return hasValid ? "termine" : "preuve_manquante";
 }
-// Statut d'une exigence : OK si ≥1 mesure ET toutes terminées (avec preuves valides)
+// Requirement status: OK if ≥1 measure AND all done (with valid proofs)
 function _exigenceStatut(entry) {
     if (entry.applicable === false || entry.applicable === "non")
         return "na";
@@ -410,11 +411,11 @@ function _exigenceStatut(entry) {
 function _exigStatutLabel(key) { return t("comp.exig_statut." + key) || key; }
 const _exigStatutColors = { ok: "green", ko: "red", na: "gray" };
 // ── Badges ──────────────────────────────────────────────────────────────
-// _tBadge() (partagé) inline les pastels hérités de CT_COLORS, qui ne
-// correspondaient au design system qu'une fois re-thémés en dark — le light
-// gardait donc des couleurs qu'aucun autre module n'utilise. Même wrapper que
-// Risk : émettre directement la paire -tint/-ink, dans les deux thèmes, et
-// conserver data-tone pour que le CSS puisse encore cibler une famille.
+// _tBadge() (shared) inlines the pastels inherited from CT_COLORS, which only
+// matched the design system once re-themed in dark — light therefore kept
+// colors no other module uses. Same wrapper as Risk: emit the -tint/-ink pair
+// directly, in both themes, and keep data-tone so the CSS can still target a
+// family.
 const _CT_TONES = {
     red: "critical", redDark: "critical", redMax: "critical", orange: "high",
     yellow: "medium", green: "low", blue: "info", gray: "neutral",
@@ -422,19 +423,19 @@ const _CT_TONES = {
 function _tBadge(text, colorName) {
     if (!text)
         return "";
-    // Le ton suffit : .ct-badge[data-tone] porte deja la paire -tint / -ink.
+    // The tone is enough: .ct-badge[data-tone] already carries -tint / -ink.
     return '<span class="ct-badge" data-tone="' + (_CT_TONES[colorName] || "neutral") + '">' + esc(text) + '</span>';
 }
 function _mesureBadge(m) {
     const s = _mesureEffectiveStatut(m);
-    // Normaliser avant lookup : les mesures importées/synchronisées peuvent
-    // porter un statut brut ("En cours") — sans normalisation le badge
-    // retombait sur "gray" et deux styles coexistaient pour le même statut.
+    // Normalize before the lookup: imported/synced measures can carry a raw
+    // status ("En cours") — without normalization the badge fell back to
+    // "gray" and two styles coexisted for the same status.
     return s ? _tBadge(_statutLabel(s), _statutColors[_normStatut(s)] || "gray") : "u2014";
 }
 function _recLabel(key) { return t("comp.rec." + key) || key; }
 const _recJours = { ponctuel: 0, mensuelle: 30, trimestrielle: 90, semestrielle: 180, annuelle: 365 };
-// Référentiels de base (ANSSI, ISO) avec même structure que les complémentaires pour l'UI
+// Base frameworks (ANSSI, ISO) with the same structure as the additional ones for the UI
 const _BASE_FRAMEWORKS = {
     anssi: { label: "ANSSI — Guide d'hygiène", get description() { return t("comp.fw.anssi_desc"); }, color: "#1e293b" },
     iso: { label: "ISO 27001", get description() { return t("comp.fw.iso_desc"); }, color: "#1e40af" }
@@ -464,9 +465,9 @@ function selectPanel(panelId) {
     if (_draftMesure)
         _discardDraft();
     _currentPanel = panelId;
-    // Fermer la sidebar mobile
+    // Close the mobile sidebar
     document.querySelector(".ct-rail, .sidebar")?.classList.remove("open");
-    // Format: "fw:dora:exigences" ou "dashboard" ou "context"
+    // Format: "fw:dora:exigences" or "dashboard" or "context"
     if (panelId.startsWith("fw:")) {
         const parts = panelId.split(":");
         _currentFw = parts[1];
@@ -526,7 +527,7 @@ function ensureKeys() {
         D.mesures = [];
     if (!Array.isArray(D.preuves))
         D.preuves = [];
-    // ── Migration ancien format (socle_anssi / socle_iso / socle_complementaires) ──
+    // ── Legacy format migration (socle_anssi / socle_iso / socle_complementaires) ──
     if (Array.isArray(D.socle_anssi) && D.socle_anssi.length > 0 && !D.referentiels.anssi) {
         D.referentiels.anssi = D.socle_anssi.map(e => {
             const entry = Object.assign({}, e);
@@ -560,7 +561,7 @@ function ensureKeys() {
     }
     delete D.socle_complementaires;
     delete D.socle_type;
-    // ── Compléter les référentiels avec les exigences de base manquantes ──
+    // ── Complete the frameworks with the missing base requirements ────────
     const initData = window.COMPLIANCE_INIT_DATA || {};
     const initRefs = (initData.referentiels) || {};
     // ANSSI: merge base entries
@@ -637,9 +638,9 @@ function ensureKeys() {
             D.referentiels[fwId] = enriched;
         }
     }
-    // Promotion automatique : mesure terminée = "en place"
-    // (pas de migration nécessaire, c'est une logique d'affichage)
-    // Mettre à jour les compteurs d'ID
+    // Automatic promotion: a done measure = "en place"
+    // (no migration needed, this is display logic)
+    // Update the ID counters
     D.mesures.forEach(m => {
         const n = parseInt((m.id || "").replace("M-", ""));
         if (n >= _nextMesureId)
@@ -655,7 +656,7 @@ function ensureKeys() {
         sub.textContent = D.meta.societe || "";
 }
 // ═══════════════════════════════════════════════════════════════════════
-// RENDU
+// RENDERING
 // ═══════════════════════════════════════════════════════════════════════
 function renderAll() {
     renderSidebar();
@@ -669,7 +670,7 @@ function renderAll() {
         renderControles();
     else if (_currentPanel.startsWith("fw:") && _currentFw)
         _renderFwView(_currentFw, _currentSubview);
-    // Mettre à jour les boutons undo/redo
+    // Update the undo/redo buttons
     _updateUndoButtons();
     // Toolbar right — settings button (auth buttons preserved by _initAuth)
     var tr = document.getElementById("toolbar-right");
@@ -694,9 +695,9 @@ function renderSidebar() {
             continue;
         const label = fwId === "anssi" ? "ANSSI" : fwId === "iso" ? "ISO 27001" : meta.label;
         const isActive = _currentFw === fwId;
-        // Item du référentiel — cliquer dessus ouvre/ferme les sous-menus et va au dashboard
+        // Framework item — clicking it opens/closes the submenus and goes to the dashboard
         h += `<button class="ct-rail-item"${isActive ? ' aria-current="page"' : ""} data-click="selectPanel" data-args='${_da("fw:" + fwId + ":dashboard")}'><span class="ct-rail-item-label">${esc(label)}</span></button>`;
-        // Sous-menus : affichés uniquement si c'est le référentiel sélectionné
+        // Submenus: shown only if this is the selected framework
         if (isActive) {
             for (let vi = 0; vi < views.length; vi++) {
                 const pid = "fw:" + fwId + ":" + views[vi];
@@ -708,7 +709,7 @@ function renderSidebar() {
     h += '</div>';
     document.getElementById("sidebar-frameworks").innerHTML = h;
 }
-// ── Contexte ──────────────────────────────────────────────────────
+// ── Context ───────────────────────────────────────────────────────
 function renderContext() {
     const m = D.meta;
     let h = "<div class='meta'>";
@@ -726,9 +727,9 @@ function renderContext() {
     for (const [fwId, meta] of Object.entries(_getAllFrameworks())) {
         const active = D.referentiels_actifs.includes(fwId);
         const chipStyle = `border-color:${meta.color};color:${active ? "white" : meta.color};background:${active ? meta.color : "white"}`;
-        // La classe d'état (is-active / is-inactive) ne porte aucun style en
-        // light ; elle sert d'ancre aux overrides dark de Compliance.css
-        // (les couleurs inline par référentiel restent le rendu light).
+        // The state class (is-active / is-inactive) carries no style in light;
+        // it is the anchor for the dark overrides in Compliance.css
+        // (the per-framework inline colors remain the light rendering).
         h += `<span class="ct-ref-chip ${active ? "is-active" : "is-inactive"}" style="${chipStyle}" data-click="toggleReferentiel" data-args='${_da(fwId)}' title="${esc(meta.description)}">${active ? "✓" : "+"} ${esc(meta.label)}</span>`;
     }
     h += '</div>';
@@ -825,7 +826,7 @@ function toggleReferentiel(fwId) {
     else
         doToggle();
 }
-// ── Import référentiel custom depuis CSV ──────────────────────────
+// ── Custom framework import from CSV ──────────────────────────────
 function downloadCSVTemplate() {
     _downloadCSV("referentiel_template.csv", "ref;theme;mesure;description;theme_en;mesure_en;description_en", [
         "CUSTOM-01;Gouvernance;Politique de securite;Definir et maintenir une PSSI;Governance;Security Policy;Define and maintain a security policy",
@@ -953,7 +954,7 @@ function _parseAndImportCSV(csvText, filename) {
     renderSidebar();
     showStatus(t("comp.csv.imported", { label: label, count: measures.length }));
 }
-// ── Dashboard global ──────────────────────────────────────────────
+// ── Global dashboard ──────────────────────────────────────────────
 function renderDashboard() {
     let h = "";
     const frameworks = [];
@@ -985,15 +986,15 @@ function renderDashboard() {
             </div>`;
         }
         h += '</div>';
-        // Plan d'action résumé
+        // Action plan summary
         const enCours = D.mesures.filter(m => m.statut === "en_cours").length;
         const planifie = D.mesures.filter(m => m.statut === "planifie").length;
         const termine = D.mesures.filter(m => m.statut === "termine").length;
         if (D.mesures.length > 0) {
-            // Pas de carte autour de cette grille : les .ct-kpi portent deja
-            // leur fond et leur bordure, et la grille des referentiels juste
-            // au-dessus n'est pas encartee non plus. La carte s'etirait sur
-            // toute la largeur — un bloc sans contrainte dans #dashboard-content.
+            // No card around this grid: the .ct-kpi already carry their own
+            // background and border, and the framework grid just above is not
+            // boxed either. The card stretched across the full width — an
+            // unconstrained block inside #dashboard-content.
             h += `<h3 class="section-heading">${t("comp.dash.mesures")}</h3><div class="ct-kpigrid ct-mb-4">
                 <div class="ct-kpi"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.total")}</div><div class="ct-kpi-value">${D.mesures.length}</div></div></div>
                 <div class="ct-kpi" data-emphasis="value"><div class="ct-kpi-tone"></div><div class="ct-kpi-body"><div class="ct-kpi-label">${t("comp.dash.terminees")}</div><div class="ct-kpi-value">${termine}</div></div></div>
@@ -1004,7 +1005,7 @@ function renderDashboard() {
     }
     document.getElementById("dashboard-content").innerHTML = h;
 }
-// ── Vue par référentiel ───────────────────────────────────────────
+// ── Per-framework view ────────────────────────────────────────────
 function _renderFwView(fwId, subview) {
     const meta = _getAllFrameworks()[fwId];
     const label = meta ? meta.label : fwId;
@@ -1042,7 +1043,7 @@ function _renderFwDashboard(fwId, label) {
         });
         h += '</tbody></table></div>';
     }
-    // Preuves expirant bientôt (< 90 jours)
+    // Proofs expiring soon (< 90 days)
     const expiring = preuves.filter(p => {
         if (!p.date_expiration)
             return false;
@@ -1060,7 +1061,7 @@ function _renderFwDashboard(fwId, label) {
     document.getElementById("fw-desc").textContent = "Dashboard " + label;
     document.getElementById("fw-content").innerHTML = h;
 }
-// ── Exigences ─────────────────────────────────────────────────────
+// ── Requirements ──────────────────────────────────────────────────
 let _exigFilter = "";
 function _filterExigences(fwId, val) {
     _exigFilter = val;
@@ -1104,10 +1105,10 @@ function _renderFwExigences(fwId, label) {
         const theme = _rt(e, "thematique") || _rt(e, "theme");
         const notApplicable = e.applicable === false || e.applicable === "non";
         const desc = getDesc ? getDesc(ref) : (_rt(e, "description") || "");
-        // Statut calculé
+        // Computed status
         const statut = _exigenceStatut(e);
         const statutColor = _exigStatutColors[statut] || "var(--ct-ink-2)";
-        // Mesures liées avec statut effectif
+        // Linked measures with their effective status
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
         const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
@@ -1119,7 +1120,7 @@ function _renderFwExigences(fwId, label) {
         h += `<td${hd("appl")} class="ta-c"><input type="checkbox" ${!notApplicable ? "checked" : ""} data-change="_toggleApplicable" data-args='${_da(fwId, i)}' data-pass-checked /></td>`;
         h += `<td${hd("statut")} class="ta-c">${_tBadge(_exigStatutLabel(statut), statutColor)}</td>`;
         h += `<td${hd("ecart")}><textarea rows="3" class="w-full" placeholder="${notApplicable ? t("comp.exig.placeholder_na") : t("comp.exig.placeholder_comments")}" data-change="_updateExig" data-args='${_da(fwId, i, "ecart")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(e.ecart || "")}</textarea></td>`;
-        // Colonne mesures liées
+        // Linked measures column
         h += `<td${hd("mes")}>`;
         if (enPlace.length > 0) {
             h += '<div class="fs-xs fw-600 mb-8 ct-text-low">' + t("comp.exig.en_place") + '</div>';
@@ -1139,7 +1140,7 @@ function _renderFwExigences(fwId, label) {
                 h += `<div class="linked-tag"><span class="ct-clickable" data-click="_goEditMesure" data-args='${_da(fwId, m.id)}'>${esc(m.id)} ${esc(m.description).substring(0, 40)}</span><span class="tag-x" data-click="_unlinkMesure" data-args='${_da(fwId, i, m.id)}' data-stop>×</span></div>`;
             });
         }
-        // Sélecteur pour lier une mesure existante
+        // Selector to link an existing measure
         const mesOpts = D.mesures.filter(m => !(e.mesures_ids || []).includes(m.id)).map(m => ({ value: m.id, label: m.id + " " + (m.description || "").substring(0, 40) }));
         h += `<div class="mt-8">${_searchSelect(t("comp.exig.lier_mesure"), mesOpts, "_linkExistingMesure", [fwId, i])}
             <button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="xs" data-click="_createAndLinkMesure" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_nouvelle")}</button>
@@ -1159,7 +1160,7 @@ function _renderFwExigences(fwId, label) {
         }
     });
 }
-// Handlers exigences
+// Requirement handlers
 function _toggleApplicable(fwId, idx, checked) {
     _saveState();
     const entry = _getExigEntry(fwId, idx);
@@ -1169,7 +1170,7 @@ function _toggleApplicable(fwId, idx, checked) {
     _renderFwView(fwId, "exigences");
     _persist("control", entry.id, { applicable: entry.applicable, conformite: entry.conformite });
 }
-// Conformité calculée automatiquement (voir _exigenceStatut)
+// Compliance computed automatically (see _exigenceStatut)
 function _updateExig(fwId, idx, field, val) {
     var entry = _getExigEntry(fwId, idx);
     entry[field] = val;
@@ -1203,12 +1204,12 @@ function _unlinkMesure(fwId, idx, mesureId) {
     _renderFwView(fwId, "exigences");
     _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
 }
-// ── Mesures (par référentiel) ─────────────────────────────────────
+// ── Measures (per framework) ──────────────────────────────────────
 let _editingMesure = null;
-let _mesureEditReturnTo = null; // "fw:anssi:exigences" si on vient des exigences
+let _mesureEditReturnTo = null; // "fw:anssi:exigences" when coming from the requirements
 let _mesureFilter = "";
 function _renderFwMesures(fwId, label) {
-    // N'afficher que les mesures liées au référentiel courant
+    // Only show the measures linked to the current framework
     const fwMesureIds = new Set();
     _getExigences(fwId).forEach(e => (e.mesures_ids || []).forEach(id => fwMesureIds.add(id)));
     const filter = _mesureFilter.toLowerCase();
@@ -1314,10 +1315,10 @@ window._editMesureRow = function (row) {
     if (!m)
         return;
     var fwId = row.__fwId || null;
-    // Les exigences d'un référentiel sont chargées paresseusement : ouvert
-    // depuis un contexte référentiel dont les entrées ne sont pas en mémoire
-    // (ex. panneau Mesures → création enchaînée), le sélecteur « Exigences
-    // liées » serait vide et la liaison perdue. Charger d'abord, puis rouvrir.
+    // A framework's requirements are lazy-loaded: opened from a framework
+    // context whose entries are not in memory (e.g. Measures panel → chained
+    // creation), the "linked requirements" selector would be empty and the
+    // link lost. Load first, then reopen.
     if (fwId && fwId !== "anssi" && fwId !== "iso" && !row.__fwEnsured
         && !_getExigences(fwId).length && typeof _ensureFramework === "function") {
         _ensureFramework(fwId, function () { row.__fwEnsured = true; window._editMesureRow(row); });
@@ -1820,7 +1821,7 @@ window._cancelDraftMesure = function () {
     _discardDraft();
     _closeMesureModal();
 };
-// ── Measure modal (shared between referential view + plan d'action) ──
+// ── Measure modal (shared between the framework view + the action plan) ──
 function _showMesureModal() {
     var existing = document.getElementById("mesure-modal-overlay");
     if (existing)
@@ -1927,10 +1928,10 @@ function _editMesure(fwId, mesureId) {
 function _goEditMesure(fwId, mesureId) {
     window._editMesureRow({ id: mesureId, __fwId: fwId });
 }
-// Rendu des exigences liées à une mesure (dans la vue édition mesure)
+// Renders the requirements linked to a measure (in the measure edit view)
 function _renderLinkedExigences(mesureId, currentFwId) {
     let h = "";
-    // Afficher les exigences déjà liées (tous référentiels)
+    // Show the already-linked requirements (all frameworks)
     const linked = [];
     for (const fwId of D.referentiels_actifs) {
         const exigences = _getExigences(fwId);
@@ -1946,7 +1947,7 @@ function _renderLinkedExigences(mesureId, currentFwId) {
     linked.forEach(l => {
         h += `<div class="linked-tag">${esc(l.fwLabel)} — ${esc(l.ref)}<span class="tag-x" data-click="_unlinkMesureFromEdit" data-args='${_da(mesureId, l.fwId, l.idx, currentFwId)}' data-stop>×</span></div>`;
     });
-    // Sélecteur pour lier à une exigence (groupé par référentiel)
+    // Selector to link to a requirement (grouped by framework)
     const exigOpts = [];
     for (const fwId of D.referentiels_actifs) {
         const exigences = _getExigences(fwId);
@@ -1986,7 +1987,7 @@ window._unlinkMesureFromEdit = function (mesureId, fwId, idx, currentFwId) {
     _saveState();
     const entry = _getExigEntry(fwId, idx);
     entry.mesures_ids = (entry.mesures_ids || []).filter(id => id !== mesureId);
-    // Garder l'édition ouverte et re-rendre
+    // Keep the edit view open and re-render
     _editingMesure = mesureId;
     if (currentFwId && _currentPanel.startsWith("fw:")) {
         _renderFwView(currentFwId, "mesures");
@@ -2012,7 +2013,7 @@ function _deleteMesure(mesureId, fwId) {
         return;
     _saveState();
     D.mesures = D.mesures.filter(m => m.id !== mesureId);
-    // Retirer des exigences de tous les référentiels
+    // Remove it from the requirements of every framework
     const cleanup = (items) => items.forEach(e => { if (e.mesures_ids)
         e.mesures_ids = e.mesures_ids.filter(id => id !== mesureId); });
     for (const fw of Object.values(D.referentiels || {})) {
@@ -2070,7 +2071,7 @@ window._createAndLinkPreuve = function (mesureId, fwId) {
     _showPreuveModal();
     showStatus(t("comp.status.preuve_created") || "Preuve creee : " + id);
 };
-// ── Preuves (par référentiel) ─────────────────────────────────────
+// ── Proofs (per framework) ────────────────────────────────────────
 let _editingPreuve = null;
 let _preuveEditReturnTo = null;
 let _preuveFilter = "";
@@ -2083,7 +2084,7 @@ function _renderFwPreuves(fwId, label) {
             return true;
         return (p.id + " " + (p.label || "") + " " + (p.url || "") + " " + (p.commentaire || "")).toLowerCase().includes(filter);
     });
-    // (utilise _findMesuresForPreuve définie au top-level)
+    // (uses _findMesuresForPreuve defined at top-level)
     let h = `<h2 class="ct-ink ct-mb-4">${t("comp.prv.title", { label: esc(label) })}</h2>`;
     h += `<div class="ct-flex ct-gap-2 ct-items-center ct-mb-3">
         <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_addPreuveGlobal" data-args='${_da(fwId)}'>${t("comp.prv.btn_nouvelle")}</button>
@@ -2196,7 +2197,7 @@ window._goEditPreuveFromMesure = function (fwId, mesureId, preuveId) {
     _returnToMesureId = mesureId;
     _showPreuveModal();
 };
-// ── Preuve modal ──────────────────────────────────────────────
+// ── Proof modal ───────────────────────────────────────────────
 function _showPreuveModal() {
     var existing = document.getElementById("preuve-modal-overlay");
     if (existing)
@@ -2207,9 +2208,9 @@ function _showPreuveModal() {
     var ov = document.createElement("div");
     ov.id = "preuve-modal-overlay";
     ov.style.cssText = "position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;padding:24px";
-    // Layout aligné sur ct_measure_modal : titre en tête, champs en lignes
-    // labellisées pleine largeur (grille 2 col. pour type/responsable et les
-    // dates), boutons dans un pied de modale unique aligné à droite.
+    // Layout aligned on ct_measure_modal: title on top, fields as full-width
+    // labelled rows (2-col grid for type/owner and the dates), buttons in a
+    // single modal footer aligned to the right.
     var _row = function (label, inner) {
         return '<label class="ct-flex ct-col ct-gap-1 ct-text-meta">' + esc(label) + inner + '</label>';
     };
@@ -2333,7 +2334,7 @@ function _updatePreuveField(preuveId, field, val) {
         _persist("proof", p.id, _obj(field, val));
     }
 }
-// ── Plan d'action global ──────────────────────────────────────────
+// ── Global action plan ────────────────────────────────────────────
 let _planFilter = "";
 function renderPlan() {
     const filter = _planFilter.toLowerCase();
@@ -2490,11 +2491,11 @@ window._createAndLinkPreuvePlan = function (mesureId) {
     if (m)
         _persist("measure", m.id, { preuves_ids: m.preuves_ids });
 };
-// ── Contrôles global ──────────────────────────────────────────────
+// ── Global controls ───────────────────────────────────────────────
 function renderControles() {
     const today = new Date();
     let rows = [];
-    // Contrôles récurrents sur les mesures
+    // Recurring controls on the measures
     D.mesures.forEach(m => {
         if (!m.recurrence || m.recurrence === "ponctuel")
             return;
@@ -2504,7 +2505,7 @@ function renderControles() {
         const enRetard = prochain ? prochain < today : !!m.dernier_controle;
         rows.push({ type: "controle", id: m.id, label: m.description, recurrence: m.recurrence, dernier: m.dernier_controle, prochain, enRetard });
     });
-    // Preuves expirant
+    // Expiring proofs
     D.preuves.forEach(p => {
         if (!p.date_expiration)
             return;
@@ -2545,7 +2546,7 @@ function renderControles() {
     _setupTable("ctrl-table");
 }
 // ═══════════════════════════════════════════════════════════════════════
-// HISTORIQUE / SNAPSHOTS
+// HISTORY / SNAPSHOTS
 // ═══════════════════════════════════════════════════════════════════════
 // ═══════════════════════════════════════════════════════════════════════
 // IMPORT EBIOS RM
@@ -2566,17 +2567,17 @@ function _doImportEbiosRM(event) {
                 return;
             }
             _saveState();
-            // 1. Importer le contexte
+            // 1. Import the context
             if (ebios.context) {
                 D.meta.societe = ebios.context.societe || D.meta.societe;
                 D.meta.date_evaluation = ebios.context.date || D.meta.date_evaluation;
                 D.meta.commentaires = ebios.context.commentaires || D.meta.commentaires;
             }
-            // 2. Importer les mesures de l'atelier 5 comme entités globales
-            const mesureIdMap = {}; // ancien ID EBIOS → nouvel ID compliance
+            // 2. Import the workshop 5 measures as global entities
+            const mesureIdMap = {}; // old EBIOS ID → new compliance ID
             if (Array.isArray(ebios.measures)) {
                 ebios.measures.forEach((em) => {
-                    // Éviter les doublons (même description nettoyée)
+                    // Avoid duplicates (same cleaned description)
                     const cleanedDesc = _cleanDesc(em.description || "");
                     const existing = D.mesures.find(m => m.description === cleanedDesc);
                     if (existing) {
@@ -2585,7 +2586,7 @@ function _doImportEbiosRM(event) {
                     else {
                         const newId = _genMesureId();
                         mesureIdMap[em.id] = newId;
-                        // Convertir le statut EBIOS RM → compliance
+                        // Convert the EBIOS RM status → compliance
                         let statut = "planifie";
                         if (em.statut === "Terminé")
                             statut = "termine";
@@ -2605,29 +2606,29 @@ function _doImportEbiosRM(event) {
                     }
                 });
             }
-            // Nettoyer un préfixe d'ID EBIOS RM d'une description
+            // Strip an EBIOS RM ID prefix from a description
             // "MES-001 - Politique de sécurité" → "Politique de sécurité"
             function _cleanDesc(text) {
                 return text.replace(/^MES-\d+\s*[-–—]\s*/, "").trim();
             }
-            // Parser le champ mesures_prevues (texte) pour retrouver et lier les mesures
+            // Parse the mesures_prevues field (free text) to find and link the measures
             function _linkMesuresFromText(entry, mesuresPrevuesText) {
                 if (!mesuresPrevuesText)
                     return;
                 if (!entry.mesures_ids)
                     entry.mesures_ids = [];
-                // Format EBIOS RM : "MES-001 - Description, MES-002 - Description"
+                // EBIOS RM format: "MES-001 - Description, MES-002 - Description"
                 const parts = mesuresPrevuesText.split(",").map(s => s.trim()).filter(Boolean);
                 parts.forEach((part) => {
                     const idMatch = part.match(/^(MES-\d+)/);
                     if (idMatch && mesureIdMap[idMatch[1]]) {
-                        // Mesure connue de l'atelier 5 : lier par son nouvel ID
+                        // Measure known from workshop 5: link by its new ID
                         const newId = mesureIdMap[idMatch[1]];
                         if (!entry.mesures_ids.includes(newId))
                             entry.mesures_ids.push(newId);
                     }
                     else {
-                        // Pas d'ID reconnu : créer une mesure à partir du texte nettoyé
+                        // No recognized ID: create a measure from the cleaned text
                         const desc = _cleanDesc(part);
                         if (!desc)
                             return;
@@ -2686,7 +2687,7 @@ function _doImportEbiosRM(event) {
                     }
                 });
             }
-            // 5. Importer référentiels complémentaires (EBIOS RM uses old format with socle_complementaires)
+            // 5. Import the additional frameworks (EBIOS RM uses old format with socle_complementaires)
             if (ebios.socle_complementaires && typeof ebios.socle_complementaires === "object") {
                 for (const [fwId, fwData] of Object.entries(ebios.socle_complementaires)) {
                     if (!D.referentiels_actifs.includes(fwId))
@@ -2724,7 +2725,7 @@ function _doImportEbiosRM(event) {
     event.target.value = "";
 }
 // ═══════════════════════════════════════════════════════════════════════
-// AIDE
+// HELP
 // ═══════════════════════════════════════════════════════════════════════
 // toggleHelp / switchHelpTab → moved to cisotoolbox.js
 // ═══════════════════════════════════════════════════════════════════════

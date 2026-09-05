@@ -1,10 +1,10 @@
 /**
- * Compliance_types.d.ts — modèle de données de l'app Compliance.
- * Fichier de types pur (aucun emit). Déduit des usages de
+ * Compliance_types.d.ts — data model of the Compliance app.
+ * Pure type file (no emit). Derived from the usages in
  * Compliance_app.js / Compliance_data.js / Compliance_ref_*.js.
  */
 
-/* ── Modèle D ───────────────────────────────────────────────────── */
+/* ── D model ────────────────────────────────────────────────────── */
 
 interface ComplianceMeta {
     tool: string;
@@ -16,10 +16,10 @@ interface ComplianceMeta {
     commentaires: string;
 }
 
-/** Entrée d'exigence d'un référentiel dans D.referentiels[fwId]. */
+/** Requirement entry of a framework in D.referentiels[fwId]. */
 interface ComplianceExigence {
     ref: string;
-    /** Id backend (présent en mode suite, absent en opensource pur). */
+    /** Backend id (present in suite mode, absent in pure opensource). */
     id?: string;
     thematique?: string;
     thematique_en?: string;
@@ -29,17 +29,17 @@ interface ComplianceExigence {
     mesure_en?: string;
     description?: string;
     description_en?: string;
-    /** "" (oui par défaut) | "non" | booléen (checkbox). */
+    /** "" (yes by default) | "non" | boolean (checkbox). */
     applicable?: boolean | string;
     conformite?: string;
     ecart?: string;
     mesures_prevues?: string;
     mesures_ids?: string[];
-    /** Ancien format (migration socle_anssi). */
+    /** Legacy format (socle_anssi migration). */
     num?: string;
 }
 
-/** Statuts normalisés par _normStatut : planifie | en_cours | termine | preuve_manquante. */
+/** Statuses normalized by _normStatut: planifie | en_cours | termine | preuve_manquante. */
 interface ComplianceMesure {
     id: string;
     description: string;
@@ -61,7 +61,7 @@ interface CompliancePreuve {
     commentaire: string;
 }
 
-/** Définition d'un contrôle dans un référentiel chargé (COMPLIANCE_REF / catalog). */
+/** Definition of a control in a loaded framework (COMPLIANCE_REF / catalog). */
 interface ComplianceRefMeasure {
     ref: string;
     theme?: string;
@@ -75,7 +75,7 @@ interface ComplianceRefMeasure {
     category?: string;
 }
 
-/** Contrôle de référence ISO (reference_controls de Compliance_ref_iso). */
+/** ISO reference control (reference_controls from Compliance_ref_iso). */
 interface ComplianceRefControl {
     ref: string;
     mesure?: string;
@@ -86,7 +86,7 @@ interface ComplianceRefControl {
     type?: string;
 }
 
-/** Entrée de window.COMPLIANCE_REF (fichiers Compliance_ref_*.js + imports CSV). */
+/** Entry of window.COMPLIANCE_REF (Compliance_ref_*.js files + CSV imports). */
 interface ComplianceRefEntry {
     id?: string;
     version?: string;
@@ -99,7 +99,7 @@ interface ComplianceRefEntry {
     custom?: boolean;
 }
 
-/** Métadonnées d'un référentiel pour l'UI (REFERENTIELS_META / _BASE_FRAMEWORKS). */
+/** Framework metadata for the UI (REFERENTIELS_META / _BASE_FRAMEWORKS). */
 interface ComplianceFwMeta {
     label: string;
     description?: string;
@@ -115,7 +115,7 @@ interface ComplianceCustomFramework {
     measures: ComplianceRefMeasure[];
 }
 
-/** Mesure type du catalogue COMPLIANCE_MESURES_TYPES. */
+/** Standard measure from the COMPLIANCE_MESURES_TYPES catalog. */
 interface ComplianceMesureType {
     id: string;
     categorie: string;
@@ -124,16 +124,16 @@ interface ComplianceMesureType {
     description_en?: string;
     details: string;
     details_en?: string;
-    /** fwId → refs d'exigences couvertes. */
+    /** fwId → refs of covered requirements. */
     exigences: Record<string, string[]>;
-    /** Champs portés par une proposition issue du catalogue de contrôles de référence. */
+    /** Fields carried by a proposal coming from the reference-controls catalog. */
     ref_id?: string;
     csf_function?: string;
     typical_evidence?: string[];
     typical_evidence_en?: string[];
 }
 
-/** Contrôle de référence du catalogue window.COMPLIANCE_REFERENCE_CONTROLS. */
+/** Reference control from the window.COMPLIANCE_REFERENCE_CONTROLS catalog. */
 interface ComplianceReferenceControl {
     id: string;
     /** policy | process | procedure | training */
@@ -146,11 +146,11 @@ interface ComplianceReferenceControl {
     description_en?: string;
     typical_evidence?: string[];
     typical_evidence_en?: string[];
-    /** fwId → refs d'exigences couvertes par cette mesure (réutilisation multi-référentiels). */
+    /** fwId → refs of requirements covered by this measure (multi-framework reuse). */
     framework_refs: Record<string, string[]>;
 }
 
-/** Données initiales (COMPLIANCE_INIT_DATA) et modèle D. */
+/** Initial data (COMPLIANCE_INIT_DATA) and D model. */
 interface ComplianceInitData {
     meta: ComplianceMeta;
     referentiels_actifs: string[];
@@ -161,7 +161,7 @@ interface ComplianceInitData {
 
 interface ComplianceData extends ComplianceInitData {
     _custom_frameworks?: Record<string, ComplianceCustomFramework>;
-    /* Ancien format, migré puis supprimé par ensureKeys() */
+    /* Legacy format, migrated then removed by ensureKeys() */
     socle_anssi?: ComplianceExigence[];
     socle_iso?: ComplianceExigence[];
     socle_complementaires?: Record<string, Record<string, Partial<ComplianceExigence>>>;
@@ -171,8 +171,8 @@ interface ComplianceData extends ComplianceInitData {
 /* ── Suggestions / analyse IA (Compliance_ai_assistant) ─────────── */
 
 interface ComplianceAiSuggestion {
-    /** FEAT-40 — "new" | "enrich" | "link". Absent = ancien format, traité
-     *  comme avant (mise à jour complète si `id` correspond). */
+    /** FEAT-40 — "new" | "enrich" | "link". Absent = legacy format, handled
+     *  as before (full update if `id` matches). */
     action?: string;
     id?: string;
     description?: string;
@@ -191,7 +191,7 @@ interface ComplianceAiGlobalUpdate {
     _applied?: boolean;
 }
 
-/* ── Contexte des modales / propositions ────────────────────────── */
+/* ── Modal context / proposals ──────────────────────────────────── */
 
 interface CompliancePropositionsCtx {
     fwId: string;
@@ -208,7 +208,7 @@ interface CompliancePendingExigOp {
     entryId?: string;
 }
 
-/** Client API backend (chargé par compliance_api.js — mode suite). */
+/** Backend API client (loaded by compliance_api.js — suite mode). */
 interface ComplianceProjectSummary {
     id: string;
     name?: string;
@@ -217,7 +217,7 @@ interface ComplianceProjectSummary {
 
 interface ComplianceProject extends ComplianceProjectSummary {
     server_rev?: number;
-    /** Blob JSON du modèle D (le backend peut renvoyer une chaîne sérialisée). */
+    /** JSON blob of the D model (the backend may return a serialized string). */
     data?: Record<string, unknown>;
 }
 
@@ -255,12 +255,12 @@ interface ComplianceAPIShape {
     deleteProof(pid: string, rid: string | number): Promise<unknown>;
 }
 
-/** Implémentation runtime posée par compliance_api.ts (window.ComplianceAPI = …). */
+/** Runtime implementation set by compliance_api.ts (window.ComplianceAPI = …). */
 declare var ComplianceAPI: ComplianceAPIShape;
 
 /**
- * Adaptateur de persistance (contrat cisotoolbox_local.js, implémenté par
- * compliance_api.ts en mode suite — cisotoolbox_local.d.ts exclu de l'app).
+ * Persistence adapter (cisotoolbox_local.js contract, implemented by
+ * compliance_api.ts in suite mode — cisotoolbox_local.d.ts excluded from the app).
  */
 declare function _obj(k: string, v: any): Record<string, any>;
 declare function _persist(entityType: string, entityId: string | number, fields: Record<string, any>): void;
@@ -276,8 +276,8 @@ declare var _demoSettingsHTML: (() => string) | undefined;
 declare var _wireDemoSettings: (() => void) | undefined;
 declare var _dirPicker: (currentValue: string | null | undefined, handler: string, argsJson: string) => string;
 
-/** Entrée snapshot (forme CtSnapshot du master local, redéclarée localement :
- *  cisotoolbox_backend.d.ts type _getSnapshots() en Promise<unknown[]>). */
+/** Snapshot entry (CtSnapshot shape from the local master, redeclared locally:
+ *  cisotoolbox_backend.d.ts types _getSnapshots() as Promise<unknown[]>). */
 interface ComplianceSnapshotEntry {
     name: string;
     date: string;
@@ -285,7 +285,7 @@ interface ComplianceSnapshotEntry {
     [k: string]: any;
 }
 
-/* ── Globals window posés par l'app ─────────────────────────────── */
+/* ── Window globals set by the app ──────────────────────────────── */
 
 interface Window {
     COMPLIANCE_INIT_DATA?: ComplianceInitData;
@@ -294,9 +294,9 @@ interface Window {
     COMPLIANCE_MESURES_TYPES?: ComplianceMesureType[];
     COMPLIANCE_REFERENCE_CONTROLS?: ComplianceReferenceControl[];
 
-    /* Mode suite (non chargés en opensource) */
+    /* Suite mode (not loaded in opensource) */
     ComplianceAPI?: ComplianceAPIShape;
-    /** Alias rétro-compat ai_common.js (posés par compliance_api.ts). */
+    /** Retro-compat aliases for ai_common.js (set by compliance_api.ts). */
     VendorAPI?: ComplianceAPIShape;
     RiskAPI?: ComplianceAPIShape;
     _getActiveProjectId?: () => string | null;
@@ -309,18 +309,18 @@ interface Window {
     _currentUser?: ComplianceAuthUser;
     _moduleRole?: string;
     _logout?: () => void;
-    /** Variante suite compliance : stubs snapshots → notice « gérés dans Pilot »
-     *  (flag lu par le master factorisé cisotoolbox_backend.js). */
+    /** Compliance suite variant: snapshot stubs → "managed in Pilot" notice
+     *  (flag read by the factored master cisotoolbox_backend.js). */
     _BACKEND_BACKUPS_VIA_PILOT?: boolean;
 
-    /* État partagé des modales */
+    /* Shared modal state */
     _propositionsCtx?: CompliancePropositionsCtx | null;
     _pendingExigLinks?: CompliancePendingExigOp[];
     _pendingExigUnlinks?: CompliancePendingExigOp[];
     _pendingPreuveLinks?: string[];
     _pendingPreuveUnlinks?: string[];
 
-    /* Handlers globaux exposés via window.X = … */
+    /* Global handlers exposed via window.X = … */
     _acceptProposition?: (i: number) => void;
     _rejectProposition?: (i: number) => void;
     _acceptAllPropositions?: () => void;
@@ -359,21 +359,21 @@ interface Window {
     _bulkCompliancePlanDelete?: (scope: string) => void;
     aiSuggestControls?: (fwId: string, idx: number) => void;
     aiGlobalAnalysis?: (fwId: string) => void;
-    /** Réassigné par Compliance_ai_assistant pour injecter les boutons IA. */
+    /** Reassigned by Compliance_ai_assistant to inject the AI buttons. */
     _renderFwExigences?: (fwId: string, label: string) => void;
 }
 
-/* ── Extensions d'interfaces partagées (declaration merging) ────── */
+/* ── Shared interface extensions (declaration merging) ─────────── */
 
-/** Frameworks custom importés par CSV. */
+/** Custom frameworks imported via CSV. */
 interface CtCatalogEntry {
     custom?: boolean;
 }
 
-/** Compliance_app passe un champ `data` aux actions ct_bulkbar (ignoré par la lib). */
+/** Compliance_app passes a `data` field to ct_bulkbar actions (ignored by the lib). */
 interface CtBulkbarAction {
     data?: Record<string, unknown>;
 }
 
-/** Brouillon de mesure (pas encore d'id — généré à la validation). */
+/** Measure draft (no id yet — generated at validation). */
 type ComplianceMesureDraft = Omit<ComplianceMesure, "id">;

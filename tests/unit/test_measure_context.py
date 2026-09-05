@@ -1,14 +1,14 @@
-"""FEAT-40 (Compliance) — le plan de mesures complet dans le prompt.
+"""FEAT-40 (Compliance) — the complete measure plan in the prompt.
 
-C'est ici que le défaut était le plus marqué. ``D.mesures`` est un pool global
-et ``control.mesures_ids`` rattache une mesure à **plusieurs** exigences — le
-cas normal en conformité. Or le prompt ne montrait que les mesures liées à
-l'exigence courante : deux exigences voisines produisaient mécaniquement deux
-fois la même mesure, et rien ne le signalait.
+This is where the flaw was most pronounced. ``D.mesures`` is a global pool
+and ``control.mesures_ids`` attaches a measure to **several** requirements —
+the normal case in compliance. Yet the prompt only showed the measures linked
+to the current requirement: two neighbouring requirements mechanically
+produced the same measure twice, and nothing signalled it.
 
-Les descriptions de la fixture sont longues à dessein : une fixture courte
-laisserait passer une troncature, alors que l'absence de troncature est la
-décision prise pour cette feature.
+The fixture descriptions are deliberately long: a short fixture would let a
+truncation slip through, whereas the absence of truncation is the decision
+made for this feature.
 """
 from __future__ import annotations
 
@@ -58,16 +58,16 @@ def test_the_context_carries_the_whole_pool():
 
 
 def test_the_context_says_which_requirements_a_measure_already_covers():
-    """Sans cela, le modèle ne peut pas proposer d'étendre une mesure à
-    l'exigence traitée — il en crée une jumelle."""
+    """Without this, the model cannot propose extending a measure to the
+    requirement at hand — it creates a twin of it."""
     ctx = {m["id"]: m for m in measure_context(D)}
     assert ctx["M-1"]["exigences_couvertes"] == ["ISO27001 A.5.1", "ISO27001 A.8.2"]
     assert ctx["M-2"]["exigences_couvertes"] == ["ISO27001 A.8.2"]
 
 
 def test_the_prompt_shows_measures_of_other_requirements():
-    """LE test de la feature : en traitant A.5.1, le modèle doit voir M-2, qui
-    n'est rattachée qu'à A.8.2. C'est ce qu'il ne voyait pas."""
+    """THE test of the feature: when processing A.5.1, the model must see M-2,
+    which is attached only to A.8.2. That is what it did not see."""
     prompt = build_suggest(D, "iso27001", 0, "fr")
     assert "M-2" in prompt, "les mesures des autres exigences restent invisibles"
     assert DETAIL_2 in prompt
@@ -84,8 +84,8 @@ def test_unchecking_removes_the_block_entirely():
     sans = build_suggest(D, "iso27001", 0, "fr", None, False)
     assert "All existing measures" not in sans
     assert DETAIL_2 not in sans
-    # …mais les mesures DÉJÀ liées à l'exigence restent : elles font partie de
-    # son état, pas du plan global.
+    # …but the measures ALREADY linked to the requirement remain: they are
+    # part of its state, not of the global plan.
     assert "PSSI" in sans
 
 
@@ -94,8 +94,8 @@ def test_the_default_is_to_include():
 
 
 def test_a_custom_instruction_keeps_the_plan():
-    """Le mode personnalisé remplace l'INSTRUCTION, pas les données : sans le
-    plan, il redeviendrait une machine à doublons."""
+    """The custom mode replaces the INSTRUCTION, not the data: without the
+    plan, it would become a duplicate machine again."""
     perso = build_suggest(D, "iso27001", 0, "fr", "Cible les accès privilégiés")
     assert "Cible les accès privilégiés" in perso
     assert "M-2" in perso and DETAIL_2 in perso

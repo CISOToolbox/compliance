@@ -1,6 +1,6 @@
 // Compliance — French translations
 // ═══════════════════════════════════════════════════════════════════════
-// TRADUCTIONS — Compliance (FR/EN)
+// TRANSLATIONS — Compliance (FR/EN)
 // ═══════════════════════════════════════════════════════════════════════
 
 _registerTranslations("fr", {
@@ -8,7 +8,7 @@ _registerTranslations("fr", {
     // Label app
     "comp.label": "évaluation",
 
-    // Titre
+    // Title
 
     // Toolbar / Menu
     "comp.menu.import_ebios": "Import EBIOS RM",
@@ -45,13 +45,13 @@ _registerTranslations("fr", {
     "comp.context.commentaires": "Commentaires",
     "comp.context.frameworks_heading": "Référentiels de conformité",
 
-    // Statut labels
+    // Status labels
     "comp.statut.planifie": "Planifié",
     "comp.statut.en_cours": "En cours",
     "comp.statut.termine": "Terminé",
     "comp.statut.preuve_manquante": "Preuve manquante",
 
-    // Exigence statut
+    // Requirement status
     "comp.exig_statut.ok": "OK",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
@@ -87,7 +87,7 @@ _registerTranslations("fr", {
     "comp.fw_dash.col_label": "Label",
     "comp.fw_dash.col_expiration": "Expiration",
 
-    // Exigences
+    // Requirements
     "comp.exig.title": "Exigences — {label}",
     "comp.exig.search": "Rechercher...",
     "comp.exig.count": "{filtered} / {total} exigences",
@@ -108,7 +108,7 @@ _registerTranslations("fr", {
     "comp.exig.btn_proposer": "Proposer",
     "comp.exig.fw_desc": "Exigences — {label}",
 
-    // Mesures
+    // Measures
     "comp.mes.title": "Mesures — {label}",
     "comp.mes.btn_nouvelle": "+ Nouvelle mesure",
     "comp.mes.search": "Rechercher...",
@@ -132,7 +132,7 @@ _registerTranslations("fr", {
     "comp.mes.lier_exigence": "Lier à une exigence...",
     "comp.mes.fw_desc": "Mesures — {label}",
 
-    // Mesures table headers
+    // Measures table headers
     "comp.mes.col_id": "ID",
     "comp.mes.col_description": "Description",
     "comp.mes.col_statut": "Statut",
@@ -143,7 +143,7 @@ _registerTranslations("fr", {
     "comp.mes.col_exigences": "Exigences",
     "measure.selected_n": "{n} mesure(s) sélectionnée(s)",
 
-    // Preuves
+    // Proofs
     "comp.prv.title": "Preuves — {label}",
     "comp.prv.btn_nouvelle": "+ Nouvelle preuve",
     "comp.prv.search": "Rechercher...",
@@ -164,7 +164,7 @@ _registerTranslations("fr", {
     "comp.prv.aucune": "Aucune",
     "comp.prv.fw_desc": "Preuves — {label}",
 
-    // Preuves table headers
+    // Proofs table headers
     "comp.prv.col_id": "ID",
     "comp.prv.col_label": "Label",
     "comp.prv.col_url": "URL",
@@ -173,18 +173,18 @@ _registerTranslations("fr", {
     "comp.prv.col_mesures": "Mesures",
     "comp.prv.col_statut": "Statut",
 
-    // Preuves statut badges
+    // Proof status badges
     "comp.prv.expiree": "Expirée",
     "comp.prv.bientot": "Bientôt",
     "comp.prv.ok": "OK",
 
-    // Plan d'action
+    // Action plan
     "comp.plan.btn_nouvelle": "+ Nouvelle mesure",
     "comp.plan.search": "Rechercher...",
     "comp.plan.count": "{count} mesure(s)",
     "comp.plan.aucune": "Aucune mesure.",
 
-    // Contrôles
+    // Controls
     "comp.ctrl.aucun": "Aucun contrôle récurrent ni preuve expirant prochainement.",
     "comp.ctrl.alertes": "{count} alerte(s)",
     "comp.ctrl.col_type": "Type",
@@ -251,7 +251,7 @@ _registerTranslations("fr", {
 
     // _REFERENTIELS_CATALOG descriptions
 
-    // Sidebar — Aide
+    // Sidebar — Help
     "comp.sidebar.section_aide": "Aide",
     "comp.sidebar.methodo": "Méthodologie",
     "comp.sidebar.usage": "Utilisation",

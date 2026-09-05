@@ -5,7 +5,7 @@
  * Load BEFORE Compliance_app.js.
  */
 
-/** Options de _fetch : RequestInit restreint, body objet JSON toléré. */
+/** _fetch options: restricted RequestInit, JSON object body tolerated. */
 interface ComplianceFetchOpts {
     method?: string;
     headers?: Record<string, string>;
@@ -21,8 +21,8 @@ var _activeId: string | null = null;
 var _saveTimer: ReturnType<typeof setTimeout> | null = null;
 var _dataReady = false;
 
-// Retour Promise<any> : réponses JSON non typées à la frontière réseau ;
-// le typage est porté par ComplianceAPIShape (Compliance_types.d.ts).
+// Returns Promise<any>: untyped JSON responses at the network boundary;
+// the typing is carried by ComplianceAPIShape (Compliance_types.d.ts).
 async function _fetch(url: string, opts?: ComplianceFetchOpts): Promise<any> {
     opts = opts || {};
     opts.headers = opts.headers || {};

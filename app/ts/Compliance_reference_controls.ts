@@ -1,16 +1,16 @@
 // ─────────────────────────────────────────────────────────────────────────
-// Catalogue de mesures de sécurité granulaires.
+// Catalog of granular security measures.
 //
-// Mesures ATOMIQUES (une action concrète et vérifiable chacune), rédigées
-// maison, inspirées de la taxonomie « key reference controls » (category ×
-// csf_function + preuves attendues) SANS reprise verbatim d'un contenu tiers.
+// ATOMIC measures (each a concrete, verifiable action), written
+// in-house, inspired by the "key reference controls" taxonomy (category ×
+// csf_function + expected proofs) with NO verbatim reuse of third-party content.
 //
-// Chaque mesure déclare framework_refs = { fwId: [refs] } : les exigences
-// qu'elle couvre, par référentiel. Une même mesure est ainsi RÉUTILISÉE entre
-// plusieurs référentiels. Passe 1 : refs ISO 27001:2022 (couverture 123/123).
-// Passe 2 : ajout des refs nis2 / secnumcloud / dora / … (réutilisation).
+// Each measure declares framework_refs = { fwId: [refs] }: the requirements
+// it covers, per framework. The same measure is thus REUSED across
+// several frameworks. Pass 1: ISO 27001:2022 refs (coverage 123/123).
+// Pass 2: adding nis2 / secnumcloud / dora / … refs (reuse).
 //
-// Chargé à la demande par _ensureReferenceControls() (js/Compliance_reference_controls.js).
+// Loaded on demand by _ensureReferenceControls() (js/Compliance_reference_controls.js).
 // ─────────────────────────────────────────────────────────────────────────
 window.COMPLIANCE_REFERENCE_CONTROLS = [
     {

@@ -4,13 +4,13 @@
 // Fix the master in the shared repository and re-propagate. See CONTRIBUTING.md.
 // -----------------------------------------------------------------------------
 /**
- * CISO Toolbox — Référentiels complémentaires (catalogue)
+ * CISO Toolbox — additional frameworks (catalog)
  *
- * Source unique pour les deux apps (EBIOS RM + Compliance).
- * Chaque app copie ce fichier dans son répertoire js/.
+ * Single source for both apps (EBIOS RM + Compliance).
+ * Each app copies this file into its js/ directory.
  *
- * Label, description FR/EN, couleur pour chaque référentiel.
- * Les mesures détaillées sont chargées à la demande via _ensureFramework().
+ * Label, FR/EN description and colour for each framework.
+ * The detailed measures are lazy-loaded through _ensureFramework().
  */
 interface CtCatalogEntry {
     label: string;

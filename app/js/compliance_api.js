@@ -10,8 +10,8 @@
     var _activeId = null;
     var _saveTimer = null;
     var _dataReady = false;
-    // Retour Promise<any> : réponses JSON non typées à la frontière réseau ;
-    // le typage est porté par ComplianceAPIShape (Compliance_types.d.ts).
+    // Returns Promise<any>: untyped JSON responses at the network boundary;
+    // the typing is carried by ComplianceAPIShape (Compliance_types.d.ts).
     async function _fetch(url, opts) {
         opts = opts || {};
         opts.headers = opts.headers || {};

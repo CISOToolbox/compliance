@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Génère un outil HTML interactif de suivi de conformité.
+Generates an interactive HTML compliance tracking tool.
 
-Modèle de données compatible avec l'application EBIOS RM :
-- socle_anssi, socle_iso, socle_complementaires : mêmes champs de base
-- Champs étendus : mesures_ids (liens vers mesures globales)
-- Entités globales : mesures[] et preuves[] (partagées entre référentiels)
+Data model compatible with the EBIOS RM application:
+- socle_anssi, socle_iso, socle_complementaires: same base fields
+- Extended fields: mesures_ids (links to global measures)
+- Global entities: mesures[] and preuves[] (shared across frameworks)
 
-Usage :
+Usage:
     python3 generate_compliance.py
     python3 generate_compliance.py output.html
 """
@@ -310,7 +310,7 @@ textarea {{ width: 100%; resize: vertical; }}
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════
-// CONFIG & DONNÉES
+// CONFIG & DATA
 // ═══════════════════════════════════════════════════════════════════════
 window.CT_CONFIG = {{
     autosaveKey: "compliance_autosave_v2",
@@ -342,7 +342,7 @@ function _ensureMesuresTypes(cb) {{
     }});
 }}
 
-// Trouver les mesures types applicables à une exigence
+// Find the standard measures applicable to a requirement
 function _getMesuresTypesFor(fwId, exigRef) {{
     const mt = window.COMPLIANCE_MESURES_TYPES || [];
     return mt.filter(m => {{
@@ -351,11 +351,11 @@ function _getMesuresTypesFor(fwId, exigRef) {{
     }});
 }}
 
-// Proposer des mesures pour une exigence
+// Suggest measures for a requirement
 function _proposerMesures(fwId, idx) {{
     _ensureMesuresTypes(() => {{
         const entry = _getExigEntry(fwId, idx);
-        // Récupérer la ref depuis les données ou les métadonnées du référentiel
+        // Get the ref from the data or from the framework metadata
         let exigRef;
         if (fwId === "anssi") exigRef = entry.num || D.socle_anssi[idx]?.num || "";
         else if (fwId === "iso") exigRef = entry.ref || D.socle_iso[idx]?.ref || "";
@@ -368,12 +368,12 @@ function _proposerMesures(fwId, idx) {{
             alert("Aucune mesure type disponible pour cette exigence (" + exigRef + ").");
             return;
         }}
-        // Séparer : déjà liées vs disponibles
+        // Split: already linked vs available
         const linkedIds = new Set(entry.mesures_ids || []);
         const linkedDescs = new Set(D.mesures.filter(m => linkedIds.has(m.id)).map(m => m.description));
         const available = types.filter(t => !linkedDescs.has(t.description));
         if (available.length === 0) {{
-            // Toutes déjà liées — proposer de voir les mesures liées
+            // All already linked — offer to view the linked measures
             alert("Les " + types.length + " mesure(s) proposée(s) pour " + exigRef + " sont déjà liées à cette exigence.");
             return;
         }}
@@ -397,19 +397,19 @@ function _proposerMesures(fwId, idx) {{
         _saveState();
         nums.forEach(n => {{
             const t = available[n];
-            // Vérifier si une mesure identique existe déjà
+            // Check whether an identical measure already exists
             const existing = D.mesures.find(m => m.description === t.description);
             if (existing) {{
-                // Lier la mesure existante
+                // Link the existing measure
                 if (!entry.mesures_ids) entry.mesures_ids = [];
                 if (!entry.mesures_ids.includes(existing.id)) entry.mesures_ids.push(existing.id);
             }} else {{
-                // Créer la mesure
+                // Create the measure
                 const id = _genMesureId();
                 D.mesures.push({{ id, description: t.description, details: t.details || "", statut: "planifie", date_cible: "", responsable: "", recurrence: "", dernier_controle: "", preuves_ids: [] }});
                 if (!entry.mesures_ids) entry.mesures_ids = [];
                 entry.mesures_ids.push(id);
-                // Lier aussi aux autres exigences du même référentiel couvert par cette mesure type
+                // Also link the other requirements of the same framework covered by this standard measure
                 for (const [otherFwId, otherRefs] of Object.entries(t.exigences)) {{
                     if (!D.referentiels_actifs.includes(otherFwId)) continue;
                     for (const otherRef of otherRefs) {{
@@ -448,10 +448,10 @@ function _genPreuveId() {{
 function _getMesure(id) {{ return D.mesures.find(m => m.id === id); }}
 function _getPreuve(id) {{ return D.preuves.find(p => p.id === id); }}
 
-// ── Search Select : dropdown filtrable ────────────────────────────────
+// ── Search Select: filterable dropdown ────────────────────────────────
 let _ssCounter = 0;
 
-// Génère un dropdown filtrable. options = liste de {{value, label}}, callbackFn = nom de la fonction globale
+// Generates a filterable dropdown. options = list of {{value, label}}, callbackFn = name of the global function
 function _searchSelect(placeholder, options, callbackFn, callbackArgs) {{
     const uid = "ss-" + (_ssCounter++);
     let h = `<div class="ss-wrap" id="${{uid}}">`;
@@ -467,7 +467,7 @@ function _searchSelect(placeholder, options, callbackFn, callbackArgs) {{
 function _ssOpen(uid) {{
     const drop = document.getElementById(uid + "-drop");
     if (drop) {{
-        // Réafficher toutes les options
+        // Show all the options again
         drop.querySelectorAll(".ss-opt").forEach(o => o.style.display = "");
         drop.classList.add("open");
     }}
@@ -499,17 +499,17 @@ function _ssSelect(uid, value, callbackFn, argsJson) {{
     if (typeof window[callbackFn] === "function") window[callbackFn].apply(null, args);
 }}
 
-// Fermer les dropdowns search-select au clic extérieur
+// Close the search-select dropdowns on an outside click
 document.addEventListener("click", function(e) {{
     if (!e.target.closest(".ss-wrap")) {{
         document.querySelectorAll(".ss-drop.open").forEach(d => d.classList.remove("open"));
     }}
 }});
 
-// Clé d'exigence : "anssi:1", "iso:A.5.1", "dora:DORA-G01"
+// Requirement key: "anssi:1", "iso:A.5.1", "dora:DORA-G01"
 function _exigKey(fwId, ref) {{ return fwId + ":" + ref; }}
 
-// Récupérer toutes les exigences d'un référentiel comme tableau d'objets
+// Get all the requirements of a framework as an array of objects
 function _getExigences(fwId) {{
     if (fwId === "anssi") return D.socle_anssi;
     if (fwId === "iso") return D.socle_iso;
@@ -527,7 +527,7 @@ function _getExigRef(fwId, entry) {{
     return entry.ref;
 }}
 
-// Mesures liées à un référentiel (au moins une exigence de ce fw)
+// Measures linked to a framework (at least one requirement of that fw)
 function _getMesuresForFw(fwId) {{
     const exigences = _getExigences(fwId);
     const allIds = new Set();
@@ -535,7 +535,7 @@ function _getMesuresForFw(fwId) {{
     return D.mesures.filter(m => allIds.has(m.id));
 }}
 
-// Preuves liées à un référentiel (via les mesures)
+// Evidence linked to a framework (through the measures)
 function _getPreuvesForFw(fwId) {{
     const mesures = _getMesuresForFw(fwId);
     const pIds = new Set();
@@ -543,16 +543,16 @@ function _getPreuvesForFw(fwId) {{
     return D.preuves.filter(p => pIds.has(p.id));
 }}
 
-// Statut labels
+// Status labels
 const _statutLabels = {{planifie:"Planifié",en_cours:"En cours",termine:"Terminé",preuve_manquante:"Preuve manquante"}};
 const _statutColors = {{planifie:"var(--orange)",en_cours:"var(--light-blue)",termine:"var(--green)",preuve_manquante:"var(--red)"}};
 
-// ── Calcul automatique des statuts ───────────────────────────────────
+// ── Automatic status computation ─────────────────────────────────────
 
-// Statut effectif d'une mesure (tient compte de l'expiration des preuves)
+// Effective status of a measure (accounts for evidence expiry)
 function _mesureEffectiveStatut(m) {{
     if (m.statut !== "termine") return m.statut || "planifie";
-    // Terminée : vérifier qu'il y a au moins une preuve valide (non expirée)
+    // Completed: check there is at least one valid (non-expired) piece of evidence
     const preuves = (m.preuves_ids || []).map(id => _getPreuve(id)).filter(Boolean);
     if (preuves.length === 0) return "preuve_manquante";
     const today = new Date();
@@ -560,7 +560,7 @@ function _mesureEffectiveStatut(m) {{
     return hasValid ? "termine" : "preuve_manquante";
 }}
 
-// Statut d'une exigence : OK si ≥1 mesure ET toutes terminées (avec preuves valides)
+// Requirement status: OK if ≥1 measure AND all of them completed (valid evidence)
 function _exigenceStatut(entry) {{
     if (entry.applicable === false || entry.applicable === "non") return "na";
     const ids = entry.mesures_ids || [];
@@ -582,7 +582,7 @@ function _mesureBadge(m) {{
 const _recLabels = {{ponctuel:"Ponctuel",mensuelle:"Mensuelle",trimestrielle:"Trimestrielle",semestrielle:"Semestrielle",annuelle:"Annuelle"}};
 const _recJours = {{ponctuel:0,mensuelle:30,trimestrielle:90,semestrielle:180,annuelle:365}};
 
-// Référentiels de base (ANSSI, ISO) avec même structure que les complémentaires pour l'UI
+// Base frameworks (ANSSI, ISO) shaped like the additional ones so the UI can share code
 const _BASE_FRAMEWORKS = {{
     anssi: {{ label: "ANSSI — Guide d'hygiène", description: "42 mesures", color: "#2c3e50" }},
     iso: {{ label: "ISO 27001", description: "120 exigences (27 clauses SMSI + 93 Annexe A)", color: "#1a5276" }}
@@ -598,7 +598,7 @@ function _getAllFrameworks() {{
 function selectPanel(panelId) {{
     _currentPanel = panelId;
 
-    // Format: "fw:dora:exigences" ou "dashboard" ou "context"
+    // Format: "fw:dora:exigences" or "dashboard" or "context"
     if (panelId.startsWith("fw:")) {{
         const parts = panelId.split(":");
         _currentFw = parts[1];
@@ -629,10 +629,10 @@ function selectPanel(panelId) {{
         else if (panelId === "history") renderHistory();
     }}
 
-    // Re-rendre la sidebar (afficher/masquer les sous-menus du référentiel actif)
+    // Re-render the sidebar (show/hide the submenus of the active framework)
     renderSidebar();
 
-    // Marquer l'item actif dans la sidebar statique (Suivi global, Historique)
+    // Mark the active item in the static sidebar (Suivi global, Historique)
     document.querySelectorAll(".sidebar-item").forEach(el => {{
         const args = el.getAttribute("data-args");
         if (!args) return;
@@ -654,7 +654,7 @@ function ensureKeys() {{
     if (!Array.isArray(D.mesures)) D.mesures = [];
     if (!Array.isArray(D.preuves)) D.preuves = [];
 
-    // Compléter socle ANSSI/ISO avec les exigences manquantes (migration ancien format)
+    // Top up the ANSSI/ISO baseline with the missing requirements (legacy format migration)
     const initData = window.COMPLIANCE_INIT_DATA || {{}};
     if (initData.socle_anssi) {{
         const existingNums = new Set(D.socle_anssi.map(e => e.num));
@@ -669,7 +669,7 @@ function ensureKeys() {{
         }});
     }}
 
-    // Ajouter mesures_ids et applicable si manquant
+    // Add mesures_ids and applicable when missing
     D.socle_anssi.forEach(e => {{ if (!Array.isArray(e.mesures_ids)) e.mesures_ids = []; }});
     D.socle_iso.forEach(e => {{ if (!Array.isArray(e.mesures_ids)) e.mesures_ids = []; }});
 
@@ -690,10 +690,10 @@ function ensureKeys() {{
         }}
     }}
 
-    // Promotion automatique : mesure terminée = "en place"
-    // (pas de migration nécessaire, c'est une logique d'affichage)
+    // Automatic promotion: a completed measure counts as "en place"
+    // (no migration needed, this is display logic only)
 
-    // Mettre à jour les compteurs d'ID
+    // Update the ID counters
     D.mesures.forEach(m => {{
         const n = parseInt((m.id || "").replace("M-",""));
         if (n >= _nextMesureId) _nextMesureId = n + 1;
@@ -708,7 +708,7 @@ function ensureKeys() {{
 }}
 
 // ═══════════════════════════════════════════════════════════════════════
-// RENDU
+// RENDERING
 // ═══════════════════════════════════════════════════════════════════════
 function renderAll() {{
     renderSidebar();
@@ -718,7 +718,7 @@ function renderAll() {{
     else if (_currentPanel === "controles") renderControles();
     else if (_currentPanel === "history") renderHistory();
     else if (_currentPanel.startsWith("fw:") && _currentFw) _renderFwView(_currentFw, _currentSubview);
-    // Mettre à jour les boutons undo/redo
+    // Update the undo/redo buttons
     const btnU = document.getElementById("btn-undo");
     const btnR = document.getElementById("btn-redo");
     if (btnU) {{ btnU.style.opacity = _undoStack.length > 0 ? "1" : "0.3"; }}
@@ -739,9 +739,9 @@ function renderSidebar() {{
         if (!meta) continue;
         const label = fwId === "anssi" ? "ANSSI" : fwId === "iso" ? "ISO 27001" : meta.label;
         const isActive = _currentFw === fwId;
-        // Item du référentiel — cliquer dessus ouvre/ferme les sous-menus et va au dashboard
+        // Framework item — clicking it toggles the submenus and opens the dashboard
         h += `<div class="sidebar-item${{isActive?" active":""}}" data-click="selectPanel" data-args='${{_da("fw:"+fwId+":dashboard")}}'>${{esc(label)}}</div>`;
-        // Sous-menus : affichés uniquement si c'est le référentiel sélectionné
+        // Submenus: rendered only when this is the selected framework
         if (isActive) {{
             for (let vi = 0; vi < views.length; vi++) {{
                 const pid = "fw:" + fwId + ":" + views[vi];
@@ -753,7 +753,7 @@ function renderSidebar() {{
     document.getElementById("sidebar-frameworks").innerHTML = h;
 }}
 
-// ── Contexte ──────────────────────────────────────────────────────
+// ── Context ───────────────────────────────────────────────────────
 function renderContext() {{
     const m = D.meta;
     let h = "<div class='meta'>";
@@ -805,7 +805,7 @@ function toggleReferentiel(fwId) {{
     else doToggle();
 }}
 
-// ── Dashboard global ──────────────────────────────────────────────
+// ── Global dashboard ──────────────────────────────────────────────
 function renderDashboard() {{
     let h = "";
     const frameworks = [];
@@ -834,7 +834,7 @@ function renderDashboard() {{
         }}
         h += '</div>';
 
-        // Plan d'action résumé
+        // Action plan summary
         const enCours = D.mesures.filter(m => m.statut === "en_cours").length;
         const planifie = D.mesures.filter(m => m.statut === "planifie").length;
         const termine = D.mesures.filter(m => m.statut === "termine").length;
@@ -850,7 +850,7 @@ function renderDashboard() {{
     document.getElementById("dashboard-content").innerHTML = h;
 }}
 
-// ── Vue par référentiel ───────────────────────────────────────────
+// ── Per-framework view ────────────────────────────────────────────
 function _renderFwView(fwId, subview) {{
     const meta = _getAllFrameworks()[fwId];
     const label = meta ? meta.label : fwId;
@@ -879,7 +879,7 @@ function _renderFwDashboard(fwId, label) {{
         <div class="indicator"><div class="value">${{preuves.length}}</div><div class="ind-label">Preuves</div></div>
     </div>`;
 
-    // Actions en cours
+    // Ongoing actions
     const actions = mesures.filter(m => m.statut !== "termine");
     if (actions.length > 0) {{
         h += `<div class="ct-synth-card"><h3>Actions en cours (${{actions.length}})</h3><table><thead><tr><th>ID</th><th>Description</th><th>Statut</th><th>Échéance</th></tr></thead><tbody>`;
@@ -889,7 +889,7 @@ function _renderFwDashboard(fwId, label) {{
         h += '</tbody></table></div>';
     }}
 
-    // Preuves expirant bientôt (< 90 jours)
+    // Evidence expiring soon (< 90 days)
     const expiring = preuves.filter(p => {{
         if (!p.date_expiration) return false;
         const exp = new Date(p.date_expiration);
@@ -908,7 +908,7 @@ function _renderFwDashboard(fwId, label) {{
     document.getElementById("fw-content").innerHTML = h;
 }}
 
-// ── Exigences ─────────────────────────────────────────────────────
+// ── Requirements ──────────────────────────────────────────────────
 let _exigFilter = "";
 
 function _filterExigences(fwId, val) {{
@@ -920,7 +920,7 @@ function _renderFwExigences(fwId, label) {{
     const allExigences = _getExigences(fwId);
     const getDesc = fwId === "anssi" ? _getAnssDesc : fwId === "iso" ? _getIsoDesc : null;
     const filter = _exigFilter.toLowerCase();
-    // Filtrer en conservant l'index original
+    // Filter while keeping the original index
     const exigences = [];
     allExigences.forEach((e, origIdx) => {{
         if (filter) {{
@@ -956,11 +956,11 @@ function _renderFwExigences(fwId, label) {{
         const notApplicable = e.applicable === false || e.applicable === "non";
         const desc = getDesc ? getDesc(ref) : (e.description || "");
 
-        // Statut calculé
+        // Computed status
         const statut = _exigenceStatut(e);
         const statutColor = _exigStatutColors[statut] || "var(--text-muted)";
 
-        // Mesures liées avec statut effectif
+        // Linked measures with their effective status
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
         const prevues = linkedMesures.filter(m => _mesureEffectiveStatut(m) !== "termine");
@@ -973,7 +973,7 @@ function _renderFwExigences(fwId, label) {{
         h += `<td class="ta-c">${{badge(_exigStatutLabels[statut], statutColor)}}</td>`;
         h += `<td${{hd("ecart")}}><textarea rows="3" class="w-full" placeholder="${{notApplicable?"Raison N/A...":"Commentaires..."}}" data-change="_updateExig" data-args='${{_da(fwId,i,"ecart")}}' data-pass-value data-input="_autoHeight" data-pass-el>${{esc(e.ecart||"")}}</textarea></td>`;
 
-        // Colonne mesures liées
+        // Linked-measures column
         h += `<td${{hd("mes")}}>`;
         if (enPlace.length > 0) {{
             h += '<div class="fs-xs fw-600 mb-8" style="color:var(--green)">En place</div>';
@@ -987,7 +987,7 @@ function _renderFwExigences(fwId, label) {{
                 h += `<div class="linked-tag"><span style="cursor:pointer" data-click="_goEditMesure" data-args='${{_da(fwId,m.id)}}'>${{esc(m.id)}} ${{esc(m.description).substring(0,40)}}</span><span class="tag-x" data-click="_unlinkMesure" data-args='${{_da(fwId,i,m.id)}}' data-stop>×</span></div>`;
             }});
         }}
-        // Sélecteur pour lier une mesure existante
+        // Selector to link an existing measure
         const mesOpts = D.mesures.filter(m => !(e.mesures_ids||[]).includes(m.id)).map(m => ({{value: m.id, label: m.id + " " + (m.description||"").substring(0,40)}}));
         h += `<div class="mt-8">${{_searchSelect("Lier une mesure...", mesOpts, "_linkExistingMesure", [fwId, i])}}
             <button class="ct-btn-add fs-xs" style="padding:2px 6px;margin-left:4px" data-click="_createAndLinkMesure" data-args='${{_da(fwId,i)}}'>+ Nouvelle</button>
@@ -1002,7 +1002,7 @@ function _renderFwExigences(fwId, label) {{
     _setupTable("exig-" + fwId + "-table");
 }}
 
-// Handlers exigences
+// Requirement handlers
 function _toggleApplicable(fwId, idx, checked) {{
     _saveState();
     const entry = _getExigEntry(fwId, idx);
@@ -1012,7 +1012,7 @@ function _toggleApplicable(fwId, idx, checked) {{
     _autoSave();
 }}
 
-// Conformité calculée automatiquement (voir _exigenceStatut)
+// Compliance is computed automatically (see _exigenceStatut)
 
 function _updateExig(fwId, idx, field, val) {{
     _getExigEntry(fwId, idx)[field] = val;
@@ -1022,7 +1022,7 @@ function _updateExig(fwId, idx, field, val) {{
 function _getExigEntry(fwId, idx) {{
     if (fwId === "anssi") return D.socle_anssi[idx];
     if (fwId === "iso") return D.socle_iso[idx];
-    // Complémentaire : idx = position dans meta.measures
+    // Additional framework: idx = position in meta.measures
     const meta = REFERENTIELS_META[fwId];
     if (!meta) return {{}};
     const refKey = meta.measures[idx].ref;
@@ -1062,14 +1062,14 @@ function _unlinkMesure(fwId, idx, mesureId) {{
     _autoSave();
 }}
 
-// ── Mesures (par référentiel) ─────────────────────────────────────
+// ── Measures (per framework) ──────────────────────────────────────
 let _editingMesure = null;
-let _mesureEditReturnTo = null; // "fw:anssi:exigences" si on vient des exigences
+let _mesureEditReturnTo = null; // "fw:anssi:exigences" when coming from the requirements
 
 let _mesureFilter = "";
 
 function _renderFwMesures(fwId, label) {{
-    // N'afficher que les mesures liées au référentiel courant
+    // Only display the measures linked to the current framework
     const fwMesureIds = new Set();
     _getExigences(fwId).forEach(e => (e.mesures_ids||[]).forEach(id => fwMesureIds.add(id)));
     const filter = _mesureFilter.toLowerCase();
@@ -1086,7 +1086,7 @@ function _renderFwMesures(fwId, label) {{
         <span class="fs-xs text-muted">${{mesures.length}} mesure(s)</span>
     </div>`;
 
-    // Mesure en édition ?
+    // Measure currently being edited?
     if (_editingMesure) {{
         const m = _getMesure(_editingMesure);
         if (m) {{
@@ -1128,7 +1128,7 @@ function _renderFwMesures(fwId, label) {{
         }}
     }}
 
-    // Tableau des mesures
+    // Measures table
     if (mesures.length > 0) {{
         h += `<table id="mesures-${{fwId}}-table"><thead><tr>
             <th style="width:70px">ID</th>
@@ -1245,10 +1245,10 @@ function _closeMesureEdit(fwId) {{
     }}
 }}
 
-// Rendu des exigences liées à une mesure (dans la vue édition mesure)
+// Render the requirements linked to a measure (inside the measure edit view)
 function _renderLinkedExigences(mesureId, currentFwId) {{
     let h = "";
-    // Afficher les exigences déjà liées (tous référentiels)
+    // Display the already linked requirements (all frameworks)
     const linked = [];
     for (const fwId of D.referentiels_actifs) {{
         const exigences = _getExigences(fwId);
@@ -1265,7 +1265,7 @@ function _renderLinkedExigences(mesureId, currentFwId) {{
         h += `<div class="linked-tag">${{esc(l.fwLabel)}} — ${{esc(l.ref)}}<span class="tag-x" data-click="_unlinkMesureFromEdit" data-args='${{_da(mesureId,l.fwId,l.idx,currentFwId)}}' data-stop>×</span></div>`;
     }});
 
-    // Sélecteur pour lier à une exigence (groupé par référentiel)
+    // Selector to link to a requirement (grouped by framework)
     const exigOpts = [];
     for (const fwId of D.referentiels_actifs) {{
         const exigences = _getExigences(fwId);
@@ -1303,7 +1303,7 @@ function _unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId) {{
     _saveState();
     const entry = _getExigEntry(fwId, idx);
     entry.mesures_ids = (entry.mesures_ids || []).filter(id => id !== mesureId);
-    // Garder l'édition ouverte et re-rendre
+    // Keep the editor open and re-render
     _editingMesure = mesureId;
     if (currentFwId && _currentPanel.startsWith("fw:")) {{
         _renderFwView(currentFwId, "mesures");
@@ -1322,7 +1322,7 @@ function _deleteMesure(mesureId, fwId) {{
     if (!confirm("Supprimer la mesure " + mesureId + " ?")) return;
     _saveState();
     D.mesures = D.mesures.filter(m => m.id !== mesureId);
-    // Retirer des exigences
+    // Remove it from the requirements
     const cleanup = items => items.forEach(e => {{ if (e.mesures_ids) e.mesures_ids = e.mesures_ids.filter(id => id !== mesureId); }});
     cleanup(D.socle_anssi); cleanup(D.socle_iso);
     Object.values(D.socle_complementaires).forEach(fw => Object.values(fw).forEach(e => {{ if (e.mesures_ids) e.mesures_ids = e.mesures_ids.filter(id => id !== mesureId); }}));
@@ -1367,7 +1367,7 @@ function _createAndLinkPreuve(mesureId, fwId) {{
     _autoSave();
 }}
 
-// ── Preuves (par référentiel) ─────────────────────────────────────
+// ── Evidence (per framework) ──────────────────────────────────────
 let _editingPreuve = null;
 let _preuveEditReturnTo = null;
 
@@ -1383,7 +1383,7 @@ function _renderFwPreuves(fwId, label) {{
         return (p.id + " " + (p.label||"") + " " + (p.url||"") + " " + (p.commentaire||"")).toLowerCase().includes(filter);
     }});
 
-    // Trouver les mesures liées à chaque preuve
+    // Find the measures linked to each piece of evidence
     function _findMesuresForPreuve(preuveId) {{
         return D.mesures.filter(m => (m.preuves_ids||[]).includes(preuveId)).map(m => m.id);
     }}
@@ -1395,7 +1395,7 @@ function _renderFwPreuves(fwId, label) {{
         <span class="fs-xs text-muted">${{preuves.length}} preuve(s)</span>
     </div>`;
 
-    // Preuve en édition
+    // Evidence currently being edited
     if (_editingPreuve) {{
         const p = _getPreuve(_editingPreuve);
         if (p) {{
@@ -1418,7 +1418,7 @@ function _renderFwPreuves(fwId, label) {{
         }}
     }}
 
-    // Tableau
+    // Table
     if (preuves.length > 0) {{
         h += `<table id="preuves-${{fwId}}-table"><thead><tr>
             <th style="width:70px">ID</th>
@@ -1477,7 +1477,7 @@ function _editPreuve(fwId, preuveId) {{
     _renderFwView(fwId, "preuves");
 }}
 
-// Depuis l'édition d'une mesure : éditer la preuve puis revenir à la mesure
+// From the measure editor: edit the evidence, then come back to the measure
 let _returnToMesureId = null;
 function _goEditPreuveFromMesure(fwId, mesureId, preuveId) {{
     _editingPreuve = preuveId;
@@ -1491,7 +1491,7 @@ function _closePreuveEdit(fwId) {{
     if (_preuveEditReturnTo) {{
         const ret = _preuveEditReturnTo;
         _preuveEditReturnTo = null;
-        // Rouvrir l'édition de la mesure si on venait de là
+        // Reopen the measure editor if that is where we came from
         if (_returnToMesureId) {{
             _editingMesure = _returnToMesureId;
             _returnToMesureId = null;
@@ -1517,7 +1517,7 @@ function _deletePreuve(preuveId, fwId) {{
     _autoSave();
 }}
 
-// ── Plan d'action global ──────────────────────────────────────────
+// ── Global action plan ────────────────────────────────────────────
 let _planFilter = "";
 
 function renderPlan() {{
@@ -1533,7 +1533,7 @@ function renderPlan() {{
         <span class="fs-xs text-muted">${{mesures.length}} mesure(s)</span>
     </div>`;
 
-    // Formulaire d'édition si ouvert
+    // Edit form when open
     if (_editingMesure) {{
         const m = _getMesure(_editingMesure);
         if (m) {{
@@ -1575,7 +1575,7 @@ function renderPlan() {{
         }}
     }}
 
-    // Tableau
+    // Table
     if (mesures.length === 0) {{
         h += '<div class="ct-synth-card"><p class="text-muted">Aucune mesure.</p></div>';
     }} else {{
@@ -1690,17 +1690,17 @@ function _goEditPreuveFromPlan(mesureId, preuveId) {{
     _editingPreuve = preuveId;
     _returnToMesureId = mesureId;
     _preuveEditReturnTo = "plan";
-    // Pour les preuves il faut aller sur un panel preuve — on utilise le premier fw actif
+    // Evidence lives in a per-framework panel — use the first active fw
     const fwId = D.referentiels_actifs[0] || "anssi";
     selectPanel("fw:" + fwId + ":preuves");
 }}
 
-// ── Contrôles global ──────────────────────────────────────────────
+// ── Global controls ───────────────────────────────────────────────
 function renderControles() {{
     const today = new Date();
     let rows = [];
 
-    // Contrôles récurrents sur les mesures
+    // Recurring controls on the measures
     D.mesures.forEach(m => {{
         if (!m.recurrence || m.recurrence === "ponctuel") return;
         const jours = _recJours[m.recurrence] || 365;
@@ -1710,7 +1710,7 @@ function renderControles() {{
         rows.push({{ type: "controle", id: m.id, label: m.description, recurrence: m.recurrence, dernier: m.dernier_controle, prochain, enRetard }});
     }});
 
-    // Preuves expirant
+    // Expiring evidence
     D.preuves.forEach(p => {{
         if (!p.date_expiration) return;
         const exp = new Date(p.date_expiration);
@@ -1748,7 +1748,7 @@ function renderControles() {{
 }}
 
 // ═══════════════════════════════════════════════════════════════════════
-// HISTORIQUE / SNAPSHOTS
+// HISTORY / SNAPSHOTS
 // ═══════════════════════════════════════════════════════════════════════
 async function renderHistory() {{
     const snaps = await _getSnapshots();
@@ -1793,18 +1793,18 @@ function _doImportEbiosRM(event) {{
             if (!ebios.context && !ebios.meta) {{ alert("Ce fichier ne semble pas être un fichier EBIOS RM valide."); return; }}
             _saveState();
 
-            // 1. Importer le contexte
+            // 1. Import the context
             if (ebios.context) {{
                 D.meta.societe = ebios.context.societe || D.meta.societe;
                 D.meta.date_evaluation = ebios.context.date || D.meta.date_evaluation;
                 D.meta.commentaires = ebios.context.commentaires || D.meta.commentaires;
             }}
 
-            // 2. Importer les mesures de l'atelier 5 comme entités globales
-            const mesureIdMap = {{}};  // ancien ID EBIOS → nouvel ID compliance
+            // 2. Import the workshop 5 measures as global entities
+            const mesureIdMap = {{}};  // old EBIOS id → new compliance id
             if (Array.isArray(ebios.measures)) {{
                 ebios.measures.forEach(em => {{
-                    // Éviter les doublons (même description nettoyée)
+                    // Avoid duplicates (same cleaned-up description)
                     const cleanedDesc = _cleanDesc(em.description || "");
                     const existing = D.mesures.find(m => m.description === cleanedDesc);
                     if (existing) {{
@@ -1812,7 +1812,7 @@ function _doImportEbiosRM(event) {{
                     }} else {{
                         const newId = _genMesureId();
                         mesureIdMap[em.id] = newId;
-                        // Convertir le statut EBIOS RM → compliance
+                        // Convert the EBIOS RM status → compliance status
                         let statut = "planifie";
                         if (em.statut === "Terminé") statut = "termine";
                         else if (em.statut === "En cours") statut = "en_cours";
@@ -1830,26 +1830,26 @@ function _doImportEbiosRM(event) {{
                 }});
             }}
 
-            // Nettoyer un préfixe d'ID EBIOS RM d'une description
+            // Strip an EBIOS RM ID prefix from a description
             // "MES-001 - Politique de sécurité" → "Politique de sécurité"
             function _cleanDesc(text) {{
                 return text.replace(/^MES-\d+\s*[-–—]\s*/, "").trim();
             }}
 
-            // Parser le champ mesures_prevues (texte) pour retrouver et lier les mesures
+            // Parse the mesures_prevues field (free text) to find and link the measures
             function _linkMesuresFromText(entry, mesuresPrevuesText) {{
                 if (!mesuresPrevuesText) return;
                 if (!entry.mesures_ids) entry.mesures_ids = [];
-                // Format EBIOS RM : "MES-001 - Description, MES-002 - Description"
+                // EBIOS RM format: "MES-001 - Description, MES-002 - Description"
                 const parts = mesuresPrevuesText.split(",").map(s => s.trim()).filter(Boolean);
                 parts.forEach(part => {{
                     const idMatch = part.match(/^(MES-\d+)/);
                     if (idMatch && mesureIdMap[idMatch[1]]) {{
-                        // Mesure connue de l'atelier 5 : lier par son nouvel ID
+                        // Measure known from workshop 5: link it through its new ID
                         const newId = mesureIdMap[idMatch[1]];
                         if (!entry.mesures_ids.includes(newId)) entry.mesures_ids.push(newId);
                     }} else {{
-                        // Pas d'ID reconnu : créer une mesure à partir du texte nettoyé
+                        // No recognised ID: create a measure from the cleaned-up text
                         const desc = _cleanDesc(part);
                         if (!desc) return;
                         const existing = D.mesures.find(m => m.description === desc);
@@ -1868,7 +1868,7 @@ function _doImportEbiosRM(event) {{
                 }});
             }}
 
-            // 3. Importer socle ANSSI
+            // 3. Import the ANSSI baseline
             if (Array.isArray(ebios.socle_anssi) && ebios.socle_anssi.length > 0) {{
                 if (!D.referentiels_actifs.includes("anssi")) D.referentiels_actifs.push("anssi");
                 ebios.socle_anssi.forEach((src, i) => {{
@@ -1882,7 +1882,7 @@ function _doImportEbiosRM(event) {{
                 }});
             }}
 
-            // 4. Importer socle ISO
+            // 4. Import the ISO baseline
             if (Array.isArray(ebios.socle_iso) && ebios.socle_iso.length > 0) {{
                 if (!D.referentiels_actifs.includes("iso")) D.referentiels_actifs.push("iso");
                 ebios.socle_iso.forEach((src, i) => {{
@@ -1897,7 +1897,7 @@ function _doImportEbiosRM(event) {{
                 }});
             }}
 
-            // 5. Importer référentiels complémentaires
+            // 5. Import the additional frameworks
             if (ebios.socle_complementaires && typeof ebios.socle_complementaires === "object") {{
                 for (const [fwId, fwData] of Object.entries(ebios.socle_complementaires)) {{
                     if (!D.referentiels_actifs.includes(fwId)) D.referentiels_actifs.push(fwId);
@@ -1942,7 +1942,7 @@ try {{
 </body>
 </html>'''
 
-    # ── Post-traitement ──────────────────────────────────────────────
+    # ── Post-processing ──────────────────────────────────────────────
     import re as _re
 
     style_match = _re.search(r'<style>\n(.*?)\n</style>', full, _re.DOTALL)
@@ -1964,7 +1964,7 @@ try {{
     return html, css_content, js_content, data_js
 
 
-# ── Point d'entrée ────────────────────────────────────────────────────────
+# ── Entry point ───────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -2003,7 +2003,7 @@ if __name__ == "__main__":
     with open(os.path.join(js_dir, html_name + "_data.js"), "w", encoding="utf-8") as f:
         f.write(data_js)
 
-    # Bibliothèque commune
+    # Shared library
     import shutil
     shared_js = os.path.join(os.path.dirname(script_dir), "..", "shared", "js", "cisotoolbox.js")
     shutil.copy2(shared_js, os.path.join(js_dir, "cisotoolbox.js"))
@@ -2012,11 +2012,11 @@ if __name__ == "__main__":
     with open(os.path.join(js_dir, html_name + "_descriptions.js"), "w", encoding="utf-8") as f:
         f.write(generate_descriptions_js())
 
-    # Mesures types (propositions)
+    # Standard measures (proposals)
     with open(os.path.join(js_dir, html_name + "_mesures_types.js"), "w", encoding="utf-8") as f:
         f.write(generate_mesures_types_js())
 
-    # Référentiels complémentaires
+    # Complementary frameworks
     for fw_id, fw_data in REFERENTIELS.items():
         with open(os.path.join(js_dir, html_name + f"_ref_{fw_id}.js"), "w", encoding="utf-8") as f:
             f.write(generate_framework_js(fw_id, fw_data))

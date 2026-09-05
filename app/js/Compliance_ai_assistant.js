@@ -47,8 +47,8 @@
         var data = await resp.json();
         return data.result;
     }
-    // FEAT-41 — _buildUserPrompt a migré vers src/ai_prompts.py::build_suggest.
-    /** Ce que _mergeDetails ajoutera réellement : "" si rien ne change. */
+    // FEAT-41 — _buildUserPrompt moved to src/ai_prompts.py::build_suggest.
+    /** What _mergeDetails will actually add: "" if nothing changes. */
     function _detailsAddition(ancien, ajout) {
         var a = (ancien || "").trim();
         var b = (ajout || "").trim();
@@ -58,9 +58,9 @@
             return "";
         return b;
     }
-    /** FEAT-40 — aperçu de ce que l'acceptation va écrire dans la mesure visée.
-     *  Sans lui, la carte montre le fragment proposé et l'utilisateur ne peut
-     *  savoir s'il complète ou s'il écrase, ni ce que devient le titre. */
+    /** FEAT-40 — preview of what accepting will write into the target measure.
+     *  Without it, the card shows the proposed fragment and the user cannot
+     *  tell whether it completes or overwrites, nor what the title becomes. */
     function _enrichPreviewHTML(s) {
         if (!s || !s.id || (s.action !== "enrich" && s.action !== "link"))
             return "";
@@ -94,7 +94,7 @@
         }
         return h + '</div>';
     }
-    /** FEAT-40 — étend une description sans écraser l'existante. */
+    /** FEAT-40 — extends a description without overwriting the existing one. */
     function _mergeDetails(ancien, ajout) {
         var a = (ancien || "").trim();
         var b = (ajout || "").trim();
@@ -116,12 +116,12 @@
         var panelTitle = "✨ AI — " + ref;
         // Show prompt panel — user chooses between auto-suggest or custom instruction
         var pp = window._aiEnsurePanel();
-        // d.ts shared : _aiOpenPanel déclaré () => void mais l'impl accepte un titre optionnel
+        // shared d.ts: _aiOpenPanel declared () => void but the impl accepts an optional title
         window._aiOpenPanel(panelTitle);
         pp.body.innerHTML =
             '<p class="fs-sm ct-mb-4 ct-muted">' + t("ai.prompt_intro") + '</p>' +
-                // FEAT-40 — cochée par défaut : le cas normal est de ne pas
-                // vouloir de doublon. L'option sert l'exception.
+                // FEAT-40 — checked by default: the normal case is not wanting a
+                // duplicate. The option serves the exception.
                 '<label class="ct-flex ct-items-start ct-gap-2 ct-mb-4 ct-clickable">'
                 + '<input type="checkbox" id="ai-include-measures" class="ct-mt-1" checked>'
                 + '<span class="fs-sm"><strong>' + esc(t("ai.include_measures")) + '</strong>'
@@ -138,7 +138,7 @@
         };
         document.getElementById("ai-send-custom").onclick = function () {
             var textarea = document.getElementById("ai-custom-instruction");
-            // La case est lue MAINTENANT : _aiShowLoading va vider le panneau.
+            // The checkbox is read NOW: _aiShowLoading will clear the panel.
             _runComplianceSuggest(fwId, idx, textarea ? textarea.value.trim() : "", _includeMeasures());
         };
     };
@@ -185,15 +185,16 @@
                     var entry = _getExigEntry(fwId, idx);
                     var id;
                     var isUpdate = false;
-                    // FEAT-40 — trois issues possibles, et deux d'entre elles
-                    // ne créent rien :
-                    //   link   : la mesure existante couvre déjà l'exigence,
-                    //            il suffit de l'y rattacher ;
-                    //   enrich : elle la couvre partiellement — on ÉTEND sa
-                    //            description sans écraser celle déjà rédigée ;
-                    //   new    : rien d'existant ne convient.
-                    // Écraser `description` sur un enrichissement perdrait le
-                    // libellé sous lequel la mesure est connue partout ailleurs.
+                    // FEAT-40 — three possible outcomes, and two of them create
+                    // nothing:
+                    //   link   : the existing measure already covers the
+                    //            requirement, it just has to be attached to it;
+                    //   enrich : it covers it partially — we EXTEND its
+                    //            description without overwriting what is
+                    //            already written;
+                    //   new    : nothing existing fits.
+                    // Overwriting `description` on an enrichment would lose the
+                    // label under which the measure is known everywhere else.
                     if (s.id && (s.action === "link" || s.action === "enrich" || !s.action)) {
                         var existing = D.mesures.find(function (m) { return m.id === s.id; });
                         if (existing) {
@@ -202,9 +203,9 @@
                             if (s.action === "enrich") {
                                 if (s.details)
                                     existing.details = _mergeDetails(existing.details || "", s.details);
-                                // Titre ajusté SEULEMENT si le modèle en propose
-                                // un autre : c'est sous ce libellé que la mesure
-                                // apparaît sur toutes les exigences qu'elle couvre.
+                                // Title adjusted ONLY if the model proposes a
+                                // different one: it is under this label that the
+                                // measure appears on every requirement it covers.
                                 var nt = (s.description || "").trim();
                                 if (nt && nt !== existing.description)
                                     existing.description = nt;
@@ -212,7 +213,7 @@
                                     existing.responsable = s.responsable;
                             }
                             else if (!s.action) {
-                                // Ancien format (sans discriminant) : comportement d'avant.
+                                // Legacy format (no discriminant): previous behavior.
                                 if (s.description)
                                     existing.description = s.description;
                                 if (s.details)
@@ -220,8 +221,8 @@
                                 if (s.responsable)
                                     existing.responsable = s.responsable;
                             }
-                            // `link` ne touche à rien : le rattachement à
-                            // l'exigence est fait plus bas, pour les trois cas.
+                            // `link` touches nothing: the attachment to the
+                            // requirement is done below, for all three cases.
                         }
                     }
                     if (!isUpdate) {
@@ -246,19 +247,20 @@
                         _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
                     }
                     else {
-                        // Rattacher la mesure existante à l'exigence traitée :
-                        // c'est TOUT l'intérêt de `link` et `enrich`. Sans ce
-                        // rattachement, accepter la suggestion ne produit rien
-                        // de visible et l'utilisateur recrée une mesure à la
-                        // main — le doublon revient par la porte de service.
+                        // Attach the existing measure to the requirement being
+                        // handled: that is the WHOLE point of `link` and
+                        // `enrich`. Without that attachment, accepting the
+                        // suggestion produces nothing visible and the user
+                        // re-creates a measure by hand — the duplicate comes
+                        // back through the back door.
                         if (!entry.mesures_ids)
                             entry.mesures_ids = [];
                         if (entry.mesures_ids.indexOf(id) === -1) {
                             entry.mesures_ids.push(id);
                             _persist("control", entry.id, { mesures_ids: entry.mesures_ids });
                         }
-                        // On persiste la valeur FUSIONNÉE, pas le fragment
-                        // renvoyé par le modèle.
+                        // We persist the MERGED value, not the fragment
+                        // returned by the model.
                         var maj = D.mesures.find(function (m) { return m.id === id; });
                         if (maj)
                             _persist("measure", id, { description: maj.description,
@@ -605,9 +607,9 @@
             if (!entry.mesures_ids)
                 entry.mesures_ids = [];
             mesures.forEach(function (m) {
-                // FEAT-40 — réutiliser avant de créer, ici aussi : l'analyse
-                // documentaire proposait des mesures sans jamais consulter le
-                // plan, et en créait une par exigence traitée.
+                // FEAT-40 — reuse before creating, here too: document analysis
+                // proposed measures without ever looking at the plan, and
+                // created one per requirement handled.
                 if (m.action === "link" || m.action === "enrich") {
                     var dejaM = D.mesures.find(function (x) { return x.id === m.id; });
                     if (dejaM) {
@@ -726,8 +728,9 @@
                 resultEl.scrollTop = resultEl.scrollHeight;
             }
             try {
-                // Mode personnalisé : instruction libre confrontée à la
-                // conformité en cours, pas à un document (build_global_custom).
+                // Custom mode: free-form instruction confronted with the
+                // current compliance state, not with a document
+                // (build_global_custom).
                 var updates = await _callComplianceAI({ kind: "global_custom", framework: fwId,
                     refs: batch.map(function (e) { return e.ref; }), instruction: instruction });
                 if (!Array.isArray(updates))
@@ -845,8 +848,8 @@
     // INJECT AI BUTTONS (only if AI enabled)
     // ═══════════════════════════════════════════════════════════════════
     var _origRenderFwExigences = _renderFwExigences;
-    // Réassignation d'une fonction globale déclarée par function (TS2630) :
-    // on passe par window — strictement identique au runtime (binding global).
+    // Reassigning a global declared with `function` (TS2630): we go through
+    // window — strictly identical at runtime (global binding).
     window._renderFwExigences = function (fwId, label) {
         _origRenderFwExigences(fwId, label);
         if (!window._aiIsEnabled())

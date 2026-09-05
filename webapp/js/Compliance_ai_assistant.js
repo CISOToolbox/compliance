@@ -71,7 +71,7 @@
         var panelTitle = "✨ AI — " + ref;
         // Show prompt panel — user chooses between auto-suggest or custom instruction
         var pp = window._aiEnsurePanel();
-        // d.ts shared : _aiOpenPanel déclaré () => void mais l'impl accepte un titre optionnel
+        // shared d.ts: _aiOpenPanel declared () => void but the impl accepts an optional title
         window._aiOpenPanel(panelTitle);
         pp.body.innerHTML =
             '<p class="fs-sm ct-mb-4 ct-muted">' + t("ai.prompt_intro") + '</p>' +
@@ -778,8 +778,8 @@
     // INJECT AI BUTTONS (only if AI enabled)
     // ═══════════════════════════════════════════════════════════════════
     var _origRenderFwExigences = _renderFwExigences;
-    // Réassignation d'une fonction globale déclarée par function (TS2630) :
-    // on passe par window — strictement identique au runtime (binding global).
+    // Reassigning a global declared with `function` (TS2630): we go through
+    // window — strictly identical at runtime (global binding).
     window._renderFwExigences = function (fwId, label) {
         _origRenderFwExigences(fwId, label);
         if (!window._aiIsEnabled())

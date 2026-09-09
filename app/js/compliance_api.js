@@ -84,8 +84,8 @@
     // ═══════════════════════════════════════════════════════════════
     // PERSISTENCE ADAPTER
     // ═══════════════════════════════════════════════════════════════
-    // See shared/js/cisotoolbox_local.js for the contract and
-    // CLAUDE.md § "Persistence adapter" for the full specification.
+    // See cisotoolbox_local.js for the contract and
+    // the persistence adapter contract for the full specification.
     window._setDataReady = function () { _dataReady = true; };
     window._getActiveProjectId = function () { return _activeId; };
     function _obj(k, v) { var o = {}; o[k] = v; return o; }

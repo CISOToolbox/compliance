@@ -163,7 +163,7 @@ class ProjectMeasure(Base):
 # can back compliance measures (and, later, other objects). The table name
 # stays `project_proofs` (the frontend/API contract is `proofs` / D.preuves),
 # but the model now carries the richer shared evidence shape (kind, owner,
-# tags…) and its expiration is classified via shared/python/evidence_common.py
+# tags…) and its expiration is classified via evidence_common.py
 # so it can be consolidated in Pilot's evidence registry.
 class ProjectProof(Base):
     __tablename__ = "project_proofs"
@@ -269,7 +269,7 @@ class MeasureCatalog(Base):
 
 # ── Append-only server-side write journal (FEAT-30 P1.6) ──────────────
 # Created by Base.metadata.create_all at startup (no migration needed for
-# a new table). Written via src.audit.log_write — see audit_common master.
+# a new table). Written via src.audit.log_write — see audit_common.
 class AuditLog(Base):
     """Append-only: never UPDATEd/DELETEd (retention purge excepted).
     entity_type/entity_id tie a line to the exact restorable object."""

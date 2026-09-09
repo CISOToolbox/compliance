@@ -1,7 +1,7 @@
 """FEAT-41 — server-side composition of the Compliance prompts.
 
 Same switch as for Risk: the browser used to assemble the string and the
-backend forwarded it verbatim. See `CLAUDE.md` §5.1.
+backend forwarded it verbatim. See the server-side prompt composition rule.
 
 Three usages, three shapes:
 

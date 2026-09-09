@@ -310,7 +310,7 @@ interface Window {
     _moduleRole?: string;
     _logout?: () => void;
     /** Compliance suite variant: snapshot stubs → "managed in Pilot" notice
-     *  (flag read by the factored master cisotoolbox_backend.js). */
+     *  (flag read by the factored cisotoolbox_backend.js). */
     _BACKEND_BACKUPS_VIA_PILOT?: boolean;
 
     /* Shared modal state */

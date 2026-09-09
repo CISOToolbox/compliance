@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
-// REPLICATED from the private shared repository (shared/js/backend/referentiels_catalog.js).
-// DO NOT EDIT HERE - changes will be overwritten by the next propagation run.
-// Fix the master in the shared repository and re-propagate. See CONTRIBUTING.md.
+// Generated file - do not edit.
+// It is overwritten at every release; a change made here is lost.
+// See CONTRIBUTING.md.
 // -----------------------------------------------------------------------------
 /**
  * CISO Toolbox — additional frameworks (catalog)
@@ -13,11 +13,10 @@
  * The detailed measures are lazy-loaded through _ensureFramework().
  */
 /* ── Local types ──────────────────────────────────────────────── */
-/* This backend variant is generated from shared/referentiels/catalog.json
-   (via shared/js/referentiels_catalog.js) and departs from it only for « gamp »,
+/* This backend variant is generated from the referentiels catalog and departs from it only for « gamp »,
    whose measures ship everywhere but which no longer has a JSON source and is
    declared by the backend trees alone. Any other divergence is drift:
-   ts-build gives this file precedence over the master for the backend apps,
+   the build gives this file precedence for the backend apps,
    so it translates directly into two different renderings of the same
    product. Resynchronize rather than edit by hand. */
 window._REFERENTIELS_CATALOG = {

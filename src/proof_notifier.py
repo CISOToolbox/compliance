@@ -285,6 +285,18 @@ async def _set_setting(db, key: str, value: str) -> None:
 
 
 async def _maybe_run() -> None:
+    # FEAT-45 — derogations past their end date expire on the same tick
+    # (hourly by default); the control they covered reads as KO again.
+    try:
+        from src.models import Derogation, Nonconformity
+        from src.nonconformity_common import expire_derogations
+        from src.routes.nonconformities import CONTROL_HOOK
+        async with async_session() as db:
+            n = await expire_derogations(db, Derogation, CONTROL_HOOK, Nonconformity)
+            if n:
+                logger.info("derogations expired: %d", n)
+    except Exception:
+        logger.exception("derogation expiry failed")
     async with async_session() as db:
         now = datetime.now(timezone.utc)
         last = await _get_setting(db, "proof_notify.last_run")

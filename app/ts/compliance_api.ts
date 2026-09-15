@@ -74,6 +74,24 @@ window.ComplianceAPI = {
     patchProof: function(pid: string, rid: string | number, f: Record<string, unknown>) { return _fetch("/projects/" + pid + "/proofs/" + rid, { method: "PATCH", body: f }); },
     createProof: function(pid: string, d: Record<string, unknown>) { return _fetch("/projects/" + pid + "/proofs", { method: "POST", body: d }); },
     deleteProof: function(pid: string, rid: string | number) { return _fetch("/projects/" + pid + "/proofs/" + rid, { method: "DELETE" }); },
+
+    // ── Non-conformities and derogations (shared register served by this module) ──
+    listNonconformities: function(status?: string) { return _fetch("/nonconformities" + (status ? "?status=" + encodeURIComponent(status) : "")); },
+    createNonconformity: function(body: Record<string, unknown>) { return _fetch("/nonconformities", { method: "POST", body: body }); },
+    qualifyNonconformity: function(id: string, body: Record<string, unknown>) { return _fetch("/nonconformities/" + id + "/qualify", { method: "POST", body: body }); },
+    rejectNonconformity: function(id: string, note: string) { return _fetch("/nonconformities/" + id + "/reject", { method: "POST", body: { note: note } }); },
+    remediationNonconformity: function(id: string, measureIds: string[]) { return _fetch("/nonconformities/" + id + "/remediation", { method: "POST", body: { measure_ids: measureIds } }); },
+    closeNonconformity: function(id: string, evidence: string) { return _fetch("/nonconformities/" + id + "/close", { method: "POST", body: { closure_evidence: evidence } }); },
+    listDerogations: function(filters?: Record<string, string>) {
+        var parts: string[] = [];
+        if (filters) for (var k in filters) if (filters[k]) parts.push(encodeURIComponent(k) + "=" + encodeURIComponent(filters[k]));
+        return _fetch("/derogations" + (parts.length ? "?" + parts.join("&") : ""));
+    },
+    createDerogation: function(body: Record<string, unknown>) { return _fetch("/derogations", { method: "POST", body: body }); },
+    decideDerogation: function(id: string, approve: boolean, note: string) { return _fetch("/derogations/" + id + "/decision", { method: "POST", body: { approve: approve, note: note } }); },
+    revokeDerogation: function(id: string, reason: string) { return _fetch("/derogations/" + id + "/revoke", { method: "POST", body: { reason: reason } }); },
+    nonconformitySettings: function() { return _fetch("/nonconformities-settings"); },
+    saveNonconformitySettings: function(days: number) { return _fetch("/nonconformities-settings", { method: "PUT", body: { max_derogation_days: days } }); },
 };
 
 // Backward compat for ai_common.js

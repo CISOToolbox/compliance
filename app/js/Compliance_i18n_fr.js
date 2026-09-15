@@ -36,6 +36,7 @@ _registerTranslations("fr", {
     "comp.panel.context_desc": "Informations sur l'évaluation et sélection des référentiels.",
     "comp.panel.plan_desc": "Toutes les mesures non terminées, tous référentiels confondus.",
     "comp.panel.controles_desc": "Suivi des contrôles récurrents et des preuves arrivant à expiration.",
+    "comp.panel.nonconformities_desc": "Non-conformités constatées hors contrôle, et dérogations sur les exigences.",
     // Context form
     "comp.context.organisation": "Organisation",
     "comp.context.date": "Date",
@@ -52,6 +53,7 @@ _registerTranslations("fr", {
     "comp.exig_statut.ok": "OK",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
+    "comp.exig_statut.derogated": "Dérogation",
     // Recurrence labels
     "comp.rec.ponctuel": "Ponctuel",
     "comp.rec.mensuelle": "Mensuelle",
@@ -98,6 +100,8 @@ _registerTranslations("fr", {
     "comp.exig.lier_mesure": "Lier une mesure...",
     "comp.exig.btn_nouvelle": "+ Nouvelle",
     "comp.exig.btn_proposer": "Proposer",
+    "comp.exig.btn_nc": "Déclarer une non-conformité",
+    "comp.nc.fw_inactive": "Le référentiel de cette exigence n'est plus actif dans l'évaluation.",
     "comp.exig.fw_desc": "Exigences — {label}",
     // Measures
     "comp.mes.title": "Mesures — {label}",

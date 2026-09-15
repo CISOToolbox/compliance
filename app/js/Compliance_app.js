@@ -396,9 +396,28 @@ function _mesureEffectiveStatut(m) {
     return hasValid ? "termine" : "preuve_manquante";
 }
 // Requirement status: OK if ≥1 measure AND all done (with valid proofs)
-function _exigenceStatut(entry) {
+// FEAT-45 — approved derogations on requirements, keyed "<framework>:<ref>".
+// The requirement status is derived here; the exported blob never carries it.
+var _derogByKey = {};
+var _derogLoaded = false;
+function _loadDerogations(then) {
+    ComplianceAPI.listDerogations({ status: "approved", subject_type: "control" }).then(function (r) {
+        _derogByKey = {};
+        ((r && r.items) || []).forEach(function (d) { _derogByKey[d.subject_id] = d; });
+        _derogLoaded = true;
+        if (then)
+            then();
+    }).catch(function () { _derogLoaded = true; if (then)
+        then(); });
+}
+function _exigDerogation(fwId, entry) {
+    return _derogByKey[fwId + ":" + (entry.ref || "")] || null;
+}
+function _exigenceStatut(entry, fwId) {
     if (entry.applicable === false || entry.applicable === "non")
         return "na";
+    if (fwId && _exigDerogation(fwId, entry))
+        return "derogated";
     const ids = entry.mesures_ids || [];
     if (ids.length === 0)
         return "ko";
@@ -409,7 +428,7 @@ function _exigenceStatut(entry) {
     return allOk ? "ok" : "ko";
 }
 function _exigStatutLabel(key) { return t("comp.exig_statut." + key) || key; }
-const _exigStatutColors = { ok: "green", ko: "red", na: "gray" };
+const _exigStatutColors = { ok: "green", ko: "red", na: "gray", derogated: "gray" };
 // ── Badges ──────────────────────────────────────────────────────────────
 // _tBadge() (shared) inlines the pastels inherited from CT_COLORS, which only
 // matched the design system once re-themed in dark — light therefore kept
@@ -469,6 +488,7 @@ function selectPanel(panelId) {
     document.querySelector(".ct-rail, .sidebar")?.classList.remove("open");
     // Format: "fw:dora:exigences" or "dashboard" or "context"
     if (panelId.startsWith("fw:")) {
+        _derogLoaded = false; // FEAT-45: an expiry by the scheduler must show without a page reload
         const parts = panelId.split(":");
         _currentFw = parts[1];
         _currentSubview = parts[2] || "dashboard";
@@ -509,6 +529,8 @@ function selectPanel(panelId) {
             renderPlan();
         else if (panelId === "controles")
             renderControles();
+        else if (panelId === "nonconformities")
+            renderNonconformities();
     }
     renderSidebar();
     _updateSidebarAccordion(panelId);
@@ -668,6 +690,8 @@ function renderAll() {
         renderPlan();
     else if (_currentPanel === "controles")
         renderControles();
+    else if (_currentPanel === "nonconformities")
+        renderNonconformities();
     else if (_currentPanel.startsWith("fw:") && _currentFw)
         _renderFwView(_currentFw, _currentSubview);
     // Update the undo/redo buttons
@@ -1067,7 +1091,14 @@ function _filterExigences(fwId, val) {
     _exigFilter = val;
     _renderFwView(fwId, "exigences");
 }
+// Requirement to land on after a "see the requirement" jump (ref within the
+// framework being rendered): the row is scrolled into view and flashed once.
+let _exigTarget = "";
 function _renderFwExigences(fwId, label) {
+    if (!_derogLoaded) {
+        _loadDerogations(function () { if (_currentFw === fwId && _currentSubview === "exigences")
+            _renderFwExigences(fwId, label); });
+    }
     const allExigences = _getExigences(fwId);
     const getDesc = fwId === "anssi" ? _getAnssDesc : fwId === "iso" ? _getIsoDesc : null;
     const filter = _exigFilter.toLowerCase();
@@ -1106,19 +1137,20 @@ function _renderFwExigences(fwId, label) {
         const notApplicable = e.applicable === false || e.applicable === "non";
         const desc = getDesc ? getDesc(ref) : (_rt(e, "description") || "");
         // Computed status
-        const statut = _exigenceStatut(e);
+        const statut = _exigenceStatut(e, fwId);
         const statutColor = _exigStatutColors[statut] || "var(--ct-ink-2)";
+        const derog = _exigDerogation(fwId, e);
         // Linked measures with their effective status
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
         const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
         const prevues = linkedMesures.filter(m => { var s = _mesureEffectiveStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
-        h += `<tr${notApplicable ? ' class="ct-bg-alt"' : ''}>`;
+        h += `<tr data-exig-ref="${esc(ref)}"${notApplicable ? ' class="ct-bg-alt"' : ''}>`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
         h += `<td${hd("mesure")}><div>${esc(_rt(e, "mesure"))}</div>${desc ? '<div class="desc-text">' + esc(desc) + '</div>' : ""}</td>`;
         h += `<td${hd("appl")} class="ta-c"><input type="checkbox" ${!notApplicable ? "checked" : ""} data-change="_toggleApplicable" data-args='${_da(fwId, i)}' data-pass-checked /></td>`;
-        h += `<td${hd("statut")} class="ta-c">${_tBadge(_exigStatutLabel(statut), statutColor)}</td>`;
+        h += `<td${hd("statut")} class="ta-c"${derog ? ' title="' + esc(derog.reference + (derog.valid_until ? " → " + derog.valid_until : "")) + '"' : ''}>${_tBadge(_exigStatutLabel(statut), statutColor)}</td>`;
         h += `<td${hd("ecart")}><textarea rows="3" class="w-full" placeholder="${notApplicable ? t("comp.exig.placeholder_na") : t("comp.exig.placeholder_comments")}" data-change="_updateExig" data-args='${_da(fwId, i, "ecart")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(e.ecart || "")}</textarea></td>`;
         // Linked measures column
         h += `<td${hd("mes")}>`;
@@ -1145,6 +1177,10 @@ function _renderFwExigences(fwId, label) {
         h += `<div class="mt-8">${_searchSelect(t("comp.exig.lier_mesure"), mesOpts, "_linkExistingMesure", [fwId, i])}
             <button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="xs" data-click="_createAndLinkMesure" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_nouvelle")}</button>
             <button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="xs" data-click="_proposerMesures" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_proposer")}</button>
+        </div>
+        <div class="mt-8">
+            <button class="ct-btn" data-write data-size="xs" data-click="_declareNcExig" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_nc")}</button>
+            ${(statut !== "na" && statut !== "derogated") ? `<button class="ct-btn ct-ml-1" data-write data-size="xs" data-click="_requestDerogExig" data-args='${_da(fwId, i)}'>${t("der.request_btn")}</button>` : ""}
         </div></td>`;
         h += '</tr>';
     });
@@ -1158,6 +1194,149 @@ function _renderFwExigences(fwId, label) {
             ta.style.height = "auto";
             ta.style.height = ta.scrollHeight + "px";
         }
+    });
+    if (_exigTarget) {
+        var target = _exigTarget;
+        _exigTarget = "";
+        var rows = document.querySelectorAll("#exig-" + fwId + "-table tr[data-exig-ref]");
+        for (var ri = 0; ri < rows.length; ri++) {
+            if (rows[ri].getAttribute("data-exig-ref") !== target)
+                continue;
+            rows[ri].classList.add("ct-row-target");
+            rows[ri].scrollIntoView({ block: "center" });
+            break;
+        }
+    }
+}
+// ── Non-conformities and derogations (FEAT-45) ─────────────────────────
+// The register is the shared ct_nonconformity component; Compliance supplies
+// its transport and names the requirement ("<framework>:<ref>") a record covers.
+function _ncOptions() {
+    return {
+        listNc: function (status) { return ComplianceAPI.listNonconformities(status); },
+        createNc: function (body) { return ComplianceAPI.createNonconformity(body); },
+        qualifyNc: function (id, body) { return ComplianceAPI.qualifyNonconformity(id, body); },
+        rejectNc: function (id, note) { return ComplianceAPI.rejectNonconformity(id, note); },
+        remediationNc: function (id, ids) { return ComplianceAPI.remediationNonconformity(id, ids); },
+        closeNc: function (id, evidence) { return ComplianceAPI.closeNonconformity(id, evidence); },
+        listDer: function (filters) { return ComplianceAPI.listDerogations(filters); },
+        createDer: function (body) { return ComplianceAPI.createDerogation(body); },
+        decideDer: function (id, approve, note) { return ComplianceAPI.decideDerogation(id, approve, note); },
+        revokeDer: function (id, reason) { return ComplianceAPI.revokeDerogation(id, reason); },
+        getSettings: function () { return ComplianceAPI.nonconformitySettings(); },
+        saveSettings: function (days) { return ComplianceAPI.saveNonconformitySettings(days); },
+        isAdmin: function () { return !!(window._currentUser && window._currentUser.role === "admin"); },
+        subjectTypes: ["control"],
+        directoryUrl: "api/directory",
+        // A derogation before any non-conformity: on any requirement of an
+        // active framework — the normal way to ask for the agreement first.
+        subjectSearch: function (q) {
+            var out = [];
+            D.referentiels_actifs.forEach(function (fwId) {
+                var fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
+                _getExigences(fwId).forEach(function (e) {
+                    if (out.length >= 100)
+                        return;
+                    if (e.applicable === false || e.applicable === "non")
+                        return;
+                    var ref = _getExigRef(fwId, e);
+                    var label = fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "");
+                    if (q && label.toLowerCase().indexOf(q) < 0)
+                        return;
+                    out.push({ value: fwId + ":" + ref, label: label });
+                });
+            });
+            return out;
+        },
+        createMeasure: function (prefill) { return _createMesureForNc(prefill); },
+        measureOptions: function () {
+            return (D.mesures || []).map(function (m) {
+                var st = _mesureEffectiveStatut(m);
+                return { value: m.id, label: m.id + " " + (m.description || "").substring(0, 50),
+                    status: st, statusLabel: _statutLabel(st), done: st === "termine" };
+            });
+        },
+        openMeasure: function (id) { return window._editMesureRow({ id: id }); },
+        openSubject: function (type, id) {
+            if (type !== "control")
+                return;
+            var fwId = id.split(":")[0];
+            if (D.referentiels_actifs.indexOf(fwId) < 0) {
+                showStatus(t("comp.nc.fw_inactive"), true);
+                return;
+            }
+            _exigFilter = "";
+            _exigTarget = id.substring(fwId.length + 1);
+            selectPanel("fw:" + fwId + ":exigences");
+        },
+        onChange: function () { _loadDerogations(function () { if (_currentPanel.startsWith("fw:") && _currentFw)
+            _renderFwView(_currentFw, _currentSubview); }); }
+    };
+}
+// Corrective measure of a non-conformity: same unified modal and API as
+// _createMesureUnified, but promise-returning and without a requirement link.
+function _createMesureForNc(prefill) {
+    if (!window.ct_measure_modal)
+        return Promise.resolve(null);
+    var statusOpts = [
+        { value: "planifie", label: _statutLabel("planifie") },
+        { value: "en_cours", label: _statutLabel("en_cours") },
+        { value: "termine", label: _statutLabel("termine") }
+    ];
+    return window.ct_measure_modal.open({ description: prefill.title, details: prefill.description }, {
+        title: t("comp.mes.new_draft") || "Nouvelle mesure",
+        saveLabel: t("comp.mes.btn_valider") || "Créer",
+        fieldMap: { title: "description", description: "details", echeance: "date_cible" },
+        hideFields: ["type"],
+        statusOptions: statusOpts,
+        defaultStatus: "planifie",
+        ownerPicker: { pickerId: "compliance-nc-measure-owner", directoryUrl: "api/directory" }
+    }).then(function (result) {
+        if (!result || result.__deleted || result.__advanced)
+            return null;
+        _saveState();
+        var payload = {
+            id: _genMesureId(),
+            description: result.description || "", details: result.details || "",
+            statut: result.statut || "planifie", responsable: result.responsable || "",
+            date_cible: result.date_cible || "", recurrence: "", dernier_controle: "", preuves_ids: []
+        };
+        var done = function (created) {
+            D.mesures.push(created);
+            showStatus(t("comp.status.mesure_created") || ("Mesure créée : " + created.id));
+            return { value: created.id, label: created.id + " " + (created.description || "").substring(0, 50) };
+        };
+        if (window.ComplianceAPI && typeof window._getActiveProjectId === "function") {
+            return window.ComplianceAPI.createMeasure(window._getActiveProjectId(), payload).then(done)
+                .catch(function (e) { showStatus("Erreur création : " + (e.message || e), true); return null; });
+        }
+        var created = done(payload);
+        _autoSave();
+        return created;
+    });
+}
+function renderNonconformities() {
+    ct_nonconformity.renderPanel(document.getElementById("nonconformities-content"), _ncOptions());
+}
+function _exigSubject(fwId, idx) {
+    const e = _getExigEntry(fwId, idx);
+    const ref = _getExigRef(fwId, e);
+    const fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
+    return { e: e, ref: ref, key: fwId + ":" + ref, label: fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "") };
+}
+function _declareNcExig(fwId, idx) {
+    const s = _exigSubject(fwId, idx);
+    ct_nonconformity.declare(_ncOptions(), {
+        subject_type: "control", subject_id: s.key, subject_label: s.label,
+        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200), requirement_ref: s.ref,
+        domain: _rt(s.e, "thematique") || _rt(s.e, "theme") || ""
+    });
+}
+function _requestDerogExig(fwId, idx) {
+    const s = _exigSubject(fwId, idx);
+    ct_nonconformity.requestDerogation(_ncOptions(), {
+        subject_type: "control", subject_id: s.key, subject_label: s.label,
+        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200)
     });
 }
 // Requirement handlers
@@ -1345,7 +1524,7 @@ window._editMesureRow = function (row) {
     extraHtml += '<div class="fs-xs fw-600 ct-mt-2 ct-mb-1">'
         + esc(t("comp.mes.preuves_liees") || "Preuves liées") + '</div>';
     extraHtml += '<div id="ct-mesure-preuves-wrap">' + _renderPreuvesForModal(m.id) + '</div>';
-    window.ct_measure_modal.open(m, {
+    return window.ct_measure_modal.open(m, {
         title: m.id,
         fieldMap: { title: "description", description: "details", echeance: "date_cible" },
         hideFields: ["type"],

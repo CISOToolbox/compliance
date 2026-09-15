@@ -33,6 +33,7 @@ _registerTranslations("en", {
     "comp.panel.context_desc": "Assessment information and framework selection.",
     "comp.panel.plan_desc": "All incomplete controls across all frameworks.",
     "comp.panel.controles_desc": "Recurring control reviews and expiring evidence.",
+    "comp.panel.nonconformities_desc": "Non-conformities observed outside a control, and derogations on requirements.",
     // Context form
     "comp.context.organisation": "Organization",
     "comp.context.date": "Date",
@@ -49,6 +50,7 @@ _registerTranslations("en", {
     "comp.exig_statut.ok": "OK",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
+    "comp.exig_statut.derogated": "Derogation",
     // Recurrence labels
     "comp.rec.ponctuel": "One-time",
     "comp.rec.mensuelle": "Monthly",
@@ -94,6 +96,8 @@ _registerTranslations("en", {
     "comp.exig.lier_mesure": "Link a control...",
     "comp.exig.btn_nouvelle": "+ New",
     "comp.exig.btn_proposer": "Suggest",
+    "comp.exig.btn_nc": "Declare a non-conformity",
+    "comp.nc.fw_inactive": "The framework of this requirement is no longer active in the assessment.",
     "comp.exig.fw_desc": "Requirements — {label}",
     // Measures
     "comp.mes.title": "Controls — {label}",

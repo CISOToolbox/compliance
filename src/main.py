@@ -18,7 +18,7 @@ from src.routes.directory_proxy import router as directory_router
 from src.routes.frameworks import router as frameworks_router
 from src.routes.internal import router as internal_router
 from src.routes.measures import router as measures_router
-from src.routes.nonconformities import router as nonconformities_router  # FEAT-45
+from src.routes.nonconformities import router as nonconformities_router, internal_router as nonconformities_internal_router  # FEAT-45
 from src.routes.projects import router as projects_router
 from src.routes.proofs import router as proofs_router
 from src.routes.users import router as users_router
@@ -77,6 +77,7 @@ app.include_router(projects_router)
 app.include_router(controls_router)
 app.include_router(measures_router)
 app.include_router(nonconformities_router)
+app.include_router(nonconformities_internal_router)
 app.include_router(proofs_router)
 app.include_router(ai_router)
 app.include_router(users_router)

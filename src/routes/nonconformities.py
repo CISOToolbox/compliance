@@ -15,7 +15,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models import ProjectMeasure, Derogation, Nonconformity, ProjectControl
-from src.nonconformity_common import make_router
+from src.nonconformity_common import make_internal_router, make_router
 
 
 def split_control_key(subject_id: str) -> tuple[str, str]:
@@ -58,3 +58,10 @@ class ControlHook:
 
 CONTROL_HOOK = ControlHook()
 router = make_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=("control",))
+
+# Pilot's view of the register (service token): the same operations, relayed
+# with the Pilot user as actor. The token check is the module's own.
+from src.routes.internal import _check_service_token  # noqa: E402
+
+internal_router = make_internal_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=("control",),
+                                       check_service_token=_check_service_token)

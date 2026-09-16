@@ -2828,6 +2828,8 @@ try {
     } else {
         _initDataAndRender();
     }
+    // Deep link from the console's register (FEAT-45): open the panel directly.
+    if (location.hash === "#nonconformities") selectPanel("nonconformities");
 } catch(e: any) {
     console.error("Erreur au rendu initial:", e);
     document.querySelector(".container")!.innerHTML = '<section><h2>' + t("comp.error.title") + '</h2><pre>' + esc(e.message) + '\n' + esc(e.stack||"") + '</pre></section>';

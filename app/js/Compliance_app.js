@@ -2918,6 +2918,9 @@ try {
     else {
         _initDataAndRender();
     }
+    // Deep link from the console's register (FEAT-45): open the panel directly.
+    if (location.hash === "#nonconformities")
+        selectPanel("nonconformities");
 }
 catch (e) {
     console.error("Erreur au rendu initial:", e);

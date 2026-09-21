@@ -59,6 +59,7 @@ _registerTranslations("en", {
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
     "comp.exig_statut.derogated": "Derogation",
+    "comp.exig_statut.derogated_short": "Derog.",
 
     // Recurrence labels
     "comp.rec.ponctuel": "One-time",
@@ -110,6 +111,13 @@ _registerTranslations("en", {
     "comp.exig.btn_nouvelle": "+ New",
     "comp.exig.btn_proposer": "Suggest",
     "comp.exig.btn_nc": "Declare a non-conformity",
+    "comp.nc.internal_fw": "Internal controls",
+    "comp.nc.create_control": "Create a control",
+    "comp.nc.create_control_help": "The gap becomes a requirement of the \"{fw}\" framework, assessed and evidenced like the others; the non-conformity points at it.",
+    "comp.nc.create_control_missing": "Reference and title are required.",
+    "comp.nc.create_control_dup": "Reference {ref} already exists.",
+    "comp.nc.create_control_badref": "Reference: letters, digits, dot, dash and underscore only.",
+    "comp.nc.create_control_failed": "Control not created: {msg}",
     "comp.nc.fw_inactive": "The framework of this requirement is no longer active in the assessment.",
     "comp.exig.fw_desc": "Requirements — {label}",
 

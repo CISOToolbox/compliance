@@ -63,6 +63,7 @@ _registerTranslations("fr", {
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
     "comp.exig_statut.derogated": "Dérogation",
+    "comp.exig_statut.derogated_short": "Dérog.",
 
     // Recurrence labels
     "comp.rec.ponctuel": "Ponctuel",
@@ -115,6 +116,13 @@ _registerTranslations("fr", {
     "comp.exig.btn_nouvelle": "+ Nouvelle",
     "comp.exig.btn_proposer": "Proposer",
     "comp.exig.btn_nc": "Déclarer une non-conformité",
+    "comp.nc.internal_fw": "Contrôles internes",
+    "comp.nc.create_control": "Créer un contrôle",
+    "comp.nc.create_control_help": "Le constat devient une exigence du référentiel « {fw} », évaluée et prouvée comme les autres ; la non-conformité y sera rattachée.",
+    "comp.nc.create_control_missing": "Référence et intitulé sont obligatoires.",
+    "comp.nc.create_control_dup": "La référence {ref} existe déjà.",
+    "comp.nc.create_control_badref": "Référence : lettres, chiffres, point, tiret et souligné uniquement.",
+    "comp.nc.create_control_failed": "Contrôle non créé : {msg}",
     "comp.nc.fw_inactive": "Le référentiel de cette exigence n'est plus actif dans l'évaluation.",
     "comp.exig.fw_desc": "Exigences — {label}",
 

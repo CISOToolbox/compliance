@@ -80,7 +80,6 @@ window.ComplianceAPI = {
     createNonconformity: function(body: Record<string, unknown>) { return _fetch("/nonconformities", { method: "POST", body: body }); },
     qualifyNonconformity: function(id: string, body: Record<string, unknown>) { return _fetch("/nonconformities/" + id + "/qualify", { method: "POST", body: body }); },
     rejectNonconformity: function(id: string, note: string) { return _fetch("/nonconformities/" + id + "/reject", { method: "POST", body: { note: note } }); },
-    remediationNonconformity: function(id: string, measureIds: string[]) { return _fetch("/nonconformities/" + id + "/remediation", { method: "POST", body: { measure_ids: measureIds } }); },
     closeNonconformity: function(id: string, evidence: string) { return _fetch("/nonconformities/" + id + "/close", { method: "POST", body: { closure_evidence: evidence } }); },
     listDerogations: function(filters?: Record<string, string>) {
         var parts: string[] = [];
@@ -90,6 +89,7 @@ window.ComplianceAPI = {
     createDerogation: function(body: Record<string, unknown>) { return _fetch("/derogations", { method: "POST", body: body }); },
     decideDerogation: function(id: string, approve: boolean, note: string) { return _fetch("/derogations/" + id + "/decision", { method: "POST", body: { approve: approve, note: note } }); },
     revokeDerogation: function(id: string, reason: string) { return _fetch("/derogations/" + id + "/revoke", { method: "POST", body: { reason: reason } }); },
+    patchNonconformity: function(id: string, body: Record<string, unknown>) { return _fetch("/nonconformities/" + id, { method: "PATCH", body: body }); },
     nonconformitySettings: function() { return _fetch("/nonconformities-settings"); },
     saveNonconformitySettings: function(days: number) { return _fetch("/nonconformities-settings", { method: "PUT", body: { max_derogation_days: days } }); },
 };
@@ -237,6 +237,7 @@ window._appInitCallback = function() {
             if (typeof _initDataAndRender === "function") _initDataAndRender();
             else if (typeof renderAll === "function") renderAll();
             _handleMeasureDeepLink();
+            _handleRequirementDeepLink();
         }).catch(function() { _createAndRender(); });
     }
 
@@ -251,7 +252,16 @@ window._appInitCallback = function() {
             if (typeof _initDataAndRender === "function") _initDataAndRender();
             else if (typeof renderAll === "function") renderAll();
             _handleMeasureDeepLink();
+            _handleRequirementDeepLink();
         });
+    }
+
+    // FEAT-45 — a record's requirement (?req=fw:ref) opens its framework's
+    // requirements view with the row targeted.
+    function _handleRequirementDeepLink(): void {
+        var key = "";
+        try { key = new URLSearchParams(location.search).get("req") || ""; } catch (e) { return; }
+        if (key && typeof _openRequirement === "function") _openRequirement(key);
     }
 
     // FEAT-13 — open the deep-linked measure (Pilot ?measure=M-xxx) in the

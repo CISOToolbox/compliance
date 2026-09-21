@@ -82,7 +82,6 @@
         createNonconformity: function (body) { return _fetch("/nonconformities", { method: "POST", body: body }); },
         qualifyNonconformity: function (id, body) { return _fetch("/nonconformities/" + id + "/qualify", { method: "POST", body: body }); },
         rejectNonconformity: function (id, note) { return _fetch("/nonconformities/" + id + "/reject", { method: "POST", body: { note: note } }); },
-        remediationNonconformity: function (id, measureIds) { return _fetch("/nonconformities/" + id + "/remediation", { method: "POST", body: { measure_ids: measureIds } }); },
         closeNonconformity: function (id, evidence) { return _fetch("/nonconformities/" + id + "/close", { method: "POST", body: { closure_evidence: evidence } }); },
         listDerogations: function (filters) {
             var parts = [];
@@ -95,6 +94,7 @@
         createDerogation: function (body) { return _fetch("/derogations", { method: "POST", body: body }); },
         decideDerogation: function (id, approve, note) { return _fetch("/derogations/" + id + "/decision", { method: "POST", body: { approve: approve, note: note } }); },
         revokeDerogation: function (id, reason) { return _fetch("/derogations/" + id + "/revoke", { method: "POST", body: { reason: reason } }); },
+        patchNonconformity: function (id, body) { return _fetch("/nonconformities/" + id, { method: "PATCH", body: body }); },
         nonconformitySettings: function () { return _fetch("/nonconformities-settings"); },
         saveNonconformitySettings: function (days) { return _fetch("/nonconformities-settings", { method: "PUT", body: { max_derogation_days: days } }); },
     };
@@ -250,6 +250,7 @@
                 else if (typeof renderAll === "function")
                     renderAll();
                 _handleMeasureDeepLink();
+                _handleRequirementDeepLink();
             }).catch(function () { _createAndRender(); });
         }
         function _createAndRender() {
@@ -266,7 +267,21 @@
                 else if (typeof renderAll === "function")
                     renderAll();
                 _handleMeasureDeepLink();
+                _handleRequirementDeepLink();
             });
+        }
+        // FEAT-45 — a record's requirement (?req=fw:ref) opens its framework's
+        // requirements view with the row targeted.
+        function _handleRequirementDeepLink() {
+            var key = "";
+            try {
+                key = new URLSearchParams(location.search).get("req") || "";
+            }
+            catch (e) {
+                return;
+            }
+            if (key && typeof _openRequirement === "function")
+                _openRequirement(key);
         }
         // FEAT-13 — open the deep-linked measure (Pilot ?measure=M-xxx) in the
         // native edit modal, on the action-plan panel.

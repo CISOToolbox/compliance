@@ -462,6 +462,10 @@ const _BASE_FRAMEWORKS: Record<string, ComplianceFwMeta> = {
     iso: { label: "ISO 27001", get description() { return t("comp.fw.iso_desc"); }, color: "#1e40af" }
 };
 
+function _internalFwMeta(): ComplianceFwMeta {
+    return { label: t("comp.nc.internal_fw"), description: t("comp.nc.internal_fw"), color: "#78716c", custom: true } as ComplianceFwMeta;
+}
+
 function _getAllFrameworks(): Record<string, ComplianceFwMeta> {
     var all: Record<string, ComplianceFwMeta> = Object.assign({}, _BASE_FRAMEWORKS, REFERENTIELS_META);
     // Include custom frameworks stored in D
@@ -477,6 +481,9 @@ function _getAllFrameworks(): Record<string, ComplianceFwMeta> {
             }
         }
     }
+    // FEAT-45 — the internal-controls framework lives by its controls: once
+    // active, it is listed even when the custom metadata is not in the blob.
+    if (D.referentiels_actifs && D.referentiels_actifs.indexOf(_INTERNAL_FW) >= 0 && !all[_INTERNAL_FW]) all[_INTERNAL_FW] = _internalFwMeta();
     return all;
 }
 
@@ -490,6 +497,7 @@ function selectPanel(panelId: string) {
     document.querySelector(".ct-rail, .sidebar")?.classList.remove("open");
 
     // Format: "fw:dora:exigences" or "dashboard" or "context"
+    if (_exigMarked && !_exigTarget && panelId !== "fw:" + _exigMarked.split(":")[0] + ":exigences") _exigMarked = "";
     if (panelId.startsWith("fw:")) {
         _derogLoaded = false;          // FEAT-45: an expiry by the scheduler must show without a page reload
         const parts = panelId.split(":");
@@ -937,17 +945,20 @@ function _parseAndImportCSV(csvText: string, filename: string) {
 
 // ── Global dashboard ──────────────────────────────────────────────
 function renderDashboard() {
+    if (!_derogLoaded) { _loadDerogations(renderDashboard); return; }
     let h = "";
-    const frameworks: { fwId: string; label: string; total: number; ok: number; ko: number; pct: number; excluded: number }[] = [];
+    const frameworks: { fwId: string; label: string; total: number; ok: number; ko: number; derog: number; pct: number; excluded: number }[] = [];
     for (const fwId of D.referentiels_actifs) {
         const exigences = _getExigences(fwId);
         const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-        const ok = applicable.filter(e => _exigenceStatut(e) === "ok").length;
-        const ko = applicable.length - ok;
+        const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
+        // Under derogation: its own category, still in the rate's denominator.
+        const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
+        const ko = applicable.length - ok - derog;
         const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
         const excluded = exigences.length - applicable.length;
         const meta = _getAllFrameworks()[fwId];
-        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, pct, excluded });
+        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, derog, pct, excluded });
     }
     if (frameworks.length === 0) {
         h = '<div class="ct-synth-card"><p class="text-muted">' + t("comp.dash.no_framework") + '</p></div>';
@@ -961,7 +972,7 @@ function renderDashboard() {
                     <div class="ct-kpi-adv-head"><div class="ct-kpi-adv-title">${esc(fw.label)}</div></div>
                     <div class="ct-kpi-adv-valrow"><span class="ct-kpi-adv-value">${fw.pct}<span class="ct-kpi-unit">%</span></span></div>
                     <div class="ct-kpi-adv-viz"><div class="ct-meter" data-tone="${tone}"><span style="width:${fw.pct}%"></span></div></div>
-                    <div class="ct-kpi-adv-meta"><span>${fw.ok} <b>OK</b></span><span>${fw.ko} <b>KO</b></span>${fw.excluded?`<span>${fw.excluded} <b>N/A</b></span>`:""}</div>
+                    <div class="ct-kpi-adv-meta"><span>${fw.ok} <b>OK</b></span><span>${fw.ko} <b>KO</b></span>${fw.derog?`<span>${fw.derog} <b>${t("comp.exig_statut.derogated_short")}</b></span>`:""}${fw.excluded?`<span>${fw.excluded} <b>N/A</b></span>`:""}</div>
                 </div>
             </div>`;
         }
@@ -1000,8 +1011,9 @@ function _renderFwView(fwId: string, subview: string | null) {
 function _renderFwDashboard(fwId: string, label: string) {
     const exigences = _getExigences(fwId);
     const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-    const ok = applicable.filter(e => _exigenceStatut(e) === "ok").length;
-    const ko = applicable.length - ok;
+    const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
+    const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
+    const ko = applicable.length - ok - derog;
     const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
     const mesures = _getMesuresForFw(fwId);
     const preuves = _getPreuvesForFw(fwId);
@@ -1055,6 +1067,9 @@ function _filterExigences(fwId: string, val: string) {
 // Requirement to land on after a "see the requirement" jump (ref within the
 // framework being rendered): the row is scrolled into view and flashed once.
 let _exigTarget = "";
+// The targeted row keeps its mark across the re-renders of the same view
+// (the derogation reload redraws it); browsing to another panel clears it.
+let _exigMarked = "";
 
 function _renderFwExigences(fwId: string, label: string) {
     if (!_derogLoaded) { _loadDerogations(function() { if (_currentFw === fwId && _currentSubview === "exigences") _renderFwExigences(fwId, label); }); }
@@ -1157,13 +1172,15 @@ function _renderFwExigences(fwId: string, label: string) {
     document.querySelectorAll<HTMLTextAreaElement>("#fw-content textarea").forEach(function(ta) {
         if (ta.value) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + "px"; }
     });
-    if (_exigTarget) {
-        var target = _exigTarget; _exigTarget = "";
+    var scrollTo = _exigTarget;
+    if (_exigTarget) { _exigMarked = fwId + ":" + _exigTarget; _exigTarget = ""; }
+    if (_exigMarked.indexOf(fwId + ":") === 0) {
+        var target = _exigMarked.substring(fwId.length + 1);
         var rows = document.querySelectorAll<HTMLTableRowElement>("#exig-" + fwId + "-table tr[data-exig-ref]");
         for (var ri = 0; ri < rows.length; ri++) {
             if (rows[ri].getAttribute("data-exig-ref") !== target) continue;
             rows[ri].classList.add("ct-row-target");
-            rows[ri].scrollIntoView({ block: "center" });
+            if (scrollTo) rows[ri].scrollIntoView({ block: "center" });
             break;
         }
     }
@@ -1176,9 +1193,9 @@ function _ncOptions(): CtNcOptions {
     return {
         listNc: function(status) { return ComplianceAPI.listNonconformities(status); },
         createNc: function(body) { return ComplianceAPI.createNonconformity(body); },
+        patchNc: function(id, body) { return ComplianceAPI.patchNonconformity(id, body); },
         qualifyNc: function(id, body) { return ComplianceAPI.qualifyNonconformity(id, body); },
         rejectNc: function(id, note) { return ComplianceAPI.rejectNonconformity(id, note); },
-        remediationNc: function(id, ids) { return ComplianceAPI.remediationNonconformity(id, ids); },
         closeNc: function(id, evidence) { return ComplianceAPI.closeNonconformity(id, evidence); },
         listDer: function(filters) { return ComplianceAPI.listDerogations(filters); },
         createDer: function(body) { return ComplianceAPI.createDerogation(body); },
@@ -1187,41 +1204,39 @@ function _ncOptions(): CtNcOptions {
         getSettings: function() { return ComplianceAPI.nonconformitySettings(); },
         saveSettings: function(days) { return ComplianceAPI.saveNonconformitySettings(days); },
         isAdmin: function() { return !!(window._currentUser && window._currentUser.role === "admin"); },
+        actor: function() { var u = window._currentUser; return (u && (u.name || u.email)) || ""; },
         subjectTypes: ["control"],
         directoryUrl: "api/directory",
-        // A derogation before any non-conformity: on any requirement of an
-        // active framework — the normal way to ask for the agreement first.
-        subjectSearch: function(q) {
-            var out: CtNcMeasureOption[] = [];
-            D.referentiels_actifs.forEach(function(fwId) {
-                var fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
-                _getExigences(fwId).forEach(function(e) {
-                    if (out.length >= 100) return;
-                    if (e.applicable === false || e.applicable === "non") return;
-                    var ref = _getExigRef(fwId, e);
-                    var label = fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "");
-                    if (q && label.toLowerCase().indexOf(q) < 0) return;
-                    out.push({ value: fwId + ":" + ref, label: label });
+        // The requirements of the active frameworks: a record's objects, a
+        // derogation's subject. Created as internal controls; each has its
+        // page (framework, requirements view, row targeted) for a new tab.
+        items: {
+            options: function() {
+                var out: CtNcItemOption[] = [];
+                D.referentiels_actifs.forEach(function(fwId) {
+                    var fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
+                    _getExigences(fwId).forEach(function(e) {
+                        if (e.applicable === false || e.applicable === "non") return;
+                        var ref = _getExigRef(fwId, e);
+                        out.push({ id: fwId + ":" + ref, label: fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "") });
+                    });
                 });
-            });
-            return out;
+                return out;
+            },
+            create: function(draft) { return _createControlForNc(draft); },
+            href: function(id) { return "?req=" + encodeURIComponent(id) + "#fw:" + encodeURIComponent(id.split(":")[0]) + ":exigences"; },
         },
-        createMeasure: function(prefill) { return _createMesureForNc(prefill); },
-        measureOptions: function() {
-            return (D.mesures || []).map(function(m) {
-                var st = _mesureEffectiveStatut(m);
-                return { value: m.id, label: m.id + " " + (m.description || "").substring(0, 50),
-                         status: st, statusLabel: _statutLabel(st), done: st === "termine" };
-            });
-        },
-        openMeasure: function(id) { return window._editMesureRow!({ id: id }); },
-        openSubject: function(type, id) {
-            if (type !== "control") return;
-            var fwId = id.split(":")[0];
-            if (D.referentiels_actifs.indexOf(fwId) < 0) { showStatus(t("comp.nc.fw_inactive"), true); return; }
-            _exigFilter = "";
-            _exigTarget = id.substring(fwId.length + 1);
-            selectPanel("fw:" + fwId + ":exigences");
+        // The module's measures: a record's corrective measures, created in
+        // the measure modal, edited there by clicking one.
+        measures: {
+            options: function() {
+                return (D.mesures || []).map(function(m) {
+                    var st = _mesureEffectiveStatut(m);
+                    return { id: m.id, label: m.id + " " + (m.description || "").substring(0, 50), statusLabel: _statutLabel(st), done: st === "termine" };
+                });
+            },
+            create: function(draft) { return _createMesureForNc(draft); },
+            open: function(id) { return window._editMesureRow!({ id: id }); },
         },
         onChange: function() { _loadDerogations(function() { if (_currentPanel.startsWith("fw:") && _currentFw) _renderFwView(_currentFw, _currentSubview); }); }
     };
@@ -1229,7 +1244,7 @@ function _ncOptions(): CtNcOptions {
 
 // Corrective measure of a non-conformity: same unified modal and API as
 // _createMesureUnified, but promise-returning and without a requirement link.
-function _createMesureForNc(prefill: { title: string; description: string }): Promise<CtNcMeasureOption | null> {
+function _createMesureForNc(prefill: { title: string; description: string }): Promise<CtNcItemOption | null> {
     if (!window.ct_measure_modal) return Promise.resolve(null);
     var statusOpts = [
         { value: "planifie", label: _statutLabel("planifie") },
@@ -1253,10 +1268,10 @@ function _createMesureForNc(prefill: { title: string; description: string }): Pr
             statut: result.statut || "planifie", responsable: result.responsable || "",
             date_cible: result.date_cible || "", recurrence: "", dernier_controle: "", preuves_ids: [] as string[]
         };
-        var done = function(created: ComplianceMesure): CtNcMeasureOption {
+        var done = function(created: ComplianceMesure): CtNcItemOption {
             D.mesures.push(created);
             showStatus(t("comp.status.mesure_created") || ("Mesure créée : " + created.id));
-            return { value: created.id, label: created.id + " " + (created.description || "").substring(0, 50) };
+            return { id: created.id, label: created.id + " " + (created.description || "").substring(0, 50) };
         };
         if (window.ComplianceAPI && typeof window._getActiveProjectId === "function") {
             return window.ComplianceAPI.createMeasure(window._getActiveProjectId(), payload).then(done)
@@ -1264,6 +1279,90 @@ function _createMesureForNc(prefill: { title: string; description: string }): Pr
         }
         var created = done(payload as ComplianceMesure); _autoSave(); return created;
     });
+}
+
+// A declared gap with no requirement behind it becomes a control of the
+// "internal controls" framework (a custom framework created on first use),
+// so it is assessed and evidenced like any other requirement.
+var _INTERNAL_FW = "internal";
+function _ensureInternalFramework(): void {
+    // Idempotent: the framework may be active (its controls come from the
+    // server) while its custom metadata is not in the blob — rebuild it.
+    var label = t("comp.nc.internal_fw");
+    if (!D._custom_frameworks) D._custom_frameworks = {};
+    if (!D._custom_frameworks[_INTERNAL_FW]) {
+        var known = (D.referentiels && D.referentiels[_INTERNAL_FW]) || [];
+        D._custom_frameworks[_INTERNAL_FW] = { label: label, color: "#78716c",
+            measures: known.map(function(e) { return { ref: e.ref, theme: _rt(e, "thematique") || _rt(e, "theme") || "", mesure: _rt(e, "mesure") || "", description: e.description || "" }; }) };
+    }
+    if (!window._REFERENTIELS_CATALOG) window._REFERENTIELS_CATALOG = {};
+    window._REFERENTIELS_CATALOG[_INTERNAL_FW] = { label: label, description: label, description_en: "Internal controls", color: "#78716c", custom: true };
+    REFERENTIELS_META[_INTERNAL_FW] = window._REFERENTIELS_CATALOG[_INTERNAL_FW];
+    REFERENTIELS_META[_INTERNAL_FW].measures = D._custom_frameworks[_INTERNAL_FW].measures;
+    if (!window.COMPLIANCE_REF) window.COMPLIANCE_REF = {};
+    window.COMPLIANCE_REF[_INTERNAL_FW] = { label: label, description: label, color: "#78716c", measures: D._custom_frameworks[_INTERNAL_FW].measures };
+    if (!D.referentiels[_INTERNAL_FW]) D.referentiels[_INTERNAL_FW] = [];
+    if (D.referentiels_actifs.indexOf(_INTERNAL_FW) < 0) D.referentiels_actifs.push(_INTERNAL_FW);
+}
+
+function _createControlForNc(nc: { title: string; description: string; domain: string }): Promise<CtNcItemOption | null> {
+    if (!window.ct_modal) return Promise.resolve(null);
+    var existing = D.referentiels[_INTERNAL_FW] || [];
+    var n = existing.length + 1;
+    var ref = "INT-" + String(n).padStart(3, "0");
+    while (existing.some(function(e) { return e.ref === ref; })) { n++; ref = "INT-" + String(n).padStart(3, "0"); }
+    var h = '<div class="fs-xs ct-muted ct-mb-3">' + esc(t("comp.nc.create_control_help", { fw: t("comp.nc.internal_fw") })) + '</div>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_ref")) + '</span><input id="ct-cc-ref" class="w-full" value="' + esc(ref) + '" /></label>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_theme")) + '</span><input id="ct-cc-theme" class="w-full" value="' + esc(nc.domain || "") + '" /></label>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_mesure")) + '</span><textarea id="ct-cc-mesure" rows="3" class="w-full">' + esc(nc.title || "") + '</textarea></label>';
+    return window.ct_modal.open({ title: t("comp.nc.create_control"), body: h, size: "md", buttons: [
+        { id: "cancel", label: t("comp.mes.btn_annuler") },
+        { id: "ok", label: t("comp.nc.create_control"), primary: true, result: function() {
+            var r = ((document.getElementById("ct-cc-ref") as HTMLInputElement).value || "").trim();
+            var m = ((document.getElementById("ct-cc-mesure") as HTMLTextAreaElement).value || "").trim();
+            if (!r || !m) { showStatus(t("comp.nc.create_control_missing"), true); return false; }
+            if (!/^[A-Za-z0-9._-]+$/.test(r)) { showStatus(t("comp.nc.create_control_badref"), true); return false; }   // a key: "fw:ref"
+            if (existing.some(function(e) { return e.ref === r; })) { showStatus(t("comp.nc.create_control_dup", { ref: r }), true); return false; }
+            return { ref: r, theme: ((document.getElementById("ct-cc-theme") as HTMLInputElement).value || "").trim(), mesure: m };
+        } }
+    ] }).then(function(res: any) {
+        if (!res) return null;
+        // The framework is activated and the control added to the blob only
+        // once the module holds the control: a cancel or a refused POST
+        // leaves nothing behind.
+        var record = function(controlId: string | null): CtNcItemOption {
+            _saveState();
+            _ensureInternalFramework();
+            var entry: ComplianceExigence = { ref: res.ref, thematique: res.theme, theme: res.theme, mesure: res.mesure,
+                description: nc.description || "", applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: [] };
+            if (controlId) entry.id = controlId;
+            D.referentiels[_INTERNAL_FW].push(entry);
+            if (D._custom_frameworks && D._custom_frameworks[_INTERNAL_FW]) {
+                D._custom_frameworks[_INTERNAL_FW].measures.push({ ref: res.ref, theme: res.theme, mesure: res.mesure, description: nc.description || "" });
+            }
+            _autoSave();                       // the custom framework itself lives in the blob
+            renderSidebar();
+            return { id: _INTERNAL_FW + ":" + res.ref, label: t("comp.nc.internal_fw") + " " + res.ref + " — " + res.mesure };
+        };
+        var pid = typeof window._getActiveProjectId === "function" ? window._getActiveProjectId() : null;
+        if (window.ComplianceAPI && pid) {
+            return window.ComplianceAPI.createControl(pid, { framework_id: _INTERNAL_FW, ref: res.ref, thematique: res.theme, mesure: res.mesure })
+                .then(function(created: any) { return record(created && created.id != null ? String(created.id) : null); })
+                .catch(function(e: any) { showStatus(t("comp.nc.create_control_failed", { msg: e && e.message ? e.message : String(e) }), true); return null; });
+        }
+        return record(null);
+    });
+}
+
+// A requirement by its key ("fw:ref"): its framework's requirements view,
+// the row targeted. Also the `?req=` deep link (a record's item, new tab).
+function _openRequirement(key: string): boolean {
+    var fwId = key.split(":")[0];
+    if (!fwId || D.referentiels_actifs.indexOf(fwId) < 0) { showStatus(t("comp.nc.fw_inactive"), true); return false; }
+    _exigFilter = "";
+    _exigTarget = key.substring(fwId.length + 1);
+    selectPanel("fw:" + fwId + ":exigences");
+    return true;
 }
 
 function renderNonconformities() {
@@ -1281,7 +1380,7 @@ function _declareNcExig(fwId: string, idx: number) {
     const s = _exigSubject(fwId, idx);
     ct_nonconformity.declare(_ncOptions(), {
         subject_type: "control", subject_id: s.key, subject_label: s.label,
-        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200), requirement_ref: s.ref,
+        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200),
         domain: _rt(s.e, "thematique") || _rt(s.e, "theme") || ""
     });
 }

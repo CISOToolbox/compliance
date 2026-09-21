@@ -257,12 +257,12 @@ interface ComplianceAPIShape {
     createNonconformity(body: Record<string, unknown>): Promise<CtNcRecord>;
     qualifyNonconformity(id: string, body: Record<string, unknown>): Promise<CtNcRecord>;
     rejectNonconformity(id: string, note: string): Promise<CtNcRecord>;
-    remediationNonconformity(id: string, measureIds: string[]): Promise<CtNcRecord>;
     closeNonconformity(id: string, evidence: string): Promise<CtNcRecord>;
     listDerogations(filters?: Record<string, string>): Promise<{ items: CtDerRecord[]; total: number }>;
     createDerogation(body: Record<string, unknown>): Promise<CtDerRecord>;
     decideDerogation(id: string, approve: boolean, note: string): Promise<CtDerRecord>;
     revokeDerogation(id: string, reason: string): Promise<CtDerRecord>;
+    patchNonconformity(id: string, body: Record<string, unknown>): Promise<CtNcRecord>;
     nonconformitySettings(): Promise<{ max_derogation_days: number }>;
     saveNonconformitySettings(days: number): Promise<unknown>;
 }

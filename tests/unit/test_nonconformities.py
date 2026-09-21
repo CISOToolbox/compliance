@@ -156,3 +156,92 @@ async def test_remediation_links_existing_measures_only(db):
     with pytest.raises(HTTPException) as e:                       # the measure is still planned
         await _endpoint("close_nonconformity")(nc["id"], CloseBody(closure_evidence="review log"), user=None, db=db)
     assert e.value.status_code == 409 and "MES-001" in e.value.detail
+
+
+@pytest.mark.asyncio
+async def test_stats_envelope_reports_derogated_requirements(db):
+    """The requirement under an approved derogation leaves the KO count for
+    its own category and never lifts the compliance rate."""
+    from src.routes.internal import internal_stats
+    d = await _endpoint("request_derogation")(DerogationCreate(**_body()), _req(), user=None, db=db)
+    await _endpoint("decide_derogation")(d["id"], DecisionBody(approve=True), _req(), user=None, db=db)
+    nc = await _endpoint("declare_nonconformity")(NonconformityCreate(title="Declared, then derogated"), _req(), user=None, db=db)
+    d2 = await _endpoint("request_derogation")(DerogationCreate(**_body(subject_type="nonconformity", subject_id=nc["id"])), _req(), user=None, db=db)
+    await _endpoint("decide_derogation")(d2["id"], DecisionBody(approve=True), _req(), user=None, db=db)
+    db.expunge_all()
+    sreq = Request({"type": "http", "method": "GET", "path": "/api/internal/stats", "query_string": b"",
+                    "headers": [(b"x-service-token", os.environ["SERVICE_TOKEN"].encode())], "client": ("127.0.0.1", 1)})
+    stats = await internal_stats(sreq, db)
+    block = stats["nonconformities"]
+    # the derogated requirement and the derogated record share the category
+    assert block["derogated"] == 2 and block["detected_open"] == 0 and block["to_qualify"] == 0
+    assert stats["posture"]["score"] == 0          # one applicable control, not compliant
+
+
+@pytest.mark.asyncio
+async def test_the_object_of_a_record_is_set_changed_or_removed_unless_a_derogation_covers_it(db):
+    """The link to a requirement is an object handled like any association:
+    picked among the module's controls (404 on an unknown one), changed or
+    removed while the record moves freely — frozen once a derogation covers
+    the record, since the derogation was granted on that subject."""
+    from src.nonconformity_common import NonconformityPatch
+    nc = await _endpoint("declare_nonconformity")(NonconformityCreate(title="Free-standing gap"), _req(), user=None, db=db)
+    patch_nc = _endpoint("patch_nonconformity")
+    with pytest.raises(HTTPException) as e:
+        await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.9.9"), user=None, db=db)
+    assert e.value.status_code == 404
+    r = await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.8.28", requirement_ref="A.8.28"),
+                       user=None, db=db)
+    assert r["subject_type"] == "control" and r["subject_id"] == "iso27001:A.8.28" and r["requirement_ref"] == "A.8.28"
+    with pytest.raises(HTTPException) as e:
+        await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id=""), user=None, db=db)
+    assert e.value.status_code == 422
+    r = await patch_nc(nc["id"], NonconformityPatch(subject_type="", subject_id="", requirement_ref=""), user=None, db=db)
+    assert r["subject_type"] == "" and r["subject_id"] == "" and r["requirement_ref"] == ""
+    r = await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.8.28"), user=None, db=db)
+    assert r["subject_id"] == "iso27001:A.8.28"
+    # a derogation on the record freezes its subject; an unchanged subject still passes
+    await _endpoint("request_derogation")(DerogationCreate(**_body(subject_type="nonconformity", subject_id=nc["id"])), _req(), user=None, db=db)
+    r = await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.8.28", title="Free-standing gap, reworded"),
+                       user=None, db=db)
+    assert r["title"] == "Free-standing gap, reworded"
+    with pytest.raises(HTTPException) as e:
+        await patch_nc(nc["id"], NonconformityPatch(subject_type="", subject_id=""), user=None, db=db)
+    assert e.value.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_a_record_may_concern_several_requirements(db):
+    """Requirements overlap across frameworks: one gap lists every requirement
+    it breaches. The first one stays the primary pair; the reference follows
+    the controls. The list is replaced as a whole, each new item validated."""
+    from sqlalchemy import select
+    from src.nonconformity_common import NonconformityPatch
+    pid = (await db.execute(select(Project.id))).scalar()
+    db.add(ProjectControl(project_id=pid, id=2, framework_id="anssi", ref="34", thematique="Développement",
+                          mesure="Sécuriser les développements", applicable="", conformite="0"))
+    await db.commit()
+    nc = await _endpoint("declare_nonconformity")(
+        NonconformityCreate(title="Unreviewed code reaches production", requirement_ref="A.8.28, 34",
+                            subjects=[{"type": "control", "id": "iso27001:A.8.28"}, {"type": "control", "id": "anssi:34"},
+                                      {"type": "control", "id": "iso27001:A.8.28"}]),
+        _req(), user=None, db=db)
+    assert nc["subjects"] == [{"type": "control", "id": "iso27001:A.8.28"}, {"type": "control", "id": "anssi:34"}]
+    assert nc["subject_type"] == "control" and nc["subject_id"] == "iso27001:A.8.28"
+    with pytest.raises(HTTPException) as e:
+        await _endpoint("declare_nonconformity")(
+            NonconformityCreate(title="Unknown among several", subjects=[{"type": "control", "id": "anssi:34"}, {"type": "control", "id": "iso27001:A.0.0"}]),
+            _req(), user=None, db=db)
+    assert e.value.status_code == 404
+    with pytest.raises(HTTPException) as e:
+        await _endpoint("declare_nonconformity")(NonconformityCreate(title="Wrong kind", subjects=[{"type": "nonconformity", "id": "x"}]),
+                                                 _req(), user=None, db=db)
+    assert e.value.status_code == 422
+    patch_nc = _endpoint("patch_nonconformity")
+    r = await patch_nc(nc["id"], NonconformityPatch(subjects=[{"type": "control", "id": "anssi:34"}], requirement_ref="34"), user=None, db=db)
+    assert r["subjects"] == [{"type": "control", "id": "anssi:34"}] and r["subject_id"] == "anssi:34" and r["requirement_ref"] == "34"
+    r = await patch_nc(nc["id"], NonconformityPatch(subjects=[]), user=None, db=db)
+    assert r["subjects"] == [] and r["subject_id"] == "" and r["subject_type"] == ""
+    # the legacy single pair is the one-item form
+    r = await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.8.28"), user=None, db=db)
+    assert r["subjects"] == [{"type": "control", "id": "iso27001:A.8.28"}]

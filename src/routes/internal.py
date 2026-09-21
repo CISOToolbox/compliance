@@ -296,11 +296,22 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     active_by_project = {pid: set(ra or []) for pid, ra in settings_rows}
     controls_result = await db.execute(
         select(ProjectControl.project_id, ProjectControl.framework_id,
-               ProjectControl.conformite, ProjectControl.applicable)
+               ProjectControl.conformite, ProjectControl.applicable, ProjectControl.ref)
     )
     per_framework = {}  # framework_id -> {conforme, partiel, non, total}
     total_controls = 0
-    for (pid, fw, conf, appl) in controls_result.all():
+    # FEAT-45 — requirements under an approved derogation: their own category,
+    # still in the denominator of the rate, never in the numerator.
+    derogated_keys: set = set()
+    try:
+        from src.models import Derogation
+        rows = (await db.execute(select(Derogation.subject_id).where(
+            Derogation.subject_type == "control", Derogation.status == "approved"))).scalars().all()
+        derogated_keys = set(rows)
+    except Exception:  # noqa: BLE001
+        derogated_keys = set()
+    derogated_controls = 0
+    for (pid, fw, conf, appl, ref) in controls_result.all():
         if appl == "non":
             continue
         active = active_by_project.get(pid)
@@ -311,6 +322,10 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         if fw_key not in per_framework:
             per_framework[fw_key] = {"conforme": 0, "partiel": 0, "non": 0, "total": 0}
         per_framework[fw_key]["total"] += 1
+        if f"{fw}:{ref}" in derogated_keys:
+            derogated_controls += 1
+            per_framework[fw_key]["non"] += 1     # not compliant, kept in the rate's denominator
+            continue
         try:
             c = int(conf) if conf not in ("", None) else None
         except (ValueError, TypeError):
@@ -380,6 +395,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
             "url": "/compliance/",
         })
 
+    declared = await _declared_counts(db)
     return {
         "entity_count": total_projects,
         "entity_label": "Projets de conformité",
@@ -406,6 +422,13 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         },
         "top_items": [],
         "alerts": alerts,
+        # FEAT-45 — the register's view of the posture.
+        "nonconformities": {
+            "derogated": derogated_controls + declared.pop("derogated", 0),
+            "detected_open": sum(d["non"] + d["partiel"] for d in per_framework.values()) - derogated_controls,
+            "with_measure": 0,
+            **declared,
+        },
         # Legacy
         "total_projects": total_projects,
         "total_measures": total_measures,
@@ -413,6 +436,16 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         "total_controls": total_controls,
         "compliance_rate": posture_score,
     }
+
+
+async def _declared_counts(db: AsyncSession) -> dict:
+    try:
+        from src.models import Nonconformity
+        from src.nonconformity_common import declared_counts
+        return await declared_counts(db, Nonconformity)
+    except Exception as e:  # noqa: BLE001 — the register is optional in the envelope
+        logger.warning("nonconformities block unavailable: %s", e)
+        return {"to_qualify": 0, "open": 0, "derogated": 0}
 
 
 def _posture_label(score: int) -> str:

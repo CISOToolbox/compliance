@@ -128,7 +128,12 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         await openApp(page);
 
         const before = await page.evaluate(() => localStorage.getItem('ct_lang'));
+        // The globe opens the list of deployed languages; picking the one that
+        // is not current is what stores the preference.
         await page.locator('[data-click="ct_toggleLang"]').click();
+        const menu = page.locator('#ct-lang-menu');
+        await expect(menu).toBeVisible();
+        await menu.locator('.ct-lang-item:not(.active)').first().click();
         await page.waitForTimeout(400);
 
         const after = await page.evaluate(() => localStorage.getItem('ct_lang'));
@@ -215,6 +220,120 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         await page.locator(NAV_ITEMS, { hasText: /Tableau de bord|Dashboard/i }).first().click();
         await expect(page.locator('#panel-dashboard')).toHaveClass(/active/);
         await expect(page.locator('#dashboard-content')).not.toBeEmpty();
+    });
+
+    // ── Module-specific: non-conformities and derogations ──────────────
+    //
+    // The register works the same way here as in the server-backed module,
+    // except that there is nobody else to ask: the person holding the file
+    // declares the gap, requests the derogation and approves it. The journey
+    // walks that whole path and checks the requirement it covers changes
+    // status and that everything is still there after a reload.
+    test('a gap declared on a requirement can be derogated, approved locally, and survives a reload', async ({ page }) => {
+        const errors = trackErrors(page);
+        await openApp(page);
+
+        // An assessment with one framework: its requirements are what the
+        // register attaches records to.
+        await page.locator(NAV_ITEMS, { hasText: /Contexte|Context/i }).first().click();
+        await page.locator('#context-content .ct-ref-chip.is-inactive').first().click();
+        await expect(page.locator('#sidebar-frameworks')).not.toBeEmpty();
+        await page.locator('#sidebar-frameworks .ct-rail-item').first().click();
+        await page.locator('#sidebar-frameworks .ct-rail-subitem', { hasText: /Exigences|Requirements/i }).first().click();
+
+        const row = page.locator('tr[data-exig-ref]').first();
+        const ref = await row.getAttribute('data-exig-ref');
+        expect(ref).toBeTruthy();
+
+        // 1. Declare a non-conformity on that requirement.
+        await row.locator('[data-click="_declareNcExig"]').click();
+        let modal = page.locator('.ct-modal-box').first();
+        await expect(modal.locator('#ct-nc-title')).toBeVisible();
+        await modal.locator('#ct-nc-title').fill('E2E gap on ' + ref);
+        await modal.getByRole('button', { name: /^(Déclarer|Declare)$/ }).click();
+        await expect(page.locator('.ct-modal-box')).toHaveCount(0);
+
+        // The register lists it, to qualify.
+        await page.locator(NAV_ITEMS, { hasText: /Non-conformit/i }).first().click();
+        await expect(page.locator('#panel-nonconformities')).toHaveClass(/active/);
+        const register = page.locator('#nonconformities-content');
+        await expect(register).toContainText('E2E gap on ' + ref);
+        await expect(register).toContainText(/NC-\d{4}-\d{3}/);
+
+        // 2. Request a derogation on the same requirement.
+        await page.locator('#sidebar-frameworks .ct-rail-item').first().click();
+        await page.locator('#sidebar-frameworks .ct-rail-subitem', { hasText: /Exigences|Requirements/i }).first().click();
+        await page.locator('tr[data-exig-ref]').first().locator('[data-click="_requestDerogExig"]').click();
+        modal = page.locator('.ct-modal-box').first();
+        await expect(modal.locator('#ct-der-just')).toBeVisible();
+        await modal.locator('#ct-der-just').fill('Compensating control in place until the migration');
+        // No directory behind a local file: the person fields are plain text.
+        await expect(modal.locator('#ct-der-owner-plain')).toBeVisible();
+        await modal.locator('#ct-der-owner-plain').fill('Risk owner');
+        await modal.locator('#ct-der-approver-plain').fill('Approver');
+        const until = new Date(Date.now() + 90 * 86400000).toISOString().slice(0, 10);
+        await modal.locator('#ct-der-until').fill(until);
+        await modal.getByRole('button', { name: /^(Soumettre la demande|Submit request)$/ }).click();
+        await expect(page.locator('.ct-modal-box')).toHaveCount(0);
+
+        // 3. Approve it — local approval, no second account involved.
+        await page.locator(NAV_ITEMS, { hasText: /Non-conformit/i }).first().click();
+        await register.getByText(/DER-\d{4}-\d{3}/).first().click();
+        modal = page.locator('.ct-modal-box').first();
+        await modal.getByRole('button', { name: /^(Approuver|Approve)$/ }).click();
+        await page.locator('.ct-modal-box').first().getByRole('button', { name: /^(Confirmer|Confirm)$/ }).click();
+        await expect(page.locator('.ct-modal-box')).toHaveCount(0);
+        await expect(register).toContainText(/Approuvée|Approved/);
+
+        // 4. The requirement it covers now reads as derogated, and the whole
+        //    register is in the autosave.
+        await page.locator('#sidebar-frameworks .ct-rail-item').first().click();
+        await page.locator('#sidebar-frameworks .ct-rail-subitem', { hasText: /Exigences|Requirements/i }).first().click();
+        await expect(page.locator('tr[data-exig-ref]').first()).toContainText(/Dérogation|Derogation/);
+
+        await page.reload();
+        await expect(page.locator('.ct-appbar')).toBeVisible();
+        const saved = await page.evaluate((k) => localStorage.getItem(k), AUTOSAVE_KEY);
+        expect(saved).toContain('E2E gap on ' + ref);
+        expect(saved).toContain('"status":"approved"');
+
+        expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
+    });
+
+    // A gap with no requirement behind it: the register can create the
+    // requirement, in a framework of internal controls, so the gap is
+    // assessed and evidenced like any other.
+    test('a gap without a requirement creates an internal control from the declaration', async ({ page }) => {
+        const errors = trackErrors(page);
+        await openApp(page);
+
+        await page.locator(NAV_ITEMS, { hasText: /Non-conformit/i }).first().click();
+        await page.locator('[data-click="_ctNcDeclare"]').click();
+        const modal = page.locator('.ct-modal-box').first();
+        await modal.locator('#ct-nc-title').fill('No requirement covers this');
+
+        // The item field offers "+ create a control" — the module's own modal.
+        await modal.locator('.ct-ref-tags').first().click();
+        await modal.locator('.ct-ref-create').first().click();
+        await expect(page.locator('#ct-cc-ref')).toBeVisible();
+        const ref = await page.locator('#ct-cc-ref').inputValue();
+        expect(ref).toMatch(/^INT-\d{3}$/);
+        await page.locator('#ct-cc-mesure').fill('Keep an inventory of the exceptions');
+        await page.locator('.ct-modal-box').first().getByRole('button', { name: /^(Créer un contrôle|Create a control)$/ }).click();
+
+        // Back on the declaration, the new control selected; declaring links them.
+        const back = page.locator('.ct-modal-box').first();
+        await expect(back.locator('#ct-nc-title')).toHaveValue('No requirement covers this');
+        await expect(back.locator('.ct-ref-tag').first()).toContainText(ref);
+        await back.getByRole('button', { name: /^(Déclarer|Declare)$/ }).click();
+        await expect(page.locator('.ct-modal-box')).toHaveCount(0);
+
+        // The internal framework is now part of the assessment.
+        await expect(page.locator('#sidebar-frameworks')).toContainText(/Contrôles internes|Internal controls/);
+        const saved = await page.evaluate((k) => localStorage.getItem(k), AUTOSAVE_KEY);
+        expect(saved).toContain('internal:' + ref);
+
+        expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
     });
 
 });

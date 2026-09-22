@@ -389,10 +389,20 @@ function _mesureEffectiveStatut(m) {
     const hasValid = preuves.some(p => !p.date_expiration || new Date(p.date_expiration) >= today);
     return hasValid ? "termine" : "preuve_manquante";
 }
+// FEAT-45 — approved derogations on requirements, keyed "<framework>:<ref>".
+// Derived from the register at render time; the exported data never carries
+// the status itself.
+function _exigDerogation(fwId, entry) {
+    const key = fwId + ":" + (entry.ref || "");
+    const live = (D.derogations || []).filter(d => d.status === "approved" && d.subject_type === "control" && d.subject_id === key);
+    return live.length ? live[0] : null;
+}
 // Requirement status: OK if ≥1 measure AND all done (with valid proofs)
-function _exigenceStatut(entry) {
+function _exigenceStatut(entry, fwId) {
     if (entry.applicable === false || entry.applicable === "non")
         return "na";
+    if (fwId && _exigDerogation(fwId, entry))
+        return "derogated";
     const ids = entry.mesures_ids || [];
     if (ids.length === 0)
         return "ko";
@@ -403,7 +413,7 @@ function _exigenceStatut(entry) {
     return allOk ? "ok" : "ko";
 }
 function _exigStatutLabel(key) { return t("comp.exig_statut." + key) || key; }
-const _exigStatutColors = { ok: "green", ko: "red", na: "gray" };
+const _exigStatutColors = { ok: "green", ko: "red", na: "gray", derogated: "gray" };
 // ── Badges ──────────────────────────────────────────────────────────────
 // _tBadge() (shared) inlines the pastels inherited from CT_COLORS, which only
 // matched the design system once re-themed in dark — light therefore kept
@@ -462,6 +472,8 @@ function selectPanel(panelId) {
     // Close the mobile sidebar
     document.querySelector(".ct-rail, .sidebar")?.classList.remove("open");
     // Format: "fw:dora:exigences" or "dashboard" or "context"
+    if (_exigMarked && !_exigTarget && panelId !== "fw:" + _exigMarked.split(":")[0] + ":exigences")
+        _exigMarked = "";
     if (panelId.startsWith("fw:")) {
         const parts = panelId.split(":");
         _currentFw = parts[1];
@@ -505,6 +517,8 @@ function selectPanel(panelId) {
             renderControles();
         else if (panelId === "history")
             renderHistory();
+        else if (panelId === "nonconformities")
+            renderNonconformities();
     }
     renderSidebar();
     _updateSidebarAccordion(panelId);
@@ -523,6 +537,14 @@ function ensureKeys() {
         D.mesures = [];
     if (!Array.isArray(D.preuves))
         D.preuves = [];
+    // FEAT-45 — the register. Past its end of validity a derogation expires
+    // on load: no scheduler here, the file is only alive when it is open.
+    if (!Array.isArray(D.nonconformities))
+        D.nonconformities = [];
+    if (!Array.isArray(D.derogations))
+        D.derogations = [];
+    if (window.ct_nonconformity_local)
+        window.ct_nonconformity_local.expire(_ncSpec());
     // ── Legacy format migration (socle_anssi / socle_iso / socle_complementaires) ──
     if (Array.isArray(D.socle_anssi) && D.socle_anssi.length > 0 && !D.referentiels.anssi) {
         D.referentiels.anssi = D.socle_anssi.map(e => {
@@ -956,12 +978,14 @@ function renderDashboard() {
     for (const fwId of D.referentiels_actifs) {
         const exigences = _getExigences(fwId);
         const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-        const ok = applicable.filter(e => _exigenceStatut(e) === "ok").length;
-        const ko = applicable.length - ok;
+        const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
+        // Under derogation: its own category, still in the rate's denominator.
+        const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
+        const ko = applicable.length - ok - derog;
         const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
         const excluded = exigences.length - applicable.length;
         const meta = _getAllFrameworks()[fwId];
-        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, pct, excluded });
+        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, derog, pct, excluded });
     }
     if (frameworks.length === 0) {
         h = '<div class="ct-synth-card"><p class="text-muted">' + t("comp.dash.no_framework") + '</p></div>';
@@ -976,7 +1000,7 @@ function renderDashboard() {
                     <div class="ct-kpi-adv-head"><div class="ct-kpi-adv-title">${esc(fw.label)}</div></div>
                     <div class="ct-kpi-adv-valrow"><span class="ct-kpi-adv-value">${fw.pct}<span class="ct-kpi-unit">%</span></span></div>
                     <div class="ct-kpi-adv-viz"><div class="ct-meter" data-tone="${tone}"><span style="width:${fw.pct}%"></span></div></div>
-                    <div class="ct-kpi-adv-meta"><span>${fw.ok} <b>OK</b></span><span>${fw.ko} <b>KO</b></span>${fw.excluded ? `<span>${fw.excluded} <b>N/A</b></span>` : ""}</div>
+                    <div class="ct-kpi-adv-meta"><span>${fw.ok} <b>OK</b></span><span>${fw.ko} <b>KO</b></span>${fw.derog ? `<span>${fw.derog} <b>${t("comp.exig_statut.derogated_short")}</b></span>` : ""}${fw.excluded ? `<span>${fw.excluded} <b>N/A</b></span>` : ""}</div>
                 </div>
             </div>`;
         }
@@ -1016,8 +1040,9 @@ function _renderFwView(fwId, subview) {
 function _renderFwDashboard(fwId, label) {
     const exigences = _getExigences(fwId);
     const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-    const ok = applicable.filter(e => _exigenceStatut(e) === "ok").length;
-    const ko = applicable.length - ok;
+    const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
+    const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
+    const ko = applicable.length - ok - derog;
     const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
     const mesures = _getMesuresForFw(fwId);
     const preuves = _getPreuvesForFw(fwId);
@@ -1058,6 +1083,10 @@ function _renderFwDashboard(fwId, label) {
 }
 // ── Requirements ──────────────────────────────────────────────────
 let _exigFilter = "";
+/** Requirement to scroll to on the next render of its framework ("ref"). */
+let _exigTarget = "";
+/** Requirement kept highlighted while its view is on screen ("fw:ref"). */
+let _exigMarked = "";
 function _filterExigences(fwId, val) {
     _exigFilter = val;
     _renderFwView(fwId, "exigences");
@@ -1101,19 +1130,20 @@ function _renderFwExigences(fwId, label) {
         const notApplicable = e.applicable === false || e.applicable === "non";
         const desc = getDesc ? getDesc(ref) : (_rt(e, "description") || "");
         // Computed status
-        const statut = _exigenceStatut(e);
+        const statut = _exigenceStatut(e, fwId);
+        const derog = _exigDerogation(fwId, e);
         const statutColor = _exigStatutColors[statut] || "var(--ct-ink-2)";
         // Linked measures with their effective status
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
         const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
         const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
         const prevues = linkedMesures.filter(m => { var s = _mesureEffectiveStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
-        h += `<tr${notApplicable ? ' class="ct-bg-alt"' : ''}>`;
+        h += `<tr${notApplicable ? ' class="ct-bg-alt"' : ''} data-exig-ref="${esc(ref)}">`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
         h += `<td${hd("mesure")}><div>${esc(_rt(e, "mesure"))}</div>${desc ? '<div class="desc-text">' + esc(desc) + '</div>' : ""}</td>`;
         h += `<td${hd("appl")} class="ta-c"><input type="checkbox" ${!notApplicable ? "checked" : ""} data-change="_toggleApplicable" data-args='${_da(fwId, i)}' data-pass-checked /></td>`;
-        h += `<td${hd("statut")} class="ta-c">${_tBadge(_exigStatutLabel(statut), statutColor)}</td>`;
+        h += `<td${hd("statut")} class="ta-c"${derog ? ' title="' + esc(derog.reference + (derog.valid_until ? " → " + derog.valid_until : "")) + '"' : ''}>${_tBadge(_exigStatutLabel(statut), statutColor)}</td>`;
         h += `<td${hd("ecart")}><textarea rows="3" class="w-full" placeholder="${notApplicable ? t("comp.exig.placeholder_na") : t("comp.exig.placeholder_comments")}" data-change="_updateExig" data-args='${_da(fwId, i, "ecart")}' data-pass-value data-input="_autoHeight" data-pass-el>${esc(e.ecart || "")}</textarea></td>`;
         // Linked measures column
         h += `<td${hd("mes")}>`;
@@ -1140,6 +1170,10 @@ function _renderFwExigences(fwId, label) {
         h += `<div class="mt-8">${_searchSelect(t("comp.exig.lier_mesure"), mesOpts, "_linkExistingMesure", [fwId, i])}
             <button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="xs" data-click="_createAndLinkMesure" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_nouvelle")}</button>
             <button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="xs" data-click="_proposerMesures" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_proposer")}</button>
+        </div>
+        <div class="mt-8">
+            <button class="ct-btn" data-write data-size="xs" data-click="_declareNcExig" data-args='${_da(fwId, i)}'>${t("comp.exig.btn_nc")}</button>
+            ${(statut !== "na" && statut !== "derogated") ? `<button class="ct-btn ct-ml-1" data-write data-size="xs" data-click="_requestDerogExig" data-args='${_da(fwId, i)}'>${t("der.request_btn")}</button>` : ""}
         </div></td>`;
         h += '</tr>';
     });
@@ -1154,6 +1188,25 @@ function _renderFwExigences(fwId, label) {
             ta.style.height = ta.scrollHeight + "px";
         }
     });
+    // A requirement opened from a record (?req=) is highlighted, and scrolled
+    // to once; the marker survives the re-renders of the same view.
+    var scrollTo = _exigTarget;
+    if (_exigTarget) {
+        _exigMarked = fwId + ":" + _exigTarget;
+        _exigTarget = "";
+    }
+    if (_exigMarked.indexOf(fwId + ":") === 0) {
+        var target = _exigMarked.substring(fwId.length + 1);
+        var rows = document.querySelectorAll("#exig-" + fwId + "-table tr[data-exig-ref]");
+        for (var ri = 0; ri < rows.length; ri++) {
+            if (rows[ri].getAttribute("data-exig-ref") !== target)
+                continue;
+            rows[ri].classList.add("ct-row-target");
+            if (scrollTo)
+                rows[ri].scrollIntoView({ block: "center" });
+            break;
+        }
+    }
 }
 // Requirement handlers
 function _toggleApplicable(fwId, idx, checked) {
@@ -1173,6 +1226,217 @@ function _updateExig(fwId, idx, field, val) {
 }
 function _getExigEntry(fwId, idx) {
     return ((D.referentiels && D.referentiels[fwId]) || [])[idx] || {};
+}
+// ═══════════════════════════════════════════════════════════════════════
+// NON-CONFORMITIES AND DEROGATIONS (FEAT-45)
+// ═══════════════════════════════════════════════════════════════════════
+// The same register as the module, on the blob instead of a server:
+// ct_nonconformity draws it, ct_nonconformity_local holds the rules, and the
+// person holding the file declares, qualifies and approves — there is no
+// second account to ask (local approval). A requirement is named
+// "<framework>:<ref>" here as there, so a record keeps its meaning.
+function _ncSpec() {
+    return {
+        records: function () { if (!Array.isArray(D.nonconformities))
+            D.nonconformities = []; return D.nonconformities; },
+        derogations: function () { if (!Array.isArray(D.derogations))
+            D.derogations = []; return D.derogations; },
+        save: function () { _autoSave(); },
+        actor: function () { return (D.meta && D.meta.evaluateur) || ""; },
+        subjectType: "control",
+        maxDays: function () { return (D.meta && D.meta.max_derogation_days) || 365; },
+        setMaxDays: function (days) { _saveState(); D.meta.max_derogation_days = days; },
+        // The requirements of the active frameworks: a record's objects, a
+        // derogation's subject. Created as internal controls; each has its
+        // page (framework, requirements view, row targeted) for a new tab.
+        items: {
+            options: function () {
+                var out = [];
+                D.referentiels_actifs.forEach(function (fwId) {
+                    var fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
+                    _getExigences(fwId).forEach(function (e) {
+                        if (e.applicable === false || e.applicable === "non")
+                            return;
+                        var ref = _getExigRef(fwId, e);
+                        out.push({ id: fwId + ":" + ref, label: fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "") });
+                    });
+                });
+                return out;
+            },
+            create: function (draft) { return _createControlForNc(draft); },
+            href: function (id) { return "?req=" + encodeURIComponent(id) + "#fw:" + encodeURIComponent(id.split(":")[0]) + ":exigences"; },
+        },
+        // The module's measures: a record's corrective measures, created in
+        // the measure modal, edited there by clicking one.
+        measures: {
+            options: function () {
+                return (D.mesures || []).map(function (m) {
+                    var st = _mesureEffectiveStatut(m);
+                    return { id: m.id, label: m.id + " " + (m.description || "").substring(0, 50), statusLabel: _statutLabel(st), done: st === "termine" };
+                });
+            },
+            create: function (draft) { return _createMesureForNc(draft); },
+            open: function (id) { return window._editMesureRow({ id: id }); },
+        },
+    };
+}
+function _ncOptions() {
+    var opts = window.ct_nonconformity_local.options(_ncSpec());
+    // A decision on a derogation changes a requirement's status: the view
+    // showing it is redrawn.
+    opts.onChange = function () { _autoSave(); if (_currentFw && _currentSubview)
+        _renderFwView(_currentFw, _currentSubview); };
+    return opts;
+}
+function renderNonconformities() {
+    if (!window.ct_nonconformity)
+        return;
+    window.ct_nonconformity.renderPanel(document.getElementById("nonconformities-content"), _ncOptions());
+}
+// Corrective measure of a non-conformity: the same unified modal as the rest
+// of the action plan, promise-returning and without a requirement link.
+function _createMesureForNc(prefill) {
+    if (!window.ct_measure_modal)
+        return Promise.resolve(null);
+    var statusOpts = [
+        { value: "planifie", label: _statutLabel("planifie") },
+        { value: "en_cours", label: _statutLabel("en_cours") },
+        { value: "termine", label: _statutLabel("termine") }
+    ];
+    return window.ct_measure_modal.open({ description: prefill.title, details: prefill.description }, {
+        title: t("comp.mes.new_draft"),
+        saveLabel: t("comp.mes.btn_valider"),
+        fieldMap: { title: "description", description: "details", echeance: "date_cible" },
+        hideFields: ["type"],
+        statusOptions: statusOpts,
+        defaultStatus: "planifie",
+        ownerPicker: { pickerId: "compliance-nc-measure-owner", directoryUrl: "api/directory" }
+    }).then(function (result) {
+        if (!result || result.__deleted || result.__advanced)
+            return null;
+        _saveState();
+        var created = {
+            id: _genMesureId(),
+            description: result.description || "", details: result.details || "",
+            statut: result.statut || "planifie", responsable: result.responsable || "",
+            date_cible: result.date_cible || "", recurrence: "", dernier_controle: "", preuves_ids: []
+        };
+        D.mesures.push(created);
+        _autoSave();
+        showStatus(t("comp.status.mesure_created"));
+        return { id: created.id, label: created.id + " " + (created.description || "").substring(0, 50) };
+    });
+}
+// A declared gap with no requirement behind it becomes a control of the
+// "internal controls" framework (a custom framework created on first use),
+// so it is assessed and evidenced like any other requirement.
+var _INTERNAL_FW = "internal";
+function _ensureInternalFramework() {
+    // Idempotent: the framework metadata may be missing from the blob while
+    // its requirements are already there — rebuild it.
+    var label = t("comp.nc.internal_fw");
+    if (!D._custom_frameworks)
+        D._custom_frameworks = {};
+    if (!D._custom_frameworks[_INTERNAL_FW]) {
+        var known = (D.referentiels && D.referentiels[_INTERNAL_FW]) || [];
+        D._custom_frameworks[_INTERNAL_FW] = { label: label, color: "#78716c",
+            measures: known.map(function (e) { return { ref: e.ref, theme: _rt(e, "thematique") || _rt(e, "theme") || "", mesure: _rt(e, "mesure") || "", description: e.description || "" }; }) };
+    }
+    if (!window._REFERENTIELS_CATALOG)
+        window._REFERENTIELS_CATALOG = {};
+    window._REFERENTIELS_CATALOG[_INTERNAL_FW] = { label: label, description: label, description_en: "Internal controls", color: "#78716c", custom: true };
+    REFERENTIELS_META[_INTERNAL_FW] = window._REFERENTIELS_CATALOG[_INTERNAL_FW];
+    REFERENTIELS_META[_INTERNAL_FW].measures = D._custom_frameworks[_INTERNAL_FW].measures;
+    if (!window.COMPLIANCE_REF)
+        window.COMPLIANCE_REF = {};
+    window.COMPLIANCE_REF[_INTERNAL_FW] = { label: label, description: label, color: "#78716c", measures: D._custom_frameworks[_INTERNAL_FW].measures };
+    if (!D.referentiels[_INTERNAL_FW])
+        D.referentiels[_INTERNAL_FW] = [];
+    if (D.referentiels_actifs.indexOf(_INTERNAL_FW) < 0)
+        D.referentiels_actifs.push(_INTERNAL_FW);
+}
+function _createControlForNc(nc) {
+    if (!window.ct_modal)
+        return Promise.resolve(null);
+    var existing = D.referentiels[_INTERNAL_FW] || [];
+    var n = existing.length + 1;
+    var ref = "INT-" + String(n).padStart(3, "0");
+    while (existing.some(function (e) { return e.ref === ref; })) {
+        n++;
+        ref = "INT-" + String(n).padStart(3, "0");
+    }
+    var h = '<div class="fs-xs ct-muted ct-mb-3">' + esc(t("comp.nc.create_control_help", { fw: t("comp.nc.internal_fw") })) + '</div>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_ref")) + '</span><input id="ct-cc-ref" class="w-full" value="' + esc(ref) + '" /></label>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_theme")) + '</span><input id="ct-cc-theme" class="w-full" value="' + esc(nc.domain || "") + '" /></label>';
+    h += '<label class="ct-block ct-mb-2"><span class="fs-xs ct-muted">' + esc(t("comp.exig.col_mesure")) + '</span><textarea id="ct-cc-mesure" rows="3" class="w-full">' + esc(nc.title || "") + '</textarea></label>';
+    return window.ct_modal.open({ title: t("comp.nc.create_control"), body: h, size: "md", buttons: [
+            { id: "cancel", label: t("comp.mes.btn_annuler") },
+            { id: "ok", label: t("comp.nc.create_control"), primary: true, result: function () {
+                    var r = (document.getElementById("ct-cc-ref").value || "").trim();
+                    var m = (document.getElementById("ct-cc-mesure").value || "").trim();
+                    if (!r || !m) {
+                        showStatus(t("comp.nc.create_control_missing"), true);
+                        return false;
+                    }
+                    if (!/^[A-Za-z0-9._-]+$/.test(r)) {
+                        showStatus(t("comp.nc.create_control_badref"), true);
+                        return false;
+                    } // a key: "fw:ref"
+                    if (existing.some(function (e) { return e.ref === r; })) {
+                        showStatus(t("comp.nc.create_control_dup", { ref: r }), true);
+                        return false;
+                    }
+                    return { ref: r, theme: (document.getElementById("ct-cc-theme").value || "").trim(), mesure: m };
+                } }
+        ] }).then(function (res) {
+        if (!res)
+            return null;
+        _saveState();
+        _ensureInternalFramework();
+        var entry = { ref: res.ref, thematique: res.theme, theme: res.theme, mesure: res.mesure,
+            description: nc.description || "", applicable: "", conformite: "", ecart: "", mesures_prevues: "", mesures_ids: [] };
+        D.referentiels[_INTERNAL_FW].push(entry);
+        if (D._custom_frameworks && D._custom_frameworks[_INTERNAL_FW]) {
+            D._custom_frameworks[_INTERNAL_FW].measures.push({ ref: res.ref, theme: res.theme, mesure: res.mesure, description: nc.description || "" });
+        }
+        _autoSave();
+        renderSidebar();
+        return { id: _INTERNAL_FW + ":" + res.ref, label: t("comp.nc.internal_fw") + " " + res.ref + " — " + res.mesure };
+    });
+}
+// A requirement by its key ("fw:ref"): its framework's requirements view,
+// the row targeted. Also the `?req=` deep link (a record's item, new tab).
+function _openRequirement(key) {
+    var fwId = key.split(":")[0];
+    if (!fwId || D.referentiels_actifs.indexOf(fwId) < 0) {
+        showStatus(t("comp.nc.fw_inactive"), true);
+        return false;
+    }
+    _exigFilter = "";
+    _exigTarget = key.substring(fwId.length + 1);
+    selectPanel("fw:" + fwId + ":exigences");
+    return true;
+}
+function _exigSubject(fwId, idx) {
+    const e = _getExigEntry(fwId, idx);
+    const ref = _getExigRef(fwId, e);
+    const fwLabel = (_getAllFrameworks()[fwId] || {}).label || fwId;
+    return { e: e, ref: ref, key: fwId + ":" + ref, label: fwLabel + " " + ref + " — " + (_rt(e, "mesure") || "") };
+}
+function _declareNcExig(fwId, idx) {
+    const s = _exigSubject(fwId, idx);
+    window.ct_nonconformity.declare(_ncOptions(), {
+        subject_type: "control", subject_id: s.key, subject_label: s.label,
+        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200),
+        domain: _rt(s.e, "thematique") || _rt(s.e, "theme") || ""
+    });
+}
+function _requestDerogExig(fwId, idx) {
+    const s = _exigSubject(fwId, idx);
+    window.ct_nonconformity.requestDerogation(_ncOptions(), {
+        subject_type: "control", subject_id: s.key, subject_label: s.label,
+        title: (_rt(s.e, "mesure") || s.ref).substring(0, 200)
+    });
 }
 function _linkExistingMesure(fwId, idx, mesureId) {
     if (!mesureId)
@@ -2713,6 +2977,19 @@ try {
     else {
         _initDataAndRender();
     }
+    // FEAT-45 — a record's requirement (?req=fw:ref) opens its framework's
+    // requirements view with the row targeted; #nonconformities the register.
+    var _reqKey = "";
+    try {
+        _reqKey = new URLSearchParams(location.search).get("req") || "";
+    }
+    catch (e) {
+        _reqKey = "";
+    }
+    if (_reqKey)
+        _openRequirement(_reqKey);
+    else if (location.hash === "#nonconformities")
+        selectPanel("nonconformities");
 }
 catch (e) {
     console.error("Erreur au rendu initial:", e);

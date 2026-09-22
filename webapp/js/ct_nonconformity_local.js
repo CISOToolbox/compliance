@@ -404,7 +404,21 @@
             // persisted by `save`, what remains is the module's own redraw.
         };
     }
-    window.ct_nonconformity_local = { options: options, expire: expire };
+    // The module's own treatment overtakes an acceptance — deleting the object
+    // it covered, for instance. Published so every local app applies the rule
+    // once, the way the server-backed modules share `revoke_for_subject`.
+    function settle(spec, subjectId, reason) {
+        var before = spec.derogations().filter(function (d) {
+            return d.subject_type === spec.subjectType && d.subject_id === subjectId
+                && (d.status === "approved" || d.status === "pending_approval");
+        }).length;
+        if (!before)
+            return 0;
+        _settle(spec, spec.subjectType, subjectId, reason);
+        spec.save("derogation");
+        return before;
+    }
+    window.ct_nonconformity_local = { options: options, expire: expire, settle: settle };
 })();
 _registerTranslations("fr", {
     "nc.err_not_found": "Introuvable.",

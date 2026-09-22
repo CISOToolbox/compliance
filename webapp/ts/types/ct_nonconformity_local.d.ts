@@ -27,5 +27,7 @@ interface Window {
     ct_nonconformity_local?: {
         options: (spec: CtNcLocalSpec) => CtNcOptions;
         expire: (spec: CtNcLocalSpec) => number;
+        /** The module removed the object itself: what covered it falls too. */
+        settle: (spec: CtNcLocalSpec, subjectId: string, reason: string) => number;
     };
 }

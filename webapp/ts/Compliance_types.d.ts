@@ -14,6 +14,10 @@ interface ComplianceMeta {
     evaluateur: string;
     perimetre: string;
     commentaires: string;
+    /** FEAT-45 — schema revision stamped by ct_schema. */
+    schema_rev?: number;
+    /** FEAT-45 — ceiling on a derogation's duration, in days (default 365). */
+    max_derogation_days?: number;
 }
 
 /** Requirement entry of a framework in D.referentiels[fwId]. */
@@ -161,6 +165,10 @@ interface ComplianceInitData {
 
 interface ComplianceData extends ComplianceInitData {
     _custom_frameworks?: Record<string, ComplianceCustomFramework>;
+    /* FEAT-45 — the register, seeded by ensureKeys(). English keys: the
+       same two collections in every module that carries a register. */
+    nonconformities?: CtNcRecord[];
+    derogations?: CtDerRecord[];
     /* Legacy format, migrated then removed by ensureKeys() */
     socle_anssi?: ComplianceExigence[];
     socle_iso?: ComplianceExigence[];

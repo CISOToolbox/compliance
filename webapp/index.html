@@ -51,6 +51,7 @@
       <button class="ct-rail-item" data-click="selectPanel" data-args='["context"]'><span class="ct-rail-item-label" data-i18n="comp.sidebar.context">Contexte</span></button>
       <button class="ct-rail-item" data-click="selectPanel" data-args='["plan"]'><span class="ct-rail-item-label" data-i18n="comp.sidebar.plan">Plan d'action</span></button>
       <button class="ct-rail-item" data-click="selectPanel" data-args='["controles"]'><span class="ct-rail-item-label" data-i18n="comp.sidebar.controles">Controles</span></button>
+      <button class="ct-rail-item" data-click="selectPanel" data-args='["nonconformities"]'><span class="ct-rail-item-label" data-i18n="nav.nonconformities">Non-conformités</span></button>
     </div>
 
     <div id="sidebar-frameworks"></div>
@@ -86,6 +87,7 @@
 <div class="tab-panel" id="panel-fw"><div class="ct-panel-desc" id="fw-desc"></div><div id="fw-content"></div></div>
 <div class="tab-panel" id="panel-plan"><div class="ct-panel-desc" data-i18n="comp.panel.plan_desc">Toutes les mesures non terminées, tous référentiels confondus.</div><div id="plan-content"></div></div>
 <div class="tab-panel" id="panel-controles"><div class="ct-panel-desc" data-i18n="comp.panel.controles_desc">Suivi des contrôles récurrents et des preuves arrivant à expiration.</div><div id="controles-content"></div></div>
+<div class="tab-panel" id="panel-nonconformities"><div class="ct-panel-desc" data-i18n="comp.panel.nonconformities_desc">Non-conformités constatées hors contrôle, et dérogations sur les exigences.</div><div id="nonconformities-content"></div></div>
 <div class="tab-panel" id="panel-history"><div class="ct-panel-desc" data-i18n="comp.panel.history_desc">Points de sauvegarde et historique des modifications.</div><div id="history-content"></div></div>
 </main><!-- ct-content -->
 </div><!-- ct-body -->
@@ -140,6 +142,8 @@
 <script src="js/ct_modal.js"></script>
 <script src="js/ct_userpicker.js"></script>
 <script src="js/ct_measure_modal.js"></script>
+<script src="js/ct_nonconformity.js"></script>
+<script src="js/ct_nonconformity_local.js"></script>
 <script src="js/ct_table.js"></script>
 <script src="js/ct_bulkbar.js"></script>
 <script src="js/Compliance_app.js"></script>

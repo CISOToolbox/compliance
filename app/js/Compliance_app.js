@@ -1249,7 +1249,6 @@ function _ncOptions() {
         revokeDer: function (id, reason) { return ComplianceAPI.revokeDerogation(id, reason); },
         getSettings: function () { return ComplianceAPI.nonconformitySettings(); },
         saveSettings: function (days) { return ComplianceAPI.saveNonconformitySettings(days); },
-        isAdmin: function () { return !!(window._currentUser && window._currentUser.role === "admin"); },
         actor: function () { var u = window._currentUser; return (u && (u.name || u.email)) || ""; },
         subjectTypes: ["control"],
         directoryUrl: "api/directory",

@@ -245,3 +245,58 @@ async def test_a_record_may_concern_several_requirements(db):
     # the legacy single pair is the one-item form
     r = await patch_nc(nc["id"], NonconformityPatch(subject_type="control", subject_id="iso27001:A.8.28"), user=None, db=db)
     assert r["subjects"] == [{"type": "control", "id": "iso27001:A.8.28"}]
+
+
+@pytest.mark.asyncio
+async def test_the_register_is_scoped_to_the_projects_the_user_may_read(db, monkeypatch):
+    """The register follows the module's own project permissions: a record
+    belongs to the project it was declared in, and an account without rights
+    on that project neither sees it nor touches it. A record with no project
+    came from the console: it stays module-level."""
+    import src.auth_common as auth_common
+    from types import SimpleNamespace
+    from sqlalchemy import select as _select
+    from src.models import Project
+    from src.nonconformity_common import NonconformityPatch
+    monkeypatch.setattr(auth_common, "auth_enabled", lambda: True)
+
+    owner = uuid.uuid4()                     # both projects belong to someone else
+    project = (await db.execute(_select(Project))).scalars().first()
+    project.owner_id = owner
+    pid = str(project.id)
+    other = uuid.uuid4()
+    db.add(Project(id=other, name="Another client", owner_id=owner))
+    await db.commit()
+    admin = SimpleNamespace(id=uuid.uuid4(), name="Ada Admin", email="ada@medsecure.example", role="user", _module_role="admin")
+    outsider = SimpleNamespace(id=uuid.uuid4(), name="Otto Outsider", email="otto@medsecure.example", role="user", _module_role="")
+
+    declare, listing = _endpoint("declare_nonconformity"), _endpoint("list_nonconformities")
+    mine = await declare(NonconformityCreate(title="Gap of this project", project_id=pid), _req(), user=admin, db=db)
+    assert mine["project_id"] == pid
+    # the console's own declaration carries no project
+    console = await _endpoint("declare_nonconformity")(NonconformityCreate(title="Declared from the console"), _req(), user=None, db=db)
+    assert console["project_id"] == ""
+
+    # an account with no right on any project sees neither, and cannot declare
+    seen = await listing(user=outsider, db=db)
+    assert [r["reference"] for r in seen["items"]] == [console["reference"]]
+    with pytest.raises(HTTPException) as e:
+        await _endpoint("get_nonconformity")(mine["id"], user=outsider, db=db)
+    assert e.value.status_code == 404
+    with pytest.raises(HTTPException) as e:
+        await _endpoint("patch_nonconformity")(mine["id"], NonconformityPatch(title="Not yours"), user=outsider, db=db)
+    assert e.value.status_code == 403
+    with pytest.raises(HTTPException) as e:
+        await declare(NonconformityCreate(title="In a project I cannot edit", project_id=str(other)), _req(), user=outsider, db=db)
+    assert e.value.status_code == 403
+
+    # the module administrator reads both, and a declaration needs a project
+    assert len((await listing(user=admin, db=db))["items"]) == 2
+    # a real account cannot mint a module-level record: only the console does
+    with pytest.raises(HTTPException) as e:
+        await declare(NonconformityCreate(title="No project given"), _req(), user=admin, db=db)
+    assert e.value.status_code == 422
+    # narrowed to one project, the register answers for that project only
+    only = await listing(project_id=pid, user=admin, db=db)
+    assert [r["reference"] for r in only["items"]] == [mine["reference"], console["reference"]] or \
+           sorted(r["reference"] for r in only["items"]) == sorted([mine["reference"], console["reference"]])

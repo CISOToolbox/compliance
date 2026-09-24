@@ -482,6 +482,17 @@ function _getAllFrameworks() {
     // active, it is listed even when the custom metadata is not in the blob.
     if (D.referentiels_actifs && D.referentiels_actifs.indexOf(_INTERNAL_FW) >= 0 && !all[_INTERNAL_FW])
         all[_INTERNAL_FW] = _internalFwMeta();
+    // Its name is a PRODUCT string, not data: the framework is created by the
+    // register, not by anyone who could have named it. Stored, it would be
+    // frozen in the language of whoever wrote the first internal requirement
+    // and served that way to everyone. The label in the row stays — an export
+    // has to say something — but the screen reads i18n.
+    if (all[_INTERNAL_FW]) {
+        all[_INTERNAL_FW] = Object.assign({}, all[_INTERNAL_FW], {
+            label: t("comp.nc.internal_fw"), description: t("comp.nc.internal_fw")
+        });
+        REFERENTIELS_META[_INTERNAL_FW] = all[_INTERNAL_FW];
+    }
     return all;
 }
 // ═══════════════════════════════════════════════════════════════════════
@@ -838,6 +849,14 @@ function _hydrateFwFromMeta(fwId) {
     }
 }
 function toggleReferentiel(fwId) {
+    // FEAT-51 — turning OFF a framework the organisation imported is the
+    // moment the question arises: keep it for later, or be done with it? A
+    // cross on the chip was the other way of asking, and nobody saw it.
+    const meta = _getAllFrameworks()[fwId];
+    if (meta && meta.custom && fwId !== _INTERNAL_FW && D.referentiels_actifs.includes(fwId)) {
+        _demanderDesactivationOuSuppression(fwId, meta.label);
+        return;
+    }
     const doToggle = () => {
         _saveState();
         const pos = D.referentiels_actifs.indexOf(fwId);
@@ -859,6 +878,92 @@ function toggleReferentiel(fwId) {
     else
         doToggle();
 }
+/** The two ways out of an imported framework, asked where the user asks for
+ *  one: deactivate it — its assessment is kept, the framework can come back —
+ *  or remove it for good. Deactivating is the safe answer, so it leads. */
+function _demanderDesactivationOuSuppression(fwId, label) {
+    if (!window.ct_modal) {
+        _desactiverReferentiel(fwId);
+        return;
+    }
+    window.ct_modal.open({
+        title: label, // ct_modal escapes it
+        body: '<p class="fs-sm">' + esc(t("comp.fw.off_or_delete", { label: label })) + '</p>',
+        size: "sm",
+        buttons: [
+            { id: "cancel", label: t("comp.mes.btn_annuler") },
+            { id: "delete", label: t("comp.fw.delete"), danger: true, result: "delete" },
+            { id: "off", label: t("comp.fw.deactivate"), primary: true, result: "off" },
+        ],
+    }).then(function (choix) {
+        if (choix === "off")
+            _desactiverReferentiel(fwId);
+        else if (choix === "delete")
+            supprimerReferentiel(fwId);
+    });
+}
+function _desactiverReferentiel(fwId) {
+    _saveState();
+    const pos = D.referentiels_actifs.indexOf(fwId);
+    if (pos >= 0)
+        D.referentiels_actifs.splice(pos, 1);
+    if (_currentFw === fwId)
+        selectPanel("context");
+    renderContext();
+    renderSidebar();
+    _autoSave();
+}
+/** FEAT-51 — remove a framework the organisation created.
+ *
+ *  The module refuses as soon as one of its requirements carries work; an
+ *  untouched working set goes with it. The refusal is shown as it comes back:
+ *  the count of assessed requirements is the only thing that explains it.
+ */
+function supprimerReferentiel(fwId) {
+    const meta = _getAllFrameworks()[fwId];
+    if (!meta || !meta.custom || fwId === _INTERNAL_FW)
+        return;
+    const api = window.ComplianceAPI;
+    if (!api || !api.deleteFramework) {
+        showStatus(t("comp.fw.delete_unavailable"), true);
+        return;
+    }
+    api.deleteFramework(fwId).then(function () {
+        _saveState();
+        const pos = D.referentiels_actifs.indexOf(fwId);
+        if (pos >= 0)
+            D.referentiels_actifs.splice(pos, 1);
+        delete D.referentiels[fwId];
+        if (D._custom_frameworks)
+            delete D._custom_frameworks[fwId];
+        delete REFERENTIELS_META[fwId];
+        if (window._REFERENTIELS_CATALOG)
+            delete window._REFERENTIELS_CATALOG[fwId];
+        if (window.COMPLIANCE_REF)
+            delete window.COMPLIANCE_REF[fwId];
+        if (_currentFw === fwId)
+            selectPanel("context");
+        renderContext();
+        renderSidebar();
+        // The active list lives in the project payload: without this, the
+        // deleted framework comes back as active on the next load.
+        _autoSave();
+        showStatus(t("comp.fw.deleted", { label: meta.label }));
+    }).catch(function (e) {
+        // The module says WHY — how many requirements carry work. Losing that
+        // message would leave "it did not work" and nothing else.
+        const msg = String((e && e.message) || "");
+        const n = msg.match(/(\d+) (?:requirement|record)/);
+        // The module refuses for two different reasons and says which: work
+        // carried by a requirement, or a record of the register naming one.
+        const cle = /record/.test(msg) ? "comp.fw.delete_refused_register" : "comp.fw.delete_refused";
+        showStatus(n ? t(cle, { count: n[1] }) : t("comp.fw.delete_failed"), true);
+        // The gesture that opened the modal was "deactivate": honour it rather
+        // than leaving the framework active after saying no to the other way out.
+        _desactiverReferentiel(fwId);
+    });
+}
+window.supprimerReferentiel = supprimerReferentiel;
 // ── Custom framework import from CSV ──────────────────────────────
 function downloadCSVTemplate() {
     _downloadCSV("referentiel_template.csv", "ref;theme;mesure;description;theme_en;mesure_en;description_en", [
@@ -944,12 +1049,40 @@ function _parseAndImportCSV(csvText, filename) {
     // Random color
     var colors = ["#6366f1", "#8b5cf6", "#a855f7", "#ec4899", "#06b6d4", "#14b8a6", "#84cc16", "#f97316", "#78716c"];
     var color = colors[Math.floor(Math.random() * colors.length)];
+    // FEAT-51 — the framework is declared to the module FIRST: it is an object
+    // of the organisation, and the rows are what make it survive a reload.
+    // Only once it is stored do we activate it on screen — a refused POST must
+    // not leave a framework that exists in the page and nowhere else.
+    var desc = t("comp.csv.custom_desc", { count: measures.length });
+    _declareFramework({ id: fwId, label: label, color: color, description: desc,
+        requirements: measures })
+        .then(function (ok) {
+        if (!ok) {
+            showStatus(t("comp.csv.error_save"), true);
+            return;
+        }
+        _activateImportedFramework(fwId, label, color, desc, measures);
+    });
+}
+/** Store a framework of the organisation. On the DB-backed build that is a
+ *  POST; on the browser-local one there is no server and the blob is the
+ *  store, so it succeeds by construction. */
+function _declareFramework(fw) {
+    var api = window.ComplianceAPI;
+    if (!api || !api.createFramework)
+        return Promise.resolve(true);
+    return api.createFramework(fw)
+        .then(function () { return true; })
+        // 409 = already declared: the outcome we wanted, not a failure.
+        .catch(function (e) { return String((e && e.message) || "").indexOf("409") >= 0; });
+}
+function _activateImportedFramework(fwId, label, color, desc, measures) {
     // Register in catalog
     if (!window._REFERENTIELS_CATALOG)
         window._REFERENTIELS_CATALOG = {};
     window._REFERENTIELS_CATALOG[fwId] = {
         label: label,
-        description: t("comp.csv.custom_desc", { count: measures.length }),
+        description: desc,
         description_en: "Custom framework (" + measures.length + " controls)",
         color: color,
         custom: true,
@@ -1333,7 +1466,11 @@ function _createMesureForNc(prefill) {
 // A declared gap with no requirement behind it becomes a control of the
 // "internal controls" framework (a custom framework created on first use),
 // so it is assessed and evidenced like any other requirement.
-var _INTERNAL_FW = "internal";
+// FEAT-51 — NOT "internal": the edge refuses any route carrying an
+// `/internal` segment (it hides the Pilot→module routes), so a framework
+// with that id could never be fetched by its own URL. A data identifier
+// must not borrow the name of a reserved route segment.
+var _INTERNAL_FW = "own_controls";
 function _ensureInternalFramework() {
     // Idempotent: the framework may be active (its controls come from the
     // server) while its custom metadata is not in the blob — rebuild it.
@@ -1357,6 +1494,28 @@ function _ensureInternalFramework() {
         D.referentiels[_INTERNAL_FW] = [];
     if (D.referentiels_actifs.indexOf(_INTERNAL_FW) < 0)
         D.referentiels_actifs.push(_INTERNAL_FW);
+}
+/** FEAT-51 — the internal-controls framework, stored like any other: declared
+ *  once, its definition replaced as controls are written. Fire and forget: the
+ *  requirement is already saved, and a failure here costs the label, not the
+ *  assessment. */
+function _syncInternalFramework() {
+    var api = window.ComplianceAPI;
+    if (!api || !api.createFramework)
+        return;
+    var defs = (D.referentiels[_INTERNAL_FW] || []).map(function (e) {
+        return { ref: e.ref, theme: _rt(e, "thematique") || _rt(e, "theme") || "",
+            mesure: _rt(e, "mesure") || "", description: e.description || "" };
+    }).filter(function (d) { return !!d.ref; });
+    if (!defs.length)
+        return;
+    _declareFramework({ id: _INTERNAL_FW, label: t("comp.nc.internal_fw"), color: "#78716c",
+        description: t("comp.nc.internal_fw"), requirements: defs })
+        .then(function (ok) {
+        if (ok && api.putFrameworkRequirements) {
+            api.putFrameworkRequirements(_INTERNAL_FW, defs).catch(function () { });
+        }
+    });
 }
 function _createControlForNc(nc) {
     if (!window.ct_modal)
@@ -1408,7 +1567,12 @@ function _createControlForNc(nc) {
             if (D._custom_frameworks && D._custom_frameworks[_INTERNAL_FW]) {
                 D._custom_frameworks[_INTERNAL_FW].measures.push({ ref: res.ref, theme: res.theme, mesure: res.mesure, description: nc.description || "" });
             }
-            _autoSave(); // the custom framework itself lives in the blob
+            _autoSave();
+            // FEAT-51 — the internal framework is an object of the
+            // organisation: declare it at first use, then keep its definition
+            // in step. The assessment itself lives in the control rows and is
+            // never touched here.
+            _syncInternalFramework();
             renderSidebar();
             return { id: _INTERNAL_FW + ":" + res.ref, label: t("comp.nc.internal_fw") + " " + res.ref + " — " + res.mesure };
         };

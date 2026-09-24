@@ -460,6 +460,15 @@ function _getAllFrameworks() {
             }
         }
     }
+    // Its name is a PRODUCT string, not data: the framework is created by the
+    // register, not by anyone who could have named it. Stored, it would be
+    // frozen in the language of whoever wrote the first internal requirement.
+    if (all[_INTERNAL_FW]) {
+        all[_INTERNAL_FW] = Object.assign({}, all[_INTERNAL_FW], {
+            label: t("comp.nc.internal_fw"), description: t("comp.nc.internal_fw")
+        });
+        REFERENTIELS_META[_INTERNAL_FW] = all[_INTERNAL_FW];
+    }
     return all;
 }
 // ═══════════════════════════════════════════════════════════════════════
@@ -1330,7 +1339,11 @@ function _createMesureForNc(prefill) {
 // A declared gap with no requirement behind it becomes a control of the
 // "internal controls" framework (a custom framework created on first use),
 // so it is assessed and evidenced like any other requirement.
-var _INTERNAL_FW = "internal";
+// FEAT-51 — NOT "internal": the edge refuses any route carrying an
+// `/internal` segment (it hides the Pilot→module routes), so a framework
+// with that id could never be fetched by its own URL. A data identifier
+// must not borrow the name of a reserved route segment.
+var _INTERNAL_FW = "own_controls";
 function _ensureInternalFramework() {
     // Idempotent: the framework metadata may be missing from the blob while
     // its requirements are already there — rebuild it.

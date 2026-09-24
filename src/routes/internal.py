@@ -16,7 +16,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_db
 from src.evidence_common import evidence_to_pilot_payload
-from src.models import Project, ProjectControl, ProjectMeasure, ProjectMeta, ProjectProof, ProjectSettings
+from src.models import (Framework, Project, ProjectControl, ProjectMeasure, ProjectMeta,
+                        ProjectProof, ProjectSettings)
 from src.settings_crypto import decrypt_setting, encrypt_setting_or_plain
 
 router = APIRouter(prefix="/api", tags=["internal"])
@@ -341,11 +342,16 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
             per_framework[fw_key]["non"] += 1
 
     buckets = []
+    # FEAT-51 — the framework's own name rather than its identifier shouted in
+    # capitals: `OWN_CONTROLS` says nothing to a reader of the Pilot dashboard,
+    # and now that every framework has a row, the name is one query away. The
+    # label is the organisation's, not translated — Pilot shows data here.
+    noms = dict((await db.execute(select(Framework.id, Framework.label))).all())
     for fw_key, d in sorted(per_framework.items(), key=lambda kv: -kv[1]["total"])[:6]:
         pct = round(d["conforme"] / d["total"] * 100) if d["total"] > 0 else 0
         color = "green" if pct >= 80 else "orange" if pct >= 50 else "red"
         buckets.append({
-            "label": fw_key.upper(),
+            "label": noms.get(fw_key) or fw_key.upper(),
             "value": pct,
             "color": color,
         })

@@ -244,6 +244,10 @@ interface ComplianceAPIShape {
     authLogout(): Promise<Response>;
     listUsers(): Promise<unknown[]>;
     updateUser(id: string, d: Record<string, unknown>): Promise<unknown>;
+    /** FEAT-51 — a framework the organisation creates: CSV import, internal controls. */
+    createFramework(d: Record<string, unknown>): Promise<{ id: string; label: string; origin: string; requirement_count: number }>;
+    deleteFramework(fwId: string): Promise<unknown>;
+    putFrameworkRequirements(fwId: string, reqs: unknown[]): Promise<unknown>;
     patchControl(pid: string, cid: string | number, f: Record<string, unknown>): Promise<unknown>;
     createControl(pid: string, d: Record<string, unknown>): Promise<unknown>;
     deleteControl(pid: string, cid: string | number): Promise<unknown>;
@@ -306,6 +310,9 @@ interface Window {
     COMPLIANCE_DESCRIPTIONS?: Record<string, Record<string, string>>;
     COMPLIANCE_MESURES_TYPES?: ComplianceMesureType[];
     COMPLIANCE_REFERENCE_CONTROLS?: ComplianceReferenceControl[];
+
+    /** FEAT-51 — remove a framework the organisation created. */
+    supprimerReferentiel?: (fwId: string) => void;
 
     /* Suite mode (not loaded in opensource) */
     ComplianceAPI?: ComplianceAPIShape;

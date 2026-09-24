@@ -10,10 +10,13 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from src.auth import ADMIN_MODULE_ROLES, VIEWER_MODULE_ROLES, auth_enabled, get_current_user, perms_for_module_role
 from src.database import get_db
 from src.models import (
+    Framework,
+    FrameworkRequirement,
     Project,
     ProjectControl,
     ProjectMeasure,
@@ -176,7 +179,39 @@ async def _reconstruct_data(db: AsyncSession, project_id: uuid.UUID) -> dict:
         "mesures": [_measure_to_dict(m) for m in measures],
         "preuves": [_proof_to_dict(p) for p in proofs],
     }
+    # FEAT-51 — the frameworks the organisation created, in the shape the
+    # frontend and the export already read. They are ROWS now; this key is
+    # rebuilt from them, so neither the screen nor an export/import round trip
+    # had to change, and a blob written by the browser-local build stays
+    # importable here.
+    customs = await _custom_frameworks(db)
+    if customs:
+        data["_custom_frameworks"] = customs
     return data
+
+
+async def _custom_frameworks(db: AsyncSession) -> dict:
+    rows = (await db.execute(
+        select(Framework)
+        .where(Framework.origin == "custom")
+        .options(selectinload(Framework.requirements))
+        .order_by(Framework.sort_order, Framework.id))).scalars().all()
+    out: dict = {}
+    for fw in rows:
+        out[fw.id] = {
+            "label": fw.label,
+            "color": fw.color or "",
+            "measures": [{
+                "ref": r.ref,
+                "theme": r.theme or "",
+                "theme_en": r.theme_en or "",
+                "mesure": r.mesure or "",
+                "mesure_en": r.mesure_en or "",
+                "description": r.description or "",
+                "description_en": r.description_en or "",
+            } for r in fw.requirements],
+        }
+    return out
 
 
 # ── Decompose D object into relational tables ─────────────────────
@@ -188,6 +223,63 @@ async def _delete_children(db: AsyncSession, project_id: uuid.UUID):
     await db.execute(delete(ProjectControl).where(ProjectControl.project_id == project_id))
     await db.execute(delete(ProjectSettings).where(ProjectSettings.project_id == project_id))
     await db.execute(delete(ProjectMeta).where(ProjectMeta.project_id == project_id))
+
+
+from src.auth import require_min_role  # noqa: E402
+from src.routes.frameworks import RESERVES  # noqa: E402
+from src.routes.frameworks import _ROLES as _ROLES_REFERENTIEL  # noqa: E402
+_ID_REFERENTIEL = re.compile(r"^[a-z0-9][a-z0-9_-]{0,49}$")
+
+
+async def _adopter_referentiels(db: AsyncSession, data: dict, user: Optional[User]) -> None:
+    """FEAT-51 — declare the frameworks a payload brings that we do not know.
+
+    An export written by the browser-local build carries its imported
+    frameworks in `_custom_frameworks`, the only place that build has. Read on
+    import, they become rows like any other; ignored, the requirements would
+    land in the project while the framework itself stayed anonymous — the
+    state this feature exists to end.
+
+    Only on IMPORT, never on an ordinary save: a tab that still holds a
+    framework deleted elsewhere would otherwise bring it back.
+    """
+    customs = data.get("_custom_frameworks")
+    if not isinstance(customs, dict):
+        return
+    # Declaring a framework is an `editor` gesture — `POST /api/frameworks`
+    # says so. Importing a project is open to anyone who may create one, and
+    # a framework is an object of the ORGANISATION: without this gate the
+    # import would be a back door onto what every project and every user sees.
+    require_min_role(user, "editor", _ROLES_REFERENTIEL)
+    for fw_id, meta in list(customs.items())[:50]:
+        if not isinstance(meta, dict) or not isinstance(fw_id, str):
+            continue
+        if not _ID_REFERENTIEL.match(fw_id) or fw_id in RESERVES:
+            continue
+        if await db.get(Framework, fw_id) is not None:
+            continue
+        db.add(Framework(
+            id=fw_id, version="", label=str(meta.get("label") or fw_id)[:255],
+            description="", description_en="", color=str(meta.get("color") or "")[:20],
+            is_active=True, sort_order=900, origin="custom",
+        ))
+        vus: set[str] = set()
+        for i, exigence in enumerate((meta.get("measures") or [])[:2000]):
+            if not isinstance(exigence, dict):
+                continue
+            ref = str(exigence.get("ref") or "").strip()[:50]
+            if not ref or ref in vus:
+                continue
+            vus.add(ref)
+            db.add(FrameworkRequirement(
+                framework_id=fw_id, ref=ref, sort_order=i,
+                theme=str(exigence.get("theme") or "")[:500],
+                theme_en=str(exigence.get("theme_en") or "")[:500],
+                mesure=str(exigence.get("mesure") or ""),
+                mesure_en=str(exigence.get("mesure_en") or ""),
+                description=str(exigence.get("description") or ""),
+                description_en=str(exigence.get("description_en") or ""),
+            ))
 
 
 async def _decompose_data(db: AsyncSession, project_id: uuid.UUID, data: dict):
@@ -453,6 +545,7 @@ async def import_project(
     await db.flush()
 
     if isinstance(data, dict):
+        await _adopter_referentiels(db, data, user)
         await _decompose_data(db, project.id, data)
 
     from src.audit import log_write

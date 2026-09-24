@@ -207,6 +207,11 @@ class Framework(Base):
     color = Column(String(20), nullable=True, default="")
     is_active = Column(Boolean, nullable=False, default=True, server_default=text("true"))
     sort_order = Column(Integer, nullable=False, default=0)
+    # FEAT-51 — where the framework comes from: `catalogue` is what the
+    # migrations seed and nobody may delete; `custom` is what a user imported
+    # from a CSV or built from the register. Nothing else distinguishes them —
+    # that is the point: an imported framework IS a framework.
+    origin = Column(String(20), nullable=False, default="catalogue", server_default=text("'catalogue'"))
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
 
     requirements = relationship("FrameworkRequirement", back_populates="framework", cascade="all, delete-orphan", order_by="FrameworkRequirement.sort_order")

@@ -69,6 +69,10 @@
         authLogout: function () { return fetch("auth/logout", { method: "POST", credentials: "same-origin" }).finally(function () { window.location.href = "/auth/logout"; }); },
         listUsers: function () { return _fetch("/users"); },
         updateUser: function (id, d) { return _fetch("/users/" + id, { method: "PUT", body: d }); },
+        // ── Frameworks of the organisation (FEAT-51) ──
+        createFramework: function (d) { return _fetch("/frameworks", { method: "POST", body: d }); },
+        deleteFramework: function (fwId) { return _fetch("/frameworks/" + encodeURIComponent(fwId), { method: "DELETE" }); },
+        putFrameworkRequirements: function (fwId, reqs) { return _fetch("/frameworks/" + encodeURIComponent(fwId) + "/requirements", { method: "PUT", body: reqs }); },
         // ── Granular PATCH ──
         patchControl: function (pid, cid, f) { return _fetch("/projects/" + pid + "/controls/" + cid, { method: "PATCH", body: f }); },
         createControl: function (pid, d) { return _fetch("/projects/" + pid + "/controls", { method: "POST", body: d }); },
@@ -416,6 +420,9 @@
                     description: fw.description,
                     description_en: fw.description_en,
                     color: fw.color,
+                    // FEAT-51 — what the organisation created is what it may
+                    // delete; the screen needs to tell the two apart.
+                    custom: fw.origin === "custom",
                     requirement_count: fw.requirement_count
                 };
                 if (_g.REFERENTIELS_META && !_g.REFERENTIELS_META[fw.id]) {

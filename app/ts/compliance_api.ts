@@ -10,7 +10,9 @@ interface ComplianceFetchOpts {
     method?: string;
     headers?: Record<string, string>;
     credentials?: RequestCredentials;
-    body?: BodyInit | Record<string, unknown> | null;
+    // A JSON array is a legitimate body too: PUT /frameworks/{id}/requirements
+    // sends the definition as a list, not an object wrapping one.
+    body?: BodyInit | Record<string, unknown> | unknown[] | null;
 }
 
 (function() {
@@ -66,6 +68,11 @@ window.ComplianceAPI = {
 
     listUsers: function() { return _fetch("/users"); },
     updateUser: function(id: string, d: Record<string, unknown>) { return _fetch("/users/" + id, { method: "PUT", body: d }); },
+
+    // ── Frameworks of the organisation (FEAT-51) ──
+    createFramework: function(d: Record<string, unknown>) { return _fetch("/frameworks", { method: "POST", body: d }); },
+    deleteFramework: function(fwId: string) { return _fetch("/frameworks/" + encodeURIComponent(fwId), { method: "DELETE" }); },
+    putFrameworkRequirements: function(fwId: string, reqs: unknown[]) { return _fetch("/frameworks/" + encodeURIComponent(fwId) + "/requirements", { method: "PUT", body: reqs }); },
 
     // ── Granular PATCH ──
     patchControl: function(pid: string, cid: string | number, f: Record<string, unknown>) { return _fetch("/projects/" + pid + "/controls/" + cid, { method: "PATCH", body: f }); },
@@ -370,7 +377,7 @@ else _initAuth();
     };
 
     // Load the framework catalog from the API at startup (dynamic JSON payload).
-    fetch(BASE + "/frameworks").then(function(r) { return r.json(); }).then(function(list: Array<{ id: string; label: string; description: string; description_en: string; color: string; requirement_count: number }>) {
+    fetch(BASE + "/frameworks").then(function(r) { return r.json(); }).then(function(list: Array<{ id: string; label: string; description: string; description_en: string; color: string; origin?: string; requirement_count: number }>) {
         if (!window._REFERENTIELS_CATALOG) window._REFERENTIELS_CATALOG = {};
         list.forEach(function(fw) {
             window._REFERENTIELS_CATALOG[fw.id] = {
@@ -378,6 +385,9 @@ else _initAuth();
                 description: fw.description,
                 description_en: fw.description_en,
                 color: fw.color,
+                // FEAT-51 — what the organisation created is what it may
+                // delete; the screen needs to tell the two apart.
+                custom: fw.origin === "custom",
                 requirement_count: fw.requirement_count
             };
             if (_g.REFERENTIELS_META && !_g.REFERENTIELS_META[fw.id]) {

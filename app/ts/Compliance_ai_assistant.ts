@@ -91,7 +91,7 @@
         if (!s || !s.id || (s.action !== "enrich" && s.action !== "link")) return "";
         var cible = D.mesures.find(function(m) { return m.id === s.id; }) as any;
         if (!cible) return "";
-        var h = '<div class="ai-diff ct-mb-2 ct-p-2 ct-r-md" style="background:var(--ct-bg-alt)">';
+        var h = '<div class="ai-diff ct-mb-2 ct-p-2 ct-r-md" style="background:var(--ct-surface-2)">';
         h += '<div class="ct-text-label ct-strong ct-mb-1">'
            + esc(t(s.action === "link" ? "ai.preview.link" : "ai.preview.title")) + '</div>';
         h += '<div class="ct-text-label ct-muted">' + esc(cible.id + " — " + (cible.description || "")) + '</div>';
@@ -110,7 +110,7 @@
             h += '<div class="ct-text-label ct-muted ct-mt-2">' + esc(t("ai.preview.details")) + '</div>';
             if (cible.details) h += '<div class="ct-text-label ct-muted">' + esc(cible.details) + '</div>';
             h += ajout
-                ? '<div class="ct-text-label ct-text-ok ct-strong">+ ' + esc(ajout) + '</div>'
+                ? '<div class="ct-text-label ct-text-low ct-strong">+ ' + esc(ajout) + '</div>'
                 : '<div class="ct-text-label ct-muted"><em>' + esc(t("ai.preview.no_change")) + '</em></div>';
         }
         return h + '</div>';

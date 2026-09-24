@@ -1,9 +1,6 @@
 /* ── Compliance — App-specific styles ─────────────────────────── */
 
 .meta { gap: 12px; margin: 16px 0; }
-.ct-meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
-.ct-meta-item .value { margin-top: 2px; }
-.ct-synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
 
 /* KPI tile grid (indicators). The tiles are now socle primitives:
    .ct-kpi (simple) and .ct-kpi-adv (advanced, with .ct-meter). */

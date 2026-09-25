@@ -91,7 +91,7 @@
         if (!s || !s.id || (s.action !== "enrich" && s.action !== "link")) return "";
         var cible = D.mesures.find(function(m) { return m.id === s.id; }) as any;
         if (!cible) return "";
-        var h = '<div class="ai-diff ct-mb-2 ct-p-2 ct-r-md" style="background:var(--ct-surface-2)">';
+        var h = '<div class="ai-diff ct-mb-2 ct-p-2 ct-r-md ct-bg-alt">';
         h += '<div class="ct-text-label ct-strong ct-mb-1">'
            + esc(t(s.action === "link" ? "ai.preview.link" : "ai.preview.title")) + '</div>';
         h += '<div class="ct-text-label ct-muted">' + esc(cible.id + " — " + (cible.description || "")) + '</div>';

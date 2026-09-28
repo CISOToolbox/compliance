@@ -331,7 +331,9 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         // The internal framework is now part of the assessment.
         await expect(page.locator('#sidebar-frameworks')).toContainText(/Contrôles internes|Internal controls/);
         const saved = await page.evaluate((k) => localStorage.getItem(k), AUTOSAVE_KEY);
-        expect(saved).toContain('internal:' + ref);
+        // The framework id is `own_controls`, not `internal`: a route carrying
+        // `/internal` is refused by the edge (FEAT-51).
+        expect(saved).toContain('own_controls:' + ref);
 
         expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
     });

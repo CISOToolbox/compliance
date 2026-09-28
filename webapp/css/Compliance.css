@@ -1,10 +1,6 @@
 /* ── Compliance — App-specific styles ─────────────────────────── */
 
 .meta { gap: 12px; margin: 16px 0; }
-.ct-meta-item { background: var(--ct-surface); border: 1px solid var(--ct-line); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 200px; }
-.ct-meta-item .label { font-size: 0.75em; color: var(--ct-ink-2); text-transform: uppercase; }
-.ct-meta-item .value { margin-top: 2px; }
-.ct-synth-card h3 { font-size: 0.9em; color: var(--ct-ink); margin-bottom: 8px; }
 
 .indicators { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
 .indicator { background: var(--ct-surface); border: 1px solid var(--ct-line); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }

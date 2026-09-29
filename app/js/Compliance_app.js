@@ -2682,13 +2682,13 @@ function _showPreuveModal() {
     h += '<div class="ct-flex ct-col ct-gap-2">';
     h += _row(t("comp.prv.placeholder_label"), '<input type="text" class="ct-w-full" value="' + esc(p.label || "") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id, "label") + '\' data-pass-value />');
     h += _row(t("comp.prv.placeholder_url"), '<input type="text" class="ct-w-full" value="' + esc(p.url || "") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id, "url") + '\' data-pass-value />');
-    h += '<div class="ct-grid ct-grid-2 ct-gap-3">';
+    h += '<div class="ct-form-grid">';
     h += _row(t("comp.prv.label_kind"), '<select class="ct-w-full" data-change="_updatePreuveField" data-args=\'' + _da(p.id, "kind") + '\' data-pass-value>'
         + ["link", "file", "observation"].map(function (k) { return '<option value="' + k + '"' + (_pkind === k ? " selected" : "") + '>' + esc(t("comp.prv.kind." + k)) + '</option>'; }).join("")
         + '</select>');
     h += _row(t("comp.prv.label_owner"), '<span id="preuve-owner-slot" class="ct-w-full" style="display:block"></span>');
     h += '</div>';
-    h += '<div class="ct-grid ct-grid-2 ct-gap-3">';
+    h += '<div class="ct-form-grid">';
     h += _row(t("comp.prv.label_obtention"), '<input type="date" class="ct-w-full" value="' + esc(p.date_obtention || "") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id, "date_obtention") + '\' data-pass-value />');
     h += _row(t("comp.prv.label_expiration"), '<input type="date" class="ct-w-full" value="' + esc(p.date_expiration || "") + '" data-change="_updatePreuveField" data-args=\'' + _da(p.id, "date_expiration") + '\' data-pass-value />');
     h += '</div>';

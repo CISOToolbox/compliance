@@ -40,21 +40,6 @@ textarea { width: 100%; resize: vertical; }
    _tBadge() (Compliance_app.ts) now emits the -tint/-ink pair in both themes:
    nothing left to fix on the CSS side. */
 
-/* Solid saturated buttons (.ct-btn-add: --green by default, inline
-   accent/red/grey variants): in dark, white text lacks contrast on light
-   saturated fills — #11121a text convention, aligned with
-   :root[data-theme="dark"] .ct-btn[data-variant="primary"].
-   Affects: "Importer un referentiel (CSV)", "+ Nouvelle mesure",
-   "+ Nouvelle preuve", refresh ↻, small "+ Nouvelle" and "Proposer"
-   (MESURES LIÉES column), buttons of the measure/proof modals. */
-
-/* "Proposer des mesures" modal: inline green buttons #22c55e + #fff
-   and solid reject button --ct-critical + #fff. */
-:root[data-theme="dark"] .btn-ko { color: #11121a !important; }
-
-/* AI panel (styles injected by js/ai_common.js, generated): same solid green
-   buttons + white text. */
-
 /* Framework selection pills (Contexte page): the per-framework inline
    colors (white background if unselected, framework color background if
    selected) remain the light rendering. In dark:

@@ -14,31 +14,32 @@
 ## Features
 
 - Multi-framework compliance tracking with simultaneous assessment
-- Built-in frameworks: ANSSI Hygiene Guide (42), ISO 27001 (120), ReCyF/NIS2 (11), SOC 2, DORA, LPM, SecNumCloud, HDS, GAMP 5, Law 05-20, Cyber Resilience Act
+- Built-in frameworks: ANSSI Hygiene Guide (42), ISO 27001 (120), ReCyF (NIS2), NIS 2, SOC 2, DORA (article and paragraph level), LPM, SecNumCloud, HDS, Law 05-20, Cyber Resilience Act
 - Custom CSV framework import for proprietary or sector-specific standards
-- Dashboard with radar charts and consolidated compliance view
-- Measure tracking with conformity sliders and linked requirements
+- Consolidated compliance dashboard, plus a dashboard per framework
+- Measure tracking with status, owner, target date, recurrence and linked requirements
 - Evidence management with expiry tracking and 90-day alerts
-- 71 pre-defined template measures covering all built-in frameworks
+- Measure proposals per requirement, from a built-in catalog of reference measures (249) with a template catalog (139) as fallback
+- Non-conformity and derogation register
 - Import from EBIOS RM (context, compliance, measures)
-- AI assistant (Anthropic Claude / OpenAI GPT)
+- AI assistant (Anthropic, OpenAI, Google Gemini, AWS Bedrock)
 - AES-256-GCM encrypted snapshots (PBKDF2 250k iterations)
-- Bilingual FR/EN with lazy-loaded translations
+- Bilingual FR/EN (both languages loaded at startup)
 
 ## Quick Start
 
-1. Visit [compliance.cisotoolbox.org](https://compliance.cisotoolbox.org) or clone this repo
-2. Open `index.html` in a browser
-3. Start a new assessment — the repository also ships a fictional demo dataset (MedSecure): `demo-fr.json`, `demo-en.json`
+1. Visit [compliance.cisotoolbox.org](https://compliance.cisotoolbox.org) or clone this repo and serve `webapp/` (see *Running it locally*)
+2. Open the app in a browser
+3. Start a new assessment, or load the fictional demo (MedSecure) from the settings panel: *Demonstration → Load demonstration* loads `demo-fr.json` or `demo-en.json` depending on the interface language
 4. No backend, no account required
 
 ## Architecture
 
-- 100% client-side vanilla JS -- no framework, no build step
+- 100% client-side, no framework. The module code is written in TypeScript (`ts/`) and the compiled JavaScript (`js/`) is committed: there is nothing to compile to run the app
 - Data stored in browser (localStorage autosave + file download for persistence)
 - Event delegation via `data-click` attributes (CSP compliant, no inline handlers)
-- Lazy-loaded assets: framework controls and descriptions loaded on demand
-- Shared libraries: `cisotoolbox.js`, `i18n.js`, `ai_common.js`, `referentiels_catalog.js`
+- Lazy-loaded assets: framework controls, ANSSI/ISO descriptions and measure catalogs are injected as `<script>` tags on demand
+- Shared libraries: `cisotoolbox.js`, `cisotoolbox_local.js`, `i18n.js`, `ai_common.js`, `referentiels_catalog.js`, `ct_*.js`
 
 ## Import / Export
 
@@ -75,20 +76,20 @@ Your JSON exports from this app import as-is into both.
 
 ## Running it locally
 
-This is a static, frontend-only application — no backend, no account, no build
-step.
+This is a static, frontend-only application — no backend, no account, nothing
+to compile (the compiled JavaScript is committed).
 
 ```bash
-git clone <this repo>
-cd compliance
+git clone https://github.com/CISOToolbox/compliance
+cd compliance/webapp
 python3 -m http.server 8080      # any static file server will do
 ```
 
 Then open <http://127.0.0.1:8080/>.
 
 Opening `index.html` directly from the filesystem (`file://`) works for the
-basic UI, but the browser blocks `fetch()` on local files, so `demo-*.json` and
-the lazy-loaded frameworks will not load. Prefer a static server.
+basic UI, but the browser blocks `fetch()` on local files, so the demo
+(`demo-*.json`) will not load. Prefer a static server.
 
 ## Deploying behind a web server
 
@@ -120,8 +121,8 @@ static files directly. The `python3 -m http.server` above is for local use only.
 | AI provider API key (optional) | `localStorage`, sent only to the provider you configured | Until you clear it |
 
 **Persistence is file-based.** The browser copy is a convenience buffer, not a
-backup: a cleared profile, a private window or a different machine means an
-empty app. Save to a `.json` (or AES-256-GCM encrypted `.ctenc`) file and keep
+backup: a cleared profile, an incognito window or a different machine means an
+empty app. Save to a `.json` (or AES-256-GCM encrypted `.enc`) file and keep
 that file wherever you keep your other security deliverables. Nothing is ever
 sent to a server — there is no server.
 
@@ -150,12 +151,13 @@ nginx-security.conf.example
 tsconfig.json
 ```
 
-## Replicated files
+## Shared files
 
 The design system and the cross-module libraries (`js/cisotoolbox*.js`,
-`js/i18n.js`, `js/ai_common.js`, `js/ct_*.js`, `css/cisotoolbox.css`,
-`ts/types/*.d.ts`) are **generated** and carry a "Generated file - do not
-edit" banner. They are overwritten at every release — see
+`js/i18n.js`, `js/i18n_core_*.js`, `js/ai_common.js`, `js/ct_*.js`,
+`js/referentiels_catalog.js`, `css/cisotoolbox.css`, `ts/types/*.d.ts`) are
+shared files, identical across the CISO Toolbox apps: they carry a "Generated
+file - do not edit" header and are rewritten at every release — see
 [CONTRIBUTING.md](CONTRIBUTING.md) for what to do if you find a bug in one of
 them.
 
@@ -170,5 +172,5 @@ See [`e2e/README.md`](e2e/README.md).
 ## Contributing / Security
 
 - [CONTRIBUTING.md](CONTRIBUTING.md)
-- [SECURITY.md](SECURITY.md) — please report vulnerabilities privately
+- [SECURITY.md](SECURITY.md) — please report vulnerabilities through a non-public channel, not a public issue
 - Licence: MIT, see [LICENSE](LICENSE)

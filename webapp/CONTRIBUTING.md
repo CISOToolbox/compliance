@@ -1,35 +1,39 @@
 # Contributing to Compliance Tracking
 
 Thanks for taking the time to contribute. This repository is one module of the
-[CISO Toolbox](https://www.cisotoolbox.org) suite. It is a **frontend-only** application: vanilla
-JavaScript, no framework, no bundler, no `node_modules` needed to run it.
+[CISO Toolbox](https://www.cisotoolbox.org) suite. It is a **frontend-only** application: no framework,
+no bundler, no `node_modules` needed to run it. The module code is written in
+TypeScript and the compiled JavaScript is committed, so there is nothing to
+compile to run the app (see *TypeScript sources* below).
 
 ## Running it
 
 ```bash
-git clone <this repo>
-cd compliance
+git clone https://github.com/CISOToolbox/compliance
+cd compliance/webapp
 python3 -m http.server 8080     # any static server works
 # then open http://127.0.0.1:8080/
 ```
 
 Opening `index.html` straight from the filesystem (`file://`) mostly works, but
-`fetch()`-based features (loading `demo-*.json`, lazy-loaded frameworks) are
-blocked by the browser's origin rules. Use a static server.
+`fetch()`-based features (loading the `demo-*.json` demo) are blocked by the
+browser's origin rules. Use a static server.
 
 ## Generated files
 
 > **Read this before editing anything under `js/`, `css/` or `ts/types/`.**
 
 Part of this repository is **generated** — the design system and the
-cross-module libraries that all CISO Toolbox modules have in common. Those
-files carry this banner:
+cross-module libraries that all CISO Toolbox modules have in common. Shared
+files, identical across the CISO Toolbox apps, carry a "Generated file - do not
+edit" header and are rewritten at every release. The header reads:
 
 ```
-// ─────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------------------
 // Generated file - do not edit.
 // It is overwritten at every release; a change made here is lost.
-// ─────────────────────────────────────────────────────────────
+// See CONTRIBUTING.md.
+// -----------------------------------------------------------------------------
 ```
 
 **A pull request that modifies one of them cannot be merged**: the next
@@ -40,14 +44,14 @@ it is applied at the source and reaches every module in the next release.
 ## TypeScript sources
 
 `ts/` holds the TypeScript sources for the module-specific code; `js/` holds the
-compiled output that the browser actually loads. Both are committed, because the
-app must run with no build step. If you change a `.ts` file, regenerate the
+compiled output that the browser actually loads. Both are committed, so there
+is nothing to compile to run the app. If you change a `.ts` file, regenerate the
 matching `.js` (`tsc -p .`) and commit both, keeping them consistent.
 
 ## Coding conventions
 
-- Vanilla ES5-compatible JavaScript, no framework, no external runtime
-  dependency (the few bundled libraries under `js/vendor/` are third-party and
+- Module code in TypeScript (`ts/`), compiled to the JavaScript under `js/`;
+  no framework, no external runtime dependency (the few bundled libraries under `js/vendor/` are third-party and
   are not modified here).
 - **No inline event handlers.** The app is written to run under
   `script-src 'self'`; wire events with `data-click` / `data-change` /
@@ -67,11 +71,12 @@ behaviour change should come with, or update, a test.
 
 ## Demo data
 
-The repository currently ships **no demo dataset** — the previous
-`demo-*.json` files were removed and new ones will be generated later. Until
-then, build the data you need from the application itself.
+The repository ships a demo dataset for a **fictional** company (MedSecure):
+`demo-fr.json` and `demo-en.json`. It can be loaded from the settings panel
+(*Demonstration → Load demonstration*), which picks the file matching the
+interface language.
 
-When demo datasets come back, they must describe a **fictional** company.
+Demo datasets must describe a **fictional** company.
 Never add real organisation data — no real company, person, email address or
 site. Pull requests containing real assessment data will be closed.
 

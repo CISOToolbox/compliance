@@ -4,8 +4,7 @@
 
 Compliance Tracking is a **100 % client-side web application**. There is no backend, no
 account, no server-side storage and no telemetry. Everything you type stays in
-your browser (`localStorage` for autosave, IndexedDB where the module uses it)
-until you explicitly save a file to your own disk. As a consequence, the
+your browser (`localStorage` for autosave and snapshots) until you explicitly save a file to your own disk. As a consequence, the
 security boundary is your browser and the machine hosting the files — the
 project itself never sees your data.
 
@@ -16,7 +15,7 @@ a new commit; there are no long-lived maintenance branches.
 
 ## Reporting a vulnerability
 
-Please report security issues **privately**, not through a public issue:
+Please report security issues through a **non-public channel**, not through a public issue:
 
 - GitHub Security Advisories ("Report a vulnerability" tab of this repository), or
 - email **security@cisotoolbox.org**
@@ -27,7 +26,7 @@ and up to **90 days** before public disclosure.
 
 Out of scope (and already known / accepted by design):
 
-- Data readable from `localStorage` / IndexedDB by anyone with access to the
+- Data readable from `localStorage` by anyone with access to the
   same browser profile — this is the storage model, documented above.
 - Missing authentication: there is none, by design.
 - Findings that require the user to paste hostile content into their own
@@ -37,7 +36,7 @@ Out of scope (and already known / accepted by design):
 ## What we do care about
 
 - Cross-site scripting through imported data (`demo-*.json`, saved analyses,
-  CSV / Excel imports) — all rendering must go through the `esc()` helper.
+  CSV framework imports, EBIOS RM imports) — all rendering must go through the `esc()` helper.
 - Weaknesses in the AES-256-GCM / PBKDF2 file-encryption path in
   `js/cisotoolbox.js` or `js/cisotoolbox_local.js`.
 - Leakage of an AI provider API key entered in the settings panel (the key is
@@ -48,6 +47,7 @@ Out of scope (and already known / accepted by design):
 ## Secrets and personal data
 
 Never attach a real assessment, a real audit or a real vendor register to an
-issue or a pull request — they contain client data. The repository ships no
-demo dataset at the moment (new ones will be generated later): build a small
-fictional example from the application instead.
+issue or a pull request — they contain client data. To illustrate a report,
+use the fictional MedSecure demo shipped as `demo-fr.json` / `demo-en.json`
+(loadable from the settings panel), or build a small fictional example in the
+application.

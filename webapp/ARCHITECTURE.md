@@ -5,12 +5,12 @@
 Multi-framework compliance tracking tool for CISOs and security teams. Enables organizations to assess their compliance posture across multiple security frameworks simultaneously, track remediation measures, manage evidence, and monitor recurring controls.
 
 - **URL**: https://compliance.cisotoolbox.org
-- **Stack**: 100% client-side vanilla HTML/CSS/JS -- no framework, no build step
+- **Stack**: 100% client-side HTML/CSS/JS, no framework. The module-specific code is written in TypeScript (`ts/`) and the compiled JavaScript (`js/`) is committed: there is nothing to compile to run the app
 - **Data persistence**: Browser localStorage (autosave) + JSON file download
-- **Built-in frameworks**: ANSSI Guide d'hygiene (42 measures), ISO 27001 (93 controls)
-- **Catalog frameworks** (lazy-loaded): ReCyF/NIS2, DORA, HDS, SecNumCloud, SOC 2, CRA, GAMP 5, LPM, Loi 05-20 (Maroc)
+- **Built-in frameworks**: ANSSI Guide d'hygiene (42 measures), ISO 27001 (120 requirements), initial entries in `Compliance_data.js`
+- **Catalog frameworks** (lazy-loaded): ReCyF (NIS2), NIS 2, DORA, DORA (detailed), HDS, SecNumCloud, SOC 2, Cyber Resilience Act, LPM, Loi 05-20 (Maroc)
 - **Custom frameworks**: CSV import with bilingual support (FR/EN)
-- **Encryption**: AES-256-GCM with PBKDF2 for snapshots
+- **Encryption**: AES-256-GCM with PBKDF2 for encrypted files and snapshots
 
 ---
 
@@ -20,60 +20,76 @@ Multi-framework compliance tracking tool for CISOs and security teams. Enables o
 
 | File | Purpose |
 |------|---------|
-| `app/index.html` | Single-page HTML shell: toolbar, sidebar, panels, help overlay, password dialog |
-| `app/css/Compliance.css` | App-specific styles (indicators, measure cards, search-select, help overlay) |
-| `app/css/cisotoolbox.css` | Shared styles (toolbar, sidebar, tables, buttons, layout, responsive) |
-| `app/favicon.svg` | App icon |
-| `app/logo.svg` | Logo asset |
+| `index.html` | Single-page HTML shell: toolbar, navigation rail, panels, help overlay, password dialog |
+| `css/Compliance.css` | App-specific styles |
+| `css/cisotoolbox.css` | Shared styles (toolbar, rail, tables, buttons, layout, responsive) |
+| `favicon.svg` | App icon |
+| `logo.svg` | Logo asset |
+| `demo-fr.json`, `demo-en.json` | Fictional demo assessment (MedSecure), loadable from the settings panel |
 
 ### JavaScript -- Application
 
 | File | Purpose |
 |------|---------|
-| `app/js/Compliance_app.js` | Main application logic (1865 lines): navigation, rendering, CRUD, import/export |
-| `app/js/Compliance_data.js` | Initial data structure (`COMPLIANCE_INIT_DATA`): ANSSI 42 measures + ISO 93 controls with FR/EN labels |
-| `app/js/Compliance_descriptions.js` | Lazy-loaded detailed descriptions for ANSSI and ISO controls (FR/EN) |
-| `app/js/Compliance_mesures_types.js` | Lazy-loaded measure type templates mapped to framework requirements |
-| `app/js/Compliance_ai_assistant.js` | AI assistant integration (Anthropic Claude / OpenAI) |
+| `js/Compliance_app.js` | Main application logic (3017 lines): navigation, rendering, CRUD, import/export |
+| `js/Compliance_data.js` | Initial data structure (`COMPLIANCE_INIT_DATA`): ANSSI 42 measures + ISO 27001 120 requirements with FR/EN labels |
+| `js/Compliance_descriptions.js` | Lazy-loaded detailed descriptions for ANSSI and ISO controls (FR/EN) |
+| `js/Compliance_reference_controls.js` | Lazy-loaded catalog of reference measures (`COMPLIANCE_REFERENCE_CONTROLS`), each mapped to the requirements it covers per framework |
+| `js/Compliance_mesures_types.js` | Lazy-loaded measure templates (`COMPLIANCE_MESURES_TYPES`) mapped to framework requirements, used as a fallback by measure proposals |
+| `js/Compliance_ai_assistant.js` | AI suggestions for requirements (only when an API key is set) |
 
 ### JavaScript -- i18n
 
 | File | Purpose |
 |------|---------|
-| `app/js/Compliance_i18n_fr.js` | French translations (loaded at startup) |
-| `app/js/Compliance_i18n_en.js` | English translations (lazy-loaded on demand) |
+| `js/Compliance_i18n_fr.js` | French module translations (loaded at startup) |
+| `js/Compliance_i18n_en.js` | English module translations (loaded at startup) |
 
 ### JavaScript -- Framework reference data (lazy-loaded)
 
 | File | Framework |
 |------|-----------|
-| `app/js/Compliance_ref_recyf.js` | ReCyF / NIS2 (ANSSI, March 2026) |
-| `app/js/Compliance_ref_dora.js` | DORA (EU 2022/2554) |
-| `app/js/Compliance_ref_hds.js` | HDS (Health Data Hosting, France) |
-| `app/js/Compliance_ref_secnumcloud.js` | SecNumCloud (ANSSI v3.2) |
-| `app/js/Compliance_ref_soc2.js` | SOC 2 (AICPA Trust Services) |
-| `app/js/Compliance_ref_cra.js` | Cyber Resilience Act (EU 2024) |
-| `app/js/Compliance_ref_gamp.js` | GAMP 5 |
-| `app/js/Compliance_ref_lpm.js` | LPM (France) |
-| `app/js/Compliance_ref_loi0520.js` | Loi 05-20 (Morocco) |
-| `app/js/Compliance_ref_nis2.js` | NIS2 Directive (legacy/alternate) |
+| `js/Compliance_ref_anssi.js` | ANSSI Hygiene Guide |
+| `js/Compliance_ref_iso.js` | ISO 27001:2022 |
+| `js/Compliance_ref_recyf.js` | ReCyF (NIS2) |
+| `js/Compliance_ref_nis2.js` | NIS 2 Directive (article 21) |
+| `js/Compliance_ref_dora.js` | DORA (EU 2022/2554), article level |
+| `js/Compliance_ref_dora_detailed.js` | DORA (EU 2022/2554), paragraph level |
+| `js/Compliance_ref_hds.js` | HDS (Health Data Hosting, France) |
+| `js/Compliance_ref_secnumcloud.js` | SecNumCloud (ANSSI v3.2) |
+| `js/Compliance_ref_soc2.js` | SOC 2 (AICPA Trust Services Criteria) |
+| `js/Compliance_ref_cra.js` | Cyber Resilience Act (EU 2024/2847) |
+| `js/Compliance_ref_lpm.js` | LPM (France) |
+| `js/Compliance_ref_loi0520.js` | Loi 05-20 (Morocco) |
 
-### JavaScript -- Shared libraries (copied from `shared/`)
+### JavaScript -- Shared libraries
+
+Shared files, identical across the CISO Toolbox apps, carry a "Generated file - do not edit" header and are rewritten at every release.
 
 | File | Purpose |
 |------|---------|
-| `app/js/cisotoolbox.js` | Event delegation, HTML helpers, file I/O, AES encryption, undo/redo, autosave, column management |
-| `app/js/cisotoolbox_local.js` | App-local overrides/extensions for shared library |
-| `app/js/i18n.js` | Bilingual system: `t()`, `_registerTranslations()`, `switchLang()` |
-| `app/js/ai_common.js` | AI provider abstraction (Anthropic, OpenAI), API key management |
-| `app/js/referentiels_catalog.js` | Framework catalog with labels, descriptions (FR/EN), colors |
-| `app/js/ct_refselect.js` | Multi-select dropdown component with tags and search |
+| `js/cisotoolbox.js` | Event delegation, HTML helpers, lazy asset loading, AES encryption, undo/redo, column management |
+| `js/cisotoolbox_local.js` | Browser-only persistence layer: autosave, file open/save (with encryption), session restore banner, snapshots, demo loader |
+| `js/ct_schema.js` | Versioned exports and schema migration on load |
+| `js/i18n.js` | Bilingual system: `t()`, `_registerTranslations()`, `switchLang()` |
+| `js/i18n_core_fr.js`, `js/i18n_core_en.js` | Shared core translations (FR / EN) |
+| `js/ai_common.js` | AI provider abstraction (Anthropic, OpenAI, Google Gemini, AWS Bedrock), API key management |
+| `js/ct_settings.js` | Settings drawer (language, AI, app-specific extra sections) |
+| `js/referentiels_catalog.js` | Framework catalog with labels, descriptions (FR/EN), colors |
+| `js/ct_refselect.js` | Multi-select dropdown component with tags and search |
+| `js/ct_modal.js` | Promise-based modal overlay |
+| `js/ct_userpicker.js` | User assignment widget |
+| `js/ct_measure_modal.js` | Unified add/edit measure modal |
+| `js/ct_nonconformity.js` | Non-conformity and derogation UI |
+| `js/ct_nonconformity_local.js` | Non-conformity and derogation rules without a server (records live in the saved file) |
+| `js/ct_table.js` | Declarative HTML table with sort, row click and optional bulk-selection column |
+| `js/ct_bulkbar.js` | Bulk-action bar for tables |
 
 ### Testing
 
 | File | Purpose |
 |------|---------|
-| `app/e2e/compliance.spec.js` | Playwright end-to-end tests |
+| `e2e/compliance.spec.js` | Playwright end-to-end tests |
 
 ---
 
@@ -85,21 +101,26 @@ index.html
   +-- cisotoolbox.css          (shared styles)
   +-- Compliance.css           (app styles)
   |
-  +-- i18n.js                  (translation engine)
-  +-- cisotoolbox.js           (shared: events, I/O, crypto, undo/redo, autosave)
-  +-- cisotoolbox_local.js     (app-local extensions)
+  +-- i18n.js, i18n_core_en.js, i18n_core_fr.js   (translation engine + core strings)
+  +-- cisotoolbox.js           (shared: events, crypto, undo/redo, lazy loading)
+  +-- ct_schema.js             (schema versioning / migration)
+  +-- cisotoolbox_local.js     (browser persistence: autosave, files, snapshots, demo)
   +-- referentiels_catalog.js  (framework catalog metadata)
   +-- Compliance_data.js       (COMPLIANCE_INIT_DATA: ANSSI + ISO base entries)
-  +-- Compliance_i18n_fr.js    (French strings -- loaded at startup)
-  +-- Compliance_app.js        (main application -- 1865 lines)
+  +-- Compliance_i18n_fr.js    (French strings)
+  +-- Compliance_i18n_en.js    (English strings)
+  +-- ct_refselect.js, ct_modal.js, ct_userpicker.js, ct_measure_modal.js,
+  |   ct_nonconformity.js, ct_nonconformity_local.js, ct_table.js, ct_bulkbar.js
+  +-- Compliance_app.js        (main application)
   +-- ai_common.js             (AI provider abstraction)
+  +-- ct_settings.js           (settings drawer)
   +-- Compliance_ai_assistant.js (AI assistant for compliance)
   |
-  +-- [lazy-loaded on demand]
-       +-- Compliance_i18n_en.js        (English strings)
-       +-- Compliance_descriptions.js   (ANSSI/ISO detailed descriptions)
-       +-- Compliance_mesures_types.js  (measure type templates)
-       +-- Compliance_ref_*.js          (10 framework reference files)
+  +-- [lazy-loaded on demand, injected as <script> tags by _loadAsset()]
+       +-- Compliance_ref_*.js               (12 framework reference files)
+       +-- Compliance_descriptions.js        (ANSSI/ISO detailed descriptions)
+       +-- Compliance_reference_controls.js  (reference measure catalog)
+       +-- Compliance_mesures_types.js       (measure templates)
 ```
 
 ### Data flow
@@ -120,8 +141,10 @@ index.html
                     |  D.preuves[]     |    |   fw views,      |
                     |  D.referentiels_ |    |   plan,          |
                     |    actifs[]      |    |   controles,     |
-                    +------------------+    |   history)       |
-                                           +------------------+
+                    |  D.nonconformi-  |    |   nonconformi-   |
+                    |    ties[]        |    |   ties, history) |
+                    |  D.derogations[] |    +------------------+
+                    +------------------+
 ```
 
 ### Navigation routing
@@ -129,18 +152,21 @@ index.html
 ```
 selectPanel(panelId)
   |
-  +-- "dashboard"     --> renderDashboard()
-  +-- "context"       --> renderContext()
-  +-- "plan"          --> renderPlan()
-  +-- "controles"     --> renderControles()
-  +-- "history"       --> renderHistory()
-  +-- "fw:<id>:<sub>" --> _ensureFramework() --> _renderFwView()
-       |                                           |
+  +-- "dashboard"       --> renderDashboard()
+  +-- "context"         --> renderContext()
+  +-- "plan"            --> renderPlan()
+  +-- "controles"       --> renderControles()
+  +-- "nonconformities" --> renderNonconformities()
+  +-- "history"         --> renderHistory()
+  +-- "fw:<id>:<sub>"   --> _ensureFramework() / _ensureDescriptions() --> _renderFwView()
+       |                                                                    |
        +-- fw:anssi:dashboard    --> _renderFwDashboard()
        +-- fw:anssi:exigences    --> _renderFwExigences()
        +-- fw:dora:mesures       --> _renderFwMesures()
        +-- fw:iso:preuves        --> _renderFwPreuves()
 ```
+
+At startup, a `?req=<fw>:<ref>` query parameter opens that requirement in its framework's requirements view, and a `#nonconformities` hash opens the non-conformity register.
 
 ---
 
@@ -211,6 +237,9 @@ D = {
     ...
   ],
 
+  nonconformities: [...],   // Non-conformity register
+  derogations: [...],       // Derogations (approved ones mark a requirement "derogated")
+
   _custom_frameworks: {
     // Persisted custom CSV-imported frameworks
     custom_xxx: {
@@ -227,13 +256,13 @@ D = {
 ```javascript
 // Base frameworks (always available, data in Compliance_data.js)
 _BASE_FRAMEWORKS = {
-  anssi: { label: "ANSSI -- Guide d'hygiene", description: ..., color: "#1e293b" },
+  anssi: { label: "ANSSI — Guide d'hygiène", description: ..., color: "#1e293b" },
   iso:   { label: "ISO 27001", description: ..., color: "#1e40af" }
 }
 
 // Catalog frameworks (from referentiels_catalog.js)
 REFERENTIELS_META = {
-  recyf: { label: "ReCyF (NIS2)", description: "...", color: "#4a8fa8" },
+  recyf: { label: "ReCyF (NIS2)", description: "...", color: "#047857" },
   dora:  { label: "DORA", ..., measures: [...] },  // measures populated after lazy-load
   ...
 }
@@ -248,7 +277,7 @@ window.COMPLIANCE_REF = {
   dora: {
     label: "DORA",
     measures: [
-      { ref: "DORA-G01", theme: "...", mesure: "...", description: "..." }
+      { ref: "...", theme: "...", mesure: "...", description: "..." }
     ]
   }
 }
@@ -259,7 +288,7 @@ window.COMPLIANCE_REF = {
 1. Checks if `REFERENTIELS_META[fwId].measures` already exists
 2. If not, loads `js/Compliance_ref_<fwId>.js` via `_loadAsset()`
 3. The loaded script writes to `window.COMPLIANCE_REF[fwId]`
-4. `_ensureFramework` copies data from `COMPLIANCE_REF[fwId]` into `REFERENTIELS_META[fwId]`
+4. `_ensureFramework` sets `REFERENTIELS_META[fwId]` to `COMPLIANCE_REF[fwId]`
 5. Calls `cb()` to proceed with rendering
 
 ### Status computation (no stored conformity)
@@ -267,7 +296,7 @@ window.COMPLIANCE_REF = {
 Conformity status is computed dynamically, never stored:
 
 - **Measure effective status** (`_mesureEffectiveStatut`): returns `statut` unless `termine` with no valid (non-expired) evidence, then returns `preuve_manquante`
-- **Requirement status** (`_exigenceStatut`): `na` if not applicable, `ok` if all linked measures are `termine` with valid evidence, `ko` otherwise
+- **Requirement status** (`_exigenceStatut`): `na` if not applicable, `derogated` if an approved derogation covers it, `ok` if it has linked measures and all are `termine` with valid evidence, `ko` otherwise
 
 ---
 
@@ -277,217 +306,211 @@ Conformity status is computed dynamically, never stored:
 
 The central router. Accepts:
 
-- Simple panel IDs: `"dashboard"`, `"context"`, `"plan"`, `"controles"`, `"history"`
+- Simple panel IDs: `"dashboard"`, `"context"`, `"plan"`, `"controles"`, `"nonconformities"`, `"history"`
 - Framework-prefixed IDs: `"fw:<fwId>:<subview>"` where subview is `dashboard|exigences|mesures|preuves`
 
 Behavior:
 1. Sets `_currentPanel`, `_currentFw`, `_currentSubview` globals
 2. Closes mobile sidebar
-3. For `fw:` panels: calls `_ensureFramework()` (and `_ensureDescriptions()` for ANSSI/ISO) before rendering
+3. For `fw:` panels: catalog and custom frameworks go through `_ensureFramework()`; ANSSI and ISO load their detailed descriptions through `_ensureDescriptions()`
 4. Switches `.tab-panel.active` class
 5. Calls the appropriate render function
-6. Updates sidebar via `renderSidebar()` + `_updateSidebarAccordion()`
+6. Updates the rail via `renderSidebar()` + `_updateSidebarAccordion()`
 
 ### `renderSidebar()`
 
 Builds the dynamic framework sub-navigation:
 
 1. Iterates `D.referentiels_actifs`
-2. For each active framework, renders a sidebar item
+2. For each active framework, renders a rail item
 3. If the framework is currently selected (`_currentFw === fwId`), renders four sub-items: Dashboard, Exigences, Mesures, Preuves
-4. Sub-items use `sidebar-sub` CSS class for indentation
+4. Sub-items use the `ct-rail-subitem` CSS class for indentation
 
 ### Accordion system
 
-The sidebar uses `_updateSidebarAccordion(panelId)` (from `cisotoolbox.js`) to open/close sidebar groups based on which `data-panels` attribute contains the current panel ID.
+`_updateSidebarAccordion(panelId)` (from `cisotoolbox.js`) sets `aria-current="page"` on the rail item matching the current panel and expands the rail section that contains it.
 
 ---
 
 ## 6. Functions Reference
 
+Line numbers refer to `js/Compliance_app.js`.
+
 ### Navigation (4 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `selectPanel(panelId)` | 296 | Central router: switches panels, loads framework data lazily, triggers rendering |
-| `renderSidebar()` | 478 | Builds dynamic sidebar with framework sub-menus based on active frameworks |
-| `renderAll()` | 459 | Full re-render: sidebar + current panel + undo/redo buttons + toolbar + i18n |
-| `_renderFwView(fwId, subview)` | 771 | Dispatcher: routes to the correct framework sub-view renderer |
+| `selectPanel(panelId)` | 477 | Central router: switches panels, loads framework data lazily, triggers rendering |
+| `renderSidebar()` | 710 | Builds dynamic rail with framework sub-menus based on active frameworks |
+| `renderAll()` | 688 | Full re-render: rail + current panel + undo/redo buttons + toolbar + i18n |
+| `_renderFwView(fwId, subview)` | 1037 | Dispatcher: routes to the correct framework sub-view renderer |
 
 ### Dashboard (2 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `renderDashboard()` | 726 | Global dashboard: compliance % per framework, action plan summary |
-| `_renderFwDashboard(fwId, label)` | 780 | Per-framework dashboard: conformity %, actions in progress, expiring evidence |
+| `renderDashboard()` | 984 | Global dashboard: compliance % per framework, action plan summary |
+| `_renderFwDashboard(fwId, label)` | 1049 | Per-framework dashboard: conformity %, actions in progress, expiring evidence |
 
 ### Context (4 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `renderContext()` | 507 | Renders context form (org, date, assessor, scope, comments) + framework selector chips |
-| `_setMeta(key, val)` | 534 | Updates a D.meta field and triggers autosave |
-| `toggleReferentiel(fwId)` | 540 | Activates/deactivates a framework, initializes entries if needed, lazy-loads data |
+| `renderContext()` | 739 | Renders context form (org, date, assessor, scope, comments) + framework selector chips |
+| `_setMeta(key, val)` | 767 | Updates a D.meta field and triggers autosave |
+| `toggleReferentiel(fwId)` | 833 | Activates/deactivates a framework, initializes entries if needed, lazy-loads data |
 | `_autoHeight(el)` | (shared) | Auto-grows textarea height (defined in cisotoolbox.js) |
 
 ### Framework Views -- Exigences (6 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_renderFwExigences(fwId, label)` | 836 | Renders requirements table with applicability, status, comments, linked measures |
-| `_filterExigences(fwId, val)` | 831 | Filters requirements by text search |
-| `_toggleApplicable(fwId, idx, checked)` | 924 | Toggles requirement applicability checkbox |
-| `_updateExig(fwId, idx, field, val)` | 935 | Updates a field on a requirement entry |
-| `_getExigEntry(fwId, idx)` | 940 | Returns requirement entry by framework ID and index |
-| `_proposerMesures(fwId, idx)` | 48 | Proposes measure templates from mesures_types for a requirement |
+| `_renderFwExigences(fwId, label)` | 1103 | Renders requirements table with applicability, status, comments, linked measures |
+| `_filterExigences(fwId, val)` | 1099 | Filters requirements by text search |
+| `_toggleApplicable(fwId, idx, checked)` | 1221 | Toggles requirement applicability checkbox |
+| `_updateExig(fwId, idx, field, val)` | 1231 | Updates a field on a requirement entry |
+| `_getExigEntry(fwId, idx)` | 1236 | Returns requirement entry by framework ID and index |
+| `_proposerMesures(fwId, idx)` | 103 | Proposes measures for a requirement: reference measure catalog first, measure templates as fallback |
 
-### Measures -- Per-framework (12 functions)
-
-| Function | Line | Purpose |
-|----------|------|---------|
-| `_renderFwMesures(fwId, label)` | 981 | Renders measures table + inline edit form for a framework |
-| `_filterMesures(fwId, val)` | 1080 | Filters measures by text search |
-| `_addMesure(fwId)` | 1110 | Creates a new measure and opens edit form |
-| `_editMesure(fwId, mesureId)` | 1119 | Opens inline edit for a measure |
-| `_goEditMesure(fwId, mesureId)` | 1127 | Navigates to mesures panel and opens edit (with return-to tracking) |
-| `_scrollToEditingCard()` | 1133 | Scrolls to the editing card (with retry for async loading) |
-| `_closeMesureEdit(fwId)` | 1143 | Closes measure edit form, navigates back if needed |
-| `_updateMesure(mesureId, field, val)` | 1222 | Updates a field on a measure |
-| `_deleteMesure(mesureId, fwId)` | 1227 | Deletes a measure and unlinks it from all requirements |
-| `_linkExistingMesure(fwId, idx, mesureId)` | 944 | Links an existing measure to a requirement |
-| `_createAndLinkMesure(fwId, idx)` | 954 | Creates a new measure, links it to a requirement, opens edit |
-| `_unlinkMesure(fwId, idx, mesureId)` | 967 | Unlinks a measure from a requirement |
-
-### Measures -- Cross-referencing (4 functions)
+### Measures -- Per-framework (10 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_renderLinkedExigences(mesureId, currentFwId)` | 1155 | Renders linked requirements with unlink buttons + search-select to add more |
-| `_linkMesureToExig(mesureId, currentFwId, val)` | 1191 | Links a measure to a requirement (from measure edit) |
-| `_unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId)` | 1208 | Unlinks a requirement from a measure (from measure edit) |
-| `_findExigencesForMesure(mesureId)` | 1085 | Returns all requirement refs linked to a measure across all frameworks |
-| `_findFwsForMesure(mesureId)` | 1096 | Returns all framework labels that have requirements linked to a measure |
+| `_renderFwMesures(fwId, label)` | 1483 | Renders the measures table of a framework (row click opens the measure modal) |
+| `_filterMesures(fwId, val)` | 2001 | Filters measures by text search |
+| `_addMesure(fwId)` | 2181 | Creates a new measure through the unified measure modal |
+| `_editMesure(fwId, mesureId)` | 2184 | Opens the measure modal for an existing measure |
+| `_goEditMesure(fwId, mesureId)` | 2195 | Opens the measure modal for a measure from another view |
+| `_updateMesure(mesureId, field, val)` | 2267 | Updates a field on a measure |
+| `_deleteMesure(mesureId, fwId)` | 2278 | Deletes a measure and unlinks it from all requirements |
+| `_linkExistingMesure(fwId, idx, mesureId)` | 1454 | Links an existing measure to a requirement |
+| `_createAndLinkMesure(fwId, idx)` | 1466 | Creates a new measure linked to a requirement, through the unified measure modal |
+| `_unlinkMesure(fwId, idx, mesureId)` | 1472 | Unlinks a measure from a requirement |
 
-### Evidence/Proofs -- Per-framework (10 functions)
-
-| Function | Line | Purpose |
-|----------|------|---------|
-| `_renderFwPreuves(fwId, label)` | 1283 | Renders evidence table + inline edit form for a framework |
-| `_filterPreuves(fwId, val)` | 1368 | Filters evidence by text search |
-| `_addPreuveGlobal(fwId)` | 1373 | Creates a new evidence entry and opens edit |
-| `_editPreuve(fwId, preuveId)` | 1382 | Opens inline edit for an evidence entry |
-| `_goEditPreuveFromMesure(fwId, mesureId, preuveId)` | 1390 | Navigates from measure edit to evidence edit (with return-to tracking) |
-| `_closePreuveEdit(fwId)` | 1397 | Closes evidence edit, navigates back if needed |
-| `_updatePreuveField(preuveId, field, val)` | 1413 | Updates a field on an evidence entry |
-| `_deletePreuve(preuveId, fwId)` | 1418 | Deletes an evidence entry and unlinks it from all measures |
-| `_linkExistingPreuve(mesureId, fwId, preuveId)` | 1241 | Links existing evidence to a measure |
-| `_createAndLinkPreuve(mesureId, fwId)` | 1261 | Creates new evidence, links to a measure, opens edit |
-| `_unlinkPreuve(mesureId, preuveId, fwId)` | 1253 | Unlinks evidence from a measure |
-
-### Plan d'action global (9 functions)
+### Measures -- Cross-referencing (5 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `renderPlan()` | 1431 | Renders cross-framework action plan: all measures with edit form |
-| `_filterPlan(val)` | 1525 | Filters plan by text search |
-| `_editMesurePlan(mesureId)` | 1530 | Opens inline edit in plan view |
-| `_closePlanEdit()` | 1536 | Closes plan edit form |
-| `_addMesurePlan()` | 1541 | Creates a new measure from plan view |
-| `_deleteMesurePlan(mesureId)` | 1550 | Deletes a measure from plan view |
-| `_unlinkPreuvePlan(mesureId, preuveId)` | 1563 | Unlinks evidence from a measure in plan view |
-| `_linkExistingPreuvePlan(mesureId, preuveId)` | 1571 | Links evidence to a measure in plan view |
-| `_createAndLinkPreuvePlan(mesureId)` | 1583 | Creates evidence linked to a measure from plan view |
-| `_goEditPreuveFromPlan(mesureId, preuveId)` | 1600 | Navigates from plan to evidence edit |
+| `_renderLinkedExigences(mesureId, currentFwId)` | 2199 | Renders linked requirements with unlink buttons + search-select to add more |
+| `_linkMesureToExig(mesureId, currentFwId, val)` | 2233 | Links a measure to a requirement (from measure edit) |
+| `_unlinkMesureFromEdit(mesureId, fwId, idx, currentFwId)` | 2253 | Unlinks a requirement from a measure (from measure edit) |
+| `_findExigencesForMesure(mesureId)` | 2005 | Returns all requirement refs linked to a measure across all frameworks |
+| `_findFwsForMesure(mesureId)` | 2019 | Returns all framework labels that have requirements linked to a measure |
+
+### Evidence/Proofs -- Per-framework (9 functions)
+
+| Function | Line | Purpose |
+|----------|------|---------|
+| `_renderFwPreuves(fwId, label)` | 2345 | Renders the evidence table of a framework (row click opens the evidence modal) |
+| `_filterPreuves(fwId, val)` | 2436 | Filters evidence by text search |
+| `_addPreuveGlobal(fwId)` | 2440 | Creates a new evidence entry |
+| `_editPreuve(fwId, preuveId)` | 2449 | Opens the evidence modal for an evidence entry |
+| `_goEditPreuveFromMesure(fwId, mesureId, preuveId)` | 2455 | Closes the measure modal and opens the evidence modal, remembering the measure to return to |
+| `_updatePreuveField(preuveId, field, val)` | 2562 | Updates a field on an evidence entry |
+| `_linkExistingPreuve(mesureId, fwId, preuveId)` | 2294 | Links existing evidence to a measure |
+| `_createAndLinkPreuve(mesureId, fwId)` | 2318 | Creates new evidence, links it to a measure, opens the evidence modal |
+| `_unlinkPreuve(mesureId, preuveId, fwId)` | 2309 | Unlinks evidence from a measure |
+
+### Plan d'action global (6 functions)
+
+| Function | Line | Purpose |
+|----------|------|---------|
+| `renderPlan()` | 2571 | Renders the cross-framework action plan table with bulk actions |
+| `_filterPlan(val)` | 2675 | Filters plan by text search |
+| `_addMesurePlan()` | 2679 | Creates a new measure from plan view, through the unified measure modal |
+| `_unlinkPreuvePlan(mesureId, preuveId)` | 2682 | Unlinks evidence from a measure in plan view |
+| `_linkExistingPreuvePlan(mesureId, preuveId)` | 2691 | Links evidence to a measure in plan view |
+| `_createAndLinkPreuvePlan(mesureId)` | 2706 | Creates evidence linked to a measure from plan view |
 
 ### Controls (1 function)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `renderControles()` | 1610 | Renders recurring control tracking + expiring evidence alerts |
+| `renderControles()` | 2727 | Renders recurring control tracking + expiring evidence alerts |
 
-### Import/Export -- CSV (4 functions)
+### Import/Export -- CSV (3 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `importCustomCSV()` | 586 | Opens file picker for CSV framework import |
-| `_parseAndImportCSV(csvText, filename)` | 602 | Parses CSV (auto-detects separator), prompts for name, registers custom framework |
-| `_splitCSVLine(line, sep)` | 705 | CSV line parser with quoted field support |
-| `downloadCSVTemplate()` | 571 | Downloads a sample CSV template file |
+| `importCustomCSV()` | 864 | Opens file picker for CSV framework import |
+| `_parseAndImportCSV(csvText, filename)` | 881 | Parses CSV (separator detected by the shared `_parseCSV`), prompts for name, registers custom framework |
+| `downloadCSVTemplate()` | 856 | Downloads a sample CSV template file |
 
 ### Import -- EBIOS RM (2 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `importEbiosRM()` | 1695 | Triggers file input for EBIOS RM JSON import |
-| `_doImportEbiosRM(event)` | 1699 | Parses EBIOS RM JSON: imports context, measures (atelier 5), ANSSI/ISO/complementary assessments, auto-links measures |
+| `importEbiosRM()` | 2805 | Triggers file input for EBIOS RM JSON import |
+| `_doImportEbiosRM(event)` | 2808 | Parses EBIOS RM JSON: imports context, workshop 5 measures, ANSSI/ISO/complementary assessments |
 
 ### History / Snapshots (1 function)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `renderHistory()` | 1666 | Renders snapshot list with create/restore/export/delete actions and encryption toggle |
+| `renderHistory()` | 2783 | Renders the snapshot panel (create/restore/export/delete, encryption toggle) through the shared `_renderSnapshotsPanel` |
 
-Note: `createSnapshot`, `restoreSnapshot`, `exportSnapshot`, `deleteSnapshot`, `enableSnapEncryption`, `disableSnapEncryption`, `_getSnapshots`, `_isSnapEncrypted` are provided by `cisotoolbox.js`.
+Note: `createSnapshot`, `restoreSnapshot`, `exportSnapshot`, `deleteSnapshot`, `enableSnapEncryption`, `disableSnapEncryption`, `_getSnapshots`, `_isSnapEncrypted` are provided by `cisotoolbox_local.js`.
 
 ### Data initialization (1 function)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `ensureKeys()` | 341 | Initializes/migrates D structure: creates missing fields, migrates old format (`socle_anssi`/`socle_iso`/`socle_complementaires`), merges base entries, enriches framework data from metadata, updates ID counters |
+| `ensureKeys()` | 538 | Initializes/migrates D structure: creates missing fields (including `nonconformities` and `derogations`), migrates old format (`socle_anssi`/`socle_iso`/`socle_complementaires`), merges base entries, enriches framework data from metadata, updates ID counters |
 
 ### Helpers -- ID generation & lookup (4 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_genMesureId()` | 128 | Generates next available `M-NNN` ID |
-| `_genPreuveId()` | 132 | Generates next available `P-NNN` ID |
-| `_getMesure(id)` | 136 | Finds a measure by ID in `D.mesures` |
-| `_getPreuve(id)` | 137 | Finds an evidence entry by ID in `D.preuves` |
+| `_genMesureId()` | 262 | Generates next available `M-NNN` ID |
+| `_genPreuveId()` | 267 | Generates next available `P-NNN` ID |
+| `_getMesure(id)` | 272 | Finds a measure by ID in `D.mesures` |
+| `_getPreuve(id)` | 273 | Finds an evidence entry by ID in `D.preuves` |
 
-### Helpers -- Framework data access (6 functions)
+### Helpers -- Framework data access (5 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_exigKey(fwId, ref)` | 203 | Builds composite key `"fwId:ref"` |
-| `_getExigences(fwId)` | 206 | Returns requirement array for a framework |
-| `_getExigRef(fwId, entry)` | 210 | Extracts reference string from a requirement entry |
-| `_getMesuresForFw(fwId)` | 215 | Returns all measures linked to any requirement of a framework |
-| `_getPreuvesForFw(fwId)` | 223 | Returns all evidence linked to a framework (via measures) |
-| `_getAllFrameworks()` | 275 | Merges `_BASE_FRAMEWORKS` + `REFERENTIELS_META` + `D._custom_frameworks` |
+| `_getExigences(fwId)` | 349 | Returns requirement array for a framework |
+| `_getExigRef(fwId, entry)` | 352 | Extracts reference string from a requirement entry |
+| `_getMesuresForFw(fwId)` | 356 | Returns all measures linked to any requirement of a framework |
+| `_getPreuvesForFw(fwId)` | 363 | Returns all evidence linked to a framework (via measures) |
+| `_getAllFrameworks()` | 447 | Merges `_BASE_FRAMEWORKS` + `REFERENTIELS_META` + `D._custom_frameworks` |
 
 ### Helpers -- Status computation (6 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_statutLabel(key)` | 231 | Translates measure status key to label |
-| `_mesureEffectiveStatut(m)` | 237 | Computes effective status (accounts for expired evidence) |
-| `_exigenceStatut(entry)` | 248 | Computes requirement status: `ok`/`ko`/`na` |
-| `_exigStatutLabel(key)` | 258 | Translates requirement status key to label |
-| `_mesureBadge(m)` | 261 | Returns HTML badge for measure status |
-| `_recLabel(key)` | 266 | Translates recurrence key to label |
+| `_statutLabel(key)` | 377 | Translates measure status key to label |
+| `_mesureEffectiveStatut(m)` | 381 | Computes effective status (accounts for expired evidence) |
+| `_exigenceStatut(entry, fwId)` | 401 | Computes requirement status: `ok`/`ko`/`na`/`derogated` |
+| `_exigStatutLabel(key)` | 415 | Translates requirement status key to label |
+| `_mesureBadge(m)` | 433 | Returns HTML badge for measure status |
+| `_recLabel(key)` | 440 | Translates recurrence key to label |
 
-### Helpers -- Measure type templates (2 functions)
+### Helpers -- Measure proposals (4 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_ensureMesuresTypes(cb)` | 30 | Lazy-loads `Compliance_mesures_types.js` |
+| `_ensureMesuresTypes(cb)` | 28 | Lazy-loads `Compliance_mesures_types.js` |
 | `_getMesuresTypesFor(fwId, exigRef)` | 39 | Finds measure templates applicable to a specific requirement |
+| `_ensureReferenceControls(cb)` | 48 | Lazy-loads `Compliance_reference_controls.js` |
+| `_getReferenceControlsFor(fwId, exigRef)` | 58 | Finds reference measures applicable to a specific requirement |
 
 ### Helpers -- Search-select widget (5 functions)
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_searchSelect(placeholder, options, callbackFn, callbackArgs)` | 143 | Generates filterable dropdown HTML |
-| `_ssFilterAndOpen(uid, val)` | 155 | Opens dropdown and applies filter |
-| `_ssOpen(uid)` | 160 | Opens a search-select dropdown |
-| `_ssFilter(uid, val)` | 169 | Filters dropdown options by text |
-| `_ssSelect(uid, value, callbackFn, argsJson)` | 182 | Handles option selection, calls callback |
+| `_searchSelect(placeholder, options, callbackFn, callbackArgs)` | 278 | Generates filterable dropdown HTML |
+| `_ssFilterAndOpen(uid, val)` | 289 | Opens dropdown and applies filter |
+| `_ssOpen(uid)` | 294 | Opens a search-select dropdown |
+| `_ssFilter(uid, val)` | 302 | Filters dropdown options by text |
+| `_ssSelect(uid, value, callbackFn, argsJson)` | 317 | Handles option selection, calls callback |
 
 ### Settings / AI (1 variable)
 
 | Symbol | Line | Purpose |
 |--------|------|---------|
-| `window.AI_APP_CONFIG` | 1865 | AI module config: `{ storagePrefix: "compliance" }` |
+| `window.AI_APP_CONFIG` | 3012 | AI module config: `storagePrefix: "compliance"`, plus `settingsExtraHTML` / `onSettingsRendered` hooks that add the demo loader to the settings panel |
 
 ---
 
@@ -497,8 +520,8 @@ Note: `createSnapshot`, `restoreSnapshot`, `exportSnapshot`, `deleteSnapshot`, `
 
 The framework system is designed for extensibility. Frameworks fall into three tiers:
 
-1. **Base frameworks** (ANSSI, ISO 27001) -- data shipped in `Compliance_data.js`, always available
-2. **Catalog frameworks** (11 frameworks) -- metadata in `referentiels_catalog.js`, full data lazy-loaded from `Compliance_ref_<id>.js`
+1. **Base frameworks** (ANSSI, ISO 27001) -- initial entries shipped in `Compliance_data.js`, always available
+2. **Catalog frameworks** (10 frameworks) -- metadata in `referentiels_catalog.js`, full data lazy-loaded from `Compliance_ref_<id>.js`
 3. **Custom frameworks** -- imported from CSV, stored in `D._custom_frameworks` for persistence
 
 ### `_BASE_FRAMEWORKS`
@@ -507,7 +530,7 @@ Constant object defining the two core frameworks with i18n-aware descriptions:
 
 ```javascript
 const _BASE_FRAMEWORKS = {
-    anssi: { label: "ANSSI -- Guide d'hygiene", get description() { return t("comp.fw.anssi_desc"); }, color: "#1e293b" },
+    anssi: { label: "ANSSI — Guide d'hygiène", get description() { return t("comp.fw.anssi_desc"); }, color: "#1e293b" },
     iso:   { label: "ISO 27001", get description() { return t("comp.fw.iso_desc"); }, color: "#1e40af" }
 };
 ```
@@ -527,15 +550,15 @@ Lazy-loading mechanism:
 1. If `REFERENTIELS_META[fwId].measures` already exists, calls `cb()` immediately
 2. Otherwise, injects `<script src="js/Compliance_ref_<fwId>.js">` via `_loadAsset()`
 3. The loaded script populates `window.COMPLIANCE_REF[fwId]`
-4. Copies data from `COMPLIANCE_REF[fwId]` into `REFERENTIELS_META[fwId]`
-5. Marks the script element with `data-loaded="1"` to prevent duplicate loading
+4. Sets `REFERENTIELS_META[fwId]` to `COMPLIANCE_REF[fwId]`
+5. `_loadAsset()` marks the script element with `data-loaded` to prevent duplicate loading
 
 ### Custom CSV import flow
 
 1. `importCustomCSV()` -- opens file picker
 2. `_parseAndImportCSV()`:
-   - Auto-detects separator (`;`, `,`, or `\t`)
-   - Parses header row (expects `ref`, `mesure`/`measure`/`control`, optional `theme`, `description`, `*_en` columns)
+   - Parses the file with the shared `_parseCSV()`, which detects the separator (`;`, `,`, or `\t`)
+   - Reads the header row (expects `ref`, `mesure`/`measure`/`control`, optional `theme`, `description`, `*_en` columns)
    - Generates a unique `fwId` from label + timestamp
    - Registers in `_REFERENTIELS_CATALOG`, `REFERENTIELS_META`, `COMPLIANCE_REF`
    - Creates entries in `D.referentiels[fwId]`
@@ -552,7 +575,7 @@ window.COMPLIANCE_REF["dora"] = {
     description: "...",
     color: "#3a7ca5",
     measures: [
-        { ref: "DORA-G01", theme: "Gouvernance", theme_en: "Governance",
+        { ref: "...", theme: "...", theme_en: "...",
           mesure: "...", mesure_en: "...", description: "...", description_en: "..." },
         ...
     ]
@@ -563,10 +586,11 @@ window.COMPLIANCE_REF["dora"] = {
 
 Startup orchestration:
 
-1. Collects all active framework IDs from `D.referentiels_actifs`
-2. Calls `_ensureFramework()` for each in parallel
-3. When all loaded, calls `ensureKeys()` then `renderAll()`
-4. Calls `afterFn()` if provided
+1. Runs the schema migration (`ctSchemaMigrate`, from `ct_schema.js`) on `D`
+2. Collects all active framework IDs from `D.referentiels_actifs`
+3. Calls `_ensureFramework()` for each in parallel
+4. When all loaded, calls `ensureKeys()` then `renderAll()`
+5. Calls `afterFn()` if provided
 
 ---
 
@@ -600,11 +624,11 @@ Key shared functions used by the app:
 | `_loadAsset(filename, cb)` | Injects `<script>` tags with dedup and load tracking |
 | `_ensureFramework(fwId, cb)` | Lazy-loads framework reference data |
 | `_ensureDescriptions(cb)` | Lazy-loads ANSSI/ISO detailed descriptions |
-| `_initDataAndRender(afterFn)` | Startup: loads all active frameworks then renders |
+| `_initDataAndRender(afterFn)` | Startup: migrates the schema, loads all active frameworks, then renders |
 | `_saveState()` | Pushes current D to undo stack |
-| `_autoSave()` | Debounced save to localStorage |
+| `_autoSave()` | Saves D to localStorage |
 | `_checkAutoSaveBanner()` | Shows restore banner if autosave data exists |
-| `_getSnapshots()` | Returns snapshot list from IndexedDB |
+| `_getSnapshots()` | Returns snapshot list from localStorage |
 | `hd(colKey)` | Column hide/show data attribute for table headers |
 | `colsButton(tableId)` | Generates column visibility toggle button |
 | `_setupTable(tableId)` | Initializes column resize/hide on a table |
@@ -619,7 +643,7 @@ Key shared functions used by the app:
 | `toggleSidebar()` | Collapses/expands sidebar |
 | `_toggleSidebarMobile()` | Mobile sidebar toggle |
 | `toggleGroup(el)` | Accordion open/close for sidebar groups |
-| `_updateSidebarAccordion(panelId)` | Auto-opens the sidebar group containing the active panel |
+| `_updateSidebarAccordion(panelId)` | Marks the active rail item and expands its section |
 | `_rt(obj, field)` | Returns localized field (`field_en` in EN mode, `field` in FR mode) |
 
 ### Event system
@@ -645,19 +669,19 @@ The dispatcher (`_safeDispatch` in cisotoolbox.js) includes a blocklist of dange
 | Layer | Implementation |
 |-------|----------------|
 | **XSS prevention** | All user data escaped via `esc()` before `innerHTML`. No `onclick=` in generated HTML. |
-| **CSP** | `.htaccess` enforces `script-src 'self'` -- no inline scripts, no eval |
-| **Encryption** | AES-256-GCM with PBKDF2 (250k iterations) for snapshot encryption |
+| **CSP** | `.htaccess.example` and `nginx-security.conf.example` set `script-src 'self'` -- no inline scripts, no eval |
+| **Encryption** | AES-256-GCM with PBKDF2 (250k iterations) for encrypted files and snapshots |
 | **Event safety** | `_safeDispatch` blocklist prevents calling dangerous browser APIs via data attributes |
 | **No inline handlers** | All events via `data-click`/`data-change`/`data-input` delegation |
 | **API keys** | Stored in localStorage only, never in source or saved files |
-| **Security headers** | X-Frame-Options: DENY, X-Content-Type-Options: nosniff, HSTS, Referrer-Policy |
+| **Security headers** | X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy (both example configs); HSTS in the nginx example |
 
 ### i18n
 
 | Feature | Implementation |
 |---------|----------------|
-| **Default language** | French, loaded at startup via `Compliance_i18n_fr.js` |
-| **English** | Lazy-loaded on demand via `Compliance_i18n_en.js` |
+| **Languages** | French and English, both loaded at startup (`i18n_core_*.js` + `Compliance_i18n_*.js`) |
+| **Initial language** | Stored preference (`localStorage["ct_lang"]`), else the browser language if available, else English |
 | **Translation function** | `t("comp.section.key")` with interpolation: `t("key", {count: 5})` |
 | **Static DOM** | `data-i18n="key"` attributes on HTML elements, applied by `_applyStaticTranslations()` |
 | **HTML content** | `data-i18n-html="key"` for rich HTML translations (help content) |

@@ -29,7 +29,7 @@
 
 1. Visit [compliance.cisotoolbox.org](https://compliance.cisotoolbox.org) or clone this repo
 2. Open `index.html` in a browser
-3. Start a new assessment — the repository ships no demo dataset for now (new ones will be generated later)
+3. Start a new assessment — the repository also ships a fictional demo dataset (MedSecure): `demo-fr.json`, `demo-en.json`
 4. No backend, no account required
 
 ## Architecture
@@ -129,19 +129,24 @@ sent to a server — there is no server.
 
 ```
 css/                  # 2 files
-e2e/                  # 4 files
-js/                   # 34 files
+e2e/                  # 5 files
+fonts/                # 6 files (embedded, no external font request)
+js/                   # 39 files
 skill/                # 1 file
-ts/                   # 35 files
-.replicated-files
+ts/                   # 40 files
+.gitignore
+.htaccess.example
 ARCHITECTURE.md
 CONTRIBUTING.md
 LICENSE
 README.md
 SECURITY.md
+demo-en.json
+demo-fr.json
 favicon.svg
 index.html
 logo.svg
+nginx-security.conf.example
 tsconfig.json
 ```
 

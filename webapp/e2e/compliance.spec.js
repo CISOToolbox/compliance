@@ -33,6 +33,22 @@ async function openApp(page, url = '/') {
     await expect(page.locator('.ct-appbar')).toBeVisible();
 }
 
+// The app has no backend: no journey may call an /api/ path, not even on its
+// own origin (which the external-request check below cannot see).
+let backendCalls = [];
+test.beforeEach(({ page }) => {
+    backendCalls = [];
+    page.on('request', (r) => {
+        const u = new URL(r.url());
+        if (['127.0.0.1', 'localhost'].includes(u.hostname) && u.pathname.includes('/api/')) {
+            backendCalls.push(`${r.method()} ${r.url()}`);
+        }
+    });
+});
+test.afterEach(() => {
+    expect(backendCalls, `backend calls from a browser-only app: ${backendCalls.join(' | ')}`).toEqual([]);
+});
+
 /**
  * Give the suite an assessment to work with, created the way a user would:
  * by filling the organisation field of the "Contexte" panel. Returns the
@@ -269,6 +285,7 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         await modal.locator('#ct-der-just').fill('Compensating control in place until the migration');
         // No directory behind a local file: the person fields are plain text.
         await expect(modal.locator('#ct-der-owner-plain')).toBeVisible();
+        await expect(modal.locator('#ct-der-owner-plain')).not.toHaveAttribute('placeholder'); // free text, not a search
         await modal.locator('#ct-der-owner-plain').fill('Risk owner');
         await modal.locator('#ct-der-approver-plain').fill('Approver');
         const until = new Date(Date.now() + 90 * 86400000).toISOString().slice(0, 10);

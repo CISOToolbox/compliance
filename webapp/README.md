@@ -22,7 +22,7 @@
 - Measure proposals per requirement, from a built-in catalog of reference measures (249) with a template catalog (139) as fallback
 - Non-conformity and derogation register
 - Import from EBIOS RM (context, compliance, measures)
-- AI assistant (Anthropic, OpenAI, Google Gemini, AWS Bedrock)
+- AI assistant (Anthropic or OpenAI, called straight from the browser)
 - AES-256-GCM encrypted snapshots (PBKDF2 250k iterations)
 - Bilingual FR/EN (both languages loaded at startup)
 

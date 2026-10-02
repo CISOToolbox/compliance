@@ -73,7 +73,7 @@ Shared files, identical across the CISO Toolbox apps, carry a "Generated file - 
 | `js/ct_schema.js` | Versioned exports and schema migration on load |
 | `js/i18n.js` | Bilingual system: `t()`, `_registerTranslations()`, `switchLang()` |
 | `js/i18n_core_fr.js`, `js/i18n_core_en.js` | Shared core translations (FR / EN) |
-| `js/ai_common.js` | AI provider abstraction (Anthropic, OpenAI, Google Gemini, AWS Bedrock), API key management |
+| `js/ai_common.js` | AI provider abstraction (Anthropic, OpenAI in this browser app), API key management |
 | `js/ct_settings.js` | Settings drawer (language, AI, app-specific extra sections) |
 | `js/referentiels_catalog.js` | Framework catalog with labels, descriptions (FR/EN), colors |
 | `js/ct_refselect.js` | Multi-select dropdown component with tags and search |

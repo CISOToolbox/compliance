@@ -16,7 +16,10 @@
 /* Search select (filterable dropdown) */
 .ss-wrap { position: relative; display: inline-block; }
 .ss-input { padding: 3px 6px; border: 1px solid var(--ct-line); border-radius: 4px; font-size: 0.8em; width: 200px; }
-.ss-drop { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 200; background: var(--ct-surface); border: 1px solid var(--ct-accent); border-radius: 0 0 6px 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 200px; overflow-y: auto; }
+/* position:fixed (placed by _ssPosition) so the dropdown is not clipped by a
+   scrollable modal body nor hidden behind the modal footer; z-index above the
+   modal overlay (1000). Left/top/width are computed on open and on scroll. */
+.ss-drop { display: none; position: fixed; z-index: 1100; background: var(--ct-surface); border: 1px solid var(--ct-accent); border-radius: 0 0 6px 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 200px; overflow-y: auto; }
 .ss-drop.open { display: block; }
 .ss-opt { padding: 4px 8px; cursor: pointer; font-size: 0.8em; }
 .ss-opt:hover { background: var(--ct-accent-tint); }

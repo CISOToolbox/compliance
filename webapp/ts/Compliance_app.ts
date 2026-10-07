@@ -273,75 +273,30 @@ function _findMesuresForPreuve(preuveId: string) { return D.mesures.filter(m => 
 // ── Search Select: filterable dropdown ────────────────────────────────
 let _ssCounter = 0;
 
-// Builds a filterable dropdown. options = list of {value, label}, callbackFn = name of the global function
+// A searchable single-select "link" picker built on the socle ctRefSelect
+// (single mode): picking an option fires the named link callback with its args
+// + the picked value, and that callback re-renders its view, which recreates
+// this picker empty — so it stays a transient action-picker. BUG-88: replaces
+// the former local .ss-* component (its own dropdown), removing the duplication
+// of the socle ref-select (and inheriting its position:fixed dropdown).
 function _searchSelect(placeholder: string, options: { value: string; label: string }[], callbackFn: string, callbackArgs?: unknown[]) {
     const uid = "ss-" + (_ssCounter++);
-    let h = `<div class="ss-wrap" id="${uid}">`;
-    h += `<input class="ss-input" placeholder="${esc(placeholder)}" data-input="_ssFilterAndOpen" data-args='${_da(uid)}' data-pass-value />`;
-    h += `<div class="ss-drop" id="${uid}-drop">`;
-    options.forEach(opt => {
-        h += `<div class="ss-opt" data-value="${esc(opt.value)}" data-click="_ssSelect" data-args='${_da(uid,opt.value,callbackFn,JSON.stringify(callbackArgs||[]))}'>${esc(opt.label)}</div>`;
-    });
-    h += `</div></div>`;
-    return h;
-}
-
-function _ssFilterAndOpen(uid: string, val?: string) {
-    _ssOpen(uid);
-    if (val !== undefined) _ssFilter(uid, val);
-}
-
-function _ssOpen(uid: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (drop) {
-        // Show every option again
-        drop.querySelectorAll<HTMLElement>(".ss-opt").forEach(o => o.style.display = "");
-        drop.classList.add("open");
+    const items = options.map(function(o) { return { id: o.value, label: o.label }; });
+    if (typeof window.ctRefRegister === "function") {
+        window.ctRefRegister(uid, {
+            single: true,
+            hideId: true,
+            emptyText: placeholder,
+            labelFor: function(id: string) { const m = options.find(function(o) { return o.value === id; }); return m ? m.label : id; },
+            onToggle: function(_u: string, ids: string[]) {
+                if (!ids || !ids.length) return;
+                const fn = (window as any)[callbackFn];
+                if (typeof fn === "function") fn.apply(null, (callbackArgs || []).concat([ids[0]]));
+            },
+        });
     }
+    return window.ctRefSelect ? window.ctRefSelect(uid, "", items, { single: true, hideId: true, placeholder: placeholder, emptyText: placeholder }) : "";
 }
-
-function _ssFilter(uid: string, val: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (!drop) return;
-    const filter = val.toLowerCase();
-    let any = false;
-    drop.querySelectorAll<HTMLElement>(".ss-opt").forEach(o => {
-        const match = !filter || o.textContent!.toLowerCase().includes(filter);
-        o.style.display = match ? "" : "none";
-        if (match) any = true;
-    });
-    if (!drop.classList.contains("open")) drop.classList.add("open");
-}
-
-function _ssSelect(uid: string, value: string, callbackFn: string, argsJson: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (drop) drop.classList.remove("open");
-    const wrap = document.getElementById(uid);
-    if (wrap) {
-        const inp = wrap.querySelector<HTMLInputElement>(".ss-input");
-        if (inp) inp.value = "";
-    }
-    const args = JSON.parse(argsJson || "[]");
-    args.push(value);
-    const fn = (window as any)[callbackFn];
-    if (typeof fn === "function") fn.apply(null, args);
-}
-
-// Open search-select dropdown on focus (click into the input)
-document.addEventListener("focusin", function(e) {
-    var tgt = e.target as HTMLElement;
-    if (tgt.classList.contains("ss-input")) {
-        var wrap = tgt.closest(".ss-wrap");
-        if (wrap) _ssOpen(wrap.id);
-    }
-});
-
-// Close the search-select dropdowns on an outside click
-document.addEventListener("click", function(e) {
-    if (!(e.target as HTMLElement).closest(".ss-wrap")) {
-        document.querySelectorAll(".ss-drop.open").forEach(d => d.classList.remove("open"));
-    }
-});
 
 // Get every requirement of a framework as an array of objects
 function _getExigences(fwId: string): ComplianceExigence[] {
@@ -1403,8 +1358,8 @@ function _linkExistingMesure(fwId: string, idx: number, mesureId: string) {
 }
 
 function _createAndLinkMesure(fwId: string, idx: number) {
-    // BUG-15: create+link through the unified ct_measure_modal (like _addMesure
-    // / _addMesurePlan), not the legacy draft overlay. _createMesureUnified
+    // BUG-15: create+link through the unified ct_measure_modal (like
+    // _addMesurePlan), not the legacy draft overlay. _createMesureUnified
     // handles both the creation and the exigence link.
     window._createMesureUnified!(fwId, idx);
 }
@@ -1436,7 +1391,6 @@ function _renderFwMesures(fwId: string, label: string) {
 
     let h = `<h2 class="ct-ink ct-mb-4">${t("comp.mes.title", {label: esc(label)})}</h2>`;
     h += `<div class="ct-flex ct-gap-2 ct-items-center ct-mb-3">
-        <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_addMesure" data-args='${_da(fwId)}'>${t("comp.mes.btn_nouvelle")}</button>
         <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_refreshMeasures" title="Rafraîchir">&#x21bb;</button>
         <input type="text" placeholder="${t("comp.mes.search")}" value="${esc(_mesureFilter)}" class="ct-flex-1 ct-maxw-300" data-input="_filterMesures" data-args='${_da(fwId)}' data-pass-value />
         <span class="fs-xs text-muted">${t("comp.mes.count", {count: mesures.length})}</span>
@@ -2087,10 +2041,6 @@ window._deleteMesureModal = function(mesureId: string) {
     _closeMesureModal();
     _persistDelete("measure", mesureId);
 };
-
-function _addMesure(fwId: string) {
-    window._createMesureUnified!(fwId, null);
-}
 
 function _editMesure(fwId: string | null, mesureId: string) {
     if (_draftMesure) _discardDraft();

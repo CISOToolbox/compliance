@@ -378,7 +378,6 @@ Line numbers refer to `js/Compliance_app.js`.
 |----------|------|---------|
 | `_renderFwMesures(fwId, label)` | 1483 | Renders the measures table of a framework (row click opens the measure modal) |
 | `_filterMesures(fwId, val)` | 2001 | Filters measures by text search |
-| `_addMesure(fwId)` | 2181 | Creates a new measure through the unified measure modal |
 | `_editMesure(fwId, mesureId)` | 2184 | Opens the measure modal for an existing measure |
 | `_goEditMesure(fwId, mesureId)` | 2195 | Opens the measure modal for a measure from another view |
 | `_updateMesure(mesureId, field, val)` | 2267 | Updates a field on a measure |
@@ -500,11 +499,7 @@ Note: `createSnapshot`, `restoreSnapshot`, `exportSnapshot`, `deleteSnapshot`, `
 
 | Function | Line | Purpose |
 |----------|------|---------|
-| `_searchSelect(placeholder, options, callbackFn, callbackArgs)` | 278 | Generates filterable dropdown HTML |
-| `_ssFilterAndOpen(uid, val)` | 289 | Opens dropdown and applies filter |
-| `_ssOpen(uid)` | 294 | Opens a search-select dropdown |
-| `_ssFilter(uid, val)` | 302 | Filters dropdown options by text |
-| `_ssSelect(uid, value, callbackFn, argsJson)` | 317 | Handles option selection, calls callback |
+| `_searchSelect(placeholder, options, callbackFn, callbackArgs)` | 277 | Single-select "link" picker — a thin facade over the socle ctRefSelect |
 
 ### Settings / AI (1 variable)
 

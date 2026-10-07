@@ -280,123 +280,30 @@ function _findMesuresForPreuve(preuveId: string) { return D.mesures.filter(m => 
 let _ssCounter = 0;
 
 // Builds a filterable dropdown. options = list of {value, label}, callbackFn = name of the global function
+// A searchable single-select "link" picker built on the socle ctRefSelect
+// (single mode): picking an option fires the named link callback with its args
+// + the picked value, and that callback re-renders its view, which recreates
+// this picker empty — so it stays a transient action-picker. BUG-88: replaces
+// the former local .ss-* component (its own dropdown + positioning), removing
+// the duplication of the socle ref-select that drifted in BUG-87.
 function _searchSelect(placeholder: string, options: { value: string; label: string }[], callbackFn: string, callbackArgs?: unknown[]) {
     const uid = "ss-" + (_ssCounter++);
-    let h = `<div class="ss-wrap" id="${uid}">`;
-    h += `<input class="ss-input" placeholder="${esc(placeholder)}" data-input="_ssFilterAndOpen" data-args='${_da(uid)}' data-pass-value />`;
-    h += `<div class="ss-drop" id="${uid}-drop">`;
-    options.forEach(opt => {
-        h += `<div class="ss-opt" data-value="${esc(opt.value)}" data-click="_ssSelect" data-args='${_da(uid,opt.value,callbackFn,JSON.stringify(callbackArgs||[]))}'>${esc(opt.label)}</div>`;
-    });
-    h += `</div></div>`;
-    return h;
-}
-
-function _ssFilterAndOpen(uid: string, val?: string) {
-    _ssOpen(uid);
-    if (val !== undefined) _ssFilter(uid, val);
-}
-
-// Place the open dropdown under its input with position:fixed (viewport
-// coords), flipping above when there is no room below. Fixed so it is never
-// clipped by a scrollable modal body nor hidden behind the modal footer.
-function _ssPosition(uid: string) {
-    const wrap = document.getElementById(uid);
-    const drop = document.getElementById(uid + "-drop");
-    if (!wrap || !drop) return;
-    const anchor = wrap.querySelector<HTMLElement>(".ss-input") || wrap;
-    const r = anchor.getBoundingClientRect();
-    drop.style.left = Math.round(r.left) + "px";
-    drop.style.width = Math.round(r.width) + "px";
-    const h = Math.min(drop.scrollHeight || 200, 200);
-    if (window.innerHeight - r.bottom < h + 8 && r.top > h + 8) {
-        drop.style.top = Math.round(r.top - h) + "px";
-    } else {
-        drop.style.top = Math.round(r.bottom) + "px";
+    const items = options.map(function(o) { return { id: o.value, label: o.label }; });
+    if (typeof window.ctRefRegister === "function") {
+        window.ctRefRegister(uid, {
+            single: true,
+            hideId: true,
+            emptyText: placeholder,
+            labelFor: function(id: string) { const m = options.find(function(o) { return o.value === id; }); return m ? m.label : id; },
+            onToggle: function(_u: string, ids: string[]) {
+                if (!ids || !ids.length) return;
+                const fn = (window as any)[callbackFn];
+                if (typeof fn === "function") fn.apply(null, (callbackArgs || []).concat([ids[0]]));
+            },
+        });
     }
+    return window.ctRefSelect ? window.ctRefSelect(uid, "", items, { single: true, hideId: true, placeholder: placeholder, emptyText: placeholder }) : "";
 }
-// Keep the open dropdown glued to its input while a modal body (or the window)
-// scrolls/resizes — position:fixed would otherwise leave it frozen. One shared
-// self-detaching handler (only one search-select is open at a time).
-let _ssRepos: (() => void) | null = null;
-function _ssTrack(uid: string) {
-    _ssUntrack();
-    _ssRepos = function() {
-        const drop = document.getElementById(uid + "-drop");
-        if (!drop || !drop.classList.contains("open")) { _ssUntrack(); return; }
-        _ssPosition(uid);
-    };
-    window.addEventListener("scroll", _ssRepos, true);
-    window.addEventListener("resize", _ssRepos);
-}
-function _ssUntrack() {
-    if (!_ssRepos) return;
-    window.removeEventListener("scroll", _ssRepos, true);
-    window.removeEventListener("resize", _ssRepos);
-    _ssRepos = null;
-}
-
-function _ssOpen(uid: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (drop) {
-        // Only one search-select open at a time: close any other (a modal can
-        // hold several, e.g. link-requirement + link-evidence). Otherwise a
-        // previously-open fixed dropdown would stay frozen over the field/footer.
-        document.querySelectorAll(".ss-drop.open").forEach(d => { if (d.id !== uid + "-drop") d.classList.remove("open"); });
-        // Show every option again
-        drop.querySelectorAll<HTMLElement>(".ss-opt").forEach(o => o.style.display = "");
-        drop.classList.add("open");
-        _ssPosition(uid);
-        _ssTrack(uid);
-    }
-}
-
-function _ssFilter(uid: string, val: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (!drop) return;
-    const filter = val.toLowerCase();
-    let any = false;
-    drop.querySelectorAll<HTMLElement>(".ss-opt").forEach(o => {
-        const match = !filter || o.textContent!.toLowerCase().includes(filter);
-        o.style.display = match ? "" : "none";
-        if (match) any = true;
-    });
-    if (!drop.classList.contains("open")) drop.classList.add("open");
-    _ssPosition(uid);
-    _ssTrack(uid);
-}
-
-function _ssSelect(uid: string, value: string, callbackFn: string, argsJson: string) {
-    const drop = document.getElementById(uid + "-drop");
-    if (drop) drop.classList.remove("open");
-    _ssUntrack();
-    const wrap = document.getElementById(uid);
-    if (wrap) {
-        const inp = wrap.querySelector<HTMLInputElement>(".ss-input");
-        if (inp) inp.value = "";
-    }
-    const args = JSON.parse(argsJson || "[]");
-    args.push(value);
-    const fn = (window as any)[callbackFn];
-    if (typeof fn === "function") fn.apply(null, args);
-}
-
-// Open search-select dropdown on focus (click into the input)
-document.addEventListener("focusin", function(e) {
-    var tgt = e.target as HTMLElement;
-    if (tgt.classList.contains("ss-input")) {
-        var wrap = tgt.closest(".ss-wrap");
-        if (wrap) _ssOpen(wrap.id);
-    }
-});
-
-// Close the search-select dropdowns on an outside click
-document.addEventListener("click", function(e) {
-    if (!(e.target as HTMLElement).closest(".ss-wrap")) {
-        document.querySelectorAll(".ss-drop.open").forEach(d => d.classList.remove("open"));
-        _ssUntrack();
-    }
-});
 
 // Get every requirement of a framework as an array of objects
 function _getExigences(fwId: string): ComplianceExigence[] {

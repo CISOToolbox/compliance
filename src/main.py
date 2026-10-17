@@ -21,6 +21,7 @@ from src.routes.measures import router as measures_router
 from src.routes.nonconformities import router as nonconformities_router, internal_router as nonconformities_internal_router  # FEAT-45
 from src.routes.projects import router as projects_router
 from src.routes.proofs import router as proofs_router
+from src.routes.smtp import router as smtp_router
 from src.routes.users import router as users_router
 from src.version_common import version_payload
 
@@ -83,6 +84,7 @@ app.include_router(ai_router)
 app.include_router(users_router)
 app.include_router(directory_router)
 app.include_router(internal_router)
+app.include_router(smtp_router)
 app.include_router(frameworks_router)
 
 

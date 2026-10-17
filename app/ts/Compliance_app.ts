@@ -3038,6 +3038,12 @@ try {
 // AI module config (read by ai_common.js)
 window.AI_APP_CONFIG = {
     storagePrefix: "compliance",
-    settingsExtraHTML: function() { return typeof _demoSettingsHTML === "function" ? _demoSettingsHTML() : ""; },
-    onSettingsRendered: function() { if (typeof _wireDemoSettings === "function") _wireDemoSettings(); }
+    settingsExtraHTML: function() {
+        return (typeof _demoSettingsHTML === "function" ? _demoSettingsHTML() : "") +
+            (window._ctSmtpSettingsHTML ? window._ctSmtpSettingsHTML() : "");
+    },
+    onSettingsRendered: function() {
+        if (typeof _wireDemoSettings === "function") _wireDemoSettings();
+        if (window._ctSmtpSettingsLoad) window._ctSmtpSettingsLoad();
+    }
 };

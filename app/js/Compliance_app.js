@@ -3170,12 +3170,15 @@ window.AI_APP_CONFIG = {
     storagePrefix: "compliance",
     settingsExtraHTML: function () {
         return (typeof _demoSettingsHTML === "function" ? _demoSettingsHTML() : "") +
-            (window._ctSmtpSettingsHTML ? window._ctSmtpSettingsHTML() : "");
+            (window._ctSmtpSettingsHTML ? window._ctSmtpSettingsHTML() : "") +
+            (window._ctProxySettingsHTML ? window._ctProxySettingsHTML() : "");
     },
     onSettingsRendered: function () {
         if (typeof _wireDemoSettings === "function")
             _wireDemoSettings();
         if (window._ctSmtpSettingsLoad)
             window._ctSmtpSettingsLoad();
+        if (window._ctProxySettingsLoad)
+            window._ctProxySettingsLoad();
     }
 };

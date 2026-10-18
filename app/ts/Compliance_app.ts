@@ -3041,11 +3041,11 @@ window.AI_APP_CONFIG = {
     settingsExtraHTML: function() {
         return (typeof _demoSettingsHTML === "function" ? _demoSettingsHTML() : "") +
             (window._ctSmtpSettingsHTML ? window._ctSmtpSettingsHTML() : "") +
-            (window._ctProxySettingsHTML ? window._ctProxySettingsHTML() : "");
+            (window._ctProxySettingsHTML ? window._ctProxySettingsHTML() : "") + (window._ctUsersSettingsHTML ? window._ctUsersSettingsHTML() : "");
     },
     onSettingsRendered: function() {
         if (typeof _wireDemoSettings === "function") _wireDemoSettings();
         if (window._ctSmtpSettingsLoad) window._ctSmtpSettingsLoad();
-        if (window._ctProxySettingsLoad) window._ctProxySettingsLoad();
+        if (window._ctProxySettingsLoad) window._ctProxySettingsLoad(); if (window._ctUsersSettingsLoad) window._ctUsersSettingsLoad();
     }
 };

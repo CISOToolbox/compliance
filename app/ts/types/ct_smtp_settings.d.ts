@@ -31,6 +31,5 @@ interface CtSmtpConfig {
 interface Window {
     _ctSmtpSettingsHTML?: () => string;
     _ctSmtpSettingsLoad?: () => void;
-    _ctSmtpSave?: () => void;
     _ctSmtpTest?: () => void;
 }

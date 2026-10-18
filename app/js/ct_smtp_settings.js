@@ -56,14 +56,19 @@
             _field("ct-smtp-pass", "settings.smtp.password", '<input type="password" class="ct-input" id="ct-smtp-pass" autocomplete="new-password" placeholder="' + esc(pwPlaceholder) + '">') +
             '<label class="ct-check ct-col-span-2"><input type="checkbox" id="ct-smtp-tls"' + (cfg.tls ? ' checked' : '') + '>' +
             '<span class="ct-check-box">' + _icon("check", 12) + '</span>' + esc(t("settings.smtp.tls")) + '</label>' +
+            // The test recipient is not a setting: typing it saves nothing.
+            '<div data-settings-immediate class="ct-col-span-2">' +
             _field("ct-smtp-test-to", "settings.smtp.test_to", '<input type="email" class="ct-input" id="ct-smtp-test-to" placeholder="ciso@example.com">', true) +
             '</div>' +
+            '</div>' +
             '<div class="ct-actions mt-8">' +
-            '<button class="ct-btn" data-write data-variant="primary" data-click="_ctSmtpSave">' + esc(t("settings.smtp.save")) + '</button>' +
             '<button class="ct-btn" data-write data-click="_ctSmtpTest">' + esc(t("settings.smtp.test")) + '</button>' +
             '</div>';
     }
     window._ctSmtpSettingsHTML = function () {
+        // Saved by the panel's single Save button.
+        if (window._ctSettingsRegister)
+            window._ctSettingsRegister({ id: "smtp", holder: HOLDER, save: _smtpSave });
         return '<div class="settings-section">' +
             '<div class="settings-label">' + esc(t("settings.smtp.title")) + '</div>' +
             '<div id="' + HOLDER + '"><p class="ct-muted fs-sm">' + esc(t("settings.smtp.loading")) + '</p></div>' +
@@ -83,7 +88,7 @@
             holder.innerHTML = '<p class="ct-muted fs-sm">' + esc(t("settings.smtp.load_error")) + '</p>';
         }
     };
-    window._ctSmtpSave = async function () {
+    async function _smtpSave() {
         var tls = document.getElementById("ct-smtp-tls");
         var body = {
             host: _val("ct-smtp-host").trim(),
@@ -100,20 +105,17 @@
                 body: JSON.stringify(body)
             });
             if (r.ok) {
-                showStatus(t("settings.smtp.saved"));
                 window._ctSmtpSettingsLoad();
+                return null;
             }
-            else if (r.status === 403) {
-                showStatus(t("settings.smtp.admin_only"), true);
-            }
-            else {
-                showStatus(await _detail(r, "settings.smtp.save_error"), true);
-            }
+            if (r.status === 403)
+                return t("settings.smtp.admin_only");
+            return await _detail(r, "settings.smtp.save_error");
         }
         catch (e) {
-            showStatus(t("settings.smtp.save_error"), true);
+            return t("settings.smtp.save_error");
         }
-    };
+    }
     window._ctSmtpTest = async function () {
         var to = _val("ct-smtp-test-to").trim() || _val("ct-smtp-from").trim();
         if (!to) {
@@ -155,9 +157,7 @@
         "settings.smtp.password_set": "Déjà défini — laisser vide pour le conserver",
         "settings.smtp.tls": "Chiffrer la connexion (STARTTLS ; TLS direct sur le port 465)",
         "settings.smtp.test_to": "Destinataire du test",
-        "settings.smtp.save": "Enregistrer",
         "settings.smtp.test": "Envoyer un test",
-        "settings.smtp.saved": "Réglages SMTP enregistrés",
         "settings.smtp.save_error": "Échec de l'enregistrement des réglages SMTP",
         "settings.smtp.test_sent": "Message de test envoyé à {to}",
         "settings.smtp.test_error": "Échec de l'envoi du message de test",
@@ -179,9 +179,7 @@
         "settings.smtp.password_set": "Already set — leave blank to keep it",
         "settings.smtp.tls": "Encrypt the connection (STARTTLS; direct TLS on port 465)",
         "settings.smtp.test_to": "Test recipient",
-        "settings.smtp.save": "Save",
         "settings.smtp.test": "Send a test",
-        "settings.smtp.saved": "SMTP settings saved",
         "settings.smtp.save_error": "Could not save the SMTP settings",
         "settings.smtp.test_sent": "Test message sent to {to}",
         "settings.smtp.test_error": "Could not send the test message",

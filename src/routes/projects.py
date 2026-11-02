@@ -12,7 +12,7 @@ from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from src.auth import ADMIN_MODULE_ROLES, VIEWER_MODULE_ROLES, auth_enabled, get_current_user, perms_for_module_role
+from src.auth import ADMIN_MODULE_ROLES, VIEWER_MODULE_ROLES, auth_enabled, get_current_user, perms_for_module_role, require_edit_role
 from src.database import get_db
 from src.models import (
     Framework,
@@ -370,6 +370,7 @@ async def create_project(
     user: Optional[User] = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    require_edit_role(user)
     project = Project(
         name=body.name,
         organization=body.organization,
@@ -487,6 +488,7 @@ async def duplicate_project(
     user: Optional[User] = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    require_edit_role(user)
     original = await db.get(Project, project_id)
     if not original:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -517,6 +519,7 @@ async def import_project(
     user: Optional[User] = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    require_edit_role(user)
     import json
 
     content = await read_json_upload(file, 10 * 1024 * 1024)

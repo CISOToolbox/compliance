@@ -461,3 +461,54 @@ async def test_adoption_is_an_editor_gesture(db):
     assert "editor" in str(e.value.detail), \
         "le refus doit venir du seuil, pas d'une absence totale de rôle"
     assert await db.get(Framework, "custom_par_la_bande") is None
+
+
+# ── The colour is rendered into a style attribute ────────────────────
+
+_INJECTED = 'x" data-click="_apiFetch'
+
+
+@pytest.mark.asyncio
+async def test_a_colour_that_is_not_rrggbb_is_refused(db):
+    with pytest.raises(HTTPException) as e:
+        await create_framework(_payload(color=_INJECTED), user=None, db=db)
+    assert e.value.status_code == 422
+    assert await db.get(Framework, "custom_politique_rh") is None
+
+
+@pytest.mark.asyncio
+async def test_a_valid_colour_is_stored_lower_case(db):
+    await create_framework(_payload(color=" #ABCDEF "), user=None, db=db)
+    assert (await get_framework("custom_politique_rh", _user=None, db=db))["color"] == "#abcdef"
+
+
+@pytest.mark.asyncio
+async def test_an_import_blanks_a_colour_that_is_not_rrggbb(db):
+    from src.routes.projects import _adopter_referentiels
+    await _adopter_referentiels(db, {"_custom_frameworks": {"custom_venu_du_web": {
+        "label": "Politique groupe", "color": "red;background:url(//x)",
+        "measures": [{"ref": "PG-01", "mesure": "Publier la politique"}]}}}, None)
+    await db.commit()
+    assert (await db.get(Framework, "custom_venu_du_web")).color == ""
+
+
+@pytest.mark.asyncio
+async def test_a_colour_stored_before_the_check_is_not_served(db):
+    db.add(Framework(id="custom_ancien", version="", label="Ancien", color=_INJECTED[:20],
+                     is_active=True, sort_order=900, origin="custom"))
+    db.add(FrameworkRequirement(framework_id="custom_ancien", ref="A-1", sort_order=0, mesure="m"))
+    await db.commit()
+    listed = {f["id"]: f for f in await list_frameworks(_user=None, db=db)}
+    assert listed["custom_ancien"]["color"] == ""
+    assert listed["iso"]["color"] == "#123456"
+    assert (await get_framework("custom_ancien", _user=None, db=db))["color"] == ""
+    assert (await _custom_frameworks(db))["custom_ancien"]["color"] == ""
+
+
+def test_the_framework_chip_renders_only_a_checked_colour():
+    import pathlib
+    import re
+    ts = pathlib.Path(__file__).resolve().parents[2] / "app" / "ts" / "Compliance_app.ts"
+    src = ts.read_text(encoding="utf-8")
+    assert "ctHexColor(meta.color" in src
+    assert not re.search(r"\$\{[^}]*meta\.color", src), "the framework colour reaches a template unchecked"

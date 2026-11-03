@@ -48,7 +48,7 @@ async def list_frameworks(
             "label": r.label,
             "description": r.description or "",
             "description_en": r.description_en or "",
-            "color": r.color or "",
+            "color": framework_color(r.color),
             "origin": r.origin or "catalogue",
             "requirement_count": r.requirement_count,
         }
@@ -97,7 +97,7 @@ async def get_framework(
         "label": fw.label,
         "description": fw.description or "",
         "description_en": fw.description_en or "",
-        "color": fw.color or "",
+        "color": framework_color(fw.color),
         "measures": measures,
     }
     if reference_controls:
@@ -167,6 +167,16 @@ FRAMEWORK_INTERNE = "own_controls"
 # unreachable and undeletable through the proxy — which is the defect BUG-32
 # was, recreated by hand.
 RESERVES = frozenset({"internal", "api", "auth", "health", "static", "login"})
+# The colour of a framework is rendered into a style attribute.
+_COLOR_OK = re.compile(r"#[0-9a-f]{6}")
+
+
+def framework_color(value: object) -> str:
+    """The framework colour as stored and served: ``#rrggbb`` (lower-cased),
+    or ``""`` for anything else — an import, a row stored before this check —
+    which the browser renders with the default colour."""
+    v = value.strip().lower() if isinstance(value, str) else ""
+    return v if _COLOR_OK.fullmatch(v) else ""
 
 
 class RequirementIn(BaseModel):
@@ -212,11 +222,14 @@ async def create_framework(
         raise HTTPException(409, f"Framework '{fw_id}' already exists")
     if not body.requirements:
         raise HTTPException(422, "a framework without requirements would be an empty screen")
+    color = framework_color(body.color)
+    if body.color.strip() and not color:
+        raise HTTPException(422, "a framework colour is #rrggbb")
 
     db.add(Framework(
         id=fw_id, version="", label=body.label.strip(),
         description=body.description[:2000], description_en=body.description_en[:2000],
-        color=body.color[:20], is_active=True, sort_order=900, origin="custom",
+        color=color, is_active=True, sort_order=900, origin="custom",
     ))
     vus: set[str] = set()
     for i, req in enumerate(body.requirements):

@@ -200,7 +200,7 @@ async def _custom_frameworks(db: AsyncSession) -> dict:
     for fw in rows:
         out[fw.id] = {
             "label": fw.label,
-            "color": fw.color or "",
+            "color": framework_color(fw.color),
             "measures": [{
                 "ref": r.ref,
                 "theme": r.theme or "",
@@ -226,7 +226,7 @@ async def _delete_children(db: AsyncSession, project_id: uuid.UUID):
 
 
 from src.auth import require_min_role  # noqa: E402
-from src.routes.frameworks import RESERVES  # noqa: E402
+from src.routes.frameworks import RESERVES, framework_color  # noqa: E402
 from src.routes.frameworks import _ROLES as _ROLES_REFERENTIEL  # noqa: E402
 _ID_REFERENTIEL = re.compile(r"^[a-z0-9][a-z0-9_-]{0,49}$")
 
@@ -260,7 +260,7 @@ async def _adopter_referentiels(db: AsyncSession, data: dict, user: Optional[Use
             continue
         db.add(Framework(
             id=fw_id, version="", label=str(meta.get("label") or fw_id)[:255],
-            description="", description_en="", color=str(meta.get("color") or "")[:20],
+            description="", description_en="", color=framework_color(meta.get("color")),
             is_active=True, sort_order=900, origin="custom",
         ))
         vus: set[str] = set()

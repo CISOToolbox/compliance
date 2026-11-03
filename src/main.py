@@ -28,7 +28,15 @@ from src.version_common import version_payload
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("compliance-backend")
 
-app = FastAPI(title="Compliance Backend", version="0.1.0")
+# The API docs list every route, internal ones included: off unless a
+# deployment asks for them.
+_API_DOCS = os.getenv("ENABLE_API_DOCS", "").strip().lower() in ("1", "true", "yes")
+app = FastAPI(
+    title="Compliance Backend", version="0.1.0",
+    docs_url="/docs" if _API_DOCS else None,
+    redoc_url="/redoc" if _API_DOCS else None,
+    openapi_url="/openapi.json" if _API_DOCS else None,
+)
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -39,7 +47,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # origin is needed in script-src / connect-src any more. The provider
         # origins stay: they are used by the non-managed (browser-side key)
         # AI mode, which remains supported for standalone deployments.
-        response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.anthropic.com https://api.openai.com"
+        response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.anthropic.com https://api.openai.com; form-action 'self'"
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"

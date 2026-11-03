@@ -726,7 +726,9 @@ function renderContext() {
     h += `<div class="ct-meta-item mb-12"><div class="value ct-py-1 ct-px-0 ct-flex ct-row-wrap ct-gap-1">`;
     for (const [fwId, meta] of Object.entries(_getAllFrameworks())) {
         const active = D.referentiels_actifs.includes(fwId);
-        const chipStyle = `border-color:${meta.color};color:${active ? "white" : meta.color};background:${active ? meta.color : "white"}`;
+        // The colour comes from the framework row (an import, a CSV): #rrggbb only.
+        const fwColor = ctHexColor(meta.color, CT_COLORS.gray.vivid);
+        const chipStyle = `border-color:${fwColor};color:${active ? "white" : fwColor};background:${active ? fwColor : "white"}`;
         // The state class (is-active / is-inactive) carries no style in light;
         // it is the anchor for the dark overrides in Compliance.css
         // (the per-framework inline colors remain the light rendering).

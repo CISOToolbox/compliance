@@ -26,27 +26,23 @@
             window.location.href = "/login.html?redirect=" + encodeURIComponent(_rp);
             throw new Error("Not authenticated");
         }
-        if (resp.status === 403) {
-            var errBody = "";
+        // The body is read once: a second read throws and loses the server's reason.
+        var errBody = "";
+        if (!resp.ok) {
             try {
                 errBody = await resp.text();
             }
             catch (e) { }
-            if (errBody.indexOf("pending") >= 0) {
-                window.location.href = "/login.html?error=pending";
-                throw new Error("Account pending");
-            }
+        }
+        if (resp.status === 403 && errBody.indexOf("pending") >= 0) {
+            window.location.href = "/login.html?error=pending";
+            throw new Error("Account pending");
         }
         if (resp.status === 204)
             return null;
-        if (!resp.ok) {
-            var t = "";
-            try {
-                t = await resp.text();
-            }
-            catch (e) { }
-            throw new Error("API " + resp.status + ": " + t.substring(0, 200));
-        }
+        // Status, server's reason and the FEAT-33 marker travel with the error.
+        if (!resp.ok)
+            throw ct_apiError(resp, errBody);
         return resp.json();
     }
     // The register belongs to the active project (the module is project-scoped).
@@ -153,7 +149,7 @@
                 var type = parts[0], id = parts[1];
                 var fn = _PATCH_FNS[type];
                 if (fn) {
-                    fn(id, batch[key]).catch(function (e) { console.error("PATCH " + type + " " + id + " failed:", e); });
+                    fn(id, batch[key]).catch(ct_changeFailed);
                 }
             }
         }, 500);
@@ -183,7 +179,7 @@
         };
         var fn = CREATE_FNS[entityType];
         if (fn)
-            fn(data).catch(function (e) { console.error("POST " + entityType + " failed:", e); });
+            fn(data).catch(ct_changeFailed);
         else
             _autoSave();
     };
@@ -197,7 +193,7 @@
         };
         var fn = DELETE_FNS[entityType];
         if (fn)
-            fn(entityId).catch(function (e) { console.error("DELETE " + entityType + " " + entityId + " failed:", e); });
+            fn(entityId).catch(ct_changeFailed);
         else
             _autoSave();
     };
@@ -214,20 +210,16 @@
             var name = (D.meta && D.meta.societe) || "";
             ComplianceAPI.update(_activeId, { name: name, data: JSON.parse(JSON.stringify(D)),
                 expected_server_rev: _serverRev })
-                .catch(function (err) {
-                if (err && String(err.message || "").indexOf("API 409") === 0) {
-                    _staleConflict();
-                    return;
-                }
-                console.error("Autosave failed:", err);
-            });
+                .catch(_onSaveError);
         }, 500);
     };
-    // FEAT-33 — a stale blob PUT was refused: warn (blocking) then reload the
-    // authoritative server state. The stale bulk change is lost by design.
-    function _staleConflict() {
-        alert(t("chrome.stale_conflict"));
-        window.location.reload();
+    // FEAT-33 — a stale blob PUT is refused (reload: the stale bulk change is
+    // lost by design); any other refusal says the server's reason. Both are told
+    // by ct_projectSaveFailed (shared).
+    function _onSaveError(err) {
+        if (ct_projectSaveFailed(err))
+            return;
+        console.error("Autosave failed:", err);
     }
     // FEAT-33 — refresh on tab focus when a server-initiated write happened
     // while the tab was hidden. Skipped while local edits are in flight.

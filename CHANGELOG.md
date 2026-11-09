@@ -49,21 +49,12 @@ changes since the previous one and published as the GitHub release notes.
 - The import's create branch is covered; fixtures match the route they simulate (access,asset,audit,compliance,risk)
 - Refused saves go through the real entry points, read the body once, with real server messages (access,asset,audit,compliance,risk)
 
-### Maintenance
-
-- Sync the AppSec recipients fix and the require_identity docstring to the copies and the standalone mirror (propagation)
-- Sync the API docs switch and posture tests to the standalone mirror (propagation)
-
 ## 1.2.1 — 2026-10-23
 
 ### Fixed
 
 - A composed character is dispatched once in the Firefox and Safari event order too (socle)
 - A character composed with a dead key or an IME is dispatched once, complete (socle)
-
-### Maintenance
-
-- Socle composition dedup (propagation)
 
 ## 1.2.0 — 2026-10-20
 

@@ -179,6 +179,22 @@ async def test_stats_envelope_reports_derogated_requirements(db):
 
 
 @pytest.mark.asyncio
+async def test_stats_name_the_controls_without_a_framework_in_both_languages(db):
+    """A framework's label is the organisation's own; the bar of the controls
+    that have none is the one label the module writes."""
+    from sqlalchemy import select
+    from src.routes.internal import internal_stats
+    project_id = (await db.execute(select(ProjectControl.project_id))).scalars().first()
+    db.add(ProjectControl(project_id=project_id, id=2, framework_id="", ref="X.1", conformite="100"))
+    await db.commit()
+    sreq = Request({"type": "http", "method": "GET", "path": "/api/internal/stats", "query_string": b"",
+                    "headers": [(b"x-service-token", os.environ["SERVICE_TOKEN"].encode())], "client": ("127.0.0.1", 1)})
+    buckets = (await internal_stats(sreq, db))["breakdown"]["data"]["buckets"]
+    assert {"label": "Other", "label_fr": "Autre", "value": 100, "color": "green"} in buckets
+    assert [b for b in buckets if "label_fr" not in b] == [{"label": "ISO27001", "value": 0, "color": "red"}]
+
+
+@pytest.mark.asyncio
 async def test_the_object_of_a_record_is_set_changed_or_removed_unless_a_derogation_covers_it(db):
     """The link to a requirement is an object handled like any association:
     picked among the module's controls (404 on an unknown one), changed or

@@ -188,16 +188,16 @@ async def _ensure_measures(db, due: list[dict]) -> int:
         next_num[pid_s] += 1
         note = {
             "at": datetime.now(timezone.utc).isoformat(),
-            "by": "système",
-            "text": f"Mesure générée automatiquement — preuve expirée le {e['date']}.",
+            "by": "system",
+            "text": f"Measure generated automatically: the evidence expired on {e['date']}.",
         }
         db.add(ProjectMeasure(
             project_id=pid,
             id=f"MES-{next_num[pid_s]:03d}",
             sort_order=next_num[pid_s],
-            description=f"Renouveler la preuve : {e['label']}",
-            details=f"La preuve {e['proof_id']} ({e['label']}) a expiré le {e['date']}. "
-                    "La renouveler puis mettre à jour sa date d'expiration.",
+            description=f"Renew the evidence: {e['label']}",
+            details=f"Evidence {e['proof_id']} ({e['label']}) expired on {e['date']}. "
+                    "Renew it, then update its expiry date.",
             statut="planifie",
             date_cible=e["date"],
             responsable=e["owner"],

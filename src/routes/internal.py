@@ -305,7 +305,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         if active is not None and fw not in active:
             continue  # referential deselected for this project — do not count
         total_controls += 1
-        fw_key = fw or "Autre"
+        fw_key = fw or ""
         if fw_key not in per_framework:
             per_framework[fw_key] = {"conforme": 0, "partiel": 0, "non": 0, "total": 0}
         per_framework[fw_key]["total"] += 1
@@ -336,11 +336,15 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     for fw_key, d in sorted(per_framework.items(), key=lambda kv: -kv[1]["total"])[:6]:
         pct = round(d["conforme"] / d["total"] * 100) if d["total"] > 0 else 0
         color = "green" if pct >= 80 else "orange" if pct >= 50 else "red"
-        buckets.append({
+        bucket = {
             "label": noms.get(fw_key) or fw_key.upper(),
             "value": pct,
             "color": color,
-        })
+        }
+        if not fw_key:
+            # The controls that belong to no framework: the one label written here.
+            bucket.update(label="Other", label_fr="Autre")
+        buckets.append(bucket)
     scale = 100
 
     # ── Posture score: % of applicable controls that are conforme ──
@@ -369,13 +373,15 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     if proofs_expired_10d > 0:
         alerts.append({
             "level": "critical" if proofs_expired_10d >= 5 else "warning",
-            "text": f"{proofs_expired_10d} preuve(s) expirée(s) depuis plus de 10 jours",
+            "text": f"{proofs_expired_10d} evidence item(s) expired for more than 10 days",
+            "text_fr": f"{proofs_expired_10d} preuve(s) expirée(s) depuis plus de 10 jours",
             "url": "/compliance/",
         })
     if overdue > 0:
         alerts.append({
             "level": "critical" if overdue >= 5 else "warning",
-            "text": f"{overdue} mesure(s) en retard",
+            "text": f"{overdue} overdue measure(s)",
+            "text_fr": f"{overdue} mesure(s) en retard",
             "url": "/compliance/",
         })
     # Frameworks with <50% compliance
@@ -383,14 +389,16 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     if weak:
         alerts.append({
             "level": "warning",
-            "text": f"{len(weak)} référentiel(s) en dessous de 50 % de conformité",
+            "text": f"{len(weak)} framework(s) below 50% compliance",
+            "text_fr": f"{len(weak)} référentiel(s) en dessous de 50 % de conformité",
             "url": "/compliance/",
         })
 
     declared = await _declared_counts(db)
     return {
         "entity_count": total_projects,
-        "entity_label": "Projets de conformité",
+        "entity_label": "Compliance projects",
+        "entity_label_fr": "Projets de conformité",
         "measures": {
             "total": total_measures,
             "completed": completed,
@@ -444,11 +452,11 @@ def _posture_label(score: int) -> str:
     if score is None:
         return ""
     if score < 40:
-        return "Faible"
+        return "Low"
     if score < 60:
-        return "Modéré"
+        return "Moderate"
     if score < 80:
-        return "Bon"
+        return "Good"
     return "Excellent"
 
 
@@ -464,7 +472,8 @@ async def internal_activity(request: Request, db: AsyncSession = Depends(get_db)
             "date": (p.updated_at or p.created_at).isoformat(),
             "module": "compliance",
             "type": "project_updated",
-            "label": f"Projet « {(p.name or '')[:50]} » mis à jour",
+            "label": f"Project \"{(p.name or '')[:50]}\" updated",
+            "label_fr": f"Projet « {(p.name or '')[:50]} » mis à jour",
             "url": "/compliance/",
         })
     return events[:10]

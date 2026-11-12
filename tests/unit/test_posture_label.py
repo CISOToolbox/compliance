@@ -11,22 +11,22 @@ class TestPostureLabel:
         assert _posture_label(None) == ""
 
     def test_zero_is_faible(self):
-        assert _posture_label(0) == "Faible"
+        assert _posture_label(0) == "Low"
 
     def test_below_40_is_faible(self):
-        assert _posture_label(39) == "Faible"
+        assert _posture_label(39) == "Low"
 
     def test_at_40_is_modere(self):
-        assert _posture_label(40) == "Modéré"
+        assert _posture_label(40) == "Moderate"
 
     def test_below_60_is_modere(self):
-        assert _posture_label(59) == "Modéré"
+        assert _posture_label(59) == "Moderate"
 
     def test_at_60_is_bon(self):
-        assert _posture_label(60) == "Bon"
+        assert _posture_label(60) == "Good"
 
     def test_below_80_is_bon(self):
-        assert _posture_label(79) == "Bon"
+        assert _posture_label(79) == "Good"
 
     def test_at_80_is_excellent(self):
         assert _posture_label(80) == "Excellent"

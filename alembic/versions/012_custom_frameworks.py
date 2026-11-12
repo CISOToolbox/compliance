@@ -34,7 +34,7 @@ _COULEUR = "#78716c"
 
 def _libelle(fw_id: str) -> str:
     if fw_id in ("internal", "own_controls"):
-        return "Contrôles internes"
+        return "Internal controls"
     nom = fw_id
     if nom.startswith("custom_"):
         nom = nom[len("custom_"):]

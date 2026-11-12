@@ -84,3 +84,32 @@ def test_next_measure_num_spans_legacy_and_unified_prefixes():
     assert _next_measure_num(["M-004", "MES-009"]) == 9
     assert _next_measure_num(["MES-002", "garbage"]) == 2
     assert _next_measure_num([]) == 0
+
+
+from proof_notifier import _days_label, build_digest_html  # noqa: E402
+
+
+def _due(label="ISO 27001 certificate", owner="alice@medsecure.example", days=12):
+    return {"project_id": "P1", "proof_id": "P-001", "label": label, "owner": owner,
+            "date": _iso(days), "days": days}
+
+
+def test_digest_names_the_project_and_counts_the_evidence():
+    html = build_digest_html([_due(), _due(days=-4)], TODAY, {"P1": "MedSecure"})
+    assert "Compliance evidence to renew — 2" in html
+    assert "MedSecure" in html
+    assert html.count("<tr>") == 2  # one row per evidence (the header uses <thead>/<th>)
+    for header in ("Project", "Evidence", "Owner", "Expiration", "Due"):
+        assert f">{header}</th>" in html
+
+
+def test_digest_escapes_what_a_user_typed():
+    html = build_digest_html([_due(label="<script>alert(1)</script>")], TODAY, {})
+    assert "<script>alert(1)</script>" not in html
+    assert "&lt;script&gt;" in html
+
+
+def test_days_label_phrasing():
+    assert _days_label(0) == "expires today"
+    assert _days_label(-3) == "expired 3 day(s) ago"
+    assert _days_label(12) == "expires in 12 day(s)"

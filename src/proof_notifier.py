@@ -73,10 +73,10 @@ def compute_expiring_proofs(proofs, today: date, lead: int = LEAD_DAYS) -> list[
 
 def _days_label(days: int) -> str:
     if days == 0:
-        return "expire aujourd'hui"
+        return "expires today"
     if days < 0:
-        return f"expirée depuis {-days} j"
-    return f"expire dans {days} j"
+        return f"expired {-days} day(s) ago"
+    return f"expires in {days} day(s)"
 
 
 def build_digest_html(due: list[dict], today: date, project_names: dict) -> str:
@@ -94,15 +94,15 @@ def build_digest_html(due: list[dict], today: date, project_names: dict) -> str:
         )
     return (
         "<div style='font-family:Arial,sans-serif;color:#1e293b'>"
-        f"<h2 style='color:#0f172a'>Preuves de conformité à renouveler — {len(due)}</h2>"
-        f"<p style='color:#64748b'>Au {today.isoformat()}, les preuves suivantes sont "
-        "expirées ou arrivent à expiration. Une preuve expirée invalide le statut "
-        "« appliqué » des mesures qui s'appuient dessus.</p>"
+        f"<h2 style='color:#0f172a'>Compliance evidence to renew — {len(due)}</h2>"
+        f"<p style='color:#64748b'>As of {today.isoformat()}, the evidence below has "
+        "expired or is about to. A control that relies on expired evidence no longer "
+        "counts as completed.</p>"
         "<table style='border-collapse:collapse;font-size:14px'>"
         "<thead><tr style='background:#f1f5f9;text-align:left'>"
-        "<th style='padding:6px 10px'>Projet</th><th style='padding:6px 10px'>Preuve</th>"
-        "<th style='padding:6px 10px'>Responsable</th><th style='padding:6px 10px'>Expiration</th>"
-        "<th style='padding:6px 10px'>Échéance</th>"
+        "<th style='padding:6px 10px'>Project</th><th style='padding:6px 10px'>Evidence</th>"
+        "<th style='padding:6px 10px'>Owner</th><th style='padding:6px 10px'>Expiration</th>"
+        "<th style='padding:6px 10px'>Due</th>"
         f"</tr></thead><tbody>{rows}</tbody></table>"
         "<p style='color:#94a3b8;font-size:12px;margin-top:16px'>CISO Toolbox · Compliance</p>"
         "</div>"
@@ -255,7 +255,7 @@ async def run_now(db, force: bool = False) -> dict:
     names = {str(p.id): (p.name or "") for p in
              (await db.execute(select(Project))).scalars().all()}
     html = build_digest_html(due, today, names)
-    subject = f"[CISO Toolbox] {len(due)} preuve(s) de conformité à renouveler"
+    subject = f"[CISO Toolbox] {len(due)} compliance evidence item(s) to renew"
     sent_to, errors = [], []
     for r in recipients:
         ok, err = await asyncio.to_thread(send_smtp, r, subject, html)

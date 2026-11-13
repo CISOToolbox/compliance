@@ -58,15 +58,20 @@ def _rt(row: dict, field: str, language: str) -> str:
     In English, the ``<field>_en`` variant wins **if it is filled in**;
     otherwise we fall back to the French version rather than return emptiness.
     """
-    if (language or "fr") != "fr":
+    if not _is_french(language):
         v = str(row.get(field + "_en") or "").strip()
         if v:
             return v
     return str(row.get(field) or "")
 
 
-def _lang(language: str) -> str:
-    return "French" if (language or "fr") == "fr" else "English"
+def _is_french(language: str | None) -> bool:
+    """`fr`, `FR`, `fr-FR`, `fr_FR`: every spelling a browser sends."""
+    return (language or "").strip().lower().startswith("fr")
+
+
+def _lang(language: str | None) -> str:
+    return "French" if _is_french(language) else "English"
 
 
 def _controls(D: dict, framework: str) -> list[dict]:
@@ -166,7 +171,7 @@ _CUSTOM_SCHEMA = ('[{"action":"new|enrich|link","id":"M-XX (required when action
                   '"responsable":"..."}]')
 
 
-def build_suggest(D: dict, framework: str, index: int, language: str = "fr",
+def build_suggest(D: dict, framework: str, index: int, language: str = "en",
                   custom_instruction: str | None = None,
                   avec_mesures: bool = True) -> str:
     """Prompt for one specific requirement, designated by its rank in the framework.
@@ -222,7 +227,7 @@ def build_suggest(D: dict, framework: str, index: int, language: str = "fr",
 
 
 def build_global(D: dict, framework: str, refs: list[str], document: str,
-                 batch_num: int, total_batches: int, language: str = "fr",
+                 batch_num: int, total_batches: int, language: str = "en",
                  avec_mesures: bool = True) -> str:
     """Prompt for a batch of requirements confronted with the uploaded document.
 
@@ -258,7 +263,7 @@ def build_global(D: dict, framework: str, refs: list[str], document: str,
 
 
 def build_global_custom(D: dict, framework: str, refs: list[str], instruction: str,
-                        language: str = "fr", avec_mesures: bool = True) -> str:
+                        language: str = "en", avec_mesures: bool = True) -> str:
     """Prompt for a batch of requirements confronted with a free-form instruction.
 
     Unlike ``build_global``, each requirement comes with its compliance
@@ -291,7 +296,7 @@ def build_global_custom(D: dict, framework: str, refs: list[str], instruction: s
     )
 
 
-def build_scope(D: dict, framework: str, instruction: str, language: str = "fr") -> str:
+def build_scope(D: dict, framework: str, instruction: str, language: str = "en") -> str:
     """Which requirements does the free-form instruction concern?"""
     texte = (instruction or "").strip()
     if not texte:

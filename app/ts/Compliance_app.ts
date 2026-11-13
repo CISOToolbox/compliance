@@ -10,10 +10,10 @@ window.CT_CONFIG = {
     refNamespace: "COMPLIANCE_REF",
     descNamespace: "COMPLIANCE_DESCRIPTIONS",
     labelKey: "comp.label",
-    filePrefix: "Conformite",
+    filePrefix: "Compliance",
     getSociete: function(d) { return d && d.meta ? d.meta.societe : ""; },
     getDate: function(d) { return d && d.meta ? d.meta.date_evaluation : ""; },
-    getScope: function(d) { return "Conformite"; }
+    getScope: function(d) { return "Compliance"; }
 };
 
 // FEAT-36 — schema versioning (rev 1 = normalized baseline; bump + add a
@@ -429,7 +429,7 @@ function _getAllFrameworks(): Record<string, ComplianceFwMeta> {
         for (var fwId in D._custom_frameworks) {
             if (!all[fwId]) {
                 var cf = D._custom_frameworks[fwId];
-                all[fwId] = { label: cf.label, description: (cf.measures||[]).length + " controles (custom)", color: cf.color, custom: true };
+                all[fwId] = { label: cf.label, description: t("comp.csv.custom_desc", {count: (cf.measures||[]).length}), color: cf.color, custom: true };
                 REFERENTIELS_META[fwId] = all[fwId];
                 REFERENTIELS_META[fwId].measures = cf.measures;
                 if (!window.COMPLIANCE_REF) window.COMPLIANCE_REF = {};
@@ -865,7 +865,7 @@ window.supprimerReferentiel = supprimerReferentiel;
 // ── Custom framework import from CSV ──────────────────────────────
 
 function downloadCSVTemplate() {
-    _downloadCSV("referentiel_template.csv", "ref;theme;mesure;description;theme_en;mesure_en;description_en", [
+    _downloadCSV("framework_template.csv", "ref;theme;mesure;description;theme_en;mesure_en;description_en", [
         "CUSTOM-01;Gouvernance;Politique de securite;Definir et maintenir une PSSI;Governance;Security Policy;Define and maintain a security policy",
         "CUSTOM-02;Acces;Gestion des identites;Controler les acces logiques;Access;Identity Management;Control logical access",
         "CUSTOM-03;Protection;Chiffrement des donnees;AES-256 au repos et en transit;Protection;Data Encryption;AES-256 at rest and in transit",
@@ -1325,8 +1325,8 @@ function _createMesureForNc(prefill: { title: string; description: string }): Pr
         { value: "termine",  label: _statutLabel("termine")  }
     ];
     return window.ct_measure_modal.open({ description: prefill.title, details: prefill.description }, {
-        title: t("comp.mes.new_draft") || "Nouvelle mesure",
-        saveLabel: t("comp.mes.btn_valider") || "Créer",
+        title: t("comp.mes.new_draft"),
+        saveLabel: t("comp.mes.btn_valider"),
         fieldMap: { title: "description", description: "details", echeance: "date_cible" },
         hideFields: ["type"],
         statusOptions: statusOpts,
@@ -1343,12 +1343,12 @@ function _createMesureForNc(prefill: { title: string; description: string }): Pr
         };
         var done = function(created: ComplianceMesure): CtNcItemOption {
             D.mesures.push(created);
-            showStatus(t("comp.status.mesure_created") || ("Mesure créée : " + created.id));
+            showStatus(t("comp.status.mesure_created"));
             return { id: created.id, label: created.id + " " + (created.description || "").substring(0, 50) };
         };
         if (window.ComplianceAPI && typeof window._getActiveProjectId === "function") {
             return window.ComplianceAPI.createMeasure(window._getActiveProjectId(), payload).then(done)
-                .catch(function(e: any) { showStatus("Erreur création : " + (e.message || e), true); return null; });
+                .catch(function(e: any) { showStatus(t("comp.error.create", { msg: String(e.message || e) }), true); return null; });
         }
         var created = done(payload as ComplianceMesure); _autoSave(); return created;
     });
@@ -1562,7 +1562,7 @@ function _renderFwMesures(fwId: string, label: string) {
 
     let h = `<h2 class="ct-ink ct-mb-4">${t("comp.mes.title", {label: esc(label)})}</h2>`;
     h += `<div class="ct-flex ct-gap-2 ct-items-center ct-mb-3">
-        <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_refreshMeasures" title="Rafraîchir">&#x21bb;</button>
+        <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_refreshMeasures" title="${esc(t("comp.btn.refresh"))}">&#x21bb;</button>
         <input type="text" placeholder="${t("comp.mes.search")}" value="${esc(_mesureFilter)}" class="ct-flex-1 ct-maxw-300" data-input="_filterMesures" data-args='${_da(fwId)}' data-pass-value />
         <span class="fs-xs text-muted">${t("comp.mes.count", {count: mesures.length})}</span>
     </div>`;
@@ -1615,13 +1615,13 @@ function _renderFwMesures(fwId: string, label: string) {
         setTimeout(function() {
             window.ct_bulkbar!.attach({
                 scope: scope,
-                label: t("measure.selected_n") || "{n} mesure(s) sélectionnée(s)",
+                label: t("measure.selected_n"),
                 actions: [
-                    { id: "done",   icon: "check", label: "Terminé", variant: "success",
+                    { id: "done",   icon: "check", label: t("comp.statut.termine"), variant: "success",
                       onClick: "_bulkComplianceMesuresDone", data: { fwId: fwId } },
-                    { id: "delete", icon: "trash", label: t("btn_delete") || "Supprimer", danger: true,
+                    { id: "delete", icon: "trash", label: t("btn_delete"), danger: true,
                       onClick: "_bulkComplianceMesuresDelete", data: { fwId: fwId },
-                      confirm: { title: "Supprimer {n} mesure(s) ?", message: "Cette action est irréversible." } }
+                      confirm: { title: t("comp.mes.bulk_delete_confirm"), message: t("comp.confirm.irreversible") } }
                 ]
             });
             window.ct_bulkbar!.update(scope);
@@ -1641,9 +1641,9 @@ window._refreshMeasures = function() {
                 var data = proj.data;
                 Object.keys(data).forEach(function(k) { (D as unknown as Record<string, unknown>)[k] = data[k]; });
             }
-            showStatus("Données rafraîchies");
+            showStatus(t("comp.status.refreshed"));
             renderAll();
-        }).catch(function(e: any) { showStatus("Erreur : " + (e.message || e), true); });
+        }).catch(function(e: any) { showStatus(t("comp.error.with_msg", { msg: String(e.message || e) }), true); });
     } else {
         window.location.reload();
     }
@@ -1683,10 +1683,10 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
     // Inline exigences + preuves management (interactive).
     var extraHtml = '';
     extraHtml += '<div class="fs-xs fw-600 ct-mt-2 ct-mb-1">'
-              + esc(t("comp.mes.exigences_liees") || "Exigences liées") + '</div>';
+              + esc(t("comp.mes.exigences_liees")) + '</div>';
     extraHtml += '<div id="ct-mesure-exigs-wrap">' + _renderExigsForModal(m.id) + '</div>';
     extraHtml += '<div class="fs-xs fw-600 ct-mt-2 ct-mb-1">'
-              + esc(t("comp.mes.preuves_liees") || "Preuves liées") + '</div>';
+              + esc(t("comp.mes.preuves_liees")) + '</div>';
     extraHtml += '<div id="ct-mesure-preuves-wrap">' + _renderPreuvesForModal(m.id) + '</div>';
 
     return window.ct_measure_modal!.open(m, {
@@ -1701,8 +1701,8 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
             if (typeof _persist === "function") _persist("measure", m.id, { progress_log: fullLog });
         },
         extraFields: [
-            { key: "recurrence",       label: t("comp.mes.label_recurrence")       || "Récurrence",      type: "select", options: recurrenceOpts, value: m.recurrence || "" },
-            { key: "dernier_controle", label: t("comp.mes.label_dernier_controle") || "Dernier contrôle", type: "date",   value: m.dernier_controle || "" }
+            { key: "recurrence",       label: t("comp.mes.label_recurrence"),      type: "select", options: recurrenceOpts, value: m.recurrence || "" },
+            { key: "dernier_controle", label: t("comp.mes.label_dernier_controle"), type: "date",   value: m.dernier_controle || "" }
         ],
         extraContent: extraHtml,
         extraButtons: [],
@@ -1774,16 +1774,16 @@ window._createMesureUnified = function(fwId: string | null, linkIdx: number | nu
     var recurrenceOpts = ["ponctuel", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
         .map(function(k) { return { value: k, label: _recLabel(k) }; });
     window.ct_measure_modal!.open(null, {
-        title: t("comp.mes.new_draft") || "Nouvelle mesure",
-        saveLabel: t("comp.mes.btn_valider") || "Créer",
+        title: t("comp.mes.new_draft"),
+        saveLabel: t("comp.mes.btn_valider"),
         fieldMap: { title: "description", description: "details", echeance: "date_cible" },
         hideFields: ["type"],
         statusOptions: statusOpts,
         defaultStatus: "planifie",
         ownerPicker: { pickerId: "compliance-new-measure-owner", directoryUrl: "api/directory" },
         extraFields: [
-            { key: "recurrence",       label: t("comp.mes.label_recurrence")       || "Récurrence",       type: "select", options: recurrenceOpts, value: "" },
-            { key: "dernier_controle", label: t("comp.mes.label_dernier_controle") || "Dernier contrôle", type: "date",   value: "" }
+            { key: "recurrence",       label: t("comp.mes.label_recurrence"),       type: "select", options: recurrenceOpts, value: "" },
+            { key: "dernier_controle", label: t("comp.mes.label_dernier_controle"), type: "date",   value: "" }
         ]
     }).then(function(result: any) {
         if (!result || result.__deleted || result.__advanced) return;
@@ -1806,12 +1806,12 @@ window._createMesureUnified = function(fwId: string | null, linkIdx: number | nu
                     _persist("control", entry.id!, { mesures_ids: entry.mesures_ids });
                 }
             }
-            showStatus(t("comp.status.mesure_created") || ("Mesure créée : " + created.id));
+            showStatus(t("comp.status.mesure_created"));
             renderAll();
         };
         if (window.ComplianceAPI && typeof window._getActiveProjectId === "function") {
             window.ComplianceAPI.createMeasure(window._getActiveProjectId(), payload).then(afterCreate)
-                .catch(function(e: any) { showStatus("Erreur création : " + (e.message || e), true); });
+                .catch(function(e: any) { showStatus(t("comp.error.create", { msg: String(e.message || e) }), true); });
         } else { afterCreate(payload as ComplianceMesure); _autoSave(); }
     });
 };
@@ -1877,7 +1877,7 @@ function _renderExigsForModal(mesureId: string) {
             }
         });
     }
-    h += _searchSelect(t("comp.mes.lier_exigence") || "Lier une exigence…", exigOpts, "_linkExigInModal", [mesureId]);
+    h += _searchSelect(t("comp.mes.lier_exigence"), exigOpts, "_linkExigInModal", [mesureId]);
     return h;
 }
 
@@ -1941,9 +1941,9 @@ function _renderPreuvesForModal(mesureId: string) {
         .filter(function(p) { return linked.indexOf(p.id) < 0; })
         .map(function(p) { return { value: p.id, label: p.id + " " + (p.label || "") }; });
     h += '<div class="ct-flex ct-gap-1 ct-items-center ct-mt-1">';
-    h += '<div class="ct-flex-1">' + _searchSelect(t("comp.mes.lier_preuve") || "Lier une preuve…", availOpts, "_linkPreuveInModal", [mesureId]) + '</div>';
+    h += '<div class="ct-flex-1">' + _searchSelect(t("comp.mes.lier_preuve"), availOpts, "_linkPreuveInModal", [mesureId]) + '</div>';
     h += '<button class="ct-btn mt-8" data-write data-variant="primary" data-size="sm" data-click="_createAndLinkPreuveInModal" data-args=\'' + _da(mesureId) + '\'>'
-       + esc(t("comp.mes.btn_nouvelle_preuve") || "+ Nouvelle preuve") + '</button>';
+       + esc(t("comp.mes.btn_nouvelle_preuve")) + '</button>';
     h += '</div>';
     return h;
 }
@@ -2019,7 +2019,7 @@ window._bulkComplianceMesuresDone = function(scope: string) {
     });
     window.ct_bulkbar!.clear(scope);
     renderAll();
-    showStatus(count + " mesure(s) marquée(s) terminée(s)");
+    showStatus(t("comp.mes.bulk_done", { n: count }));
 };
 
 window._bulkComplianceMesuresDelete = function(scope: string) {
@@ -2040,7 +2040,7 @@ window._bulkComplianceMesuresDelete = function(scope: string) {
     D.mesures = D.mesures.filter(function(m) { return ids.indexOf(m.id) < 0; });
     window.ct_bulkbar!.clear(scope);
     renderAll();
-    showStatus(ids.length + " mesure(s) supprimée(s)");
+    showStatus(t("comp.mes.bulk_deleted", { n: ids.length }));
 };
 
 function _filterMesures(fwId: string, val: string) {
@@ -2112,12 +2112,12 @@ function _commitDraft() {
         }
         _discardDraft();
         _editingMesure = created.id;
-        showStatus(t("comp.status.mesure_created") || "Mesure creee : " + created.id);
+        showStatus(t("comp.status.mesure_created"));
         _showMesureModal();
     };
     if (window.ComplianceAPI && typeof window._getActiveProjectId === "function") {
         window.ComplianceAPI.createMeasure(window._getActiveProjectId(), payload).then(_afterCreate)
-            .catch(function(e: any) { showStatus("Erreur creation : " + (e.message || e), true); });
+            .catch(function(e: any) { showStatus(t("comp.error.create", { msg: String(e.message || e) }), true); });
     } else {
         _afterCreate(payload);
         _autoSave();
@@ -2187,7 +2187,7 @@ function _showMesureModal() {
         h += _searchSelect(t("comp.mes.lier_preuve"), D.preuves.filter(function(p) { return !(m.preuves_ids||[]).includes(p.id); }).map(function(p) { return {value:p.id,label:p.id+" "+p.label}; }), "_linkExistingPreuve", [mid, _draftMesureFwId||""]);
         h += '<button class="ct-btn mt-8 ct-ml-1" data-write data-variant="primary" data-size="sm" data-click="_createAndLinkPreuve" data-args=\'' + _da(mid,_draftMesureFwId||"") + '\'>' + esc(t("comp.mes.btn_nouvelle_preuve")) + '</button>';
     } else {
-        h += '<div class="fs-xs text-muted mt-8">Validez pour pouvoir lier des exigences et preuves.</div>';
+        h += '<div class="fs-xs text-muted mt-8">' + esc(t("comp.mes.validate_first")) + '</div>';
     }
     h += '</div>';
 
@@ -2367,7 +2367,7 @@ window._createAndLinkPreuve = function(mesureId: string, fwId: string) {
     _editingPreuve = id;
     _returnToMesureId = mesureId;
     _showPreuveModal();
-    showStatus(t("comp.status.preuve_created") || "Preuve creee : " + id);
+    showStatus(t("comp.status.preuve_created", { id: id }));
 }
 
 // ── Proofs (per framework) ────────────────────────────────────────
@@ -2436,11 +2436,11 @@ function _renderFwPreuves(fwId: string, label: string) {
         setTimeout(function() {
             window.ct_bulkbar!.attach({
                 scope: scope,
-                label: "{n} preuve(s) sélectionnée(s)",
+                label: t("comp.prv.selected_n"),
                 actions: [
-                    { id: "delete", icon: "trash", label: t("comp.prv.btn_supprimer") || "Supprimer", danger: true,
+                    { id: "delete", icon: "trash", label: t("comp.prv.btn_supprimer"), danger: true,
                       onClick: "_bulkCompliancePreuvesDelete", data: { fwId: fwId },
-                      confirm: { title: "Supprimer {n} preuve(s) ?", message: "Cette action est irréversible." } }
+                      confirm: { title: t("comp.prv.bulk_delete_confirm"), message: t("comp.confirm.irreversible") } }
                 ]
             });
             window.ct_bulkbar!.update(scope);
@@ -2567,7 +2567,7 @@ function _showPreuveModal() {
         _up.mount({
             slotId: "preuve-owner-slot", pickerId: "preuve-owner",
             value: String((p as unknown as Record<string, unknown>).owner || ""),
-            placeholder: "Rechercher...",
+            placeholder: t("misc.search"),
             directoryUrl: "api/directory", sourceUrl: null,
         });
     }
@@ -2654,7 +2654,7 @@ function renderPlan() {
 
     let h = `<div class="ct-flex ct-gap-2 ct-items-center ct-mb-3">
         <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_addMesurePlan">${t("comp.plan.btn_nouvelle")}</button>
-        <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_refreshMeasures" title="Rafraîchir">&#x21bb;</button>
+        <button class="ct-btn mt-8" data-write data-variant="primary" data-size="xs" data-click="_refreshMeasures" title="${esc(t("comp.btn.refresh"))}">&#x21bb;</button>
         <input type="text" placeholder="${t("comp.plan.search")}" value="${esc(_planFilter)}" class="ct-flex-1 ct-maxw-300" data-input="_filterPlan" data-pass-value />
         <span class="fs-xs text-muted">${t("comp.plan.count", {count: mesures.length})}</span>
     </div>`;
@@ -2701,13 +2701,13 @@ function renderPlan() {
         setTimeout(function() {
             window.ct_bulkbar!.attach({
                 scope: scope,
-                label: t("measure.selected_n") || "{n} mesure(s) sélectionnée(s)",
+                label: t("measure.selected_n"),
                 actions: [
-                    { id: "done",   icon: "check", label: "Terminé", variant: "success",
+                    { id: "done",   icon: "check", label: t("comp.statut.termine"), variant: "success",
                       onClick: "_bulkCompliancePlanDone" },
-                    { id: "delete", icon: "trash", label: t("btn_delete") || "Supprimer", danger: true,
+                    { id: "delete", icon: "trash", label: t("btn_delete"), danger: true,
                       onClick: "_bulkCompliancePlanDelete",
-                      confirm: { title: "Supprimer {n} mesure(s) ?", message: "Cette action est irréversible." } }
+                      confirm: { title: t("comp.mes.bulk_delete_confirm"), message: t("comp.confirm.irreversible") } }
                 ]
             });
             window.ct_bulkbar!.update(scope);
@@ -2729,7 +2729,7 @@ window._bulkCompliancePlanDone = function(scope: string) {
     });
     window.ct_bulkbar!.clear(scope);
     renderPlan();
-    showStatus(count + " mesure(s) marquée(s) terminée(s)");
+    showStatus(t("comp.mes.bulk_done", { n: count }));
 };
 
 window._bulkCompliancePlanDelete = function(scope: string) {
@@ -2748,7 +2748,7 @@ window._bulkCompliancePlanDelete = function(scope: string) {
     D.mesures = D.mesures.filter(function(m) { return ids.indexOf(m.id) < 0; });
     window.ct_bulkbar!.clear(scope);
     renderPlan();
-    showStatus(ids.length + " mesure(s) supprimée(s)");
+    showStatus(t("comp.mes.bulk_deleted", { n: ids.length }));
 };
 
 function _filterPlan(val: string) {
@@ -3033,7 +3033,7 @@ try {
     // Deep link from the console's register (FEAT-45): open the panel directly.
     if (location.hash === "#nonconformities") selectPanel("nonconformities");
 } catch(e: any) {
-    console.error("Erreur au rendu initial:", e);
+    console.error("Initial render failed:", e);
     document.querySelector(".container")!.innerHTML = '<section><h2>' + t("comp.error.title") + '</h2><pre>' + esc(e.message) + '\n' + esc(e.stack||"") + '</pre></section>';
 }
 

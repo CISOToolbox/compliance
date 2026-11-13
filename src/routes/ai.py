@@ -30,7 +30,7 @@ from src.models import Project, User
 # EXACTLY the same access control and the same reconstruction as a normal
 # project read. Redefining them here would make the two paths diverge.
 from src.routes.projects import _can, _reconstruct_data
-from src.ai_prompts import (KINDS, build_global, build_global_custom,
+from src.ai_prompts import (KINDS, _lang, build_global, build_global_custom,
                             build_scope, build_suggest, validate_output)
 
 # Common /api/ai endpoints; the business endpoint below is appended to it.
@@ -46,7 +46,7 @@ def _compliance_system(kind: str, language: str) -> str:
                     coverage + measures (conformity batch & custom modes)
       - "scope"   — identify which requirements a user instruction concerns
     """
-    lang = "English" if language == "en" else "French"
+    lang = _lang(language)
     if kind == "scope":
         return (
             "You are a compliance assistant. The user gave an instruction that may affect some or all requirements. "
@@ -80,7 +80,7 @@ def _compliance_system(kind: str, language: str) -> str:
     # default: "suggest"
     return (
         "You are a cybersecurity compliance expert. "
-        "You help organizations define security controls (mesures de sécurité) to meet regulatory requirements. "
+        "You help organizations define security controls to meet regulatory requirements. "
         "You must respond in " + lang + ". "
         "You must respond ONLY with a valid JSON array of objects. No markdown, no explanation, no preamble. "
         "Each object has: "
@@ -113,7 +113,7 @@ class ComplianceSuggestRequest(BaseModel):
     kind: str = "suggest"
     project_id: uuid.UUID
     framework: str
-    language: str = "fr"
+    language: str = "en"
     index: int | None = None                  # kind=suggest: rank of the requirement
     refs: list[str] | None = None             # kind=global: the batch of requirements
     document: str | None = None               # kind=global: the uploaded document

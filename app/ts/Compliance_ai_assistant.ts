@@ -52,7 +52,7 @@
                 kind: ask.kind,
                 project_id: projectId,
                 framework: ask.framework,
-                language: _locale === "en" ? "en" : "fr",
+                language: _locale === "fr" ? "fr" : "en",
                 index: ask.index === undefined ? null : ask.index,
                 refs: ask.refs || null,
                 document: ask.document || null,
@@ -394,7 +394,7 @@
             var reader = new FileReader();
             reader.onload = function() {
                 textarea.value = (reader.result as string).substring(0, 50000);
-                if (info) info.textContent = file.name + " (" + Math.round(file.size / 1024) + " Ko)";
+                if (info) info.textContent = t("comp.ai.file_size", { name: file.name, n: Math.round(file.size / 1024) });
             };
             reader.readAsText(file);
         } else if (ext === "docx") {
@@ -402,9 +402,9 @@
             reader.onload = function() {
                 _extractDocxText(reader.result as ArrayBuffer).then(function(text) {
                     textarea.value = text.substring(0, 50000);
-                    if (info) info.textContent = file.name + " (" + Math.round(text.length / 1024) + " Ko texte)";
+                    if (info) info.textContent = t("comp.ai.file_text_size", { name: file.name, n: Math.round(text.length / 1024) });
                 }).catch(function(err: any) {
-                    if (info) info.textContent = "Erreur: " + err.message;
+                    if (info) info.textContent = t("ai.error", { msg: err.message });
                 });
             };
             reader.readAsArrayBuffer(file);
@@ -413,14 +413,14 @@
             reader.onload = function() {
                 _extractExcelText(reader.result as ArrayBuffer).then(function(text) {
                     textarea.value = text.substring(0, 50000);
-                    if (info) info.textContent = file.name + " (" + Math.round(text.length / 1024) + " Ko texte)";
+                    if (info) info.textContent = t("comp.ai.file_text_size", { name: file.name, n: Math.round(text.length / 1024) });
                 }).catch(function(err: any) {
-                    if (info) info.textContent = "Erreur: " + err.message;
+                    if (info) info.textContent = t("ai.error", { msg: err.message });
                 });
             };
             reader.readAsArrayBuffer(file);
         } else {
-            if (info) info.textContent = "Format non supporté: " + ext;
+            if (info) info.textContent = t("comp.ai.unsupported_format", { ext: ext });
         }
     }
 

@@ -15,11 +15,14 @@ from __future__ import annotations
 import os
 import sys
 
+import pytest
+
 os.environ.setdefault("DATABASE_URL", "postgresql+asyncpg://u:p@127.0.0.1:5999/t")
 os.environ.setdefault("MODULE_NAME", "compliance")
 os.environ.setdefault("JWT_SECRET", "x" * 32)
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from src import ai_prompts  # noqa: E402
 from src.ai_prompts import build_suggest, measure_context  # noqa: E402
 
 DETAIL_1 = (
@@ -99,3 +102,12 @@ def test_a_custom_instruction_keeps_the_plan():
     perso = build_suggest(D, "iso27001", 0, "fr", "Cible les accès privilégiés")
     assert "Cible les accès privilégiés" in perso
     assert "M-2" in perso and DETAIL_2 in perso
+
+
+@pytest.mark.parametrize("language, named", [
+    ("fr", "French"), ("FR", "French"), ("fr-FR", "French"), ("fr_FR", "French"), (" fr ", "French"),
+    ("en", "English"), ("", "English"), (None, "English"), ("de", "English"),
+])
+def test_the_language_is_read_whatever_its_spelling(language, named):
+    # `fr-FR`, the tag a browser gives, used to be answered in English.
+    assert ai_prompts._lang(language) == named

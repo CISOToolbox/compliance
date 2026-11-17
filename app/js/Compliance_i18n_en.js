@@ -48,6 +48,7 @@ _registerTranslations("en", {
     "comp.statut.preuve_manquante": "Missing evidence",
     // Requirement status
     "comp.exig_statut.ok": "OK",
+    "comp.status.unreachable": "The compliance status could not be loaded: the figures shown may be out of date.",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
     "comp.exig_statut.derogated": "Derogation",

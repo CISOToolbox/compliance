@@ -60,6 +60,7 @@ _registerTranslations("fr", {
 
     // Requirement status
     "comp.exig_statut.ok": "OK",
+    "comp.status.unreachable": "Le statut de conformité n'a pas pu être chargé : les chiffres affichés peuvent être périmés.",
     "comp.exig_statut.ko": "KO",
     "comp.exig_statut.na": "N/A",
     "comp.exig_statut.derogated": "Dérogation",

@@ -59,6 +59,8 @@ interface CompliancePreuve {
     date_obtention: string;
     date_expiration: string;
     commentaire: string;
+    /** FEAT-73 — set by the server: manual | collected. */
+    source?: string;
 }
 
 /** Definition of a control in a loaded framework (COMPLIANCE_REF / catalog). */
@@ -228,9 +230,23 @@ interface ComplianceAuthUser {
     [k: string]: unknown;
 }
 
+/** FEAT-73 — GET /projects/{id}/status, computed by the server. */
+interface ComplianceFwStatus {
+    applicable: number; ok: number; ko: number; derogated: number; excluded: number; pct: number;
+}
+interface ComplianceStatus {
+    as_of: string;
+    /** measure id → planifie | en_cours | termine | preuve_manquante */
+    measures: Record<string, string>;
+    /** "<framework>:<ref>" → ok | ko | na | derogated */
+    requirements: Record<string, string>;
+    frameworks: Record<string, ComplianceFwStatus>;
+}
+
 interface ComplianceAPIShape {
     list(): Promise<ComplianceProjectSummary[]>;
     get(projectId: string): Promise<ComplianceProject>;
+    status(projectId: string): Promise<ComplianceStatus>;
     create(data?: { name: string; data: Record<string, unknown> }): Promise<ComplianceProject>;
     update(id: string, data: { name: string; data: unknown }): Promise<ComplianceProject>;
     del(id: string): Promise<null>;
@@ -323,6 +339,8 @@ interface Window {
     _appInitCallback?: () => void;
     _setDataReady?: () => void;
     _persist?: typeof _persist;
+    _applyStatus?: (s: ComplianceStatus, render: boolean) => void;
+    _refreshStatus?: () => void;
     _persistCreate?: typeof _persistCreate;
     _persistDelete?: typeof _persistDelete;
     _autoSave?: () => void;

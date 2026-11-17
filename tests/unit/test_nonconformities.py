@@ -185,7 +185,10 @@ async def test_stats_name_the_controls_without_a_framework_in_both_languages(db)
     from sqlalchemy import select
     from src.routes.internal import internal_stats
     project_id = (await db.execute(select(ProjectControl.project_id))).scalars().first()
-    db.add(ProjectControl(project_id=project_id, id=2, framework_id="", ref="X.1", conformite="100"))
+    from src.models import ProjectMeasure, ProjectProof
+    db.add(ProjectControl(project_id=project_id, id=2, framework_id="", ref="X.1", mesures_ids=["M-1"]))
+    db.add(ProjectMeasure(project_id=project_id, id="M-1", statut="termine", preuves_ids=["P-1"]))
+    db.add(ProjectProof(project_id=project_id, id="P-1", date_expiration=""))
     await db.commit()
     sreq = Request({"type": "http", "method": "GET", "path": "/api/internal/stats", "query_string": b"",
                     "headers": [(b"x-service-token", os.environ["SERVICE_TOKEN"].encode())], "client": ("127.0.0.1", 1)})

@@ -17,7 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.proxy_common import apply_proxy, check_proxy_url
 from src.database import get_db
 from src.evidence_common import evidence_to_pilot_payload
-from src.models import (Framework, Project, ProjectControl, ProjectMeasure, ProjectMeta,
+from src.models import (Framework, Project, ProjectMeasure, ProjectMeta,
                         ProjectProof, ProjectSettings)
 from src.settings_crypto import decrypt_setting, encrypt_setting_or_plain
 
@@ -271,61 +271,36 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     progress_pct = round(completed / total_measures * 100) if total_measures else 0
 
     # ── Controls by framework (stacked bar) ──
-    # Only ACTIVE referentials count. Deselecting a referential in the UI keeps
-    # its controls in the DB (so re-enabling restores the saved work) but they
-    # must no longer be counted in the dashboard / posture. A control is
-    # included iff its framework is in its project's referentiels_actifs. A
-    # project with no ProjectSettings row (legacy / blob import) falls back to
-    # counting all its controls.
+    # FEAT-73 — each project's requirements counted with the status the
+    # screen shows (src/compliance_status.py), never the old 0-100
+    # `conformite` field. Only ACTIVE referentials count: deselecting one keeps
+    # its controls in the DB (re-enabling restores the work) but takes them
+    # out of the dashboard and the posture. A project with no ProjectSettings
+    # row (legacy / blob import) counts all its frameworks. A requirement
+    # under an approved derogation has its own category, still in the rate's
+    # denominator, never in its numerator.
+    from src.compliance_status import pct as rate
+    from src.routes.projects import compute_project_status
     settings_rows = (await db.execute(
         select(ProjectSettings.project_id, ProjectSettings.referentiels_actifs)
     )).all()
     active_by_project = {pid: set(ra or []) for pid, ra in settings_rows}
-    controls_result = await db.execute(
-        select(ProjectControl.project_id, ProjectControl.framework_id,
-               ProjectControl.conformite, ProjectControl.applicable, ProjectControl.ref)
-    )
-    per_framework = {}  # framework_id -> {conforme, partiel, non, total}
+    per_framework = {}  # framework_id -> {conforme, non, total}
     total_controls = 0
-    # FEAT-45 — requirements under an approved derogation: their own category,
-    # still in the denominator of the rate, never in the numerator.
-    derogated_keys: set = set()
-    try:
-        from src.models import Derogation
-        rows = (await db.execute(select(Derogation.subject_id).where(
-            Derogation.subject_type == "control", Derogation.status == "approved"))).scalars().all()
-        derogated_keys = set(rows)
-    except Exception:  # noqa: BLE001
-        derogated_keys = set()
     derogated_controls = 0
-    for (pid, fw, conf, appl, ref) in controls_result.all():
-        if appl == "non":
-            continue
+    for pid in (await db.execute(select(Project.id))).scalars().all():
         active = active_by_project.get(pid)
-        if active is not None and fw not in active:
-            continue  # referential deselected for this project — do not count
-        total_controls += 1
-        fw_key = fw or ""
-        if fw_key not in per_framework:
-            per_framework[fw_key] = {"conforme": 0, "partiel": 0, "non": 0, "total": 0}
-        per_framework[fw_key]["total"] += 1
-        if f"{fw}:{ref}" in derogated_keys:
-            derogated_controls += 1
-            per_framework[fw_key]["non"] += 1     # not compliant, kept in the rate's denominator
-            continue
-        try:
-            c = int(conf) if conf not in ("", None) else None
-        except (ValueError, TypeError):
-            c = None
-        if c is not None:
-            if c >= 80:
-                per_framework[fw_key]["conforme"] += 1
-            elif c >= 30:
-                per_framework[fw_key]["partiel"] += 1
-            else:
-                per_framework[fw_key]["non"] += 1
-        else:
-            per_framework[fw_key]["non"] += 1
+        status = await compute_project_status(db, pid)
+        for fw_key, counts in status["frameworks"].items():
+            if active is not None and fw_key not in active:
+                continue  # referential deselected for this project — do not count
+            d = per_framework.setdefault(fw_key, {"conforme": 0, "non": 0, "total": 0})
+            d["total"] += counts["applicable"]
+            d["conforme"] += counts["ok"]
+            d["non"] += counts["ko"] + counts["derogated"]
+            total_controls += counts["applicable"]
+            derogated_controls += counts["derogated"]
+    per_framework = {fw: d for fw, d in per_framework.items() if d["total"]}
 
     buckets = []
     # FEAT-51 — the framework's own name rather than its identifier shouted in
@@ -334,7 +309,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     # label is the organisation's, not translated — Pilot shows data here.
     noms = dict((await db.execute(select(Framework.id, Framework.label))).all())
     for fw_key, d in sorted(per_framework.items(), key=lambda kv: -kv[1]["total"])[:6]:
-        pct = round(d["conforme"] / d["total"] * 100) if d["total"] > 0 else 0
+        pct = rate(d["conforme"], d["total"])
         color = "green" if pct >= 80 else "orange" if pct >= 50 else "red"
         bucket = {
             "label": noms.get(fw_key) or fw_key.upper(),
@@ -347,13 +322,10 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         buckets.append(bucket)
     scale = 100
 
-    # ── Posture score: % of applicable controls that are conforme ──
-    # Single, unified definition of the conformity rate — identical to the one
-    # the user sees in the app (covered controls / applicable controls). We no
-    # longer average the per-control conformite (0-100) field, to avoid two
-    # competing "rates" (spec reconciliation, decision A).
+    # ── Posture score: % of applicable requirements that are compliant ──
+    # The rate the user sees in the app (compliant / applicable requirements).
     total_conforme = sum(d["conforme"] for d in per_framework.values())
-    posture_score = round(total_conforme / total_controls * 100) if total_controls > 0 else 100
+    posture_score = rate(total_conforme, total_controls) if total_controls > 0 else 100
 
     # ── Proofs expired > 10 days on completed measures ──
     cm_rows = (await db.execute(
@@ -425,7 +397,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         # FEAT-45 — the register's view of the posture.
         "nonconformities": {
             "derogated": derogated_controls + declared.pop("derogated", 0),
-            "detected_open": sum(d["non"] + d["partiel"] for d in per_framework.values()) - derogated_controls,
+            "detected_open": sum(d["non"] for d in per_framework.values()) - derogated_controls,
             "with_measure": 0,
             **declared,
         },
@@ -777,7 +749,7 @@ async def internal_restore_item(item_id: str, request: Request, db: AsyncSession
         await log_write(db, None, request, "project.restore", actor="pilot",
                         entity_type="project", entity_id=str(project.id), target=project.name or "")
         await _delete_children(db, project.id)
-        await _decompose_data(db, project.id, data)
+        await _decompose_data(db, project.id, data, _backup_sources(data))
         await bump_server_rev(db, project.id)
         await db.commit()
         return {"ok": True, "action": "updated", "repointed_from": repointed_from}
@@ -791,9 +763,16 @@ async def internal_restore_item(item_id: str, request: Request, db: AsyncSession
         from src.audit import log_write
         await log_write(db, None, request, "project.restore", actor="pilot",
                         entity_type="project", entity_id=str(project.id), target=project.name or "")
-        await _decompose_data(db, project.id, data)
+        await _decompose_data(db, project.id, data, _backup_sources(data))
         await db.commit()
         return {"ok": True, "action": "created", "repointed_from": repointed_from}
+
+
+def _backup_sources(data: dict) -> dict:
+    """A backup is the server's own export (FEAT-73): the source of its proofs
+    is given back as it was; any other value falls back to `manual`."""
+    return {str(p.get("id", "")): p.get("source") for p in (data.get("preuves") or [])
+            if isinstance(p, dict)}
 
 
 # ── Recovery reads (FEAT-30 phase 2) — state at instant T ───────────────

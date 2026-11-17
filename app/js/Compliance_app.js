@@ -17,7 +17,16 @@ window.CT_CONFIG = {
 };
 // FEAT-36 — schema versioning (rev 1 = normalized baseline; bump + add a
 // migration + archive a fixture whenever the exported data model changes).
-window.SCHEMA_REV = 1;
+// FEAT-73 — rev 2: every proof has a source, `manual` or `collected`; a
+// rev<=1 export's proofs were all added by a person. Python twin:
+// schema_migrations._compliance_1_to_2.
+window.SCHEMA_REV = 2;
+window.SCHEMA_MIGRATIONS = {
+    1: function (data) {
+        ((data && data.preuves) || []).forEach(function (p) { if (p && !p.source)
+            p.source = "manual"; });
+    },
+};
 let D = JSON.parse(JSON.stringify(window.COMPLIANCE_INIT_DATA || {}));
 const _ASSET_BASE = "js/Compliance";
 // _REFERENTIELS_CATALOG loaded from referentiels_catalog.js (shared)
@@ -338,22 +347,89 @@ function _normStatut(key) {
 }
 function _statutLabel(key) { return t("comp.statut." + _normStatut(key)) || key; }
 const _statutColors = { planifie: "orange", en_cours: "blue", termine: "green", preuve_manquante: "red" };
-// ── Automatic status computation ─────────────────────────────────────
-// Effective status of a measure (accounts for proof expiry)
-function _mesureEffectiveStatut(m) {
-    if (m.statut !== "termine")
-        return m.statut || "planifie";
-    // Done: check there is at least one valid (non-expired) proof
-    const preuves = (m.preuves_ids || []).map(id => _getPreuve(id)).filter(Boolean);
-    if (preuves.length === 0)
-        return "preuve_manquante";
-    const today = new Date();
-    const hasValid = preuves.some(p => !p.date_expiration || new Date(p.date_expiration) >= today);
-    return hasValid ? "termine" : "preuve_manquante";
+// ── Status, computed by the server (FEAT-73) ─────────────────────────
+// GET /projects/{id}/status: the effective status of every measure (a
+// completed measure without a valid proof is "preuve_manquante"), the status
+// of every requirement and the counts per framework. The screen shows them
+// and recomputes nothing; compliance_api.ts reloads them after every write.
+// The exported blob never carries them.
+var _status = { as_of: "", measures: {}, requirements: {}, frameworks: {} };
+function _applyStatus(s, render) {
+    var changed = JSON.stringify(s) !== JSON.stringify(_status);
+    _status = s;
+    if (render && changed)
+        _renderWhenIdle();
 }
-// Requirement status: OK if ≥1 measure AND all done (with valid proofs)
-// FEAT-45 — approved derogations on requirements, keyed "<framework>:<ref>".
-// The requirement status is derived here; the exported blob never carries it.
+window._applyStatus = _applyStatus;
+// A status that changed redraws the panel — never under the user's fingers:
+// a field being typed in keeps its text and its focus, and the panel is
+// redrawn once the focus has left every field (its change saved first); a
+// press in progress is let finish, so its click lands on what was pressed.
+var _renderDeferredOn = null;
+var _pointerIsDown = false;
+// The main button only: a context menu swallows the release of the others.
+document.addEventListener("pointerdown", function (e) { if (e.button === 0)
+    _pointerIsDown = true; }, true);
+["pointerup", "pointercancel", "contextmenu", "keydown"].forEach(function (type) {
+    document.addEventListener(type, function () { _pointerIsDown = false; }, true);
+});
+window.addEventListener("blur", function () { _pointerIsDown = false; });
+function _typingIn() {
+    var el = document.activeElement;
+    if (!el)
+        return null;
+    if (el.tagName === "TEXTAREA" || el.tagName === "SELECT")
+        return el;
+    if (el.tagName === "INPUT" && !/^(checkbox|radio|button|submit)$/.test(el.type))
+        return el;
+    return null;
+}
+function _renderWhenIdle() {
+    // A field removed while focused may never say it was left (Firefox).
+    if (_renderDeferredOn && !_renderDeferredOn.isConnected)
+        _renderDeferredOn = null;
+    var el = _typingIn();
+    // After the press, look again: its click may have put the focus in a field.
+    if (!el) {
+        if (_pointerIsDown)
+            _afterPress(_renderWhenIdle);
+        else
+            renderAll();
+        return;
+    }
+    if (_renderDeferredOn === el)
+        return;
+    _renderDeferredOn = el;
+    el.addEventListener("focusout", function () {
+        setTimeout(function () {
+            if (_renderDeferredOn === el)
+                _renderDeferredOn = null;
+            _renderWhenIdle();
+        }, 0);
+    }, { once: true });
+}
+function _afterPress(fn) {
+    // The click follows the release in the same task: run after it.
+    var go = function () {
+        document.removeEventListener("pointerup", go, true);
+        document.removeEventListener("pointercancel", go, true);
+        setTimeout(fn, 0);
+    };
+    document.addEventListener("pointerup", go, true);
+    document.addEventListener("pointercancel", go, true);
+}
+// A measure the server has not read yet (just created) shows its own status.
+function _mesureStatut(m) {
+    return _status.measures[m.id] || _normStatut(m.statut || "planifie");
+}
+function _exigStatut(fwId, entry) {
+    return _status.requirements[fwId + ":" + (entry.ref || "")] || "";
+}
+function _fwCounts(fwId) {
+    return _status.frameworks[fwId] || { applicable: 0, ok: 0, ko: 0, derogated: 0, excluded: 0, pct: 0 };
+}
+// FEAT-45 — approved derogations on requirements, keyed "<framework>:<ref>":
+// the reference and validity shown on the status badge.
 var _derogByKey = {};
 var _derogLoaded = false;
 function _loadDerogations(then) {
@@ -369,21 +445,7 @@ function _loadDerogations(then) {
 function _exigDerogation(fwId, entry) {
     return _derogByKey[fwId + ":" + (entry.ref || "")] || null;
 }
-function _exigenceStatut(entry, fwId) {
-    if (entry.applicable === false || entry.applicable === "non")
-        return "na";
-    if (fwId && _exigDerogation(fwId, entry))
-        return "derogated";
-    const ids = entry.mesures_ids || [];
-    if (ids.length === 0)
-        return "ko";
-    const mesures = ids.map(id => _getMesure(id)).filter(Boolean);
-    if (mesures.length === 0)
-        return "ko";
-    const allOk = mesures.every(m => _mesureEffectiveStatut(m) === "termine");
-    return allOk ? "ok" : "ko";
-}
-function _exigStatutLabel(key) { return t("comp.exig_statut." + key) || key; }
+function _exigStatutLabel(key) { return key ? (t("comp.exig_statut." + key) || key) : ""; }
 const _exigStatutColors = { ok: "green", ko: "red", na: "gray", derogated: "gray" };
 // ── Badges ──────────────────────────────────────────────────────────────
 // _tBadge() (shared) inlines the pastels inherited from CT_COLORS, which only
@@ -402,7 +464,7 @@ function _tBadge(text, colorName) {
     return '<span class="ct-badge" data-tone="' + (_CT_TONES[colorName] || "neutral") + '">' + esc(text) + '</span>';
 }
 function _mesureBadge(m) {
-    const s = _mesureEffectiveStatut(m);
+    const s = _mesureStatut(m);
     // Normalize before the lookup: imported/synced measures can carry a raw
     // status ("En cours") — without normalization the badge fell back to
     // "gray" and two styles coexisted for the same status.
@@ -463,6 +525,11 @@ function selectPanel(panelId) {
     // Format: "fw:dora:exigences" or "dashboard" or "context"
     if (_exigMarked && !_exigTarget && panelId !== "fw:" + _exigMarked.split(":")[0] + ":exigences")
         _exigMarked = "";
+    // FEAT-73 — the status changes without a write from this page too: a
+    // derogation decided in the register or in Pilot, one expired by the
+    // scheduler. Every panel asks for it again; a change redraws it.
+    if (window._refreshStatus)
+        window._refreshStatus();
     if (panelId.startsWith("fw:")) {
         _derogLoaded = false; // FEAT-45: an expiry by the scheduler must show without a page reload
         const parts = panelId.split(":");
@@ -1080,23 +1147,14 @@ function _activateImportedFramework(fwId, label, color, desc, measures) {
 }
 // ── Global dashboard ──────────────────────────────────────────────
 function renderDashboard() {
-    if (!_derogLoaded) {
-        _loadDerogations(renderDashboard);
-        return;
-    }
     let h = "";
     const frameworks = [];
     for (const fwId of D.referentiels_actifs) {
-        const exigences = _getExigences(fwId);
-        const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-        const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
         // Under derogation: its own category, still in the rate's denominator.
-        const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
-        const ko = applicable.length - ok - derog;
-        const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
-        const excluded = exigences.length - applicable.length;
+        const c = _fwCounts(fwId);
         const meta = _getAllFrameworks()[fwId];
-        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: applicable.length, ok, ko, derog, pct, excluded });
+        frameworks.push({ fwId, label: meta ? meta.label : fwId, total: c.applicable, ok: c.ok, ko: c.ko,
+            derog: c.derogated, pct: c.pct, excluded: c.excluded });
     }
     if (frameworks.length === 0) {
         h = '<div class="ct-synth-card"><p class="text-muted">' + t("comp.dash.no_framework") + '</p></div>';
@@ -1149,12 +1207,9 @@ function _renderFwView(fwId, subview) {
         _renderFwPreuves(fwId, label);
 }
 function _renderFwDashboard(fwId, label) {
-    const exigences = _getExigences(fwId);
-    const applicable = exigences.filter(e => e.applicable !== false && e.applicable !== "non");
-    const ok = applicable.filter(e => _exigenceStatut(e, fwId) === "ok").length;
-    const derog = applicable.filter(e => _exigDerogation(fwId, e) !== null).length;
-    const ko = applicable.length - ok - derog;
-    const pct = applicable.length > 0 ? Math.round(ok * 100 / applicable.length) : 0;
+    const c = _fwCounts(fwId);
+    const ok = c.ok, ko = c.ko, pct = c.pct;
+    const applicable = { length: c.applicable };
     const mesures = _getMesuresForFw(fwId);
     const preuves = _getPreuvesForFw(fwId);
     let h = `<h2 class="ct-ink ct-mb-4">${esc(label)}</h2>`;
@@ -1246,15 +1301,15 @@ function _renderFwExigences(fwId, label) {
         const theme = _rt(e, "thematique") || _rt(e, "theme");
         const notApplicable = e.applicable === false || e.applicable === "non";
         const desc = getDesc ? getDesc(ref) : (_rt(e, "description") || "");
-        // Computed status
-        const statut = _exigenceStatut(e, fwId);
+        // Status, as the server computed it
+        const statut = _exigStatut(fwId, e);
         const statutColor = _exigStatutColors[statut] || "var(--ct-ink-2)";
         const derog = _exigDerogation(fwId, e);
         // Linked measures with their effective status
         const linkedMesures = (e.mesures_ids || []).map(id => _getMesure(id)).filter(Boolean);
-        const enPlace = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "termine");
-        const preuveManquante = linkedMesures.filter(m => _mesureEffectiveStatut(m) === "preuve_manquante");
-        const prevues = linkedMesures.filter(m => { var s = _mesureEffectiveStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
+        const enPlace = linkedMesures.filter(m => _mesureStatut(m) === "termine");
+        const preuveManquante = linkedMesures.filter(m => _mesureStatut(m) === "preuve_manquante");
+        const prevues = linkedMesures.filter(m => { var s = _mesureStatut(m); return s !== "termine" && s !== "preuve_manquante"; });
         h += `<tr data-exig-ref="${esc(ref)}"${notApplicable ? ' class="ct-bg-alt"' : ''}>`;
         h += `<td${hd("ref")} class="fw-600">${esc(ref)}</td>`;
         h += `<td${hd("theme")} class="fs-sm">${esc(theme)}</td>`;
@@ -1368,15 +1423,19 @@ function _ncOptions() {
         measures: {
             options: function () {
                 return (D.mesures || []).map(function (m) {
-                    var st = _mesureEffectiveStatut(m);
+                    var st = _mesureStatut(m);
                     return { id: m.id, label: m.id + " " + (m.description || "").substring(0, 50), statusLabel: _statutLabel(st), done: st === "termine" };
                 });
             },
             create: function (draft) { return _createMesureForNc(draft); },
             open: function (id) { return window._editMesureRow({ id: id }); },
         },
-        onChange: function () { _loadDerogations(function () { if (_currentPanel.startsWith("fw:") && _currentFw)
-            _renderFwView(_currentFw, _currentSubview); }); }
+        onChange: function () {
+            _loadDerogations(function () { if (_currentPanel.startsWith("fw:") && _currentFw)
+                _renderFwView(_currentFw, _currentSubview); });
+            if (window._refreshStatus)
+                window._refreshStatus(); // a derogation changes the status
+        }
     };
 }
 // Corrective measure of a non-conformity: same unified modal and API as
@@ -1590,7 +1649,6 @@ function _toggleApplicable(fwId, idx, checked) {
     _renderFwView(fwId, "exigences");
     _persist("control", entry.id, { applicable: entry.applicable, conformite: entry.conformite });
 }
-// Compliance computed automatically (see _exigenceStatut)
 function _updateExig(fwId, idx, field, val) {
     var entry = _getExigEntry(fwId, idx);
     entry[field] = val;

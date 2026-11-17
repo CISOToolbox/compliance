@@ -35,6 +35,9 @@ PIECES = (
     ("compliance_api.js", "window._autoSave = function"),
     ("cisotoolbox_backend.js", "*"),
     ("compliance_api.js", "function _flushDirty("),
+    ("compliance_api.js", "function _loadStatus("),
+    ("compliance_api.js", "function _refreshStatus("),
+    ("compliance_api.js", "function _write("),
 )
 
 pytestmark = pytest.mark.skipif(
@@ -70,6 +73,10 @@ function showStatus(m, isErr) { events.push("status:" + m + (isErr ? "|red" : ""
 var console = { error: function() {} };
 function t(key, p) { return key + (p && p.reason !== undefined ? "|" + p.reason : ""); }
 var spec = JSON.parse(process.argv[1]);
+// Every write reloads the status once it has landed (FEAT-73): answered here
+// without going through `fetch`, so the events are the write's alone.
+var _statusTimer = null, _writesInFlight = 0, _statusSeq = 0, _statusRetry = 0, STATUS_RETRIES = [];
+function _statusStub() { return Promise.resolve({}); }
 // A Response body can be read once: a second read rejects, as in a browser.
 function fetch() {
     var used = false;
@@ -91,12 +98,14 @@ DRIVERS = {
     "save": r"""
 var _dataReady = true, _saveTimer = null, _activeId = "p", _serverRev = 0;
 var D = { metadata: {}, meta: {} };
-var ComplianceAPI = { update: function(id, b) { return _fetch("/projects/" + id, { method: "PUT", body: b }); } };
+var ComplianceAPI = { update: function(id, b) { return _fetch("/projects/" + id, { method: "PUT", body: b }); },
+                      status: _statusStub };
 window._autoSave();
 """,
     "control": r"""
 var _activeId = "p", _dataReady = true, _flushTimer = null;
 var _dirty = { "control:C-1": { conformite: 3 } };
+var ComplianceAPI = { status: _statusStub };
 var _PATCH_FNS = { control: function(id, f) { return _fetch("/projects/p/controls/" + id, { method: "PATCH", body: f }); } };
 _flushDirty();
 """,

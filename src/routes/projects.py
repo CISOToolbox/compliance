@@ -2,16 +2,17 @@ from __future__ import annotations
 
 import copy
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Optional
 
 import re
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
-from sqlalchemy import delete, select
+from sqlalchemy import delete, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
+from src.compliance_status import project_status
 from src.auth import ADMIN_MODULE_ROLES, VIEWER_MODULE_ROLES, auth_enabled, get_current_user, perms_for_module_role, require_edit_role
 from src.database import get_db
 from src.models import (
@@ -23,6 +24,7 @@ from src.models import (
     ProjectMeta,
     ProjectProof,
     ProjectSettings,
+    PROOF_SOURCES,
     User,
 )
 from src.schemas import (
@@ -125,6 +127,7 @@ def _proof_to_dict(p: ProjectProof) -> dict:
         "file_ref": p.file_ref or "",
         "owner": p.owner or "",
         "tags": p.tags or [],
+        "source": p.source or "manual",
     }
 
 
@@ -188,6 +191,26 @@ async def _reconstruct_data(db: AsyncSession, project_id: uuid.UUID) -> dict:
     if customs:
         data["_custom_frameworks"] = customs
     return data
+
+
+async def compute_project_status(db: AsyncSession, project_id: uuid.UUID,
+                                 today: Optional[date] = None) -> dict:
+    """The status of the project's measures and requirements (FEAT-73): what
+    the screen shows and what the posture counts. Derogations are read with
+    the scope the register lists them in: the project's, and the module-level
+    ones."""
+    from src.models import Derogation
+    controls = (await db.execute(select(ProjectControl).where(ProjectControl.project_id == project_id)
+                                 .order_by(ProjectControl.sort_order))).scalars().all()
+    measures = (await db.execute(select(ProjectMeasure)
+                                 .where(ProjectMeasure.project_id == project_id))).scalars().all()
+    proofs = (await db.execute(select(ProjectProof)
+                               .where(ProjectProof.project_id == project_id))).scalars().all()
+    derogated = set((await db.execute(select(Derogation.subject_id).where(
+        Derogation.subject_type == "control", Derogation.status == "approved",
+        or_(Derogation.project_id == str(project_id), Derogation.project_id == "",
+            Derogation.project_id.is_(None))))).scalars().all())
+    return project_status(controls, measures, proofs, derogated, today or date.today())
 
 
 async def _custom_frameworks(db: AsyncSession) -> dict:
@@ -282,8 +305,26 @@ async def _adopter_referentiels(db: AsyncSession, data: dict, user: Optional[Use
             ))
 
 
-async def _decompose_data(db: AsyncSession, project_id: uuid.UUID, data: dict):
-    """Decompose a D object into relational child rows."""
+async def _proof_sources(db: AsyncSession, project_id: uuid.UUID) -> dict:
+    """The source of each proof of the project, read before a save replaces
+    the rows: the client cannot set it, so a save keeps it."""
+    rows = (await db.execute(select(ProjectProof.id, ProjectProof.source)
+                             .where(ProjectProof.project_id == project_id))).all()
+    return {pid: src for pid, src in rows}
+
+
+def _source_of(sources: Optional[dict], proof_id: str) -> str:
+    src = (sources or {}).get(proof_id)
+    return src if src in PROOF_SOURCES else "manual"
+
+
+async def _decompose_data(db: AsyncSession, project_id: uuid.UUID, data: dict,
+                          sources: Optional[dict] = None):
+    """Decompose a D object into relational child rows.
+
+    `sources`: the source to give each proof, by id (FEAT-73), from what the
+    server holds; a proof it does not name is `manual`. The blob's own
+    `source` is never read here: it comes from the client."""
     # Meta
     meta = data.get("meta") or {}
     db.add(ProjectMeta(
@@ -359,6 +400,7 @@ async def _decompose_data(db: AsyncSession, project_id: uuid.UUID, data: dict):
             file_ref=p.get("file_ref", ""),
             owner=p.get("owner", ""),
             tags=p.get("tags", []) or [],
+            source=_source_of(sources, p.get("id", "")),
         ))
 
 
@@ -450,8 +492,9 @@ async def update_project(
         project.organization = body.organization
 
     if body.data is not None:
+        sources = await _proof_sources(db, project.id)
         await _delete_children(db, project.id)
-        await _decompose_data(db, project.id, copy.deepcopy(body.data))
+        await _decompose_data(db, project.id, copy.deepcopy(body.data), sources)
 
     project.updated_at = datetime.now(timezone.utc)
     from src.audit import log_write
@@ -506,7 +549,7 @@ async def duplicate_project(
     db.add(duplicate)
     await db.flush()
 
-    await _decompose_data(db, duplicate.id, original_data)
+    await _decompose_data(db, duplicate.id, original_data, await _proof_sources(db, original.id))
     await db.commit()
     await db.refresh(duplicate)
 
@@ -616,7 +659,21 @@ async def get_project_stats(
         raise HTTPException(status_code=403, detail="Access denied")
 
     data = await _reconstruct_data(db, project.id)
-    return _compute_project_stats(data)
+    return _compute_project_stats(data, await compute_project_status(db, project.id))
+
+
+@router.get("/{project_id}/status")
+async def get_project_status(
+    project_id: uuid.UUID,
+    user: Optional[User] = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    project = await db.get(Project, project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    if not _can("read", project, user):
+        raise HTTPException(status_code=403, detail="Access denied")
+    return await compute_project_status(db, project.id)
 
 
 @router.post("/{project_id}/share", response_model=ProjectResponse)
@@ -701,23 +758,10 @@ def _project_response(project: Project, data: dict) -> dict:
     }
 
 
-def _compute_project_stats(data: dict) -> dict:
-    total_controls = 0
-    compliant_controls = 0
-    for fw_key, controls in (data.get("referentiels") or {}).items():
-        if not isinstance(controls, list):
-            continue
-        for c in controls:
-            if c.get("applicable") == "non":
-                continue
-            total_controls += 1
-            conf = c.get("conformite")
-            if conf is not None and conf != "":
-                try:
-                    if int(conf) >= 80:
-                        compliant_controls += 1
-                except (ValueError, TypeError):
-                    pass
+def _compute_project_stats(data: dict, status: dict) -> dict:
+    # Every framework of the project, active or not, read in the status.
+    total_controls = sum(fw["applicable"] for fw in status["frameworks"].values())
+    compliant_controls = sum(fw["ok"] for fw in status["frameworks"].values())
 
     total_measures = len(data.get("mesures") or [])
     completed = sum(1 for m in (data.get("mesures") or []) if m.get("statut") in ("completed", "termine", "Terminé"))

@@ -183,6 +183,9 @@ class ProjectProof(Base):
     file_ref = Column(String(500), nullable=True, default="")
     owner = Column(String(255), nullable=True, default="")
     tags = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))
+    # FEAT-73 — `manual` (added by a person) or `collected` (written by the
+    # server from a connector). Never taken from the client.
+    source = Column(String(20), nullable=False, default="manual", server_default=text("'manual'"))
 
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
@@ -192,6 +195,9 @@ class ProjectProof(Base):
     __table_args__ = (
         Index("ix_project_proofs_project", "project_id"),
     )
+
+
+PROOF_SOURCES = ("manual", "collected")
 
 
 # ── Reference Frameworks (read-only catalog) ─────────────────────

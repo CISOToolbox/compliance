@@ -287,6 +287,7 @@ class ProofResponse(BaseModel):
     file_ref: str | None = ""
     owner: str | None = ""
     tags: list = []
+    source: str | None = "manual"
     created_at: datetime
     updated_at: datetime
 

@@ -54,6 +54,7 @@ function _pid(): string { return (typeof window._getActiveProjectId === "functio
 window.ComplianceAPI = {
     list: function() { return _fetch("/projects"); },
     get: function(id: string) { return _fetch("/projects/" + id); },
+    status: function(id: string) { return _fetch("/projects/" + id + "/status"); },
     create: function(data?: { name: string; data: Record<string, unknown> }) { return _fetch("/projects", { method: "POST", body: data || { name: "", data: {} } }); },
     update: function(id: string, data: { name: string; data: unknown }) { return _fetch("/projects/" + id, { method: "PUT", body: data }); },
     del: function(id: string) { return _fetch("/projects/" + id, { method: "DELETE" }); },
@@ -141,6 +142,49 @@ var _dirty: Record<string, Record<string, any>> = {};
 var _serverRev = 0;
 var _flushTimer: ReturnType<typeof setTimeout> | null = null;
 
+// FEAT-73 — the status is the server's: reloaded once the writes in flight
+// have landed, and shown if it changed.
+var _statusTimer: ReturnType<typeof setTimeout> | null = null;
+var _writesInFlight = 0;
+// Only the answer to the latest request is shown: an older one, late, would
+// put back a status that is no longer true.
+var _statusSeq = 0;
+// An unreachable status is asked again (2, 4, 8 s), then said: figures shown
+// without it would pass for the real ones.
+var _statusRetry = 0;
+var STATUS_RETRIES = [2000, 4000, 8000];
+function _loadStatus(id: string, render: boolean): Promise<void> {
+    var seq = ++_statusSeq;
+    // Only a failed request is retried: an error while showing the answer is
+    // not an unreachable status.
+    return ComplianceAPI.status(id).then(function(s) {
+        if (seq !== _statusSeq) return;
+        _statusRetry = 0;
+        if (window._applyStatus) window._applyStatus(s, render);
+    }, function() {
+        if (seq !== _statusSeq) return;
+        if (_statusRetry < STATUS_RETRIES.length) {
+            setTimeout(function() { if (seq === _statusSeq) _loadStatus(id, true); }, STATUS_RETRIES[_statusRetry++]);
+        } else {
+            _statusRetry = 0;
+            showStatus(t("comp.status.unreachable"), true);
+        }
+    });
+}
+function _refreshStatus(): void {
+    if (_statusTimer) clearTimeout(_statusTimer);
+    _statusTimer = setTimeout(function() {
+        _statusTimer = null;
+        if (!_activeId || _writesInFlight > 0) return;
+        _loadStatus(_activeId, true);
+    }, 150);
+}
+window._refreshStatus = _refreshStatus;
+function _write<T>(p: Promise<T>): Promise<T> {
+    _writesInFlight++;
+    return p.finally(function() { _writesInFlight--; _refreshStatus(); });
+}
+
 // Mapping from D property names to API entity types
 // D.referentiels → controls, D.mesures → measures, D.preuves → proofs
 var _PATCH_FNS: Record<string, ((id: string | number, f: Record<string, unknown>) => Promise<unknown>) | undefined> = {
@@ -160,7 +204,7 @@ function _flushDirty(): void {
             var type = parts[0]!, id = parts[1]!;
             var fn = _PATCH_FNS[type];
             if (fn) {
-                fn(id, batch[key]!).catch(ct_changeFailed);
+                _write(fn(id, batch[key]!)).catch(ct_changeFailed);
             }
         }
     }, 500);
@@ -187,7 +231,7 @@ window._persistCreate = function(entityType, data) {
         proof:   function(d) { return ComplianceAPI.createProof(_activeId!, d); },
     };
     var fn = CREATE_FNS[entityType];
-    if (fn) fn(data).catch(ct_changeFailed);
+    if (fn) _write(fn(data)).catch(ct_changeFailed);
     else _autoSave();
 };
 
@@ -199,7 +243,7 @@ window._persistDelete = function(entityType, entityId) {
         proof:   function(id) { return ComplianceAPI.deleteProof(_activeId!, id); },
     };
     var fn = DELETE_FNS[entityType];
-    if (fn) fn(entityId).catch(ct_changeFailed);
+    if (fn) _write(fn(entityId)).catch(ct_changeFailed);
     else _autoSave();
 };
 
@@ -211,8 +255,8 @@ window._autoSave = function() {
         _saveTimer = null;  // FEAT-33: a fired timer must not keep blocking the focus refresh
         if (!_activeId) return;
         var name = (D.meta && D.meta.societe) || "";
-        ComplianceAPI.update(_activeId, { name: name, data: JSON.parse(JSON.stringify(D)),
-                                          expected_server_rev: _serverRev } as any)
+        _write(ComplianceAPI.update(_activeId, { name: name, data: JSON.parse(JSON.stringify(D)),
+                                                 expected_server_rev: _serverRev } as any))
             .catch(_onSaveError);
     }, 500);
 };
@@ -229,6 +273,7 @@ function _onSaveError(err: any): void {
 // while the tab was hidden. Skipped while local edits are in flight.
 document.addEventListener("visibilitychange", function() {
     if (document.visibilityState !== "visible" || !_activeId || !_dataReady) return;
+    _refreshStatus();       // FEAT-73: a decision taken in Pilot meanwhile
     if (Object.keys(_dirty).length || _saveTimer) return;
     ComplianceAPI.get(_activeId).then(function(project) {
         if ((project.server_rev || 0) === _serverRev) return;
@@ -237,6 +282,7 @@ document.addEventListener("visibilitychange", function() {
         Object.keys(D).forEach(function(k) { delete (D as unknown as Record<string, unknown>)[k]; });
         Object.assign(D, pdata);
         if (typeof renderAll === "function") renderAll();
+        _refreshStatus();
         showStatus(t("chrome.stale_refreshed"));
     }).catch(function() { /* offline — ignore */ });
 });
@@ -244,7 +290,11 @@ document.addEventListener("visibilitychange", function() {
 // Init: load project from API
 window._appInitCallback = function() {
     function _loadAndRender(id: string): void {
-        ComplianceAPI.get(id).then(function(project) {
+        // The project decides what is shown; its status, asked at the same
+        // time, never fails the load (it would create a project).
+        var status = _loadStatus(id, false);
+        Promise.all([ComplianceAPI.get(id), status]).then(function(r) {
+            var project = r[0];
             _activeId = project.id;
             _serverRev = project.server_rev || 0;
             localStorage.setItem("compliance_active_project", _activeId);
@@ -263,6 +313,7 @@ window._appInitCallback = function() {
         var initData = typeof window.COMPLIANCE_INIT_DATA !== "undefined" ? JSON.parse(JSON.stringify(window.COMPLIANCE_INIT_DATA)) : {};
         ComplianceAPI.create({ name: "", data: initData }).then(function(project) {
             _activeId = project.id;
+            _refreshStatus();
             localStorage.setItem("compliance_active_project", _activeId);
             Object.keys(D).forEach(function(k) { delete (D as unknown as Record<string, unknown>)[k]; });
             Object.assign(D, initData);

@@ -195,7 +195,8 @@ class ControlResponse(BaseModel):
 # whitelist the values actually used by the frontend select (Compliance_app.ts).
 # MeasureResponse keeps a plain str so rows already stored with other values
 # (e.g. via project import) are still returned; only new writes are constrained.
-RecurrenceValue = Literal["", "ponctuel", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
+# "quotidienne": the recurrence of a measure under automated monitoring (FEAT-73).
+RecurrenceValue = Literal["", "ponctuel", "quotidienne", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
 
 
 class MeasureCreate(BaseModel):
@@ -292,3 +293,59 @@ class ProofResponse(BaseModel):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+# ── Automated monitoring (FEAT-73) ──────────────────────────────────────
+# Settings and secrets are validated against the provider's catalog entry
+# (src/collection/connections.py), not here: their fields belong to it.
+class ConnectionCreate(BaseModel):
+    provider: str
+    label: str
+    mode: str = "demo"
+    settings: dict = {}
+    secrets: dict = {}
+
+
+class ConnectionUpdate(BaseModel):
+    label: str | None = None
+    mode: str | None = None
+    settings: dict | None = None
+    secrets: dict | None = None
+
+
+class MonitorCreate(BaseModel):
+    collector_code: str
+    connection_id: uuid.UUID
+    params: dict = {}
+    retention: dict | None = None
+
+
+class MonitorDeactivate(BaseModel):
+    reason: str
+
+
+class MonitorUpdate(BaseModel):
+    params: dict | None = None
+    retention: dict | None = None
+
+
+class ExclusionCreate(BaseModel):
+    resource: str
+    justification: str
+    kind: str = "permanent"
+    # temporary: the derogation requested in the register
+    title: str | None = None
+    risk_owner: str | None = None
+    approver: str | None = None
+    valid_until: str | None = None
+    review_at: str | None = None
+
+
+class ExclusionRevoke(BaseModel):
+    reason: str
+
+
+class SuggestionDecision(BaseModel):
+    collector_code: str
+    requirement_key: str
+    decision: str

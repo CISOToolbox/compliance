@@ -63,6 +63,9 @@ class Project(Base):
     controls = relationship("ProjectControl", back_populates="project", cascade="all, delete-orphan", order_by="ProjectControl.sort_order")
     measures = relationship("ProjectMeasure", back_populates="project", cascade="all, delete-orphan", order_by="ProjectMeasure.sort_order")
     proofs = relationship("ProjectProof", back_populates="project", cascade="all, delete-orphan", order_by="ProjectProof.sort_order")
+    # FEAT-73 — deleting a project deletes its connections (and, through
+    # them, everything collected): the database cascades, the ORM follows.
+    collection_connections = relationship("CollectionConnection", cascade="all, delete-orphan", passive_deletes=True)
 
 
 # ── Project Meta (1:1) ─────────────────────────────────────────
@@ -276,6 +279,142 @@ class MeasureCatalog(Base):
 
 
 
+
+
+# ── Automated monitoring (FEAT-73) ─────────────────────────────────────
+# A connection holds the access to one provider account (an AWS account, a
+# GitHub organization) for ONE project: visible, proposed and used there
+# only. Its secrets are encrypted (settings_crypto, refused without
+# ENCRYPTION_KEY) and never served. No foreign key to measures or proofs:
+# a whole-project save deletes and re-inserts those rows.
+class CollectionConnection(Base):
+    __tablename__ = "collection_connections"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    provider = Column(String(20), nullable=False)          # aws | github (the catalog's providers)
+    label = Column(String(255), nullable=False)
+    mode = Column(String(10), nullable=False, default="demo", server_default=text("'demo'"))  # demo | live
+    settings = Column(JSONB, nullable=False, default=dict, server_default=text("'{}'::jsonb"))
+    secrets_enc = Column(Text, nullable=False, default="", server_default=text("''"))
+    last_test_at = Column(DateTime(timezone=True), nullable=True)
+    last_test_ok = Column(Boolean, nullable=True)
+    last_test_message = Column(Text, nullable=False, default="", server_default=text("''"))
+    missing_permissions = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))
+    created_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    __table_args__ = (
+        Index("uq_collection_connections_label", "project_id", "provider", "label", unique=True),
+    )
+
+
+# One collector activated on one measure, backed by one collected proof.
+# measure_id / proof_id are the module's business ids, without foreign key
+# (see above); the recurrence lock of the measure is derived from an active
+# monitor. The last_* columns cache the latest version for the status.
+class CollectionMonitor(Base):
+    __tablename__ = "collection_monitors"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    connection_id = Column(UUID(as_uuid=True), ForeignKey("collection_connections.id"), nullable=False, index=True)
+    measure_id = Column(String(30), nullable=False)
+    proof_id = Column(String(30), nullable=False)
+    collector_code = Column(String(20), nullable=False)
+    params = Column(JSONB, nullable=False, default=dict, server_default=text("'{}'::jsonb"))
+    retention = Column(JSONB, nullable=True)                   # null: the collector's profile
+    active = Column(Boolean, nullable=False, default=True, server_default=text("true"))
+    activated_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    activated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    deactivated_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    deactivated_at = Column(DateTime(timezone=True), nullable=True)
+    deactivation_reason = Column(Text, nullable=False, default="", server_default=text("''"))
+    last_attempt_at = Column(DateTime(timezone=True), nullable=True)
+    last_version_id = Column(UUID(as_uuid=True), nullable=True)
+    last_result = Column(String(20), nullable=True)
+    last_collected_at = Column(DateTime(timezone=True), nullable=True)
+    state_since = Column(DateTime(timezone=True), nullable=True)
+    error_since = Column(DateTime(timezone=True), nullable=True)    # first of the errors in a row
+    alerted_at = Column(DateTime(timezone=True), nullable=True)     # the alert of the current error streak
+    __table_args__ = (
+        Index("uq_collection_monitors_active", "project_id", "measure_id", "collector_code", "connection_id",
+              unique=True, postgresql_where=text("active"), sqlite_where=text("active")),
+    )
+
+
+# A dated version of a collected proof. Immutable but for the purge, which
+# empties the detail and the raw data of a version its retention no longer
+# keeps and leaves its result, counts, dates and fingerprint.
+class CollectionVersion(Base):
+    __tablename__ = "collection_versions"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
+    monitor_id = Column(UUID(as_uuid=True), ForeignKey("collection_monitors.id", ondelete="CASCADE"), nullable=False)
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    seq = Column(Integer, nullable=False)
+    collected_at = Column(DateTime(timezone=True), nullable=False)
+    data_as_of = Column(DateTime(timezone=True), nullable=True)
+    trigger = Column(String(20), nullable=False, default="schedule")   # activation | schedule | manual
+    collector_code = Column(String(20), nullable=False)
+    collector_version = Column(Integer, nullable=False)
+    rule_text = Column(Text, nullable=False, default="")
+    connection_label = Column(String(255), nullable=False, default="")
+    result = Column(String(20), nullable=False)                         # conforme | non_conforme | erreur | sans_objet
+    reason = Column(Text, nullable=True)
+    missing_permission = Column(String(200), nullable=True)
+    partial = Column(Boolean, nullable=False, default=False)
+    evaluated = Column(Integer, nullable=False, default=0)
+    n_findings = Column(Integer, nullable=False, default=0)
+    n_excluded = Column(Integer, nullable=False, default=0)
+    n_unreadable = Column(Integer, nullable=False, default=0)
+    scope = Column(JSONB, nullable=True)
+    findings = Column(JSONB, nullable=True)
+    excluded = Column(JSONB, nullable=True)
+    unreadable = Column(JSONB, nullable=True)
+    raw = Column(JSONB, nullable=True)
+    raw_sha256 = Column(String(64), nullable=False)
+    result_changed = Column(Boolean, nullable=False, default=False)
+    purged_at = Column(DateTime(timezone=True), nullable=True)
+    __table_args__ = (
+        Index("uq_collection_versions_seq", "monitor_id", "seq", unique=True),
+        Index("ix_collection_versions_monitor_at", "monitor_id", "collected_at"),
+    )
+
+
+# A finding set aside, with a justification: per resource, collector and
+# connection, so it survives a deactivation. A temporary one takes effect
+# through an approved derogation of the FEAT-45 register.
+class CollectionExclusion(Base):
+    __tablename__ = "collection_exclusions"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    connection_id = Column(UUID(as_uuid=True), ForeignKey("collection_connections.id", ondelete="CASCADE"), nullable=False)
+    collector_code = Column(String(20), nullable=False)
+    resource = Column(Text, nullable=False)
+    resource_hash = Column(String(64), nullable=False)
+    justification = Column(Text, nullable=False)
+    kind = Column(String(20), nullable=False, default="permanent")        # permanent | temporary
+    derogation_id = Column(UUID(as_uuid=True), nullable=True)
+    created_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    revoked_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    revoked_at = Column(DateTime(timezone=True), nullable=True)
+    revoked_reason = Column(Text, nullable=False, default="", server_default=text("''"))
+    __table_args__ = (
+        Index("uq_collection_exclusions_live", "connection_id", "collector_code", "resource_hash",
+              unique=True, postgresql_where=text("revoked_at IS NULL"), sqlite_where=text("revoked_at IS NULL")),
+    )
+
+
+# A suggested link between a collector and a requirement, deduced from the
+# mappings to ISO, confirmed or rejected by the project (FEAT-73): confirmed,
+# it counts as the collector's own; rejected, it is no longer proposed.
+class CollectionSuggestionDecision(Base):
+    __tablename__ = "collection_suggestion_decisions"
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), primary_key=True)
+    collector_code = Column(String(20), primary_key=True)
+    requirement_key = Column(String(120), primary_key=True)      # <framework>:<ref>
+    decision = Column(String(20), nullable=False)               # confirmed | rejected
+    decided_by = Column(String(255), nullable=False, default="", server_default=text("''"))
+    decided_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
 
 
 # ── Append-only server-side write journal (FEAT-30 P1.6) ──────────────

@@ -232,13 +232,19 @@ interface ComplianceAuthUser {
 
 /** FEAT-73 — GET /projects/{id}/status, computed by the server. */
 interface ComplianceFwStatus {
-    applicable: number; ok: number; ko: number; derogated: number; excluded: number; pct: number;
+    applicable: number; ok: number; ko: number; unassessable?: number; derogated: number; excluded: number; pct: number;
 }
 interface ComplianceStatus {
     as_of: string;
     /** measure id → planifie | en_cours | termine | preuve_manquante */
     measures: Record<string, string>;
-    /** "<framework>:<ref>" → ok | ko | na | derogated */
+    /** proof id → {source, validity: valid | invalid | expired | unassessable | not_applicable} */
+    proofs?: Record<string, { source: string; validity: string }>;
+    /** measures under an active automated monitoring */
+    monitored_measures?: string[];
+    /** collected proofs a monitoring writes or wrote (any other is an orphan) */
+    held_proofs?: string[];
+    /** "<framework>:<ref>" → ok | ko | na | derogated | unassessable */
     requirements: Record<string, string>;
     frameworks: Record<string, ComplianceFwStatus>;
 }
@@ -247,6 +253,24 @@ interface ComplianceAPIShape {
     list(): Promise<ComplianceProjectSummary[]>;
     get(projectId: string): Promise<ComplianceProject>;
     status(projectId: string): Promise<ComplianceStatus>;
+    collectors(): Promise<any>;
+    listConnections(): Promise<any[]>;
+    createConnection(body: Record<string, unknown>): Promise<any>;
+    updateConnection(cid: string, body: Record<string, unknown>): Promise<any>;
+    deleteConnection(cid: string): Promise<null>;
+    testConnection(cid: string): Promise<any>;
+    measureMonitoring(mid: string): Promise<any>;
+    activateMonitoring(mid: string, body: Record<string, unknown>): Promise<any>;
+    listMonitors(): Promise<any[]>;
+    runMonitoring(id: string): Promise<any>;
+    deactivateMonitoring(id: string, reason: string): Promise<any>;
+    listVersions(id: string): Promise<any[]>;
+    getVersion(vid: string): Promise<any>;
+    createExclusion(id: string, body: Record<string, unknown>): Promise<any>;
+    listExclusions(): Promise<any[]>;
+    revokeExclusion(eid: string, reason: string): Promise<any>;
+    coverage(fw: string): Promise<any>;
+    decideSuggestion(body: Record<string, unknown>): Promise<any>;
     create(data?: { name: string; data: Record<string, unknown> }): Promise<ComplianceProject>;
     update(id: string, data: { name: string; data: unknown }): Promise<ComplianceProject>;
     del(id: string): Promise<null>;
@@ -341,6 +365,7 @@ interface Window {
     _persist?: typeof _persist;
     _applyStatus?: (s: ComplianceStatus, render: boolean) => void;
     _refreshStatus?: () => void;
+    _reloadData?: () => Promise<void>;
     _persistCreate?: typeof _persistCreate;
     _persistDelete?: typeof _persistDelete;
     _autoSave?: () => void;

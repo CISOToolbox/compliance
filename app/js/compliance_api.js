@@ -80,6 +80,25 @@
         patchProof: function (pid, rid, f) { return _fetch("/projects/" + pid + "/proofs/" + rid, { method: "PATCH", body: f }); },
         createProof: function (pid, d) { return _fetch("/projects/" + pid + "/proofs", { method: "POST", body: d }); },
         deleteProof: function (pid, rid) { return _fetch("/projects/" + pid + "/proofs/" + rid, { method: "DELETE" }); },
+        // ── Automated monitoring (FEAT-73) ──
+        collectors: function () { return _fetch("/collectors"); },
+        listConnections: function () { return _fetch("/projects/" + _pid() + "/connections"); },
+        createConnection: function (body) { return _fetch("/projects/" + _pid() + "/connections", { method: "POST", body: body }); },
+        updateConnection: function (cid, body) { return _fetch("/projects/" + _pid() + "/connections/" + cid, { method: "PATCH", body: body }); },
+        deleteConnection: function (cid) { return _fetch("/projects/" + _pid() + "/connections/" + cid, { method: "DELETE" }); },
+        testConnection: function (cid) { return _fetch("/projects/" + _pid() + "/connections/" + cid + "/test", { method: "POST" }); },
+        measureMonitoring: function (mid) { return _fetch("/projects/" + _pid() + "/measures/" + encodeURIComponent(mid) + "/monitoring"); },
+        activateMonitoring: function (mid, body) { return _fetch("/projects/" + _pid() + "/measures/" + encodeURIComponent(mid) + "/monitors", { method: "POST", body: body }); },
+        listMonitors: function () { return _fetch("/projects/" + _pid() + "/monitors"); },
+        runMonitoring: function (id) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/run", { method: "POST" }); },
+        deactivateMonitoring: function (id, reason) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/deactivate", { method: "POST", body: { reason: reason } }); },
+        listVersions: function (id) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/versions?limit=60"); },
+        getVersion: function (vid) { return _fetch("/projects/" + _pid() + "/versions/" + vid); },
+        createExclusion: function (id, body) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/exclusions", { method: "POST", body: body }); },
+        listExclusions: function () { return _fetch("/projects/" + _pid() + "/exclusions"); },
+        revokeExclusion: function (eid, reason) { return _fetch("/projects/" + _pid() + "/exclusions/" + eid + "/revoke", { method: "POST", body: { reason: reason } }); },
+        coverage: function (fw) { return _fetch("/projects/" + _pid() + "/coverage?framework=" + encodeURIComponent(fw)); },
+        decideSuggestion: function (body) { return _fetch("/projects/" + _pid() + "/coverage/decisions", { method: "POST", body: body }); },
         // ── Non-conformities and derogations (shared register served by this module) ──
         listNonconformities: function (status) {
             var q = [];
@@ -271,6 +290,20 @@
             return;
         console.error("Autosave failed:", err);
     }
+    // FEAT-73 — the server wrote in the project (a collected proof, a locked
+    // recurrence): reload its data and its status, then redraw.
+    window._reloadData = function () {
+        if (!_activeId)
+            return Promise.resolve();
+        return ComplianceAPI.get(_activeId).then(function (project) {
+            _serverRev = project.server_rev || 0;
+            var pdata = typeof project.data === "string" ? JSON.parse(project.data) : (project.data || {});
+            Object.keys(D).forEach(function (k) { delete D[k]; });
+            Object.assign(D, pdata);
+            return _loadStatus(_activeId, false);
+        }).then(function () { if (typeof renderAll === "function")
+            renderAll(); });
+    };
     // FEAT-33 — refresh on tab focus when a server-initiated write happened
     // while the tab was hidden. Skipped while local edits are in flight.
     document.addEventListener("visibilitychange", function () {

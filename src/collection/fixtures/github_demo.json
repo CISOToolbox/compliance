@@ -1,0 +1,39 @@
+{
+  "shared": {
+    "repos": [
+      {"full_name": "medsecure/portail-patients", "visibility": "private", "default_branch": "main", "rules_available": true,
+       "advanced_security_available": false,
+       "rules": [{"type": "pull_request", "parameters": {"required_approving_review_count": 0, "dismiss_stale_reviews_on_push": true, "require_last_push_approval": true}},
+                 {"type": "non_fast_forward"}, {"type": "deletion"}]},
+      {"full_name": "medsecure/api-telesuivi", "visibility": "private", "default_branch": "main", "rules_available": true,
+       "advanced_security_available": false,
+       "rules": [{"type": "pull_request", "parameters": {"required_approving_review_count": 1, "dismiss_stale_reviews_on_push": false, "require_last_push_approval": true}},
+                 {"type": "deletion"}]},
+      {"full_name": "medsecure/infra", "visibility": "private", "default_branch": "main", "rules_available": true,
+       "advanced_security_available": false,
+       "rules": [{"type": "pull_request", "parameters": {"required_approving_review_count": 2, "dismiss_stale_reviews_on_push": true, "require_last_push_approval": true}},
+                 {"type": "non_fast_forward"}, {"type": "deletion"}]},
+      {"full_name": "medsecure/sdk-patients-open", "visibility": "public", "default_branch": "main", "rules_available": true,
+       "advanced_security_available": true,
+       "rules": [{"type": "pull_request", "parameters": {"required_approving_review_count": 1, "dismiss_stale_reviews_on_push": true, "require_last_push_approval": true}},
+                 {"type": "non_fast_forward"}, {"type": "deletion"}],
+       "security_and_analysis": {"secret_scanning": {"status": "enabled"}, "secret_scanning_push_protection": {"status": "disabled"}},
+       "code_scanning_default_setup": {"state": "configured"}},
+      {"full_name": "medsecure/archives-ancien-site", "visibility": "private", "archived": true, "rules_available": true}
+    ],
+    "members": [
+      {"login": "a-durand", "role": "admin"},
+      {"login": "p-leroy", "role": "admin"},
+      {"login": "j-martin", "role": "member"}
+    ]
+  },
+  "collectors": {
+    "GH-01": {"raw": {"repos": "$shared.repos"}},
+    "GH-02": {"raw": {"repos": "$shared.repos"}},
+    "GH-03": {"raw": {"organization": {"login": "medsecure", "two_factor_requirement_enabled": true}}},
+    "GH-04": {"raw": {"members": "$shared.members", "outside_collaborators": [{"login": "c-bernard"}]}},
+    "GH-05": {"raw": {"organization": {"login": "medsecure"}, "members": "$shared.members", "pat_grants": null}},
+    "GH-06": {"raw": {"repos": "$shared.repos"}},
+    "GH-07": {"raw": {"repos": "$shared.repos"}}
+  }
+}

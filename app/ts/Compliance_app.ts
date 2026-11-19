@@ -347,7 +347,7 @@ function _normStatut(key: string) {
     return map[k] || key;
 }
 function _statutLabel(key: string) { return t("comp.statut." + _normStatut(key)) || key; }
-const _statutColors: Record<string, string> = {planifie:"orange",en_cours:"blue",termine:"green",preuve_manquante:"red"};
+const _statutColors: Record<string, string> = {planifie:"orange",en_cours:"blue",termine:"green",preuve_manquante:"red",non_evaluable:"yellow"};
 
 // ── Status, computed by the server (FEAT-73) ─────────────────────────
 // GET /projects/{id}/status: the effective status of every measure (a
@@ -405,6 +405,22 @@ function _afterPress(fn: () => void) {
     document.addEventListener("pointercancel", go, true);
 }
 
+// The validity of a proof (valid, invalid, expired, unassessable, not_applicable), as
+// the server computed it; "" while it has not read it.
+function _proofValidity(pid: string): string {
+    return (_status.proofs && _status.proofs[pid] && _status.proofs[pid].validity) || "";
+}
+function _proofStatusBadge(p: CompliancePreuve): string {
+    const v = _proofValidity(p.id);
+    if (v === "invalid" || v === "expired") return badgeTone(t("comp.prv.expiree"), "critical");
+    if (v === "unassessable") return badgeTone(t("comp.statut.non_evaluable"), "medium");
+    if (v === "not_applicable") return badgeTone(t("comp.mon.result.sans_objet"), "neutral");
+    if (v !== "valid") return "—";
+    if (p.source === "collected") return badgeTone(t("comp.mon.collected"), "low");
+    // When a valid proof expires is a date to show, not a rule.
+    return ctDateStatus(p.date_expiration || "", 90) === "soon" ? badgeTone(t("comp.prv.bientot"), "high") : badgeTone(t("comp.prv.ok"), "low");
+}
+
 // A measure the server has not read yet (just created) shows its own status.
 function _mesureStatut(m: ComplianceMesure) {
     return _status.measures[m.id] || _normStatut(m.statut || "planifie");
@@ -433,7 +449,7 @@ function _exigDerogation(fwId: string, entry: ComplianceExigence): CtDerRecord |
 }
 
 function _exigStatutLabel(key: string) { return key ? (t("comp.exig_statut." + key) || key) : ""; }
-const _exigStatutColors: Record<string, string> = {ok: "green", ko: "red", na: "gray", derogated: "gray"};
+const _exigStatutColors: Record<string, string> = {ok: "green", ko: "red", na: "gray", derogated: "gray", unassessable: "yellow"};
 
 // ── Badges ──────────────────────────────────────────────────────────────
 // _tBadge() (shared) inlines the pastels inherited from CT_COLORS, which only
@@ -460,7 +476,7 @@ function _mesureBadge(m: ComplianceMesure) {
 }
 
 function _recLabel(key: string) { return t("comp.rec." + key) || key; }
-const _recJours: Record<string, number> = {ponctuel:0,mensuelle:30,trimestrielle:90,semestrielle:180,annuelle:365};
+const _recJours: Record<string, number> = {ponctuel:0,quotidienne:1,mensuelle:30,trimestrielle:90,semestrielle:180,annuelle:365};
 
 // Base frameworks (ANSSI, ISO) with the same structure as the additional ones for the UI
 const _BASE_FRAMEWORKS: Record<string, ComplianceFwMeta> = {
@@ -553,6 +569,7 @@ function selectPanel(panelId: string) {
         else if (panelId === "plan") renderPlan();
         else if (panelId === "controles") renderControles();
         else if (panelId === "nonconformities") renderNonconformities();
+        else if (panelId === "monitoring") renderMonitoring();
     }
 
     renderSidebar();
@@ -696,6 +713,7 @@ function renderAll() {
     else if (_currentPanel === "plan") renderPlan();
     else if (_currentPanel === "controles") renderControles();
     else if (_currentPanel === "nonconformities") renderNonconformities();
+    else if (_currentPanel === "monitoring") renderMonitoring();
     else if (_currentPanel.startsWith("fw:") && _currentFw) _renderFwView(_currentFw, _currentSubview);
     // Update the undo/redo buttons
     _updateUndoButtons();
@@ -1695,9 +1713,14 @@ window._refreshMeasures = function() {
     }
 };
 
-window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fwEnsured?: boolean }) {
+window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fwEnsured?: boolean; __monitoring?: boolean }) {
     if (!row || !row.id) return;
     if (!window.ct_measure_modal) { _editMesure(row.__fwId || null, row.id); return; }
+    // FEAT-73 — the server says what is monitored and whether the recurrence
+    // is locked; ask before the window opens.
+    if (!row.__monitoring) {
+        return _monLoadMeasure(row.id).then(function() { row.__monitoring = true; return window._editMesureRow!(row); });
+    }
     const m = _getMesure(row.id);
     if (!m) return;
     var fwId = row.__fwId || null;
@@ -1707,8 +1730,9 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
     // link lost. Load first, then reopen.
     if (fwId && fwId !== "anssi" && fwId !== "iso" && !row.__fwEnsured
         && !_getExigences(fwId).length && typeof _ensureFramework === "function") {
-        _ensureFramework(fwId, function() { row.__fwEnsured = true; window._editMesureRow!(row); });
-        return;
+        return new Promise(function(done) {
+            _ensureFramework(fwId!, function() { row.__fwEnsured = true; done(window._editMesureRow!(row)); });
+        });
     }
 
     var statusOpts = [
@@ -1716,8 +1740,9 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
         { value: "en_cours", label: _statutLabel("en_cours") },
         { value: "termine",  label: _statutLabel("termine")  }
     ];
-    var recurrenceOpts = ["ponctuel", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
+    var recurrenceOpts = ["ponctuel", "quotidienne", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
         .map(function(k) { return { value: k, label: _recLabel(k) }; });
+    var recurrenceLocked = !!(_monMeasure.mid === m.id && _monMeasure.data && _monMeasure.data.recurrence_locked);
 
     // Pending changes — applied only on save, discarded on cancel.
     // Never touch D directly during modal editing.
@@ -1734,6 +1759,9 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
     extraHtml += '<div class="fs-xs fw-600 ct-mt-2 ct-mb-1">'
               + esc(t("comp.mes.preuves_liees")) + '</div>';
     extraHtml += '<div id="ct-mesure-preuves-wrap">' + _renderPreuvesForModal(m.id) + '</div>';
+    extraHtml += '<div class="fs-xs fw-600 ct-mt-2 ct-mb-1">' + esc(t("comp.mon.title")) + '</div>';
+    if (recurrenceLocked) extraHtml += '<div class="fs-xs text-muted ct-mb-1">' + esc(t("comp.mon.recurrence_locked")) + '</div>';
+    extraHtml += '<div id="ct-mesure-monitoring-wrap">' + _monMeasureHtml() + '</div>';
 
     return window.ct_measure_modal!.open(m, {
         title: m.id,
@@ -1746,7 +1774,8 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
             (m as unknown as Record<string, unknown>).progress_log = fullLog;
             if (typeof _persist === "function") _persist("measure", m.id, { progress_log: fullLog });
         },
-        extraFields: [
+        // A monitored measure's recurrence and last check are the server's.
+        extraFields: recurrenceLocked ? [] : [
             { key: "recurrence",       label: t("comp.mes.label_recurrence"),      type: "select", options: recurrenceOpts, value: m.recurrence || "" },
             { key: "dernier_controle", label: t("comp.mes.label_dernier_controle"), type: "date",   value: m.dernier_controle || "" }
         ],
@@ -1758,7 +1787,8 @@ window._editMesureRow = function(row: { id: string; __fwId?: string | null; __fw
             _deleteMesure(m.id, fwId);
         }
     }).then(function(result: any) {
-        if (!result || result.__deleted || result.__advanced) return;
+        if (!result) return _monTakeReopened(m.id) || undefined;   // FEAT-73: reopened on the reloaded measure
+        if (result.__deleted || result.__advanced) return;
         _saveState();
         // Apply measure field changes
         var patch: Record<string, unknown> = {};
@@ -1817,7 +1847,7 @@ window._createMesureUnified = function(fwId: string | null, linkIdx: number | nu
         { value: "en_cours", label: _statutLabel("en_cours") },
         { value: "termine",  label: _statutLabel("termine")  }
     ];
-    var recurrenceOpts = ["ponctuel", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
+    var recurrenceOpts = ["ponctuel", "quotidienne", "mensuelle", "trimestrielle", "semestrielle", "annuelle"]
         .map(function(k) { return { value: k, label: _recLabel(k) }; });
     window.ct_measure_modal!.open(null, {
         title: t("comp.mes.new_draft"),
@@ -1975,10 +2005,11 @@ function _renderPreuvesForModal(mesureId: string) {
         linked.forEach(function(pid) {
             var p = _getPreuve(pid);
             if (!p) return;
+            var collected = p.source === "collected";     // FEAT-73: held by its monitoring
             h += '<div class="linked-tag">'
                + '<span class="ct-clickable" data-click="_editPreuveFromModal" data-args=\'' + _da(mesureId, pid) + '\'>'
-               + esc(p.id) + ' ' + esc(p.label || "") + '</span>'
-               + '<span class="tag-x" data-click="_unlinkPreuveInModal" data-args=\'' + _da(mesureId, pid) + '\' data-stop>×</span></div>';
+               + esc(p.id) + ' ' + esc(p.label || "") + (collected ? ' · ' + esc(t("comp.mon.collected")) : '') + '</span>'
+               + (collected ? '' : '<span class="tag-x" data-click="_unlinkPreuveInModal" data-args=\'' + _da(mesureId, pid) + '\' data-stop>×</span>') + '</div>';
         });
     } else {
         h += '<div class="text-muted fs-xs ct-mb-1">—</div>';
@@ -2217,7 +2248,7 @@ function _showMesureModal() {
     h += '<label class="fs-xs">' + esc(t("comp.mes.label_responsable")) + ' ' + _dirPicker(m.responsable||"", "_updateMesure", _da(mid,"responsable")) + '</label>';
     h += '<label class="fs-xs">' + esc(t("comp.mes.label_recurrence"));
     h += '<select data-change="_updateMesure" data-args=\'' + _da(mid,"recurrence") + '\' data-pass-value><option value="">—</option>';
-    ["ponctuel","mensuelle","trimestrielle","semestrielle","annuelle"].forEach(function(r) { h += '<option value="' + r + '"' + (m.recurrence===r?" selected":"") + '>' + _recLabel(r) + '</option>'; });
+    ["ponctuel","quotidienne","mensuelle","trimestrielle","semestrielle","annuelle"].forEach(function(r) { h += '<option value="' + r + '"' + (m.recurrence===r?" selected":"") + '>' + _recLabel(r) + '</option>'; });
     h += '</select></label>';
     h += '<label class="fs-xs">' + esc(t("comp.mes.label_dernier_controle")) + ' <input type="date" value="' + esc(m.dernier_controle||"") + '" data-change="_updateMesure" data-args=\'' + _da(mid,"dernier_controle") + '\' data-pass-value /></label>';
     h += '</div>';
@@ -2446,7 +2477,7 @@ function _renderFwPreuves(fwId: string, label: string) {
         const rows = preuves.map(p => Object.assign({}, p, {
             __isFw: fwPreuveIds.has(p.id),
             __linked: _findMesuresForPreuve(p.id),
-            __dst: ctDateStatus(p.date_expiration || "", 90),
+
             __fwId: fwId,
         }));
         h += window.ct_table!.render({
@@ -2468,9 +2499,7 @@ function _renderFwPreuves(fwId: string, label: string) {
                 { key: "mesures", label: t("comp.prv.col_mesures"), width: "100px",
                   render: (p: any) => '<span class="fs-xs">' + esc((p.__linked || []).join(", ") || "—") + '</span>' },
                 { key: "statut", label: t("comp.prv.col_statut"), width: "80px",
-                  render: (p: any) => p.__dst === "expired" ? badgeTone(t("comp.prv.expiree"), "critical")
-                      : p.__dst === "soon" ? badgeTone(t("comp.prv.bientot"), "high")
-                      : p.__dst === "valid" ? badgeTone(t("comp.prv.ok"), "low") : "—" }
+                  render: (p: any) => _proofStatusBadge(p) }
             ]
         });
     }
@@ -2557,6 +2586,8 @@ function _showPreuveModal() {
 
     var p = _getPreuve(_editingPreuve!);
     if (!p) return;
+    // FEAT-73: written by its monitoring — unless none holds it (an orphan)
+    if (p.source === "collected" && (!_status.held_proofs || _status.held_proofs.indexOf(p.id) >= 0)) { _monShowProof(p.id); return; }
 
     var ov = document.createElement("div");
     ov.id = "preuve-modal-overlay";
@@ -2855,6 +2886,7 @@ function renderControles() {
     // Recurring controls on the measures
     D.mesures.forEach(m => {
         if (!m.recurrence || m.recurrence === "ponctuel") return;
+        if ((_status.monitored_measures || []).indexOf(m.id) >= 0) return;   // checked daily by its monitoring
         const jours = _recJours[m.recurrence] || 365;
         const dernier = m.dernier_controle ? new Date(m.dernier_controle) : null;
         const prochain = dernier ? new Date(dernier.getTime() + jours * 86400000) : null;
@@ -2864,9 +2896,9 @@ function renderControles() {
 
     // Expiring proofs
     D.preuves.forEach(p => {
-        if (!p.date_expiration) return;
+        if (!p.date_expiration || p.source === "collected") return;
         const exp = new Date(p.date_expiration);
-        const expired = exp < today;
+        const expired = _proofValidity(p.id) === "invalid";
         const soonDays = Math.ceil((exp.getTime() - today.getTime()) / 86400000);
         if (soonDays < 90) {
             rows.push({ type: "preuve", id: p.id, label: p.label, expiration: p.date_expiration, expired, soonDays });

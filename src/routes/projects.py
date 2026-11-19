@@ -210,7 +210,28 @@ async def compute_project_status(db: AsyncSession, project_id: uuid.UUID,
         Derogation.subject_type == "control", Derogation.status == "approved",
         or_(Derogation.project_id == str(project_id), Derogation.project_id == "",
             Derogation.project_id.is_(None))))).scalars().all())
-    return project_status(controls, measures, proofs, derogated, today or date.today())
+    # FEAT-73 — a collected proof is as valid as its monitor's last collection.
+    from src.models import CollectionMonitor
+    recurrence = {m.id: m.recurrence for m in measures}
+    collected: dict = {}
+    monitored: set = set()
+    for m in (await db.execute(select(CollectionMonitor).where(CollectionMonitor.project_id == project_id)
+                               .order_by(CollectionMonitor.active, CollectionMonitor.activated_at))).scalars().all():
+        at = m.last_collected_at
+        if at is not None and at.tzinfo is None:
+            at = at.replace(tzinfo=timezone.utc)
+        collected[m.proof_id] = {"last_result": m.last_result, "last_collected_at": at, "active": m.active,
+                                 "recurrence": recurrence.get(m.measure_id)}     # the active one wins
+        if m.active:
+            monitored.add(m.measure_id)
+    status = project_status(controls, measures, proofs, derogated, today or date.today(), collected=collected)
+    # The measures whose control is the automated monitoring: checked by it
+    # every day, never "late" for a person.
+    status["monitored_measures"] = sorted(monitored)
+    # The collected proofs a monitoring writes or wrote; any other is an
+    # orphan the people may edit.
+    status["held_proofs"] = sorted(collected)
+    return status
 
 
 async def _custom_frameworks(db: AsyncSession) -> dict:
@@ -311,6 +332,23 @@ async def _proof_sources(db: AsyncSession, project_id: uuid.UUID) -> dict:
     rows = (await db.execute(select(ProjectProof.id, ProjectProof.source)
                              .where(ProjectProof.project_id == project_id))).all()
     return {pid: src for pid, src in rows}
+
+
+def _without_collected_proofs(data: dict) -> dict:
+    """A copy or an import brings no monitoring (FEAT-73): its collected
+    proofs would turn into manual proofs valid forever. They stay behind,
+    and the measures drop them."""
+    preuves = data.get("preuves")
+    if not isinstance(preuves, list):
+        return data
+    gone = {p.get("id") for p in preuves if isinstance(p, dict) and p.get("source") == "collected"}
+    if not gone:
+        return data
+    data = {**data, "preuves": [p for p in preuves if not (isinstance(p, dict) and p.get("id") in gone)]}
+    if isinstance(data.get("mesures"), list):
+        data["mesures"] = [{**m, "preuves_ids": [i for i in (m.get("preuves_ids") or []) if i not in gone]}
+                           if isinstance(m, dict) else m for m in data["mesures"]]
+    return data
 
 
 def _source_of(sources: Optional[dict], proof_id: str) -> str:
@@ -492,9 +530,12 @@ async def update_project(
         project.organization = body.organization
 
     if body.data is not None:
+        from src.collection import ownership
         sources = await _proof_sources(db, project.id)
+        owned = await ownership.snapshot(db, project.id)
         await _delete_children(db, project.id)
         await _decompose_data(db, project.id, copy.deepcopy(body.data), sources)
+        await ownership.restore(db, project.id, owned, "measure removed by a whole-project save")
 
     project.updated_at = datetime.now(timezone.utc)
     from src.audit import log_write
@@ -549,7 +590,8 @@ async def duplicate_project(
     db.add(duplicate)
     await db.flush()
 
-    await _decompose_data(db, duplicate.id, original_data, await _proof_sources(db, original.id))
+    # FEAT-73 — monitoring is not copied, nor the proofs it writes.
+    await _decompose_data(db, duplicate.id, _without_collected_proofs(original_data))
     await db.commit()
     await db.refresh(duplicate)
 
@@ -593,7 +635,7 @@ async def import_project(
 
     if isinstance(data, dict):
         await _adopter_referentiels(db, data, user)
-        await _decompose_data(db, project.id, data)
+        await _decompose_data(db, project.id, _without_collected_proofs(data))
 
     from src.audit import log_write
     await log_write(db, user, None, "project.import",

@@ -115,6 +115,9 @@ async def update_proof(
     proof = await db.get(ProjectProof, (project_id, proof_id))
     if not proof:
         raise HTTPException(status_code=404, detail="Proof not found")
+    from src.collection.ownership import is_held_proof
+    if proof.source == "collected" and await is_held_proof(db, project_id, proof_id):   # FEAT-73
+        raise HTTPException(status_code=409, detail="A collected proof is written by the automated monitoring only")
 
     for field, value in body.model_dump(exclude_unset=True).items():
         setattr(proof, field, value)
@@ -140,6 +143,9 @@ async def delete_proof(
     proof = await db.get(ProjectProof, (project_id, proof_id))
     if not proof:
         raise HTTPException(status_code=404, detail="Proof not found")
+    from src.collection.ownership import is_held_proof
+    if proof.source == "collected" and await is_held_proof(db, project_id, proof_id):   # FEAT-73: its history stays with it
+        raise HTTPException(status_code=409, detail="A collected proof is kept with its history; deactivate its monitoring instead")
 
     # Compliance evidence is the most audit-sensitive delete of the module
     # (FEAT-30 P0 journal): who removed which proof, when.

@@ -90,7 +90,19 @@ async def update_measure(
     if not measure:
         raise HTTPException(status_code=404, detail="Measure not found")
 
-    for field, value in body.model_dump(exclude_unset=True).items():
+    changes = body.model_dump(exclude_unset=True)
+    # FEAT-73 — an active monitor owns the measure's recurrence and its
+    # collected proof: deactivate the monitoring first.
+    from src.collection.ownership import is_collected_proof, recurrence_locked
+    if await recurrence_locked(db, project_id, measure_id):
+        if "recurrence" in changes and changes["recurrence"] != measure.recurrence:
+            raise HTTPException(status_code=409, detail="The recurrence is locked by the automated monitoring of this measure")
+        if "preuves_ids" in changes:
+            dropped = set(measure.preuves_ids or []) - set(changes["preuves_ids"] or [])
+            for pid in dropped:
+                if await is_collected_proof(db, project_id, pid):
+                    raise HTTPException(status_code=409, detail="A collected proof cannot be unlinked while its monitoring is active")
+    for field, value in changes.items():
         setattr(measure, field, value)
 
     measure.updated_at = datetime.now(timezone.utc)
@@ -128,6 +140,9 @@ async def delete_measure(
         raise HTTPException(status_code=404, detail="Measure not found")
 
     deleted_id = measure.id
+    # FEAT-73 — its monitoring stops; the collected proof and its history stay.
+    from src.collection.ownership import stop_for_measure
+    await stop_for_measure(db, project_id, measure_id, "measure deleted")
     await db.delete(measure)
     project.updated_at = datetime.now(timezone.utc)
     await db.commit()

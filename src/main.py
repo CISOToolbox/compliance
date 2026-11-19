@@ -13,6 +13,7 @@ from src.default_project import DEFAULT_PROJECT_ID, DEFAULT_PROJECT_NAME
 from src.models import Base, Project
 from src.routes.ai import router as ai_router
 from src.routes.auth import router as auth_router
+from src.routes.collection import router as collection_router  # FEAT-73
 from src.routes.controls import router as controls_router
 from src.routes.directory_proxy import router as directory_router
 from src.routes.frameworks import router as frameworks_router
@@ -84,6 +85,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(projects_router)
 app.include_router(controls_router)
+app.include_router(collection_router)
 app.include_router(measures_router)
 app.include_router(nonconformities_router)
 app.include_router(nonconformities_internal_router)
@@ -132,6 +134,9 @@ async def on_startup():
     import asyncio
     from src.proof_notifier import run_scheduler
     app.state.proof_notify_task = asyncio.create_task(run_scheduler())
+    # FEAT-73 — daily automated monitoring (see src/collection/scheduler.py).
+    from src.collection.scheduler import run_scheduler as run_collection_scheduler
+    app.state.collection_task = asyncio.create_task(run_collection_scheduler())
 
 
 async def _ensure_default_project():

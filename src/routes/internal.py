@@ -205,6 +205,9 @@ async def internal_update_evidence(
     proof = await db.get(ProjectProof, (pid, source_id))
     if not proof:
         raise HTTPException(status_code=404, detail="evidence not found")
+    from src.collection.ownership import is_held_proof
+    if proof.source == "collected" and await is_held_proof(db, pid, source_id):   # FEAT-73: the server writes it
+        raise HTTPException(status_code=409, detail="A collected proof is written by the automated monitoring only")
 
     fields = body.model_dump(exclude_unset=True, exclude={"project_id"})
     for k, v in fields.items():
@@ -251,23 +254,29 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     total_projects = await db.scalar(select(func.count()).select_from(Project)) or 0
 
     # ── Measures (aggregated via SQL) ──
+    # Every spelling of a status counts as the status it means
+    # (compliance_status.normalize_measure_status).
+    from src.compliance_status import normalize_measure_status
     measure_rows = (await db.execute(
         select(ProjectMeasure.statut, func.count()).group_by(ProjectMeasure.statut)
     )).all()
-    measure_counts = {s: c for s, c in measure_rows}
+    measure_counts: dict = {}
+    for s, c in measure_rows:
+        key = normalize_measure_status(s)
+        measure_counts[key] = measure_counts.get(key, 0) + c
     total_measures = sum(measure_counts.values())
-    completed = sum(measure_counts.get(s, 0) for s in ("completed", "termine", "Terminé"))
-    in_progress = sum(measure_counts.get(s, 0) for s in ("in_progress", "en_cours", "En cours"))
+    completed = measure_counts.get("termine", 0)
+    in_progress = measure_counts.get("en_cours", 0)
     planned = total_measures - completed - in_progress
 
     today = _date.today().isoformat()
-    overdue = (await db.scalar(
-        select(func.count()).select_from(ProjectMeasure)
+    late = (await db.execute(
+        select(ProjectMeasure.statut)
         .where(ProjectMeasure.date_cible < today)
         .where(ProjectMeasure.date_cible != "")
         .where(ProjectMeasure.date_cible.isnot(None))
-        .where(ProjectMeasure.statut.notin_(["completed", "termine", "Terminé"]))
-    )) or 0
+    )).scalars().all()
+    overdue = sum(1 for s in late if normalize_measure_status(s) != "termine")
     progress_pct = round(completed / total_measures * 100) if total_measures else 0
 
     # ── Controls by framework (stacked bar) ──
@@ -288,6 +297,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     per_framework = {}  # framework_id -> {conforme, non, total}
     total_controls = 0
     derogated_controls = 0
+    unassessable_controls = 0      # FEAT-73: in the rate's denominator, never in its numerator
     for pid in (await db.execute(select(Project.id))).scalars().all():
         active = active_by_project.get(pid)
         status = await compute_project_status(db, pid)
@@ -300,6 +310,7 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
             d["non"] += counts["ko"] + counts["derogated"]
             total_controls += counts["applicable"]
             derogated_controls += counts["derogated"]
+            unassessable_controls += counts["unassessable"]
     per_framework = {fw: d for fw, d in per_framework.items() if d["total"]}
 
     buckets = []
@@ -328,12 +339,14 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
     posture_score = rate(total_conforme, total_controls) if total_controls > 0 else 100
 
     # ── Proofs expired > 10 days on completed measures ──
-    cm_rows = (await db.execute(
-        select(ProjectMeasure.project_id, ProjectMeasure.preuves_ids)
-        .where(ProjectMeasure.statut.in_(["completed", "termine", "Terminé"]))
-    )).all()
+    cm_rows = [(pid, ids) for pid, ids, s in (await db.execute(
+        select(ProjectMeasure.project_id, ProjectMeasure.preuves_ids, ProjectMeasure.statut)
+    )).all() if normalize_measure_status(s) == "termine"]
+    # A collected proof has no expiry date: its validity is its last
+    # collection's (the status), not a date to age.
     proof_rows = (await db.execute(
         select(ProjectProof.project_id, ProjectProof.id, ProjectProof.date_expiration)
+        .where(ProjectProof.source != "collected")
     )).all()
     proof_exp = {(pid, str(prid)): (exp or "") for pid, prid, exp in proof_rows}
     proofs_expired_10d = _count_proofs_expired_10d(
@@ -383,6 +396,9 @@ async def internal_stats(request: Request, db: AsyncSession = Depends(get_db)):
         "posture": {
             "score": posture_score,
             "score_label": _posture_label(posture_score),
+            # FEAT-73 — applicable requirements the automated monitoring
+            # could not assess (collection in error, stalled, not collected).
+            "unassessable": unassessable_controls,
         },
         "breakdown": {
             "type": "bar",
@@ -531,6 +547,8 @@ async def delete_measure_internal(source_id: str, request: Request,
     if not measure:
         raise HTTPException(status_code=404, detail="Measure not found")
     await bump_server_rev(db, measure.project_id)
+    from src.collection.ownership import stop_for_measure
+    await stop_for_measure(db, measure.project_id, measure.id, "measure deleted")   # FEAT-73
     await db.delete(measure)
     # Pilot write-back is a business write — journaled (FEAT-30 review).
     from src.audit import log_write
@@ -748,8 +766,11 @@ async def internal_restore_item(item_id: str, request: Request, db: AsyncSession
         from src.audit import log_write
         await log_write(db, None, request, "project.restore", actor="pilot",
                         entity_type="project", entity_id=str(project.id), target=project.name or "")
+        from src.collection import ownership
+        owned = await ownership.snapshot(db, project.id)
         await _delete_children(db, project.id)
         await _decompose_data(db, project.id, data, _backup_sources(data))
+        await ownership.restore(db, project.id, owned, "measure removed by a restore")
         await bump_server_rev(db, project.id)
         await db.commit()
         return {"ok": True, "action": "updated", "repointed_from": repointed_from}

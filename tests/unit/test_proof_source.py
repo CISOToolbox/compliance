@@ -77,8 +77,11 @@ async def test_the_targeted_routes_never_set_the_source(db):
     r = await create_proof(PID, ProofCreate.model_validate({"id": "P-3", "source": "collected"}),
                            user=None, db=db)
     assert r.source == "manual"
-    await update_proof(PID, "P-1", ProofUpdate.model_validate({"label": "x", "source": "manual"}),
+    await update_proof(PID, "P-2", ProofUpdate.model_validate({"label": "x", "source": "collected"}),
                        user=None, db=db)
+    # P-1 is collected but no monitoring holds it (an orphan): it may be edited,
+    # its source never changes. A held one is refused (test_collection_activation).
+    await update_proof(PID, "P-1", ProofUpdate.model_validate({"label": "x", "source": "manual"}), user=None, db=db)
     assert await _sources(db) == {"P-1": "collected", "P-2": "manual", "P-3": "manual"}
 
 
@@ -106,12 +109,31 @@ async def test_a_restored_backup_gives_back_its_sources(db):
 
 
 @pytest.mark.asyncio
-async def test_a_duplicate_keeps_the_sources_of_the_original(db):
+async def test_a_duplicate_leaves_the_collected_proofs_behind(db):
+    """Monitoring is not copied: a collected proof would become a manual one
+    valid forever. The copy keeps its manual proofs; its measures find their own."""
+    from src.models import ProjectMeasure
     from src.routes.projects import duplicate_project
+    db.add(ProjectMeasure(project_id=PID, id="M-1", preuves_ids=["P-1", "P-2"]))
+    await db.commit()
     r = await duplicate_project(PID, user=None, db=db)
     rows = (await db.execute(select(ProjectProof.id, ProjectProof.source)
                              .where(ProjectProof.project_id == r["id"]))).all()
-    assert dict(rows) == {"P-1": "collected", "P-2": "manual"}
+    assert dict(rows) == {"P-2": "manual"}
+    assert (await db.get(ProjectMeasure, (r["id"], "M-1"))).preuves_ids == ["P-2"]
+
+
+@pytest.mark.asyncio
+async def test_an_import_leaves_the_collected_proofs_behind(db):
+    """Same for an export brought back: no monitoring comes with it."""
+    import io
+    import json
+    from starlette.datastructures import UploadFile
+    from src.routes.projects import _reconstruct_data, import_project
+    data = await _reconstruct_data(db, PID)
+    r = await import_project(UploadFile(io.BytesIO(json.dumps(data).encode()), filename="x.json"), user=None, db=db)
+    rows = (await db.execute(select(ProjectProof.id).where(ProjectProof.project_id == r["id"]))).scalars().all()
+    assert rows == ["P-2"]
 
 
 @pytest.mark.asyncio

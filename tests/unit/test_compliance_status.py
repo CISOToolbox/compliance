@@ -103,9 +103,9 @@ def test_project_status_resolves_links_and_counts_per_framework():
     assert s["measures"] == {"M-1": "termine", "M-2": "preuve_manquante"}
     assert s["requirements"] == {"iso:A.8.5": "ok", "iso:A.8.2": "ko", "iso:A.5.1": "ko",
                                  "iso:A.5.2": "na", "iso:A.8.28": "derogated", "nis2:21.2.j": "ok"}
-    assert s["frameworks"]["iso"] == {"applicable": 4, "ok": 1, "ko": 2, "derogated": 1,
+    assert s["frameworks"]["iso"] == {"applicable": 4, "ok": 1, "ko": 2, "unassessable": 0, "derogated": 1,
                                       "excluded": 1, "pct": 25}
-    assert s["frameworks"]["nis2"] == {"applicable": 1, "ok": 1, "ko": 0, "derogated": 0,
+    assert s["frameworks"]["nis2"] == {"applicable": 1, "ok": 1, "ko": 0, "unassessable": 0, "derogated": 0,
                                        "excluded": 0, "pct": 100}
     assert s["as_of"] == TODAY.isoformat()
 
@@ -246,3 +246,82 @@ def test_the_frontend_no_longer_computes_the_status():
     for name in ("_mesureEffectiveStatut", "_exigenceStatut"):
         assert "function " + name not in src, name
     assert "date_expiration) >=" not in src
+
+
+# ── FEAT-73 lot 1a: collected proofs ────────────────────────────────────
+
+from datetime import datetime, timezone  # noqa: E402
+
+from src.compliance_status import collected_proof_validity  # noqa: E402
+
+NOW = datetime(2026, 11, 17, 9, 0, tzinfo=timezone.utc)
+FRESH = datetime(2026, 11, 17, 3, 0, tzinfo=timezone.utc)
+STALE = datetime(2026, 11, 14, 3, 0, tzinfo=timezone.utc)
+
+
+def _state(result, at=FRESH, active=True, recurrence="quotidienne"):
+    return {"last_result": result, "last_collected_at": at, "active": active, "recurrence": recurrence}
+
+
+@pytest.mark.parametrize("state, expected", [
+    (_state("conforme"), "valid"),
+    (_state("non_conforme"), "invalid"),
+    (_state("erreur"), "unassessable"),
+    (_state("sans_objet"), "not_applicable"),            # not a proof, shown as such
+    (_state("conforme", at=STALE), "unassessable"),      # the daily collection stalled
+    (_state("conforme", at=STALE, active=False), "expired"),   # monitoring stopped, proof aged out
+    (_state("conforme", at=STALE, recurrence="mensuelle"), "valid"),
+    (_state(None, at=None), "unassessable"),             # not collected yet
+    (None, "expired"),                                   # no monitoring behind it (an orphan)
+    (_state("conforme", at=STALE, active=False, recurrence="annuelle"), "expired"),   # stopped: the daily window
+])
+def test_validity_of_a_collected_proof(state, expected):
+    assert collected_proof_validity(state, NOW) == expected
+
+
+def _project(proofs_sources, collected, statut="termine"):
+    controls = [_c("iso", "A.8.5", ["M-1"])]
+    measures = [ProjectMeasure(id="M-1", statut=statut, preuves_ids=[p for p, _, _ in proofs_sources])]
+    proofs = [ProjectProof(id=p, source=src, date_expiration=exp) for p, src, exp in proofs_sources]
+    return project_status(controls, measures, proofs, set(), TODAY, collected=collected, now=NOW)
+
+
+def test_a_failing_collected_proof_wins_over_a_valid_manual_one():
+    s = _project([("P-1", "manual", ""), ("P-2", "collected", "")], {"P-2": _state("non_conforme")})
+    assert s["measures"]["M-1"] == "preuve_manquante"
+    assert s["requirements"]["iso:A.8.5"] == "ko"
+    assert s["proofs"] == {"P-1": {"source": "manual", "validity": "valid"},
+                           "P-2": {"source": "collected", "validity": "invalid"}}
+
+
+def test_a_stopped_monitoring_aged_out_is_an_expired_proof_not_a_failing_one():
+    """Like an expired manual proof: it proves nothing more, it cancels no valid proof."""
+    stopped = _state("conforme", at=STALE, active=False)
+    assert _project([("P-1", "manual", ""), ("P-2", "collected", "")], {"P-2": stopped})["measures"]["M-1"] == "termine"
+    assert _project([("P-2", "collected", "")], {"P-2": stopped})["measures"]["M-1"] == "preuve_manquante"
+    # a stopped monitoring whose last collection failed still wins while it is fresh
+    failing = _state("non_conforme", active=False)
+    assert _project([("P-1", "manual", ""), ("P-2", "collected", "")], {"P-2": failing})["measures"]["M-1"] == "preuve_manquante"
+
+
+def test_a_collection_in_error_makes_the_requirement_unassessable_not_ko():
+    s = _project([("P-2", "collected", "")], {"P-2": _state("erreur")})
+    assert s["measures"]["M-1"] == "non_evaluable"
+    assert s["requirements"]["iso:A.8.5"] == "unassessable"
+    fw = s["frameworks"]["iso"]
+    assert (fw["applicable"], fw["ok"], fw["ko"], fw["unassessable"], fw["pct"]) == (1, 0, 0, 1, 0)
+
+
+def test_a_compliant_collection_proves_a_done_measure_but_never_completes_one():
+    assert _project([("P-2", "collected", "")], {"P-2": _state("conforme")})["measures"]["M-1"] == "termine"
+    assert _project([("P-2", "collected", "")], {"P-2": _state("conforme")}, statut="en_cours")["measures"]["M-1"] == "en_cours"
+
+
+def test_not_applicable_is_no_proof():
+    s = _project([("P-2", "collected", "")], {"P-2": _state("sans_objet")})
+    assert s["measures"]["M-1"] == "preuve_manquante"
+
+
+def test_one_unassessable_measure_among_done_ones_makes_the_requirement_unassessable():
+    assert requirement_status("", False, ["termine", "non_evaluable"]) == "unassessable"
+    assert requirement_status("", False, ["en_cours", "non_evaluable"]) == "ko"

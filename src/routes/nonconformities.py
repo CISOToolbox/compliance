@@ -32,6 +32,8 @@ def split_control_key(subject_id: str) -> tuple[str, str]:
 
 class ControlHook:
     async def exists(self, db: AsyncSession, subject_type: str, subject_id: str, project_id: str = "") -> Optional[str]:
+        if subject_type == "collection_exclusion":
+            return await _exclusion_label(db, subject_id, project_id)
         if subject_type != "control":
             return None
         fw, ref = split_control_key(subject_id)
@@ -70,7 +72,23 @@ class ControlHook:
         return {r[0]: r[1] for r in rows}
 
 
+async def _exclusion_label(db: AsyncSession, subject_id: str, project_id: str) -> Optional[str]:
+    """FEAT-73 — a temporary exclusion of a monitoring finding, within the
+    record's project; once revoked it is no longer a subject."""
+    from src.models import CollectionExclusion
+    try:
+        row = await db.get(CollectionExclusion, uuid.UUID(str(subject_id)))
+    except ValueError:
+        return None
+    if row is None or row.revoked_at is not None or str(row.project_id) != str(project_id or ""):
+        return None
+    return f"{row.collector_code} — {row.resource}"[:500]
+
+
 CONTROL_HOOK = ControlHook()
+# A requirement (FEAT-45), or a finding of the automated monitoring set aside
+# for a while (FEAT-73).
+SUBJECT_TYPES = ("control", "collection_exclusion")
 class ProjectScope:
     """The register is project-scoped here: a record belongs to the project it
     was declared in, and a user only ever sees or touches the projects the
@@ -94,7 +112,7 @@ class ProjectScope:
 PROJECT_SCOPE = ProjectScope()
 
 
-router = make_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=("control",),
+router = make_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=SUBJECT_TYPES,
                      require_writer=lambda u: require_min_role(u, "editor", _ROLES),
                      project_scope=PROJECT_SCOPE)
 
@@ -102,5 +120,5 @@ router = make_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=("co
 # with the Pilot user as actor. The token check is the module's own.
 from src.routes.internal import _check_service_token  # noqa: E402
 
-internal_router = make_internal_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=("control",),
+internal_router = make_internal_router(Nonconformity, Derogation, CONTROL_HOOK, subject_types=SUBJECT_TYPES,
                                        check_service_token=_check_service_token)

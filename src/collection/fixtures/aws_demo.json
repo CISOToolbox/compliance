@@ -1,0 +1,64 @@
+{
+  "shared": {
+    "credential_report": [
+      {"user": "<root_account>", "arn": "arn:aws:iam::111122223333:root", "password_enabled": "not_supported",
+       "password_last_used": "@-200d", "mfa_active": "true", "access_key_1_active": "false", "access_key_2_active": "false"},
+      {"user": "j.martin", "arn": "arn:aws:iam::111122223333:user/j.martin", "password_enabled": "true",
+       "password_last_used": "@-1d", "mfa_active": "false", "access_key_1_active": "true",
+       "access_key_1_last_rotated": "@-20d", "access_key_1_last_used_date": "@-1d", "access_key_2_active": "false"},
+      {"user": "break-glass", "arn": "arn:aws:iam::111122223333:user/break-glass", "password_enabled": "true",
+       "password_last_used": "@-95d", "mfa_active": "false", "access_key_1_active": "false", "access_key_2_active": "false"},
+      {"user": "a.durand", "arn": "arn:aws:iam::111122223333:user/a.durand", "password_enabled": "true",
+       "password_last_used": "@-2d", "mfa_active": "true", "access_key_1_active": "true",
+       "access_key_1_last_rotated": "@-120d", "access_key_1_last_used_date": "@-2d", "access_key_2_active": "false"},
+      {"user": "ci-deployer", "arn": "arn:aws:iam::111122223333:user/ci-deployer", "password_enabled": "false",
+       "mfa_active": "false", "access_key_1_active": "true", "access_key_1_last_rotated": "@-30d",
+       "access_key_1_last_used_date": "@-60d", "access_key_2_active": "false"}
+    ]
+  },
+  "collectors": {
+    "AWS-01": {"raw": {"credential_report": "$shared.credential_report"}},
+    "AWS-02": {"raw": {"credential_report": "$shared.credential_report"}},
+    "AWS-03": {"raw": {"credential_report": "$shared.credential_report"}},
+    "AWS-04": {"raw": {"PasswordPolicy": {"MinimumPasswordLength": 14, "PasswordReusePrevention": 24,
+                                          "RequireSymbols": true, "RequireNumbers": true}}},
+    "AWS-05": {"raw": {"Policies": [
+      {"PolicyName": "MedSecureDeveloperAccess", "Arn": "arn:aws:iam::111122223333:policy/MedSecureDeveloperAccess",
+       "AttachmentCount": 2, "Document": {"Statement": [{"Effect": "Allow", "Action": ["ec2:Describe*", "s3:GetObject"], "Resource": "*"}]}},
+      {"PolicyName": "LegacyAdmin", "Arn": "arn:aws:iam::111122223333:policy/LegacyAdmin",
+       "AttachmentCount": 0, "Document": {"Statement": [{"Effect": "Allow", "Action": "*", "Resource": "*"}]}}]}},
+    "AWS-06": {"raw": {
+      "AccountPublicAccessBlock": {"BlockPublicAcls": true, "IgnorePublicAcls": true, "BlockPublicPolicy": true, "RestrictPublicBuckets": true},
+      "Buckets": [{"Name": "medsecure-backups", "PolicyStatus": {"IsPublic": false}},
+                  {"Name": "medsecure-portal-assets", "PolicyStatus": {"IsPublic": false}}]}},
+    "AWS-07": {"raw": {
+      "Regions": {"eu-west-3": {"EbsEncryptionByDefault": true}},
+      "Buckets": [{"Name": "medsecure-backups", "Encryption": true}, {"Name": "medsecure-portal-assets", "Encryption": true}],
+      "DBInstances": [{"DBInstanceIdentifier": "telesuivi-db", "StorageEncrypted": true},
+                      {"DBInstanceIdentifier": "legacy-reporting", "StorageEncrypted": false}]}},
+    "AWS-08": {"raw": {"Trails": [{"Name": "medsecure-org-trail", "IsMultiRegionTrail": true,
+                                   "LogFileValidationEnabled": true, "Status": {"IsLogging": true}}]}},
+    "AWS-09": {"raw": {"SecurityGroups": [
+      {"GroupId": "sg-0a1web", "Region": "eu-west-3", "IpPermissions": [
+        {"IpProtocol": "tcp", "FromPort": 443, "ToPort": 443, "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}]},
+      {"GroupId": "sg-0b2bastion", "Region": "eu-west-3", "IpPermissions": [
+        {"IpProtocol": "tcp", "FromPort": 22, "ToPort": 22, "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}]},
+      {"GroupId": "sg-0c3db", "Region": "eu-west-3", "IpPermissions": [
+        {"IpProtocol": "tcp", "FromPort": 5432, "ToPort": 5432, "IpRanges": [{"CidrIp": "10.0.0.0/16"}]}]}]}},
+    "AWS-10": {"raw": {
+      "ProtectedResources": [{"ResourceArn": "arn:aws:rds:eu-west-3:111122223333:db:telesuivi-db", "LastCompletedRecoveryPoint": "@-10h"},
+                             {"ResourceArn": "arn:aws:s3:::medsecure-backups", "LastCompletedRecoveryPoint": "@-9h"}],
+      "DBInstances": [{"DBInstanceIdentifier": "telesuivi-db", "BackupRetentionPeriod": 14}]}},
+    "AWS-11": {"raw": {"Regions": {"eu-west-3": {"GuardDuty": true, "SecurityHub": true},
+                                   "eu-central-1": {"GuardDuty": true, "SecurityHub": false}}}},
+    "AWS-12": {"raw": {"Vpcs": [], "FlowLogs": []}},
+    "AWS-13": {"raw": {"Listeners": [
+      {"ListenerArn": "arn:aws:elasticloadbalancing:eu-west-3:111122223333:listener/app/portail/1/http",
+       "Protocol": "HTTP", "Port": 80, "DefaultActions": [{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS"}}]},
+      {"ListenerArn": "arn:aws:elasticloadbalancing:eu-west-3:111122223333:listener/app/portail/1/https",
+       "Protocol": "HTTPS", "Port": 443, "SslPolicy": "ELBSecurityPolicy-TLS13-1-2-2021-06"}]}},
+    "AWS-14": {"raw": {"Instances": [
+      {"InstanceId": "i-0telesuivi01", "Region": "eu-west-3", "MetadataOptions": {"HttpTokens": "required"}},
+      {"InstanceId": "i-0legacy02", "Region": "eu-west-3", "MetadataOptions": {"HttpTokens": "optional"}}]}}
+  }
+}

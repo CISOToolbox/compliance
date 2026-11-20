@@ -317,6 +317,58 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
     });
 
+    // BUG-157 — revoking keeps who approved and when, and says who revoked
+    // and when, by hand or because the item it covered moved on.
+    test('revoking a derogation keeps its approval and records the revocation', async ({ page }) => {
+        await openApp(page);
+        const out = await page.evaluate(async () => {
+            const ders = [], recs = [];
+            const spec = { records: () => recs, derogations: () => ders, save: () => {}, actor: () => 'Evaluator',
+                           subjectType: 'control', maxDays: () => 365, setMaxDays: () => {} };
+            const api = window.ct_nonconformity_local.options(spec);
+            const until = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+            const d = await api.createDer({ subject_type: 'none', title: 'Kept until the migration',
+                                            justification: 'Compensating control', risk_owner: 'Owner', approver: 'Approver', valid_until: until });
+            await api.decideDer(d.id, true, '');
+            const der = ders.find((x) => x.id === d.id);
+            der.decided_by = 'CISO'; der.decided_at = '2026-11-01T09:00:00Z';
+            const byHand = await api.revokeDer(d.id, 'No longer needed');
+            ders.push({ id: 'd2', reference: 'DER-2', subject_type: 'control', subject_id: 'iso:A.8.5', status: 'approved',
+                        decided_by: 'CISO', decided_at: '2026-11-01T09:00:00Z' });
+            window.ct_nonconformity_local.settle(spec, 'iso:A.8.5', 'Requirement now compliant');
+            return { byHand, settled: ders.find((x) => x.id === 'd2') };
+        });
+        const today = new Date().toISOString().slice(0, 10);
+        // A file revoked before: at load, the revocation gets its who and when
+        // (the approver itself cannot be recovered locally).
+        const legacy = await page.evaluate(() => {
+            const ders = [{ id: 'd3', reference: 'DER-3', subject_type: 'none', status: 'revoked',
+                            decided_by: 'Evaluator', decided_at: '2026-09-15T10:00:00Z', valid_until: '2099-01-01' }];
+            window.ct_nonconformity_local.expire({ records: () => [], derogations: () => ders, save: () => {}, actor: () => 'Evaluator',
+                                                   subjectType: 'control', maxDays: () => 365, setMaxDays: () => {} });
+            return ders[0];
+        });
+        expect(legacy.revoked_by).toBe('Evaluator');
+        expect(legacy.revoked_at).toBe('2026-09-15T10:00:00Z');
+        // A revocation made with no evaluator named is not taken for an old one.
+        const anonymous = await page.evaluate(() => {
+            const ders = [{ id: 'd4', reference: 'DER-4', subject_type: 'none', status: 'revoked', revoked_by: '',
+                            revoked_at: '2026-11-19T08:00:00Z', decided_by: 'A', decided_at: '2026-11-01T09:00:00Z', valid_until: '2099-01-01' }];
+            window.ct_nonconformity_local.expire({ records: () => [], derogations: () => ders, save: () => {}, actor: () => '',
+                                                   subjectType: 'control', maxDays: () => 365, setMaxDays: () => {} });
+            return ders[0];
+        });
+        expect(anonymous.revoked_by).toBe('');
+        expect(anonymous.revoked_at).toBe('2026-11-19T08:00:00Z');
+        for (const d of [out.byHand, out.settled]) {
+            expect(d.status).toBe('revoked');
+            expect(d.decided_by).toBe('CISO');
+            expect(d.decided_at).toBe('2026-11-01T09:00:00Z');
+            expect(d.revoked_by).toBe('Evaluator');
+            expect(String(d.revoked_at).slice(0, 10)).toBe(today);
+        }
+    });
+
     // A gap with no requirement behind it: the register can create the
     // requirement, in a framework of internal controls, so the gap is
     // assessed and evidenced like any other.

@@ -452,14 +452,17 @@ function _fwCounts(fwId) {
 // the reference and validity shown on the status badge.
 var _derogByKey = {};
 var _derogLoaded = false;
+var _derogLoading = false;
 function _loadDerogations(then) {
+    _derogLoading = true;
     ComplianceAPI.listDerogations({ status: "approved", subject_type: "control" }).then(function (r) {
         _derogByKey = {};
         ((r && r.items) || []).forEach(function (d) { _derogByKey[d.subject_id] = d; });
         _derogLoaded = true;
+        _derogLoading = false;
         if (then)
             then();
-    }).catch(function () { _derogLoaded = true; if (then)
+    }).catch(function () { _derogLoaded = true; _derogLoading = false; if (then)
         then(); });
 }
 function _exigDerogation(fwId, entry) {
@@ -1273,9 +1276,23 @@ function _renderFwDashboard(fwId, label) {
 }
 // ── Requirements ──────────────────────────────────────────────────
 let _exigFilter = "";
+// A search field is redrawn with its list: the new one gets back the focus and
+// the caret of the one being typed in.
+function _redrawKeepingSearch(handler, redraw) {
+    const typing = document.activeElement;
+    const caret = typing && typing.getAttribute("data-input") === handler ? typing.selectionStart : null;
+    redraw();
+    if (caret === null)
+        return;
+    const input = document.querySelector('input[data-input="' + handler + '"]');
+    if (!input)
+        return;
+    input.focus();
+    input.setSelectionRange(caret, caret);
+}
 function _filterExigences(fwId, val) {
     _exigFilter = val;
-    _renderFwView(fwId, "exigences");
+    _redrawKeepingSearch("_filterExigences", function () { _renderFwView(fwId, "exigences"); });
 }
 // Requirement to land on after a "see the requirement" jump (ref within the
 // framework being rendered): the row is scrolled into view and flashed once.
@@ -1284,9 +1301,15 @@ let _exigTarget = "";
 // (the derogation reload redraws it); browsing to another panel clears it.
 let _exigMarked = "";
 function _renderFwExigences(fwId, label) {
-    if (!_derogLoaded) {
-        _loadDerogations(function () { if (_currentFw === fwId && _currentSubview === "exigences")
-            _renderFwExigences(fwId, label); });
+    // Once per load, not once per keystroke typed before the answer; the answer
+    // redraws the list without taking the search from under the fingers.
+    if (!_derogLoaded && !_derogLoading) {
+        _loadDerogations(function () {
+            // The panel shown when it lands, which may not be the one that asked.
+            if (_currentPanel.startsWith("fw:") && _currentFw && _currentSubview === "exigences") {
+                _redrawKeepingSearch("_filterExigences", function () { _renderFwView(_currentFw, "exigences"); });
+            }
+        });
     }
     const allExigences = _getExigences(fwId);
     const getDesc = fwId === "anssi" ? _getAnssDesc : fwId === "iso" ? _getIsoDesc : null;
@@ -2253,7 +2276,7 @@ window._bulkComplianceMesuresDelete = function (scope) {
 };
 function _filterMesures(fwId, val) {
     _mesureFilter = val;
-    _renderFwView(fwId, "mesures");
+    _redrawKeepingSearch("_filterMesures", function () { _renderFwView(fwId, "mesures"); });
 }
 function _findExigencesForMesure(mesureId) {
     const result = [];
@@ -2682,7 +2705,7 @@ window._bulkCompliancePreuvesDelete = function (scope) {
 };
 function _filterPreuves(fwId, val) {
     _preuveFilter = val;
-    _renderFwView(fwId, "preuves");
+    _redrawKeepingSearch("_filterPreuves", function () { _renderFwView(fwId, "preuves"); });
 }
 function _addPreuveGlobal(fwId) {
     _saveState();
@@ -2961,7 +2984,7 @@ window._bulkCompliancePlanDelete = function (scope) {
 };
 function _filterPlan(val) {
     _planFilter = val;
-    renderPlan();
+    _redrawKeepingSearch("_filterPlan", renderPlan);
 }
 function _addMesurePlan() {
     window._createMesureUnified(null, null);

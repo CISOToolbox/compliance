@@ -16,7 +16,7 @@ from src.collection.catalog import load_catalog
 
 # What each scenario's connection lacks, by provider.
 SCENARIOS: dict[str, dict[str, list[str]]] = {
-    "medsecure": {"aws": ["backup:ListBackupJobs"], "github": []},
+    "medsecure": {"aws": ["backup:ListProtectedResources"], "github": []},
     "complete": {"aws": [], "github": []},
     "no-access": {"aws": ["*"], "github": ["*"]},
 }

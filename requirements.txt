@@ -8,6 +8,7 @@ httpx==0.28.1
 python-multipart==0.0.31
 authlib==1.9.1
 PyJWT[crypto]==2.15.0
+boto3==1.43.96
 # --- transitive pins (security, wave 2) ---
 # mako: transitive of alembic — GHSA-2h4p-vjrc-8xpq / GHSA-v92g-xgxw-vvmm (2 HIGH), GHSA-5639-2j2p-m4mx
 mako==1.4.3
@@ -17,3 +18,11 @@ idna==3.18
 certifi==2026.10.19
 # anyio: transitive of httpx/starlette — GHSA-82r6-8w77-94w6 (TLS host name encoding)
 anyio==4.14.2
+# urllib3: transitive of boto3/botocore — 6 HIGH fixed in 2.7.0, GHSA-8988-9cw3-xx77
+# and GHSA-vxq7-64xx-v4gw fixed in 2.8.0
+urllib3==2.8.0
+# boto3 transitives, pinned with it: unpinned, the image takes the newest release
+botocore==1.43.96
+s3transfer==0.19.2
+jmespath==1.1.0
+python-dateutil==2.9.0.post0

@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  CISO Toolbox Compliance, automated monitoring: a role that can only make the
+  reads the collectors declare, and only be assumed with the External ID shown
+  on the connection, and an IAM user whose only right is to assume it. Create
+  an access key for that user in the IAM console, then enter it with the
+  role's ARN (the RoleArn output) on the connection.
+
+Parameters:
+  ExternalId:
+    Type: String
+    AllowedPattern: '^ciso-[0-9a-f]{32}$'
+    ConstraintDescription: the External ID shown on the connection (ciso- and 32 hexadecimal characters).
+    Description: The External ID shown on the connection in Compliance.
+  TrustedPrincipalArn:
+    Type: String
+    Default: ""
+    AllowedPattern: '^$|^arn:aws:iam::\d{12}:user/[\w+=,.@/-]+$'
+    ConstraintDescription: empty, or the ARN of one IAM user (arn:aws:iam::<account>:user/<name>).
+    Description: >-
+      ARN of an existing IAM user that will assume the role. Leave empty to
+      create a dedicated user in this account.
+
+Conditions:
+  CreateUser: !Equals [!Ref TrustedPrincipalArn, ""]
+
+Resources:
+  ReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Read by CISO Toolbox Compliance (automated monitoring)
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !If [CreateUser, !GetAtt User.Arn, !Ref TrustedPrincipalArn]
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                sts:ExternalId: !Ref ExternalId
+      Policies:
+        # The reads the collectors declare, and nothing else.
+        - PolicyName: collector-reads
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - backup:ListProtectedResources
+                  - cloudtrail:DescribeTrails
+                  - cloudtrail:GetTrailStatus
+                  - ec2:DescribeFlowLogs
+                  - ec2:DescribeInstances
+                  - ec2:DescribeRegions
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeVpcs
+                  - ec2:GetEbsEncryptionByDefault
+                  - elasticloadbalancing:DescribeListeners
+                  - elasticloadbalancing:DescribeLoadBalancers
+                  - guardduty:GetDetector
+                  - guardduty:ListDetectors
+                  - iam:GenerateCredentialReport
+                  - iam:GetAccountAuthorizationDetails
+                  - iam:GetAccountPasswordPolicy
+                  - iam:GetCredentialReport
+                  - rds:DescribeDBInstances
+                  - s3:GetAccountPublicAccessBlock
+                  - s3:GetBucketPolicyStatus
+                  - s3:GetEncryptionConfiguration
+                  - s3:ListAllMyBuckets
+                  - securityhub:DescribeHub
+                Resource: "*"
+
+  User:
+    Type: AWS::IAM::User
+    Condition: CreateUser
+
+  UserAssumesTheRoleOnly:
+    Type: AWS::IAM::Policy
+    Condition: CreateUser
+    Properties:
+      PolicyName: assume-the-read-only-role
+      Users: [!Ref User]
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Resource: !GetAtt ReadOnlyRole.Arn
+
+Outputs:
+  RoleArn:
+    Description: The role's ARN, to enter on the connection.
+    Value: !GetAtt ReadOnlyRole.Arn
+  UserName:
+    Condition: CreateUser
+    Description: Create an access key for this user (IAM console), to enter on the connection.
+    Value: !Ref User

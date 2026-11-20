@@ -39,7 +39,7 @@ ProjectControl.__table__.c.id.autoincrement = False
 A, B = uuid.uuid4(), uuid.uuid4()
 AWS = ConnectionCreate(provider="aws", label="MedSecure production",
                        settings={"role_arn": "arn:aws:iam::111122223333:role/ciso-audit"},
-                       secrets={"external_id": "s3cr3t-external-id"})
+                       secrets={"secret_access_key": "s3cr3t-secret-key"})
 
 
 def _req():
@@ -80,7 +80,7 @@ async def test_no_route_serves_a_secret(db):
     updated = await r.update_connection(A, uuid.UUID(c["id"]), ConnectionUpdate(label="prod"), _req(), user=None, db=db)
     for payload in (c, listed, updated):
         assert "s3cr3t" not in str(payload)
-    assert updated["secrets"] == {"external_id": {"set": True}} and updated["label"] == "prod"
+    assert updated["secrets"] == {"access_key_id": {"set": False}, "secret_access_key": {"set": True}} and updated["label"] == "prod"
 
 
 @pytest.mark.asyncio
@@ -88,9 +88,9 @@ async def test_testing_a_connection_names_the_rights_it_lacks(db):
     c = await r.create_connection(A, AWS, _req(), user=None, db=db)
     res = await r.test_connection(A, uuid.UUID(c["id"]), user=None, db=db)
     assert res["ok"] is True and res["partial"] is True
-    assert res["missing_permissions"] == ["backup:ListBackupJobs"]
+    assert res["missing_permissions"] == ["backup:ListProtectedResources"]
     shown = (await r.list_connections(A, user=None, db=db))[0]["last_test"]
-    assert shown["ok"] is True and shown["missing_permissions"] == ["backup:ListBackupJobs"]
+    assert shown["ok"] is True and shown["missing_permissions"] == ["backup:ListProtectedResources"]
 
 
 @pytest.mark.asyncio
@@ -103,8 +103,8 @@ async def test_a_connection_without_any_access_fails_its_test(db):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("body, status", [
     (AWS.model_copy(update={"provider": "gitlab"}), 422),
-    (AWS.model_copy(update={"mode": "live"}), 422),
-    (AWS.model_copy(update={"secrets": {}}), 422),
+    (AWS.model_copy(update={"mode": "live"}), 422),                                     # no access keys
+    (AWS.model_copy(update={"settings": {**AWS.settings, "external_id": "mine"}}), 422),  # the suite writes it
 ])
 async def test_a_bad_connection_is_refused(db, body, status):
     with pytest.raises(HTTPException) as e:

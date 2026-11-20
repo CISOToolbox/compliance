@@ -5,7 +5,8 @@ interval, one connection at a time (a connection already being read is
 skipped, not queued); a failure is an `erreur` version and never stops the
 others. Once a day it purges the versions their retention no longer keeps,
 and alerts the people in charge of a measure whose collection has been in
-error for more than two days in a row.
+error for more than two days in a row, or whose collector a new catalog
+retired (once: that monitoring stopped).
 
     COMPLIANCE_COLLECT_TICK_SECONDS     300
     COMPLIANCE_COLLECT_INTERVAL_HOURS   24
@@ -24,7 +25,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.collection.catalog import load_catalog
 from src.collection.retention import retained_ids
-from src.collection.service import collect, lock_for
+from src.collection.service import RETIRED_REASON, collect, lock_for
 from src.models import CollectionMonitor, CollectionVersion, Project, ProjectMeasure, User
 
 logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ logger = logging.getLogger(__name__)
 TICK_SECONDS = int(os.getenv("COMPLIANCE_COLLECT_TICK_SECONDS", "300"))
 INTERVAL_HOURS = int(os.getenv("COMPLIANCE_COLLECT_INTERVAL_HOURS", "24"))
 ALERT_AFTER = timedelta(days=2)
+RETIRED_TOLD_WITHIN = timedelta(days=30)
 
 
 async def collect_due(db: AsyncSession, now: datetime, provider: Any = None) -> dict:
@@ -141,6 +143,34 @@ async def alert_failing(db: AsyncSession, now: datetime, send: Callable[[str, st
     return sent
 
 
+def _retired_html(m: CollectionMonitor) -> str:
+    e = html.escape
+    return (f"<p>The automated monitoring <b>{e(m.collector_code)}</b> of measure <b>{e(m.measure_id)}</b> "
+            "has stopped: this collector is no longer in the catalog.</p>"
+            "<p>Its history is kept. Activate another collector on the measure, or check it manually.</p>")
+
+
+async def alert_retired(db: AsyncSession, now: datetime, send: Callable[[str, str, str], tuple[bool, str]]) -> int:
+    """Tell once about a monitoring the system stopped because its collector
+    was retired — within a month: a recipient found later gets no stale news."""
+    sent = 0
+    rows = (await db.execute(select(CollectionMonitor).where(
+        CollectionMonitor.active.is_(False), CollectionMonitor.deactivated_by == "system",
+        CollectionMonitor.deactivation_reason == RETIRED_REASON, CollectionMonitor.alerted_at.is_(None),
+        CollectionMonitor.deactivated_at > now - RETIRED_TOLD_WITHIN))).scalars().all()
+    for m in rows:
+        subject = f"[CISO Toolbox] Automated monitoring stopped, collector retired: {m.collector_code} on {m.measure_id}"
+        told = False
+        for to in await _recipients(db, m):
+            ok, _ = await asyncio.to_thread(send, to, subject, _retired_html(m))
+            told = told or ok
+        if told:
+            m.alerted_at = now
+            sent += 1
+    await db.commit()
+    return sent
+
+
 async def tick(db_factory: Any, now: datetime | None = None) -> None:
     from src.mailer import send_smtp
     from src.proof_notifier import _get_setting, _set_setting
@@ -154,7 +184,7 @@ async def tick(db_factory: Any, now: datetime | None = None) -> None:
         if last and now - datetime.fromisoformat(last) < timedelta(hours=23):
             return
         purged = await purge(db, now)
-        alerted = await alert_failing(db, now, send_smtp)
+        alerted = await alert_failing(db, now, send_smtp) + await alert_retired(db, now, send_smtp)
         await _set_setting(db, "collect.last_daily", now.isoformat())
         await db.commit()
         if purged or alerted:

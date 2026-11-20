@@ -147,6 +147,8 @@ _registerTranslations("fr", {
     "comp.mon.since_days": "dans cet état depuis {days} jour(s)",
     "comp.mon.stop_reason": "Pourquoi la surveillance s'arrête",
     "comp.mon.stopped": "arrêtée",
+    "comp.mon.retired": "collecteur retiré du catalogue",
+    "comp.mon.retired_stopped": "{code} : ce collecteur a été retiré du catalogue, sa surveillance est arrêtée.",
     "comp.mon.test_failed": "Échec",
     "comp.mon.test_ok": "Connectée",
     "comp.mon.test_partial": "Connectée, droits manquants",

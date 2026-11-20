@@ -193,7 +193,9 @@ async def monitor_view(db: AsyncSession, m: CollectionMonitor, now: Optional[dat
         "error_since": m.error_since.isoformat() if m.error_since else None,
         "activated_by": m.activated_by, "activated_at": m.activated_at.isoformat() if m.activated_at else None,
         "deactivated_at": m.deactivated_at.isoformat() if m.deactivated_at else None,
+        "deactivated_by": m.deactivated_by or "",
         "deactivation_reason": m.deactivation_reason or "",
+        "retired": bool(collector.get("retired")),        # its collector left the catalog
     }
 
 

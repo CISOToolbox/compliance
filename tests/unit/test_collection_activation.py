@@ -148,6 +148,119 @@ async def test_a_manual_run_adds_a_version_and_deactivating_frees_the_recurrence
 
 
 @pytest.mark.asyncio
+async def test_reactivating_resumes_the_stopped_monitoring_and_its_proof(monitored_db):
+    from src.models import AuditLog, CollectionVersion
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws)
+    mid = uuid.UUID(first["id"])
+    await r.deactivate_monitoring(A, mid, MonitorDeactivate(reason="Paused"), _req(), user=None, db=monitored_db)
+    again = await _activate(monitored_db, aws)
+    # The same monitoring and the same proof: no second one on the measure.
+    assert again["id"] == first["id"] and again["proof_id"] == first["proof_id"] and again["active"] is True
+    assert again["last"]["seq"] == 2 and again["deactivation_reason"] == ""
+    monitored_db.expunge_all()
+    monitors = (await monitored_db.execute(select(CollectionMonitor).where(CollectionMonitor.project_id == A))).scalars().all()
+    assert len(monitors) == 1
+    measure = await monitored_db.get(ProjectMeasure, (A, "M-1"))
+    assert measure.preuves_ids == ["P-001", first["proof_id"]] and measure.recurrence == "quotidienne"
+    versions = (await monitored_db.execute(select(CollectionVersion.seq).where(CollectionVersion.monitor_id == mid))).scalars().all()
+    assert sorted(versions) == [1, 2]
+    journal = (await monitored_db.execute(select(AuditLog).where(AuditLog.entity_id == first["id"])
+                                          .order_by(AuditLog.logged_at))).scalars().all()
+    assert [j.action for j in journal] == ["monitoring.activate", "monitoring.deactivate", "monitoring.reactivate"]
+    import json
+    details = journal[-1].details
+    assert (json.loads(details) if isinstance(details, str) else details)["resumed_after"]["reason"] == "Paused"
+
+
+@pytest.mark.asyncio
+async def test_a_resumed_monitoring_keeps_its_retention_and_parameters_and_starts_a_new_state(monitored_db):
+    from src.schemas import MonitorUpdate
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws, "AWS-02")
+    mid = uuid.UUID(first["id"])
+    kept = {"daily_days": 30, "weekly_days": 120, "monthly_days": 2000}
+    await r.update_monitoring(A, mid, MonitorUpdate(retention=kept), _req(), user=None, db=monitored_db)
+    await r.deactivate_monitoring(A, mid, MonitorDeactivate(reason="Paused"), _req(), user=None, db=monitored_db)
+    # Parameters set earlier (AWS-02 has none in the catalog: written as stored).
+    await monitored_db.execute(CollectionMonitor.__table__.update().where(CollectionMonitor.id == mid)
+                               .values(params={"threshold": 3}))
+    await monitored_db.commit()
+    again = await _activate(monitored_db, aws, "AWS-02")         # the screen sends neither
+    assert again["retention"] == kept and again["retention_default"] is False
+    assert again["params"] == {"threshold": 3}
+    monitored_db.expunge_all()
+    m = await monitored_db.get(CollectionMonitor, mid)
+    assert m.state_since is not None and m.state_since >= m.activated_at.replace(tzinfo=m.state_since.tzinfo)
+
+
+@pytest.mark.asyncio
+async def test_a_monitoring_the_server_stopped_is_not_resumed(monitored_db):
+    from src.collection import ownership
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws)
+    # Its measure was deleted, and a measure is created again under the same id.
+    await ownership.stop_for_measure(monitored_db, A, "M-1", "measure deleted")
+    await monitored_db.commit()
+    again = await _activate(monitored_db, aws)
+    assert again["id"] != first["id"]
+    old = await monitored_db.get(CollectionMonitor, uuid.UUID(first["id"]))
+    assert old.active is False and old.deactivated_by == "system"
+
+
+@pytest.mark.asyncio
+async def test_of_two_stopped_monitorings_the_last_one_stopped_is_resumed(monitored_db):
+    from datetime import datetime, timedelta, timezone
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws)
+    await r.deactivate_monitoring(A, uuid.UUID(first["id"]), MonitorDeactivate(reason="Paused"), _req(), user=None,
+                                  db=monitored_db)
+    # A duplicate made before the fix, stopped later.
+    dup = CollectionMonitor(id=uuid.uuid4(), project_id=A, connection_id=aws, measure_id="M-1", proof_id="P-001",
+                            collector_code="AWS-02", active=False, deactivated_by="j.martin",
+                            deactivated_at=datetime.now(timezone.utc) + timedelta(minutes=1))
+    monitored_db.add(dup)
+    await monitored_db.commit()
+    await monitored_db.execute(ProjectProof.__table__.update().where(
+        ProjectProof.project_id == A, ProjectProof.id == "P-001").values(source="collected"))
+    await monitored_db.commit()
+    assert (await _activate(monitored_db, aws))["id"] == str(dup.id)
+
+
+@pytest.mark.asyncio
+async def test_a_monitoring_resumed_by_another_activation_meanwhile_is_a_conflict(monitored_db, monkeypatch):
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws)
+    await r.deactivate_monitoring(A, uuid.UUID(first["id"]), MonitorDeactivate(reason="Paused"), _req(), user=None,
+                                  db=monitored_db)
+    found = r._stopped_monitor
+
+    async def raced(db, *args):
+        m = await found(db, *args)
+        await db.execute(CollectionMonitor.__table__.update().where(CollectionMonitor.id == m.id).values(active=True))
+        return m
+    monkeypatch.setattr(r, "_stopped_monitor", raced)
+    with pytest.raises(HTTPException) as e:
+        await _activate(monitored_db, aws)
+    assert e.value.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_a_stopped_monitoring_whose_proof_is_gone_is_not_resumed(monitored_db):
+    aws, _ = await _connections(monitored_db)
+    first = await _activate(monitored_db, aws)
+    await r.deactivate_monitoring(A, uuid.UUID(first["id"]), MonitorDeactivate(reason="Paused"), _req(), user=None,
+                                  db=monitored_db)
+    await monitored_db.delete(await monitored_db.get(ProjectProof, (A, first["proof_id"])))
+    await monitored_db.commit()
+    again = await _activate(monitored_db, aws)
+    # A new monitoring with a new proof; the stopped one stays as it was.
+    assert again["id"] != first["id"] and again["last"]["seq"] == 1
+    old = await monitored_db.get(CollectionMonitor, uuid.UUID(first["id"]))
+    assert old.active is False and old.deactivation_reason == "Paused"
+
+
+@pytest.mark.asyncio
 async def test_a_connection_holding_a_history_cannot_be_deleted(monitored_db):
     aws, gh = await _connections(monitored_db)
     await _activate(monitored_db, aws)

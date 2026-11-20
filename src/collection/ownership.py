@@ -18,6 +18,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.models import CollectionMonitor, ProjectMeasure, ProjectProof
 
 MONITORED_RECURRENCE = "quotidienne"
+# Who stopped a monitoring the server stopped itself (its measure is gone, its
+# collector retired): such a monitoring is never resumed by an activation.
+SYSTEM_ACTOR = "system"
 _PROOF_FIELDS = ("label", "url", "date_obtention", "date_expiration", "commentaire", "kind", "file_ref",
                  "owner", "tags", "source")
 
@@ -61,6 +64,7 @@ async def restore(db: AsyncSession, project_id: Any, snap: dict, reason: str) ->
         measure = await db.get(ProjectMeasure, (project_id, m.measure_id))
         if measure is None:
             m.active, m.deactivated_at, m.deactivation_reason = False, now, reason
+            m.deactivated_by = SYSTEM_ACTOR
             deactivated.append(str(m.id))
             continue
         measure.recurrence = MONITORED_RECURRENCE
@@ -96,3 +100,4 @@ async def stop_for_measure(db: AsyncSession, project_id: Any, measure_id: str, r
     for m in await active_monitors(db, project_id):
         if m.measure_id == measure_id:
             m.active, m.deactivated_at, m.deactivation_reason = False, now, reason
+            m.deactivated_by = SYSTEM_ACTOR

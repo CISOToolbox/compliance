@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -290,12 +290,30 @@ def _next_proof_id(existing: set) -> str:
     return f"P-{n:03d}"
 
 
+async def _stopped_monitor(db: AsyncSession, project_id: uuid.UUID, measure_id: str, code: str,
+                          connection_id: uuid.UUID) -> Optional[CollectionMonitor]:
+    """The last monitoring of this collector, through this connection, that
+    a person stopped on this measure, whose collected proof is still there.
+    One the server stopped is not resumed: a measure deleted and created again
+    under its id is another measure, and must not inherit the history."""
+    rows = (await db.execute(select(CollectionMonitor).where(
+        CollectionMonitor.project_id == project_id, CollectionMonitor.measure_id == measure_id,
+        CollectionMonitor.collector_code == code, CollectionMonitor.connection_id == connection_id,
+        CollectionMonitor.active.is_(False), CollectionMonitor.deactivated_by != ownership.SYSTEM_ACTOR)
+        .order_by(CollectionMonitor.deactivated_at.desc().nulls_last()))).scalars().all()
+    for m in rows:
+        proof = await db.get(ProjectProof, (project_id, m.proof_id))
+        if proof is not None and proof.source == "collected":
+            return m
+    return None
+
+
 @router.post("/projects/{project_id}/measures/{measure_id}/monitors", status_code=201)
 async def activate_monitoring(project_id: uuid.UUID, measure_id: str, body: MonitorCreate, request: Request,
                               user: Optional[User] = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     """Activate a proposed collector on the measure: the server creates the
-    collected proof, sets the measure's recurrence to daily (locked) and
-    collects at once."""
+    collected proof (or resumes the monitoring stopped there, with its proof),
+    sets the measure's recurrence to daily (locked) and collects at once."""
     project = await get_project_or_404(project_id, user, db, require_perm="edit")
     measure = await _measure_or_404(db, project_id, measure_id)
     conn = await _connection_or_404(db, project_id, body.connection_id)
@@ -309,19 +327,48 @@ async def activate_monitoring(project_id: uuid.UUID, measure_id: str, body: Moni
     collector = load_catalog().collector(body.collector_code)
     params = _checked_params(collector, body.params)
     retention = checked_retention(body.retention)
-    existing = set((await db.execute(select(ProjectProof.id).where(ProjectProof.project_id == project_id))).scalars().all())
     now = datetime.now(timezone.utc)
-    proof = ProjectProof(project_id=project_id, id=_next_proof_id(existing), label=f"{collector['code']} — {collector['title']['en']}",
-                         kind="observation", source="collected", owner=measure.responsable or "",
-                         date_obtention=now.date().isoformat(), sort_order=len(existing) + 1,
-                         commentaire=f"Automated monitoring through {conn.label}")
-    db.add(proof)
-    measure.preuves_ids = list(measure.preuves_ids or []) + [proof.id]
+    monitor = await _stopped_monitor(db, project_id, measure_id, collector["code"], conn.id)
+    resumed = None
+    if monitor is not None:
+        # The same collector through the same connection was stopped on this
+        # measure: it resumes, writing on in the same proof and history, with
+        # its own parameters and retention unless the request sets them (a
+        # retention reset to the profile would purge what it kept).
+        resumed = {"stopped_at": monitor.deactivated_at.isoformat() if monitor.deactivated_at else None,
+                   "stopped_by": monitor.deactivated_by, "reason": monitor.deactivation_reason}
+        changes = {"active": True, "activated_by": _actor(user), "activated_at": now,
+                   "deactivated_by": "", "deactivated_at": None, "deactivation_reason": "",
+                   # A new watch: its state and its error streak start again.
+                   "error_since": None, "alerted_at": None, "last_result": None, "state_since": None}
+        if "params" in body.model_fields_set:
+            changes["params"] = params
+        if "retention" in body.model_fields_set:
+            changes["retention"] = retention
+        # Resumed once: of two activations at the same time, the second finds it active.
+        done = await db.execute(update(CollectionMonitor).where(
+            CollectionMonitor.id == monitor.id, CollectionMonitor.active.is_(False)).values(**changes)
+            .execution_options(synchronize_session=False))
+        if done.rowcount != 1:
+            await db.rollback()
+            raise HTTPException(status_code=409, detail="Another activation ran at the same time; reload and try again")
+        await db.refresh(monitor)
+        if monitor.proof_id not in (measure.preuves_ids or []):
+            measure.preuves_ids = list(measure.preuves_ids or []) + [monitor.proof_id]
+    else:
+        existing = set((await db.execute(select(ProjectProof.id).where(ProjectProof.project_id == project_id))).scalars().all())
+        proof = ProjectProof(project_id=project_id, id=_next_proof_id(existing),
+                             label=f"{collector['code']} — {collector['title']['en']}",
+                             kind="observation", source="collected", owner=measure.responsable or "",
+                             date_obtention=now.date().isoformat(), sort_order=len(existing) + 1,
+                             commentaire=f"Automated monitoring through {conn.label}")
+        db.add(proof)
+        measure.preuves_ids = list(measure.preuves_ids or []) + [proof.id]
+        monitor = CollectionMonitor(id=uuid.uuid4(), project_id=project_id, connection_id=conn.id, measure_id=measure_id,
+                                    proof_id=proof.id, collector_code=collector["code"], params=params,
+                                    retention=retention, activated_by=_actor(user), activated_at=now)
+        db.add(monitor)
     measure.recurrence = ownership.MONITORED_RECURRENCE
-    monitor = CollectionMonitor(id=uuid.uuid4(), project_id=project_id, connection_id=conn.id, measure_id=measure_id,
-                                proof_id=proof.id, collector_code=collector["code"], params=params, retention=retention,
-                                activated_by=_actor(user), activated_at=now)
-    db.add(monitor)
     try:
         await db.flush()
     except IntegrityError:          # another activation (this collector, or the same proof id) won the race
@@ -331,8 +378,11 @@ async def activate_monitoring(project_id: uuid.UUID, measure_id: str, body: Moni
         await collect(db, monitor, "activation", now=now)
     project.updated_at = now
     from src.audit import log_write
-    await log_write(db, user, request, "monitoring.activate", entity_type="collection_monitor", entity_id=str(monitor.id),
-                    target=f"{measure_id} {collector['code']}", details={"connection": str(conn.id), "proof": proof.id})
+    await log_write(db, user, request, "monitoring.reactivate" if resumed else "monitoring.activate",
+                    entity_type="collection_monitor", entity_id=str(monitor.id),
+                    target=f"{measure_id} {collector['code']}",
+                    details={"connection": str(conn.id), "proof": monitor.proof_id,
+                             **({"resumed_after": resumed} if resumed else {})})
     await db.commit()
     return await monitor_view(db, monitor, now)
 

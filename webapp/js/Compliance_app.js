@@ -1051,9 +1051,23 @@ let _exigFilter = "";
 let _exigTarget = "";
 /** Requirement kept highlighted while its view is on screen ("fw:ref"). */
 let _exigMarked = "";
+// A search field is redrawn with its list: the new one gets back the focus and
+// the caret of the one being typed in.
+function _redrawKeepingSearch(handler, redraw) {
+    const typing = document.activeElement;
+    const caret = typing && typing.getAttribute("data-input") === handler ? typing.selectionStart : null;
+    redraw();
+    if (caret === null)
+        return;
+    const input = document.querySelector('input[data-input="' + handler + '"]');
+    if (!input)
+        return;
+    input.focus();
+    input.setSelectionRange(caret, caret);
+}
 function _filterExigences(fwId, val) {
     _exigFilter = val;
-    _renderFwView(fwId, "exigences");
+    _redrawKeepingSearch("_filterExigences", function () { _renderFwView(fwId, "exigences"); });
 }
 function _renderFwExigences(fwId, label) {
     const allExigences = _getExigences(fwId);
@@ -1954,7 +1968,7 @@ window._bulkComplianceMesuresDelete = function (scope) {
 };
 function _filterMesures(fwId, val) {
     _mesureFilter = val;
-    _renderFwView(fwId, "mesures");
+    _redrawKeepingSearch("_filterMesures", function () { _renderFwView(fwId, "mesures"); });
 }
 function _findExigencesForMesure(mesureId) {
     const result = [];
@@ -2386,7 +2400,7 @@ window._bulkCompliancePreuvesDelete = function (scope) {
 };
 function _filterPreuves(fwId, val) {
     _preuveFilter = val;
-    _renderFwView(fwId, "preuves");
+    _redrawKeepingSearch("_filterPreuves", function () { _renderFwView(fwId, "preuves"); });
 }
 function _addPreuveGlobal(fwId) {
     _saveState();
@@ -2625,7 +2639,7 @@ window._bulkCompliancePlanDelete = function (scope) {
 };
 function _filterPlan(val) {
     _planFilter = val;
-    renderPlan();
+    _redrawKeepingSearch("_filterPlan", renderPlan);
 }
 function _addMesurePlan() {
     window._createMesureUnified(null, null);

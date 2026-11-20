@@ -59,6 +59,9 @@ async def active_exclusions(db: AsyncSession, connection_id: Any, code: str) -> 
     return out
 
 
+RETIRED_REASON = "collector no longer in the catalog"
+
+
 async def _people(db: AsyncSession) -> list[dict] | None:
     """The people of Access, for GH-04. Lot 1d asks Access; until then none."""
     return None
@@ -72,13 +75,14 @@ async def collect(db: AsyncSession, monitor: CollectionMonitor, trigger: str,
     params = {**{p["id"]: p["default"] for p in collector.get("params", [])}, **(monitor.params or {})}
     try:
         if collector.get("retired"):
-            raise LookupError("collector no longer in the catalog")
+            raise LookupError(RETIRED_REASON)
         fetched = await (provider or provider_for(conn)).fetch(conn, connection_secrets(conn), collector, params, now)
         evaluation = {} if fetched.get("error") else evaluators()[collector["code"]](
             fetched["raw"], params, {"now": now, "people": await _people(db)})
         draft = finalize(evaluation, fetched, await active_exclusions(db, conn.id, collector["code"]))
     except Exception as exc:  # noqa: BLE001 — a failed collection is recorded, never lost
-        logger.exception("collection %s failed", monitor.id)
+        if not collector.get("retired"):
+            logger.exception("collection %s failed", monitor.id)
         reason = str(exc) if isinstance(exc, LookupError) else f"collection failed: {type(exc).__name__}"
         draft = finalize({}, {"raw": None, "error": {"reason": reason}}, [])
     seq = ((await db.execute(select(func.max(CollectionVersion.seq))
@@ -95,6 +99,22 @@ async def collect(db: AsyncSession, monitor: CollectionMonitor, trigger: str,
         raw=draft["raw"], raw_sha256=draft["raw_sha256"] or canonical_sha256(None), result_changed=changed)
     db.add(version)
     await db.flush()
+    if collector.get("retired"):
+        # Nothing was read: the result, its date and the measure's last check
+        # stay what they were. Nothing will ever collect it again: the
+        # monitoring stops (its recurrence is free), the stop is journaled and
+        # the people are told once (scheduler.alert_retired).
+        # last_version_id stays on the last real collection: the list shows
+        # what the status counts; this version is in the history.
+        monitor.last_attempt_at = now
+        monitor.active, monitor.deactivated_at = False, now
+        monitor.deactivated_by, monitor.deactivation_reason = "system", RETIRED_REASON
+        monitor.alerted_at = None
+        from src.audit import log_write
+        await log_write(db, None, None, "monitoring.deactivate", actor="system", entity_type="collection_monitor",
+                        entity_id=str(monitor.id), target=f"{monitor.measure_id} {monitor.collector_code}",
+                        details={"reason": RETIRED_REASON})
+        return version
     # The measure was checked, the proof obtained, today.
     from src.models import ProjectMeasure, ProjectProof
     measure = await db.get(ProjectMeasure, (monitor.project_id, monitor.measure_id))

@@ -133,7 +133,18 @@ function _monActivate(mid, code, connectionId) {
         .catch(_monFail);
 }
 function _monRunFromMeasure(id) {
-    window.ComplianceAPI.runMonitoring(id).then(function () { return _monAfterServerWrite(_monMeasure.mid); }).catch(_monFail);
+    window.ComplianceAPI.runMonitoring(id).then(function (res) {
+        // Its collector left the catalog: the run stopped the monitoring.
+        if (res && res.retired && !res.active)
+            showStatus(_monT("retired_stopped", { code: res.collector_code }), true);
+        return _monAfterServerWrite(_monMeasure.mid);
+    }).catch(_monFail);
+}
+/** "stopped", and why: the collector left the catalog, or the reason given. */
+function _monStoppedLabel(m) {
+    // Stopped by the system for that: a person's own reason stays theirs.
+    const why = m.retired && m.deactivated_by === "system" ? _monT("retired") : (m.deactivation_reason || "");
+    return _monT("stopped") + (why ? " — " + why : "");
 }
 function _monStopStart(id) { _monMeasure.stopping = id; _monRedrawMeasure(); }
 function _monStopCancel() { _monMeasure.stopping = null; _monRedrawMeasure(); }
@@ -325,7 +336,7 @@ function _monMonitorsHtml() {
     _mon.monitors.forEach(function (m) {
         h += '<tr class="ct-clickable' + (m.active ? "" : " ct-bg-alt") + '" data-click="_monOpenMonitor" data-args=\'' + _da(m.id) + '\'>'
             + '<td class="fw-600">' + esc(m.measure_id) + '</td><td>' + esc(m.collector_code) + ' — ' + esc(_monText(m.title))
-            + (m.active ? "" : ' <span class="fs-xs text-muted">(' + esc(_monT("stopped")) + ')</span>') + '</td><td>'
+            + (m.active ? "" : ' <span class="fs-xs text-muted">(' + esc(_monStoppedLabel(m)) + ')</span>') + '</td><td>'
             + _monResultBadge(m.last && m.last.result) + '</td><td>' + esc(m.days_in_state == null ? "—" : _monT("days", { days: m.days_in_state }))
             + '</td><td>' + _monDate(m.last && m.last.collected_at) + '</td></tr>';
         if (_mon.openMonitor === m.id)

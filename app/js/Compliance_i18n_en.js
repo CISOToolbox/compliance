@@ -136,6 +136,8 @@ _registerTranslations("en", {
     "comp.mon.since_days": "in this state for {days} day(s)",
     "comp.mon.stop_reason": "Why the monitoring stops",
     "comp.mon.stopped": "stopped",
+    "comp.mon.retired": "collector no longer in the catalog",
+    "comp.mon.retired_stopped": "{code}: this collector is no longer in the catalog, its monitoring has stopped.",
     "comp.mon.test_failed": "Failed",
     "comp.mon.test_ok": "Connected",
     "comp.mon.test_partial": "Connected, permissions missing",

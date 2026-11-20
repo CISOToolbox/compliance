@@ -139,3 +139,106 @@ async def test_a_tick_collects_then_runs_the_daily_work_once(monitored_db, monke
     await scheduler.tick(Factory(), now)
     await scheduler.tick(Factory(), now + timedelta(hours=1))
     assert calls == ["purge"]
+
+
+@pytest.mark.asyncio
+async def test_a_collector_retired_from_the_catalog_stops_its_monitoring_and_is_told_once(monitored_db):
+    """Its next collection records why (an error version), stops the
+    monitoring, frees the recurrence and tells the people in charge once —
+    not a failure alert every day."""
+    from src.collection.ownership import recurrence_locked
+    db = monitored_db
+    _, a, _ = await _two_monitors(db)
+    m = await db.get(CollectionMonitor, a)
+    m.collector_code = "AWS-99"                 # a later catalog retired it
+    m.last_attempt_at = None
+    (await db.get(ProjectMeasure, (A, "M-1"))).responsable = "iam-owner@medsecure.example"
+    await db.commit()
+    now = datetime.now(timezone.utc)
+    await scheduler.collect_due(db, now)
+    db.expunge_all()
+    m = await db.get(CollectionMonitor, a)
+    assert m.active is False and m.deactivated_by == "system"
+    assert "no longer in the catalog" in m.deactivation_reason
+    last = (await db.execute(select(CollectionVersion).where(CollectionVersion.monitor_id == a)
+                             .order_by(CollectionVersion.seq.desc()))).scalars().first()
+    assert last.result == "erreur" and await recurrence_locked(db, A, "M-1") is False
+    told = []
+    send = lambda to, s, b: (told.append((to, s)), (True, ""))[1]   # noqa: E731
+    assert await scheduler.alert_retired(db, now, send) == 1
+    assert told and all("retired" in s for _, s in told)
+    told.clear()
+    assert await scheduler.alert_retired(db, now + timedelta(days=1), send) == 0
+    assert await scheduler.alert_failing(db, now + timedelta(days=3), send) == 1      # M-2's own error only
+    assert all("AWS-99" not in s for _, s in told)
+
+
+async def _retire(db, mid):
+    m = await db.get(CollectionMonitor, mid)
+    m.collector_code = "AWS-99"
+    m.last_attempt_at = None
+    await db.commit()
+
+
+@pytest.mark.asyncio
+async def test_a_retirement_reads_nothing_so_it_changes_neither_the_result_nor_the_last_check(monitored_db):
+    """Nothing was read: the last result, its date and the measure's last
+    check stay; the stopped monitoring then ages like any other (it cancels
+    no valid manual proof). The stop is journaled."""
+    from src.models import AuditLog, ProjectProof
+    from src.routes import collection as r
+    from src.routes.projects import get_project_status
+    db = monitored_db
+    _, a, _ = await _two_monitors(db)
+    before = await db.get(CollectionMonitor, a)
+    result, at = before.last_result, before.last_collected_at
+    measure = await db.get(ProjectMeasure, (A, "M-1"))
+    measure.dernier_controle, measure.statut = "2026-11-01", "termine"
+    db.add(ProjectProof(project_id=A, id="P-500", label="Signed IAM review"))
+    measure.preuves_ids = list(measure.preuves_ids or []) + ["P-500"]
+    await db.commit()
+    await _retire(db, a)
+    await scheduler.collect_due(db, datetime.now(timezone.utc))
+    db.expunge_all()
+    m = await db.get(CollectionMonitor, a)
+    assert m.active is False and m.last_result == result and m.last_collected_at == at
+    assert (await db.get(ProjectMeasure, (A, "M-1"))).dernier_controle == "2026-11-01"
+    versions = (await db.execute(select(CollectionVersion).where(CollectionVersion.monitor_id == a)
+                                 .order_by(CollectionVersion.seq))).scalars().all()
+    assert versions[-1].result == "erreur" and "catalog" in versions[-1].reason
+    m.last_collected_at = datetime.now(timezone.utc) - timedelta(days=5)   # it ages out
+    await db.commit()
+    s = await get_project_status(A, user=None, db=db)
+    assert s["measures"]["M-1"] == "termine"                               # the manual proof stands
+    journal = (await db.execute(select(AuditLog).where(AuditLog.action == "monitoring.deactivate"))).scalars().all()
+    assert journal and journal[-1].entity_id == str(a)
+    assert (await r.monitor_view(db, m))["retired"] is True
+
+
+@pytest.mark.asyncio
+async def test_only_a_system_retirement_is_told_and_not_months_later(monitored_db):
+    from src.collection.service import RETIRED_REASON
+    db = monitored_db
+    _, a, b = await _two_monitors(db)
+    now = datetime.now(timezone.utc)
+    for mid, by, at in ((a, "a person", now), (b, "system", now - timedelta(days=40))):
+        m = await db.get(CollectionMonitor, mid)
+        m.active, m.deactivated_by, m.deactivated_at, m.deactivation_reason = False, by, at, RETIRED_REASON
+    await db.commit()
+    told = []
+    assert await scheduler.alert_retired(db, now, lambda to, s, body: (told.append(s), (True, ""))[1]) == 0
+
+
+@pytest.mark.asyncio
+async def test_a_run_on_a_retired_collector_answers_it_stopped_and_keeps_the_last_real_collection(monitored_db):
+    from src.models import AuditLog
+    from src.routes import collection as r
+    db = monitored_db
+    _, a, _ = await _two_monitors(db)
+    real = (await db.get(CollectionMonitor, a)).last_version_id
+    await _retire(db, a)
+    out = await r.run_monitoring(A, a, user=None, db=db)
+    assert out["active"] is False and out["retired"] is True and out["deactivated_by"] == "system"
+    assert out["last"]["id"] == str(real)                       # the list shows what the status counts
+    row = (await db.execute(select(AuditLog).where(AuditLog.action == "monitoring.deactivate"))).scalars().one()
+    assert row.target == "M-1 AWS-99"                           # as a stop by hand writes it

@@ -11,7 +11,7 @@ type MonAny = any;
 
 var _mon: {
     collectors: MonAny | null; connections: MonAny[]; monitors: MonAny[]; exclusions: MonAny[];
-    newConnection: { provider: string; editing?: string } | null; openMonitor: string | null; openProof: string | null; versions: MonAny[];
+    newConnection: { provider: string; mode?: string; editing?: string } | null; openMonitor: string | null; openProof: string | null; versions: MonAny[];
     version: MonAny | null; excluding: string | null; excludeKind: string; coverageFw: string; coverage: MonAny | null;
     testResults: Record<string, MonAny>; error: string;
 } = {
@@ -259,16 +259,33 @@ function _monConnectionsHtml(): string {
                      return '<option value="' + esc(p.provider) + '"' + (p.provider === _mon.newConnection!.provider ? " selected" : "") + '>' + esc(_monText(p.label)) + '</option>';
                  }).join("") + '</select></label>';
         }
+        const mode = _mon.newConnection.mode || (editing ? editing.mode : "demo");
+        if (prov && prov.live) {
+            h += '<label class="fs-xs">' + esc(_monT("col_mode")) + '<select id="mon-new-mode" class="ct-w-full" data-change="_monPickMode" data-pass-value>'
+               + ["demo", "live"].map(function(m) {
+                     return '<option value="' + m + '"' + (m === mode ? " selected" : "") + '>' + esc(_monT("mode." + m)) + '</option>';
+                 }).join("") + '</select></label>';
+        }
         h += '<label class="fs-xs">' + esc(_monT("col_label")) + '<input type="text" id="mon-new-label" class="ct-w-full" value="' + esc(editing ? editing.label : "") + '" /></label>';
         ((prov && prov.connection.fields) || []).forEach(function(f: MonAny) {
+            if (f.generated) {                                  // written by the server, shown once it exists
+                if (editing && editing.settings[f.id]) {
+                    h += '<div class="fs-xs ct-col-span-2">' + esc(_monText(f.label)) + '<div class="fw-600 ct-mono">' + esc(String(editing.settings[f.id])) + '</div></div>';
+                }
+                return;
+            }
             const current = editing && !f.secret ? editing.settings[f.id] : "";
             const shown = Array.isArray(current) ? current.join(", ") : (current == null ? "" : String(current));
             const keeps = editing && f.secret && editing.secrets[f.id] && editing.secrets[f.id].set;
-            h += '<label class="fs-xs">' + esc(_monText(f.label)) + (f.required ? " *" : "")
+            h += '<label class="fs-xs">' + esc(_monText(f.label)) + (f.required && mode === "live" ? " *" : "")
                + '<input type="' + (f.secret ? "password" : "text") + '" class="ct-w-full" data-mon-field="' + esc(f.id) + '" data-mon-secret="' + (f.secret ? "1" : "0")
-               + '" value="' + esc(shown) + '"' + (keeps ? ' placeholder="' + esc(_monT("secret_kept")) + '"' : "") + ' autocomplete="off" /></label>';
+               + '" value="' + esc(shown) + '"' + (keeps ? ' placeholder="' + esc(_monT("secret_kept")) + '"' : "") + ' autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" /></label>';
         });
-        h += '</div>' + _monErrorSlot("mon-conn-error") + '<p class="fs-xs text-muted">' + esc(_monT("demo_only")) + '</p>'
+        let hint = esc(_monT(mode === "live" ? "live_hint." + _mon.newConnection.provider : "demo_only"));
+        if (mode === "live" && _mon.newConnection.provider === "aws") {
+            hint += ' <a href="collection/aws-readonly-role.yaml" download>' + esc(_monT("aws_template")) + '</a>';
+        }
+        h += '</div>' + _monErrorSlot("mon-conn-error") + '<p class="fs-xs text-muted">' + hint + '</p>'
            + '<div class="ct-flex ct-gap-1"><button class="ct-btn" data-write data-variant="primary" data-size="sm" data-click="_monSaveConnection">' + esc(_monT("btn_save")) + '</button>'
            + '<button class="ct-btn" data-size="sm" data-click="_monCancelConnection">' + esc(_monT("btn_cancel")) + '</button></div>';
     } else {
@@ -280,6 +297,7 @@ function _monConnectionsHtml(): string {
 function _monNewConnection() { _mon.newConnection = { provider: "aws" }; _monDraw(); }
 function _monCancelConnection() { _mon.newConnection = null; _monDraw(); }
 function _monPickProvider(value: string) { _mon.newConnection = { provider: value }; _monDraw(); }
+function _monPickMode(value: string) { if (_mon.newConnection) { _mon.newConnection.mode = value; _monDraw(); } }
 function _monEditConnection(cid: string) {
     const c = _mon.connections.find(function(x: MonAny) { return x.id === cid; });
     if (!c) return;
@@ -289,6 +307,7 @@ function _monEditConnection(cid: string) {
 function _monSaveConnection() {
     if (!_mon.newConnection) return;
     const editing = _mon.newConnection.editing;
+    const mode = _mon.newConnection.mode;
     const settings: Record<string, unknown> = {}, secrets: Record<string, unknown> = {};
     document.querySelectorAll<HTMLInputElement>("[data-mon-field]").forEach(function(input) {
         const key = input.getAttribute("data-mon-field")!;
@@ -304,8 +323,8 @@ function _monSaveConnection() {
     const label = (document.getElementById("mon-new-label") as HTMLInputElement | null)?.value || "";
     const api = window.ComplianceAPI!;
     const done = editing
-        ? api.updateConnection(editing, { label: label, settings: settings, secrets: secrets })
-        : api.createConnection({ provider: _mon.newConnection.provider, label: label, mode: "demo", settings: settings, secrets: secrets });
+        ? api.updateConnection(editing, Object.assign({ label: label, settings: settings, secrets: secrets }, mode ? { mode: mode } : {}))
+        : api.createConnection({ provider: _mon.newConnection.provider, label: label, mode: mode || "demo", settings: settings, secrets: secrets });
     done.then(function() { _mon.newConnection = null; renderMonitoring(); }).catch(_monFormFail("mon-conn-error"));
 }
 function _monTestConnection(cid: string) {

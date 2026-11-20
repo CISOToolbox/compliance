@@ -1007,22 +1007,9 @@ let _exigTarget = "";
 /** Requirement kept highlighted while its view is on screen ("fw:ref"). */
 let _exigMarked = "";
 
-// A search field is redrawn with its list: the new one gets back the focus and
-// the caret of the one being typed in.
-function _redrawKeepingSearch(handler: string, redraw: () => void) {
-    const typing = document.activeElement as HTMLInputElement | null;
-    const caret = typing && typing.getAttribute("data-input") === handler ? typing.selectionStart : null;
-    redraw();
-    if (caret === null) return;
-    const input = document.querySelector<HTMLInputElement>('input[data-input="' + handler + '"]');
-    if (!input) return;
-    input.focus();
-    input.setSelectionRange(caret, caret);
-}
-
 function _filterExigences(fwId: string, val: string) {
     _exigFilter = val;
-    _redrawKeepingSearch("_filterExigences", function() { _renderFwView(fwId, "exigences"); });
+    _renderFwView(fwId, "exigences");
 }
 
 function _renderFwExigences(fwId: string, label: string) {
@@ -1878,7 +1865,7 @@ window._bulkComplianceMesuresDelete = function(scope: string) {
 
 function _filterMesures(fwId: string, val: string) {
     _mesureFilter = val;
-    _redrawKeepingSearch("_filterMesures", function() { _renderFwView(fwId, "mesures"); });
+    _renderFwView(fwId, "mesures");
 }
 
 function _findExigencesForMesure(mesureId: string) {
@@ -2304,7 +2291,7 @@ window._bulkCompliancePreuvesDelete = function(scope: string) {
 
 function _filterPreuves(fwId: string, val: string) {
     _preuveFilter = val;
-    _redrawKeepingSearch("_filterPreuves", function() { _renderFwView(fwId, "preuves"); });
+    _renderFwView(fwId, "preuves");
 }
 
 function _addPreuveGlobal(fwId: string) {
@@ -2545,7 +2532,7 @@ window._bulkCompliancePlanDelete = function(scope: string) {
 
 function _filterPlan(val: string) {
     _planFilter = val;
-    _redrawKeepingSearch("_filterPlan", renderPlan);
+    renderPlan();
 }
 
 function _addMesurePlan() {

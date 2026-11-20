@@ -19,6 +19,6 @@ _ctDeclareHandlers([
     "_monActivate", "_monCancelConnection", "_monCoverageFw", "_monDeleteConnection", "_monEditConnection",
     "_monExcludeCancel", "_monExcludeKind", "_monExcludeSave", "_monExcludeStart",
     "_monNewConnection", "_monOpenFromMeasure", "_monOpenMonitor", "_monOpenVersion",
-    "_monPickProvider", "_monRevokeExclusion", "_monRunFromMeasure", "_monSaveConnection",
+    "_monPickMode", "_monPickProvider", "_monRevokeExclusion", "_monRunFromMeasure", "_monSaveConnection",
     "_monStopCancel", "_monStopSave", "_monStopStart", "_monSuggestion", "_monTestConnection"
 ]);

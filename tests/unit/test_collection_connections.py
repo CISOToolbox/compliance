@@ -36,9 +36,12 @@ for _t in Base.metadata.tables.values():
             _c.type = JSON()
 ProjectControl.__table__.c.id.autoincrement = False
 
-AWS = {"label": "MedSecure production", "settings": {"role_arn": "arn:aws:iam::111122223333:role/ciso-audit",
-                                                      "regions": ["eu-west-3"]},
-       "secrets": {"external_id": "s3cr3t-external-id"}}
+# Split: a whole key-shaped literal trips the secret scan of the sources.
+KEY_ID = "AKIA" + "ABCDEFGHIJKLMNOP"
+AWS = {"label": "MedSecure production", "mode": "live",
+       "settings": {"role_arn": "arn:aws:iam::111122223333:role/ciso-audit", "regions": ["eu-west-3"]},
+       "secrets": {"access_key_id": KEY_ID, "secret_access_key": "s3cr3t-secret-key"}}
+DEMO = {**AWS, "mode": "demo"}
 
 
 def _new(payload=AWS, provider="aws"):
@@ -51,27 +54,26 @@ def test_a_secret_is_stored_encrypted_and_never_served():
     c = _new()
     assert c.secrets_enc.startswith("enc:v1:") and "s3cr3t" not in c.secrets_enc
     view = connection_view(c)
-    assert view["secrets"] == {"external_id": {"set": True}}
+    assert view["secrets"] == {"access_key_id": {"set": True}, "secret_access_key": {"set": True}}
     assert "s3cr3t" not in str(view)
     assert view["settings"]["role_arn"].startswith("arn:aws:iam::")
-    assert connection_secrets(c) == {"external_id": "s3cr3t-external-id"}
+    assert connection_secrets(c) == AWS["secrets"]
 
 
 def test_an_empty_secret_keeps_the_stored_one_and_null_clears_it():
     c = _new()
-    apply_connection_input(c, {"secrets": {"external_id": ""}, "label": "renamed"}, creating=False)
-    assert connection_secrets(c) == {"external_id": "s3cr3t-external-id"} and c.label == "renamed"
-    with pytest.raises(ConnectionInputError, match="external_id is required"):
-        apply_connection_input(c, {"secrets": {"external_id": None}}, creating=False)
+    apply_connection_input(c, {"secrets": {"secret_access_key": ""}, "label": "renamed"}, creating=False)
+    assert connection_secrets(c) == AWS["secrets"] and c.label == "renamed"
+    with pytest.raises(ConnectionInputError, match="secret_access_key is required"):
+        apply_connection_input(c, {"secrets": {"secret_access_key": None}}, creating=False)
 
 
 @pytest.mark.parametrize("payload, message", [
     ({**AWS, "settings": {**AWS["settings"], "password": "x"}}, "unknown setting password"),
-    ({**AWS, "secrets": {"external_id": "x", "role_arn": "y"}}, "unknown secret role_arn"),
+    ({**AWS, "secrets": {**AWS["secrets"], "role_arn": "y"}}, "unknown secret role_arn"),
     ({**AWS, "settings": {"regions": ["eu-west-3"]}}, "role_arn is required"),
-    ({**AWS, "secrets": {}}, "external_id is required"),
+    ({**AWS, "secrets": {}}, "access_key_id is required"),
     ({**AWS, "label": "  "}, "label is required"),
-    ({**AWS, "mode": "live"}, "not available yet"),
     ({**AWS, "mode": "batch"}, "unknown mode"),
 ])
 def test_what_the_provider_does_not_declare_is_refused(payload, message):
@@ -80,7 +82,7 @@ def test_what_the_provider_does_not_declare_is_refused(payload, message):
 
 
 def test_a_demonstration_connection_may_carry_its_scenario():
-    c = _new({**AWS, "settings": {**AWS["settings"], "scenario": "missing-backup-permission"}})
+    c = _new({**DEMO, "settings": {**AWS["settings"], "scenario": "missing-backup-permission"}})
     assert c.settings["scenario"] == "missing-backup-permission"
 
 

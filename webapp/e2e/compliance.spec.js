@@ -407,25 +407,4 @@ test.describe('Compliance Tracking — local frontend journeys', () => {
         expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
     });
 
-    test('a search field keeps the focus and the caret while its list redraws', async ({ page }) => {
-        const errors = trackErrors(page);
-        await openApp(page);
-        await page.locator(NAV_ITEMS, { hasText: /Contexte|Context/i }).first().click();
-        await page.locator('#context-content .ct-ref-chip.is-inactive').first().click();
-        const fw = await page.evaluate(() => D.referentiels_actifs[0]);
-        for (const [panel, handler] of [[`fw:${fw}:exigences`, '_filterExigences'], [`fw:${fw}:mesures`, '_filterMesures'],
-                                        [`fw:${fw}:preuves`, '_filterPreuves'], ['plan', '_filterPlan']]) {
-            await page.evaluate((id) => selectPanel(id), panel);
-            const search = page.locator(`input[data-input="${handler}"]`);
-            await search.click();
-            await search.pressSequentially('acc');
-            await page.keyboard.press('ArrowLeft');
-            await page.keyboard.type('x');
-            await expect(search, panel).toBeFocused();
-            await expect(search, panel).toHaveValue('acxc');
-            await search.fill('');                       // the next panel starts unfiltered
-        }
-        expect(errors, `uncaught page errors: ${errors.join(' | ')}`).toEqual([]);
-    });
-
 });

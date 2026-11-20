@@ -64,7 +64,7 @@ async def db():
 async def _monitor(db, code, scenario=None):
     conn = CollectionConnection(id=uuid.uuid4(), project_id=PID, provider="aws" if code.startswith("AWS") else "github")
     settings = {"role_arn": "arn:aws:iam::111122223333:role/ciso-audit"} if conn.provider == "aws" else {"organization": "medsecure"}
-    secrets = {"external_id": "x"} if conn.provider == "aws" else {"token": "x"}
+    secrets = {"secret_access_key": "x"} if conn.provider == "aws" else {"token": "x"}
     if scenario:
         settings["scenario"] = scenario
     apply_connection_input(conn, {"label": f"MedSecure {code}", "settings": settings, "secrets": secrets}, creating=True)
@@ -131,7 +131,7 @@ async def test_a_temporary_exclusion_counts_only_once_its_derogation_is_approved
 async def test_a_missing_right_is_an_error_that_names_it_and_starts_a_streak(db):
     conn, m = await _monitor(db, "AWS-10")                     # MedSecure's role lacks the backup listing
     v = await collect(db, m, "activation", now=NOW)
-    assert (v.result, v.missing_permission) == ("erreur", "backup:ListBackupJobs")
+    assert (v.result, v.missing_permission) == ("erreur", "backup:ListProtectedResources")
     assert m.error_since == NOW
     await collect(db, m, "schedule", now=NOW + timedelta(days=1))
     assert m.error_since == NOW                                # the streak goes on

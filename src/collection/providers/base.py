@@ -20,10 +20,12 @@ class SourceProvider(Protocol):
 
 
 def provider_for(conn: Any) -> SourceProvider:
-    """The provider behind a connection. Only the demonstration mode exists
-    until the real collectors: a live connection is refused at creation, and
-    a failure is never answered with demonstration data."""
+    """The provider behind a connection. A live connection is read live or
+    not at all: a failure is never answered with demonstration data."""
     if conn.mode == "demo":
         from src.collection.providers.simulated import SimulatedProvider
         return SimulatedProvider()
+    if conn.mode == "live" and conn.provider == "aws":
+        from src.collection.providers.aws import AwsProvider
+        return AwsProvider()
     raise RuntimeError(f"no {conn.mode} provider for {conn.provider}")

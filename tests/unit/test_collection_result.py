@@ -59,9 +59,9 @@ def test_no_finding_is_compliant():
 
 
 def test_an_unreadable_source_is_an_error_never_a_verdict():
-    v = finalize(_eval([]), _fetched(raw=None, error={"reason": "AccessDenied", "missing_permission": "backup:ListBackupJobs"}), [])
+    v = finalize(_eval([]), _fetched(raw=None, error={"reason": "AccessDenied", "missing_permission": "backup:ListProtectedResources"}), [])
     assert v["result"] == "erreur"
-    assert v["reason"] == "AccessDenied" and v["missing_permission"] == "backup:ListBackupJobs"
+    assert v["reason"] == "AccessDenied" and v["missing_permission"] == "backup:ListProtectedResources"
     assert v["findings"] == [] and v["excluded"] == []
 
 

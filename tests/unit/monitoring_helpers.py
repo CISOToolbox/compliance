@@ -46,7 +46,7 @@ def _req():
 async def _connections(db, project=A):
     aws = await r.create_connection(project, ConnectionCreate(
         provider="aws", label="MedSecure production", settings={"role_arn": "arn:aws:iam::111122223333:role/ciso-audit"},
-        secrets={"external_id": "x"}), _req(), user=None, db=db)
+        secrets={"secret_access_key": "x"}), _req(), user=None, db=db)
     gh = await r.create_connection(project, ConnectionCreate(
         provider="github", label="MedSecure", settings={"organization": "medsecure"}, secrets={"token": "x"}),
         _req(), user=None, db=db)

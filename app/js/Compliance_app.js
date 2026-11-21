@@ -453,17 +453,27 @@ function _fwCounts(fwId) {
 var _derogByKey = {};
 var _derogLoaded = false;
 var _derogLoading = false;
+// Only the answer to the latest load is kept: an older one landing after it
+// would bring back the register as it was before a decision.
+var _derogAsked = 0;
 function _loadDerogations(then) {
+    const asked = ++_derogAsked;
     _derogLoading = true;
-    ComplianceAPI.listDerogations({ status: "approved", subject_type: "control" }).then(function (r) {
-        _derogByKey = {};
-        ((r && r.items) || []).forEach(function (d) { _derogByKey[d.subject_id] = d; });
+    function landed(items) {
+        if (asked !== _derogAsked)
+            return; // superseded: the latest load redraws
+        if (items) {
+            _derogByKey = {};
+            items.forEach(function (d) { _derogByKey[d.subject_id] = d; });
+        }
         _derogLoaded = true;
         _derogLoading = false;
         if (then)
             then();
-    }).catch(function () { _derogLoaded = true; _derogLoading = false; if (then)
-        then(); });
+    }
+    ComplianceAPI.listDerogations({ status: "approved", subject_type: "control" })
+        .then(function (r) { landed((r && r.items) || []); })
+        .catch(function () { landed(null); });
 }
 function _exigDerogation(fwId, entry) {
     return _derogByKey[fwId + ":" + (entry.ref || "")] || null;
@@ -1478,8 +1488,12 @@ function _ncOptions() {
             open: function (id) { return window._editMesureRow({ id: id }); },
         },
         onChange: function () {
-            _loadDerogations(function () { if (_currentPanel.startsWith("fw:") && _currentFw)
-                _renderFwView(_currentFw, _currentSubview); });
+            _loadDerogations(function () {
+                if (!_currentPanel.startsWith("fw:") || !_currentFw)
+                    return;
+                // It may stand in for the Exigences load it superseded: same care for the search.
+                _redrawKeepingSearch("_filterExigences", function () { _renderFwView(_currentFw, _currentSubview); });
+            });
             if (window._refreshStatus)
                 window._refreshStatus(); // a derogation changes the status
         }

@@ -29,7 +29,7 @@ import secrets as _secrets
 import time
 import urllib.parse
 from datetime import datetime, timezone
-from typing import Any, Callable
+from typing import Any, Callable, Sequence
 
 ROLE_ARN_RE = re.compile(r"^arn:aws:iam::\d{12}:role/[\w+=,.@/-]{1,512}$")
 ACCESS_KEY_RE = re.compile(r"^AKIA[A-Z0-9]{16}$")
@@ -157,6 +157,7 @@ class Session:
         # The region of the global reads (IAM, STS, S3's bucket list): the first
         # one set, so that an organisation that denies the others still answers.
         self.home = home_region(settings)
+        self.sts_regions: list[str] = []         # where STS was asked, in order
         self._user = boto3.session.Session(aws_access_key_id=key, aws_secret_access_key=secret,
                                            region_name=self.home)
         self._role: Any = None
@@ -168,6 +169,7 @@ class Session:
         # STS in the home region first; in us-east-1 when that region is not
         # enabled for the account (its credentials are valid in every region).
         for region in dict.fromkeys((self.home, HOME_REGION)):
+            self.sts_regions.append(region)
             sts = self._guarded(self._user.client("sts", region_name=region, config=self.config),
                                 {("sts", "AssumeRole")})
             try:
@@ -500,8 +502,16 @@ def _error(reason: str, missing: str | None = None) -> dict:
             "error": {"reason": reason, "missing_permission": missing}}
 
 
-def _assume_failure(exc: Exception) -> dict:
-    """The error of a role that could not be assumed."""
+def _assume_failure(exc: Exception, regions: Sequence[str] = ()) -> dict:
+    """The error of a role that could not be assumed; when STS fell back to
+    us-east-1, the reason names both regions asked."""
+    error = _assume_error(exc)
+    if len(regions) > 1:
+        error["error"]["reason"] += f" (STS was asked in {regions[0]}, then in {regions[-1]})"
+    return error
+
+
+def _assume_error(exc: Exception) -> dict:
     if isinstance(exc, Denied):
         return _error("the IAM user cannot assume the role: check that the role ARN is the RoleArn output of the "
                       "stack, that the stack's ExternalId is the External ID shown on the connection, and that the "
@@ -540,7 +550,7 @@ class AwsProvider:
         except PermissionError:
             raise
         except Exception as exc:  # noqa: BLE001
-            return _assume_failure(exc)
+            return _assume_failure(exc, getattr(s, "sts_regions", []))
         try:
             regions = _regions(s) if ("ec2", "DescribeRegions") in READS[code] else regions_setting(s.settings)
             raw, as_of, unreadable = READERS[code](s, regions, now)
@@ -567,7 +577,7 @@ class AwsProvider:
             s.assume()
         except Exception as exc:  # noqa: BLE001
             try:
-                error = _assume_failure(exc)["error"]
+                error = _assume_failure(exc, getattr(s, "sts_regions", []))["error"]
             except Exception:  # noqa: BLE001 — not an AWS answer: said by its type, never its text
                 return refused(f"The role could not be assumed ({type(exc).__name__}).", [])
             return refused(error["reason"][0].upper() + error["reason"][1:] + ".",

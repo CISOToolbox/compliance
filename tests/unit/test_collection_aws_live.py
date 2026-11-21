@@ -396,6 +396,29 @@ def test_sts_falls_back_to_us_east_1_when_the_home_region_is_not_enabled():
         s.assume()
 
 
+def test_when_us_east_1_refuses_too_the_failure_names_both_regions():
+    from botocore.stub import Stubber
+    s = aws.Session(_conn({"regions": ["eu-south-2"]}), KEYS, aws.READS["AWS-04"])
+    make = s._user.client
+    sts = {r: make("sts", region_name=r) for r in ("eu-south-2", "us-east-1")}
+    s._user.client = lambda service, region_name, config: sts[region_name]
+    with Stubber(sts["eu-south-2"]) as off, Stubber(sts["us-east-1"]) as east:
+        off.add_client_error("assume_role", service_error_code="InvalidClientTokenId", http_status_code=403)
+        east.add_client_error("assume_role", service_error_code="InvalidClientTokenId", http_status_code=403)
+        provider = aws.AwsProvider(lambda conn, secrets, allowed: s)
+        fetched = provider.fetch_sync(_conn(), KEYS, load_catalog().describe("AWS-04"), NOW)
+    reason = fetched["error"]["reason"]
+    assert reason.startswith("AWS refused the access keys")
+    assert reason.endswith("(STS was asked in eu-south-2, then in us-east-1)")
+    # Asked in one region only: no list of regions.
+    one = aws.Session(_conn({"regions": ["us-east-1"]}), KEYS, aws.READS["AWS-04"])
+    one._user.client = lambda service, region_name, config: sts[region_name]
+    with Stubber(sts["us-east-1"]) as east:
+        east.add_client_error("assume_role", service_error_code="InvalidClientTokenId", http_status_code=403)
+        tested = aws.AwsProvider(lambda conn, secrets, allowed: one).test_sync(_conn(), KEYS)
+    assert tested["message"] == "AWS refused the access keys: check them, or create a new one for the stack's user."
+
+
 def test_the_role_is_assumed_with_the_external_id_and_names_its_account():
     assert _session_with_role(aws.READS["AWS-04"]).account == "111122223333"
 

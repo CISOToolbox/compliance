@@ -365,7 +365,7 @@ interface Window {
     _persist?: typeof _persist;
     _applyStatus?: (s: ComplianceStatus, render: boolean) => void;
     _refreshStatus?: () => void;
-    _reloadData?: () => Promise<void>;
+    _reloadData?: (opts?: { redraw?: boolean }) => Promise<void>;
     _persistCreate?: typeof _persistCreate;
     _persistDelete?: typeof _persistDelete;
     _autoSave?: () => void;

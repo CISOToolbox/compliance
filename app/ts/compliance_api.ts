@@ -290,8 +290,9 @@ function _onSaveError(err: any): void {
 }
 
 // FEAT-73 — the server wrote in the project (a collected proof, a locked
-// recurrence): reload its data and its status, then redraw.
-window._reloadData = function(): Promise<void> {
+// recurrence): reload its data and its status, then redraw — unless the
+// caller redraws only what changed (`redraw: false`).
+window._reloadData = function(opts?: { redraw?: boolean }): Promise<void> {
     if (!_activeId) return Promise.resolve();
     return ComplianceAPI.get(_activeId).then(function(project) {
         _serverRev = project.server_rev || 0;
@@ -299,7 +300,7 @@ window._reloadData = function(): Promise<void> {
         Object.keys(D).forEach(function(k) { delete (D as unknown as Record<string, unknown>)[k]; });
         Object.assign(D, pdata);
         return _loadStatus(_activeId!, false);
-    }).then(function() { if (typeof renderAll === "function") renderAll(); });
+    }).then(function() { if ((!opts || opts.redraw !== false) && typeof renderAll === "function") renderAll(); });
 };
 
 // FEAT-33 — refresh on tab focus when a server-initiated write happened

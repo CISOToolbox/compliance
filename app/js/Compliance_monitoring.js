@@ -9,7 +9,7 @@
 var _mon = {
     collectors: null, connections: [], monitors: [], exclusions: [], newConnection: null, openMonitor: null, openProof: null,
     versions: [], version: null, excluding: null, excludeKind: "permanent", coverageFw: "", coverage: null,
-    testResults: {}, error: "",
+    testResults: {}, error: "", running: {},
 };
 function _monT(key, params) { return t("comp.mon." + key, params); }
 function _monLang() { return _locale === "fr" ? "fr" : "en"; }
@@ -139,6 +139,55 @@ function _monRunFromMeasure(id) {
             showStatus(_monT("retired_stopped", { code: res.collector_code }), true);
         return _monAfterServerWrite(_monMeasure.mid);
     }).catch(_monFail);
+}
+/** The same manual collection as the measure's window, from the panel's list:
+ *  the measure may change state, so the data reloads before the list redraws. */
+function _monRunFromPanel(id) {
+    if (_mon.running[id])
+        return;
+    _mon.running[id] = true;
+    _monRedrawRow(id);
+    window.ComplianceAPI.runMonitoring(id).then(function (res) {
+        if (res && res.retired && !res.active)
+            showStatus(_monT("retired_stopped", { code: res.collector_code }), true);
+        else
+            showStatus(_monT("run_done", { code: (res && res.collector_code) || "",
+                result: _monT("result." + ((res && res.last && res.last.result) || "none")) }));
+        if (res && res.id === id)
+            _mon.monitors = _mon.monitors.map(function (m) { return m.id === id ? res : m; });
+        return window._reloadData ? window._reloadData({ redraw: false }) : undefined;
+    }).catch(_monFail).then(function () {
+        delete _mon.running[id];
+        // Elsewhere by now: that panel shows the reloaded data, as after any server write.
+        if (_currentPanel !== "monitoring") {
+            renderAll();
+            return;
+        }
+        renderSidebar(); // the measure's status may have changed
+        // A run lasts long enough to start typing elsewhere on the panel: then
+        // only its row changes, the rest redraws with the next action.
+        if (_monFormInUse()) {
+            _monRedrawRow(id);
+            return;
+        }
+        if (_mon.openMonitor === id)
+            _mon.version = null; // its history gains a version
+        renderMonitoring();
+    });
+}
+function _monRedrawRow(id) {
+    const row = document.getElementById("mon-row-" + id);
+    const m = _mon.monitors.find(function (x) { return x.id === id; });
+    if (row && m)
+        row.outerHTML = _monMonitorRowHtml(m);
+}
+/** A form of the panel holds what the user is typing: a connection, an
+ *  exclusion, a revocation's reason. */
+function _monFormInUse() {
+    if (_mon.newConnection || _mon.excluding)
+        return true;
+    const el = document.getElementById("monitoring-content");
+    return !!el && Array.prototype.some.call(el.querySelectorAll('input[id^="mon-revoke-"]'), function (i) { return i.value.trim() !== ""; });
 }
 /** "stopped", and why: the collector left the catalog, or the reason given. */
 function _monStoppedLabel(m) {
@@ -354,17 +403,23 @@ function _monMonitorsHtml() {
     if (!_mon.monitors.length)
         return h + '<p class="text-muted fs-xs">' + esc(_monT("no_monitoring")) + '</p></div>';
     h += '<table><thead><tr><th>' + esc(_monT("col_measure")) + '</th><th>' + esc(_monT("col_collector")) + '</th><th>'
-        + esc(_monT("col_result")) + '</th><th>' + esc(_monT("col_since")) + '</th><th>' + esc(_monT("col_last")) + '</th></tr></thead><tbody>';
+        + esc(_monT("col_result")) + '</th><th>' + esc(_monT("col_since")) + '</th><th>' + esc(_monT("col_last")) + '</th><th></th></tr></thead><tbody>';
     _mon.monitors.forEach(function (m) {
-        h += '<tr class="ct-clickable' + (m.active ? "" : " ct-bg-alt") + '" data-click="_monOpenMonitor" data-args=\'' + _da(m.id) + '\'>'
-            + '<td class="fw-600">' + esc(m.measure_id) + '</td><td>' + esc(m.collector_code) + ' — ' + esc(_monText(m.title))
-            + (m.active ? "" : ' <span class="fs-xs text-muted">(' + esc(_monStoppedLabel(m)) + ')</span>') + '</td><td>'
-            + _monResultBadge(m.last && m.last.result) + '</td><td>' + esc(m.days_in_state == null ? "—" : _monT("days", { days: m.days_in_state }))
-            + '</td><td>' + _monDate(m.last && m.last.collected_at) + '</td></tr>';
+        h += _monMonitorRowHtml(m);
         if (_mon.openMonitor === m.id)
-            h += '<tr><td colspan="5">' + _monHistoryHtml(m) + '</td></tr>';
+            h += '<tr><td colspan="6">' + _monHistoryHtml(m) + '</td></tr>';
     });
     return h + '</tbody></table></div>';
+}
+function _monMonitorRowHtml(m) {
+    return '<tr id="mon-row-' + esc(m.id) + '" class="ct-clickable' + (m.active ? "" : " ct-bg-alt") + '" data-click="_monOpenMonitor" data-args=\'' + _da(m.id) + '\'>'
+        + '<td class="fw-600">' + esc(m.measure_id) + '</td><td>' + esc(m.collector_code) + ' — ' + esc(_monText(m.title))
+        + (m.active ? "" : ' <span class="fs-xs text-muted">(' + esc(_monStoppedLabel(m)) + ')</span>') + '</td><td>'
+        + _monResultBadge(m.last && m.last.result) + '</td><td>' + esc(m.days_in_state == null ? "—" : _monT("days", { days: m.days_in_state }))
+        + '</td><td>' + _monDate(m.last && m.last.collected_at) + '</td><td>'
+        + (m.active ? '<button class="ct-btn" data-write data-size="xs" data-click="_monRunFromPanel" data-args=\'' + _da(m.id) + '\' data-stop'
+            + (_mon.running[m.id] ? " disabled" : "") + '>' + esc(_monT(_mon.running[m.id] ? "running" : "btn_rerun")) + '</button>' : "")
+        + '</td></tr>';
 }
 function _monHistoryHtml(m) {
     let h = '<div class="fs-xs text-muted ct-mb-1">' + esc(_monText(m.rule)) + '</div>';

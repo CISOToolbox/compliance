@@ -63,7 +63,8 @@ RETIRED_REASON = "collector no longer in the catalog"
 
 
 async def _people(db: AsyncSession) -> list[dict] | None:
-    """The people of Access, for GH-04. Lot 1d asks Access; until then none."""
+    """The people GH-04 matches the members to. The module holds no directory
+    of them yet (catalog.PROVIDED): none, and GH-04 is not activated."""
     return None
 
 

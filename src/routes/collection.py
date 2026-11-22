@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm.attributes import flag_modified
 
 from src.auth import get_current_user
-from src.collection.catalog import load_catalog
+from src.collection.catalog import load_catalog, unavailable
 from src.collection.connections import ConnectionInputError, apply_connection_input, connection_secrets, connection_view
 from src.collection.providers.base import provider_for
 from src.database import get_db
@@ -44,7 +44,7 @@ async def list_collectors(user: Optional[User] = Depends(get_current_user)):
             "retention", "params", "requirements", "requirement_keys")
     from src.collection.connections import LIVE_PROVIDERS
     return {"providers": [dict(p, live=p["provider"] in LIVE_PROVIDERS) for p in cat.providers.values()],
-            "collectors": [{k: c[k] for k in keep if k in c} for c in cat.collectors()]}
+            "collectors": [{**{k: c[k] for k in keep if k in c}, "unavailable": unavailable(c)} for c in cat.collectors()]}
 
 
 async def _connection_or_404(db: AsyncSession, project_id: uuid.UUID, connection_id: uuid.UUID) -> CollectionConnection:
@@ -237,7 +237,7 @@ async def project_links(db: AsyncSession, project_id: uuid.UUID) -> dict[str, di
                                         FrameworkMapping.target_framework, FrameworkMapping.target_ref))).all()
     decisions = {(d.collector_code, d.requirement_key): d.decision for d in (await db.execute(
         select(CollectionSuggestionDecision).where(CollectionSuggestionDecision.project_id == project_id))).scalars().all()}
-    return links(load_catalog().collectors(), mappings, decisions)
+    return links(load_catalog().available(), mappings, decisions)
 
 
 async def proposals(db: AsyncSession, project_id: uuid.UUID, measure_id: str) -> list[dict]:
@@ -338,6 +338,9 @@ async def activate_monitoring(project_id: uuid.UUID, measure_id: str, body: Moni
     project = await get_project_or_404(project_id, user, db, require_perm="edit")
     measure = await _measure_or_404(db, project_id, measure_id)
     conn = await _connection_or_404(db, project_id, body.connection_id)
+    reason = unavailable(load_catalog().describe(body.collector_code))
+    if reason:
+        raise HTTPException(status_code=422, detail=f"This collector cannot be activated: {reason}")
     offered = {(p["collector_code"], p["connection_id"]): p for p in await proposals(db, project_id, measure_id)}
     proposal = offered.get((body.collector_code, str(conn.id)))
     if proposal is None:

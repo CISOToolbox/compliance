@@ -4,7 +4,7 @@ Same contract as the AWS rules. A repository on which the plan does not
 offer the check (branch rules on a private repository without Team, code
 scanning without Advanced Security) is not protected: it is a finding that
 says why, never left out of the count.
-GH-04 needs the people of Access: without them (standalone), "sans objet".
+GH-04 needs a directory of the people: without one, "sans objet".
 """
 from __future__ import annotations
 
@@ -78,7 +78,7 @@ def gh_04(raw: dict, params: dict, ctx: dict) -> dict:
     people = ctx.get("people")
     if people is None:
         return evaluation([], [], outcome="feature_absent",
-                           reason="the people of Access are not available (standalone module)")
+                           reason="no directory of the people is available")
     by_login = {str(p.get("github") or "").lower(): p for p in people if p.get("github")}
     members = _members(raw)
     findings = []

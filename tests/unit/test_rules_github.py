@@ -41,7 +41,7 @@ def test_every_github_collector_has_a_rule_and_demonstration_data():
     ("GH-01", "non_conforme", ["medsecure/portail-patients", "medsecure/api-telesuivi"]),
     ("GH-02", "non_conforme", ["medsecure/api-telesuivi"]),
     ("GH-03", "conforme", []),
-    ("GH-04", "sans_objet", []),                        # no people without Access
+    ("GH-04", "sans_objet", []),                        # no directory of the people
     ("GH-05", "conforme", []),
     ("GH-06", "non_conforme", ["medsecure/portail-patients", "medsecure/api-telesuivi", "medsecure/infra",
                                "medsecure/sdk-patients-open"]),
@@ -57,7 +57,7 @@ def test_an_archived_repository_is_out_of_scope():
     assert "medsecure/archives-ancien-site" not in _run("GH-07")["scope"]["resources"]
 
 
-def test_with_the_people_of_access_a_member_who_left_or_unknown_is_caught():
+def test_with_a_directory_of_the_people_a_member_who_left_or_unknown_is_caught():
     v = _run("GH-04", people=PEOPLE)
     assert v["result"] == "non_conforme"
     assert [(f["resource"], f["detail"]) for f in v["findings"]] == [

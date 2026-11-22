@@ -136,3 +136,32 @@ async def test_the_catalog_route_lists_both_providers():
     cat = await r.list_collectors(user=None)
     assert {p["provider"] for p in cat["providers"]} == {"aws", "github"}
     assert len(cat["collectors"]) == 21 and "iso:A.8.5" in cat["collectors"][1]["requirement_keys"]
+
+
+@pytest.mark.asyncio
+async def test_a_changed_connection_drops_its_last_test(db):
+    c = await r.create_connection(A, AWS, _req(), user=None, db=db)
+    cid = uuid.UUID(c["id"])
+    assert "at" in await r.test_connection(A, cid, user=None, db=db)
+    renamed = await r.update_connection(A, cid, ConnectionUpdate(label="prod"), _req(), user=None, db=db)
+    assert renamed["last_test"]["ok"] is True
+    rekeyed = await r.update_connection(A, cid, ConnectionUpdate(secrets={"secret_access_key": "another-key"}),
+                                        _req(), user=None, db=db)
+    assert rekeyed["last_test"] == {"at": None, "ok": None, "message": "", "missing_permissions": []}
+
+
+@pytest.mark.asyncio
+async def test_a_test_overtaken_by_an_edit_is_not_kept(db, monkeypatch):
+    from sqlalchemy import update
+    from src.models import CollectionConnection
+    c = await r.create_connection(A, AWS, _req(), user=None, db=db)
+    cid = uuid.UUID(c["id"])
+
+    class Slow:                     # the connection is edited while GitHub or AWS answers
+        async def test(self, conn, secrets):
+            await db.execute(update(CollectionConnection).where(CollectionConnection.id == cid)
+                             .values(settings={"role_arn": "arn:aws:iam::111122223333:role/other"}))
+            return {"ok": False, "partial": False, "missing_permissions": [], "message": "Refused."}
+    monkeypatch.setattr(r, "provider_for", lambda conn: Slow())
+    assert (await r.test_connection(A, cid, user=None, db=db))["at"] is None
+    assert (await r.list_connections(A, user=None, db=db))[0]["last_test"]["at"] is None

@@ -15,6 +15,11 @@ from typing import Any
 
 CATALOG_DIR = Path(__file__).resolve().parent / "catalog_files"
 FRAMEWORKS = ("iso", "anssi", "nis2", "soc2")
+# What a collector may need besides its connection, and why it cannot run
+# without it. The module holds no people directory: a collector that needs
+# one is neither proposed nor activated.
+NEEDS = {"people": "it needs a directory of the people, which this module does not hold"}
+PROVIDED: frozenset[str] = frozenset()
 
 
 class CatalogError(ValueError):
@@ -28,6 +33,10 @@ class Catalog:
 
     def collectors(self, provider: str | None = None) -> list[dict]:
         return [c for c in self._collectors.values() if provider is None or c["provider"] == provider]
+
+    def available(self) -> list[dict]:
+        """The collectors whose needs the module meets: the ones it proposes."""
+        return [c for c in self._collectors.values() if unavailable(c) is None]
 
     def collector(self, code: str) -> dict:
         try:
@@ -44,6 +53,12 @@ class Catalog:
         return {"code": code, "provider": "", "version": 0, "retired": True, "reads": [], "permissions": [],
                 "title": {"en": code, "fr": code}, "rule": {"en": "", "fr": ""}, "params": [],
                 "retention": {"daily_days": 3650, "weekly_days": 3650, "monthly_days": 3650}, "requirement_keys": []}
+
+
+def unavailable(collector: dict) -> str | None:
+    """Why the module cannot run the collector, or None."""
+    missing = [n for n in collector.get("needs", []) if n not in PROVIDED]
+    return NEEDS[missing[0]] if missing else None
 
 
 def _requirement_keys(code: str, requirements: dict, refs: dict[str, set[str]]) -> list[str]:
@@ -81,6 +96,9 @@ def parse_catalog(files: list[dict], refs: dict[str, set[str]]) -> Catalog:
             code = c["code"]
             if code in collectors:
                 raise CatalogError(f"duplicate collector {code}")
+            needs = c.get("needs", [])
+            if not isinstance(needs, list) or set(needs) - NEEDS.keys():
+                raise CatalogError(f"{code}: unknown needs {needs}")
             if c["retention_profile"] not in profiles:
                 raise CatalogError(f"{code}: unknown retention profile {c['retention_profile']}")
             collectors[code] = dict(c, provider=name, retention=dict(profiles[c["retention_profile"]]),

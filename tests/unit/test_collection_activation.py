@@ -15,7 +15,7 @@ from sqlalchemy import select
 
 sys.path.insert(0, os.path.dirname(__file__))
 from monitoring_helpers import A, B, _activate, _connections, _req  # noqa: E402
-from src.models import CollectionMonitor, ProjectMeasure, ProjectProof  # noqa: E402
+from src.models import CollectionMonitor, ProjectControl, ProjectMeasure, ProjectProof  # noqa: E402
 from src.routes import collection as r  # noqa: E402
 from src.schemas import MeasureUpdate, MonitorCreate, MonitorDeactivate, ProjectUpdate, ProofUpdate  # noqa: E402
 
@@ -60,6 +60,24 @@ async def test_only_a_proposed_collector_once_through_a_connection_of_the_projec
     with pytest.raises(HTTPException) as e:
         await _activate(monitored_db, aws)
     assert e.value.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_a_collector_needing_a_directory_of_the_people_is_neither_proposed_nor_activated(monitored_db):
+    _, gh = await _connections(monitored_db)
+    monitored_db.add(ProjectControl(project_id=A, id=3, framework_id="iso", ref="A.5.18", applicable="",
+                                    mesures_ids=["M-1"]))
+    await monitored_db.commit()
+    m = await r.measure_monitoring(A, "M-1", user=None, db=monitored_db)
+    assert "GH-04" not in [p["collector_code"] for p in m["proposals"]]
+    with pytest.raises(HTTPException) as e:
+        await _activate(monitored_db, gh, "GH-04")
+    assert e.value.status_code == 422 and "directory of the people" in e.value.detail
+    coverage = await r.framework_coverage(A, "iso", user=None, db=monitored_db)
+    row = next(x for x in coverage["requirements"] if x["ref"] == "A.5.18")
+    assert "GH-04" not in [c["code"] for c in row["collectors"]]
+    listed = {c["code"]: c["unavailable"] for c in (await r.list_collectors(user=None))["collectors"]}
+    assert "directory of the people" in listed["GH-04"] and listed["GH-03"] is None
 
 
 @pytest.mark.asyncio

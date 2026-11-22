@@ -15,7 +15,7 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from src.collection.catalog import CatalogError, load_catalog, parse_catalog  # noqa: E402
+from src.collection.catalog import CatalogError, load_catalog, parse_catalog, unavailable  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 REFS = {p.stem: {m["ref"] for m in json.loads(p.read_text())["measures"]}
@@ -82,9 +82,17 @@ def test_the_aws_reads_are_reads():
     (lambda d: d["collectors"][0]["requirements"].update(iso=["Z.9.9"]), "Z.9.9"),
     (lambda d: d["collectors"][0]["requirements"].update(soc2=["CC99.9"]), "CC99.9"),
     (lambda d: d["connection"].update(fields=[f for f in d["connection"]["fields"] if not f["secret"]]), "secret"),
+    (lambda d: d["collectors"][0].update(needs=["badges"]), "badges"),
+    (lambda d: d["collectors"][0].update(needs="people"), "needs"),
 ])
 def test_a_broken_catalog_is_refused(breakage, message):
     data = json.loads((ROOT / "src" / "collection" / "catalog_files" / "aws.json").read_text())
     breakage(data)
     with pytest.raises(CatalogError, match=message):
         parse_catalog([data], REFS)
+
+
+def test_only_the_collectors_whose_needs_the_module_meets_are_available():
+    cat = load_catalog()
+    assert unavailable(cat.collector("GH-04")) and unavailable(cat.collector("GH-03")) is None
+    assert [c["code"] for c in cat.collectors() if c not in cat.available()] == ["GH-04"]

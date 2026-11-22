@@ -1,9 +1,9 @@
 """FEAT-73 — the rules of the GitHub collectors, over the APIs' own answers.
 
-Same contract as the AWS rules. A check the plan does not offer (branch
-rules on private repositories without Team, code scanning without Advanced
-Security) leaves the repository out of scope with the reason; when no
-repository is left, the result is "sans objet", never a silent success.
+Same contract as the AWS rules. A repository on which the plan does not
+offer the check (branch rules on a private repository without Team, code
+scanning without Advanced Security) is not protected: it is a finding that
+says why, never left out of the count.
 GH-04 needs the people of Access: without them (standalone), "sans objet".
 """
 from __future__ import annotations
@@ -23,22 +23,15 @@ def _branch_rules(repo: dict) -> dict[str, dict]:
 
 
 def _per_repo(raw: dict, check: Callable[[dict], str | None], available_key: str, absent: str) -> dict:
-    """Evaluate the repositories on which the plan offers the check; the
-    others are listed in the scope, not counted as compliant."""
-    resources, findings, skipped = [], [], []
+    """Evaluate every repository; one on which the plan does not offer the
+    check cannot be protected, and is a finding saying so."""
+    resources, findings = [], []
     for repo in _repos(raw):
-        if not repo.get(available_key, True):
-            skipped.append(repo["full_name"])
-            continue
         resources.append(repo["full_name"])
-        issue = check(repo)
+        issue = check(repo) if repo.get(available_key, True) else absent
         if issue:
             findings.append(finding(repo["full_name"], issue))
-    if not resources and skipped:
-        return evaluation([], [], outcome="feature_absent", reason=absent)
-    ev = evaluation(resources, findings)
-    ev["scope"]["not_available"] = skipped
-    return ev
+    return evaluation(resources, findings)
 
 
 def gh_01(raw: dict, params: dict, ctx: dict) -> dict:
@@ -55,7 +48,7 @@ def gh_01(raw: dict, params: dict, ctx: dict) -> dict:
             issues.append("require_last_push_approval=false")
         return ", ".join(issues) or None
     return _per_repo(raw, check, "rules_available",
-                     "branch rules on private repositories need the Team or Enterprise plan")
+                     "not available: branch rules on a private repository need the Team or Enterprise plan")
 
 
 def gh_02(raw: dict, params: dict, ctx: dict) -> dict:
@@ -66,7 +59,7 @@ def gh_02(raw: dict, params: dict, ctx: dict) -> dict:
                                            ("deletion forbidden", "deletion")) if rule not in rules]
         return ("missing: " + ", ".join(missing)) if missing else None
     return _per_repo(raw, check, "rules_available",
-                     "branch rules on private repositories need the Team or Enterprise plan")
+                     "not available: branch rules on a private repository need the Team or Enterprise plan")
 
 
 def gh_03(raw: dict, params: dict, ctx: dict) -> dict:
@@ -134,7 +127,7 @@ def gh_06(raw: dict, params: dict, ctx: dict) -> dict:
             off.append("code scanning")
         return ("off: " + ", ".join(off)) if off else None
     return _per_repo(raw, check, "advanced_security_available",
-                     "secret and code scanning on private repositories need GitHub Advanced Security")
+                     "not available: secret and code scanning on a private repository need GitHub Advanced Security")
 
 
 def gh_07(raw: dict, params: dict, ctx: dict) -> dict:

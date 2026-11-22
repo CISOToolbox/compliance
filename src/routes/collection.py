@@ -16,6 +16,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm.attributes import flag_modified
 
 from src.auth import get_current_user
 from src.collection.catalog import load_catalog
@@ -51,6 +52,14 @@ async def _connection_or_404(db: AsyncSession, project_id: uuid.UUID, connection
     if conn is None or conn.project_id != project_id:          # another project's: it does not exist here
         raise HTTPException(status_code=404, detail="Connection not found")
     return conn
+
+
+def _tested_as(conn: CollectionConnection) -> tuple:
+    """What a test of the connection depends on."""
+    try:
+        return conn.mode, dict(conn.settings or {}), connection_secrets(conn)
+    except RuntimeError:
+        raise HTTPException(status_code=503, detail=_NO_KEY)
 
 
 def _write(conn: CollectionConnection, payload: dict, creating: bool) -> None:
@@ -105,7 +114,15 @@ async def update_connection(project_id: uuid.UUID, connection_id: uuid.UUID, bod
                             db: AsyncSession = Depends(get_db)):
     await get_project_or_404(project_id, user, db, require_perm="edit")
     conn = await _connection_or_404(db, project_id, connection_id)
+    before = _tested_as(conn)
     _write(conn, body.model_dump(exclude_unset=True), creating=False)
+    if _tested_as(conn) != before:
+        # The last test was of another connection: it is not shown as this one's.
+        conn.last_test_at, conn.last_test_ok, conn.last_test_message = None, None, ""
+        conn.missing_permissions = []
+        # Written even when already empty: a test committed meanwhile is overwritten, not kept.
+        for column in ("last_test_at", "last_test_ok", "last_test_message", "missing_permissions"):
+            flag_modified(conn, column)
     conn.updated_at = datetime.now(timezone.utc)
     await _flush(db)
     from src.audit import log_write
@@ -142,13 +159,17 @@ async def test_connection(project_id: uuid.UUID, connection_id: uuid.UUID,
         secrets = connection_secrets(conn)
     except RuntimeError:
         raise HTTPException(status_code=503, detail=_NO_KEY)
+    tested = _tested_as(conn)
     result = await provider_for(conn).test(conn, secrets)
+    await db.refresh(conn)
+    if _tested_as(conn) != tested:          # changed while it ran: this test is not of the connection now
+        return {**result, "at": None}
     conn.last_test_at = datetime.now(timezone.utc)
     conn.last_test_ok = bool(result["ok"])
     conn.last_test_message = result["message"]
     conn.missing_permissions = list(result["missing_permissions"])
     await db.commit()
-    return result
+    return {**result, "at": conn.last_test_at.isoformat()}
 
 
 # ── Monitoring of a measure ─────────────────────────────────────────────

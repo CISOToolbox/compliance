@@ -13,11 +13,12 @@ var _mon: {
     collectors: MonAny | null; connections: MonAny[]; monitors: MonAny[]; exclusions: MonAny[];
     newConnection: { provider: string; mode?: string; editing?: string } | null; openMonitor: string | null; openProof: string | null; versions: MonAny[];
     version: MonAny | null; excluding: string | null; excludeKind: string; coverageFw: string; coverage: MonAny | null;
-    testResults: Record<string, MonAny>; error: string; running: Record<string, boolean>;
+    testResults: Record<string, MonAny>; testing: Record<string, boolean>; edits: Record<string, number>;
+    error: string; running: Record<string, boolean>;
 } = {
     collectors: null, connections: [], monitors: [], exclusions: [], newConnection: null, openMonitor: null, openProof: null,
     versions: [], version: null, excluding: null, excludeKind: "permanent", coverageFw: "", coverage: null,
-    testResults: {}, error: "", running: {},
+    testResults: {}, testing: {}, edits: {}, error: "", running: {},
 };
 
 function _monT(key: string, params?: Record<string, string | number>) { return t("comp.mon." + key, params); }
@@ -250,6 +251,32 @@ function _monDraw() {
     const el = document.getElementById("monitoring-content");
     if (!el) return;
     el.innerHTML = _monConnectionsHtml() + _monMonitorsHtml() + _monExclusionsHtml() + _monCoverageHtml();
+    _monDrawDetail();
+}
+
+/** The open monitoring's history is shown in a window over the panel; it
+ *  is redrawn in place, and closing the window closes the monitoring. */
+var _monDetailSeq = 0;
+function _monDrawDetail() {
+    const m = _mon.monitors.find(function(x: MonAny) { return x.id === _mon.openMonitor; });
+    const box = document.getElementById("mon-detail");
+    if (box) {
+        if (m) box.innerHTML = _monHistoryHtml(m);
+        else if (window.ct_modal) window.ct_modal.close();          // gone from the list
+        return;
+    }
+    // Asked from elsewhere, answered once the user has moved on: another window may be open there.
+    if (_currentPanel !== "monitoring") { _mon.openMonitor = null; return; }
+    if (!m || !window.ct_modal) return;
+    const seq = ++_monDetailSeq;
+    window.ct_modal.open({
+        title: m.measure_id + " · " + m.collector_code + " — " + _monText(m.title),
+        body: '<div id="mon-detail">' + _monHistoryHtml(m) + '</div>', size: "lg",
+        buttons: [{ id: "close", label: _monT("btn_close") }],
+    }).then(function() {
+        if (seq !== _monDetailSeq) return;
+        _mon.openMonitor = null; _mon.version = null; _mon.excluding = null;
+    });
 }
 
 function _monProvider(name: string): MonAny {
@@ -267,14 +294,18 @@ function _monConnectionsHtml(): string {
             if (test && test.at !== null && test.ok !== null && test.ok !== undefined) {
                 testHtml = _tBadge(test.ok ? (test.partial || (test.missing_permissions || []).length ? _monT("test_partial") : _monT("test_ok")) : _monT("test_failed"),
                                    test.ok ? ((test.missing_permissions || []).length ? "yellow" : "green") : "red");
-                if (test.ok === false && test.message) testHtml += '<div class="fs-xs text-muted">' + esc(test.message) + '</div>';
                 if ((test.missing_permissions || []).length) {
                     testHtml += '<div class="fs-xs text-muted">' + esc(_monT("missing_permissions", { list: test.missing_permissions.join(", ") })) + '</div>';
+                } else if (test.message) {
+                    testHtml += '<div class="fs-xs text-muted">' + esc(test.message) + '</div>';
                 }
+                testHtml += '<div class="fs-xs text-muted">' + esc(_monT("tested_at")) + ' ' + _monDate(test.at) + '</div>';
             }
+            const testing = !!_mon.testing[c.id];
             h += '<tr><td>' + esc(_monText((_monProvider(c.provider) || {}).label) || c.provider) + '</td><td>' + esc(c.label) + '</td><td>'
                + esc(_monT("mode." + c.mode)) + '</td><td>' + testHtml + '</td><td class="ct-flex ct-gap-1">'
-               + '<button class="ct-btn" data-write data-size="xs" data-click="_monTestConnection" data-args=\'' + _da(c.id) + '\'>' + esc(_monT("btn_test")) + '</button>'
+               + '<button class="ct-btn" data-write data-size="xs" data-click="_monTestConnection" data-args=\'' + _da(c.id) + '\'' + (testing ? " disabled" : "") + '>'
+               + esc(testing ? _monT("testing") : _monT("btn_test")) + '</button>'
                + '<button class="ct-btn" data-write data-size="xs" data-click="_monEditConnection" data-args=\'' + _da(c.id) + '\'>' + esc(_monT("btn_edit")) + '</button>'
                + '<button class="ct-btn" data-write data-variant="danger" data-size="xs" data-click="_monDeleteConnection" data-args=\'' + _da(c.id) + '\'>' + esc(_monT("btn_delete")) + '</button></td></tr>';
         });
@@ -361,13 +392,34 @@ function _monSaveConnection() {
     const done = editing
         ? api.updateConnection(editing, Object.assign({ label: label, settings: settings, secrets: secrets }, mode ? { mode: mode } : {}))
         : api.createConnection({ provider: _mon.newConnection.provider, label: label, mode: mode || "demo", settings: settings, secrets: secrets });
-    done.then(function() { _mon.newConnection = null; renderMonitoring(); }).catch(_monFormFail("mon-conn-error"));
+    done.then(function() {
+        if (editing) {                                     // the server's last test is the one to show now
+            delete _mon.testResults[editing];
+            _mon.edits[editing] = (_mon.edits[editing] || 0) + 1;
+        }
+        _mon.newConnection = null;
+        renderMonitoring();
+    }).catch(_monFormFail("mon-conn-error"));
 }
 function _monTestConnection(cid: string) {
+    if (_mon.testing[cid]) return;
+    _mon.testing[cid] = true;
+    _monDraw();
+    const edits = _mon.edits[cid] || 0;
     window.ComplianceAPI!.testConnection(cid).then(function(res) {
-        _mon.testResults[cid] = Object.assign({ at: "now" }, res);
+        // Saved while it ran: the result is of the connection as it was.
+        if ((_mon.edits[cid] || 0) !== edits) return;
+        if (res.at === null) {                             // changed elsewhere while it ran
+            delete _mon.testResults[cid];
+            showStatus(_monT("test_overtaken"), true);
+            renderMonitoring();
+            return;
+        }
+        _mon.testResults[cid] = Object.assign({ at: new Date().toISOString() }, res);
+    }).catch(_monFail).then(function() {
+        delete _mon.testing[cid];
         _monDraw();
-    }).catch(_monFail);
+    });
 }
 function _monDeleteConnection(cid: string) {
     if (!confirm(_monT("confirm_delete_connection"))) return;
@@ -381,7 +433,6 @@ function _monMonitorsHtml(): string {
        + esc(_monT("col_result")) + '</th><th>' + esc(_monT("col_since")) + '</th><th>' + esc(_monT("col_last")) + '</th><th></th></tr></thead><tbody>';
     _mon.monitors.forEach(function(m: MonAny) {
         h += _monMonitorRowHtml(m);
-        if (_mon.openMonitor === m.id) h += '<tr><td colspan="6">' + _monHistoryHtml(m) + '</td></tr>';
     });
     return h + '</tbody></table></div>';
 }
@@ -456,9 +507,8 @@ function _monExcludeForm(m: MonAny, resource: string): string {
 }
 
 function _monOpenMonitor(id: string) {
-    _mon.openMonitor = _mon.openMonitor === id ? null : id;
+    _mon.openMonitor = id;
     _mon.version = null; _mon.excluding = null;
-    if (!_mon.openMonitor) { _monDraw(); return; }
     window.ComplianceAPI!.listVersions(id).then(function(vs) {
         if (_mon.openMonitor === id) { _mon.versions = vs; _monDraw(); }          // still the one open
     }).catch(_monFail);

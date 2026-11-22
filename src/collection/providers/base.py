@@ -28,4 +28,7 @@ def provider_for(conn: Any) -> SourceProvider:
     if conn.mode == "live" and conn.provider == "aws":
         from src.collection.providers.aws import AwsProvider
         return AwsProvider()
+    if conn.mode == "live" and conn.provider == "github":
+        from src.collection.providers.github import GithubProvider
+        return GithubProvider()
     raise RuntimeError(f"no {conn.mode} provider for {conn.provider}")

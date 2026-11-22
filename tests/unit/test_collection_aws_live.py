@@ -520,12 +520,6 @@ def test_a_secret_the_provider_no_longer_declares_is_dropped():
     assert set(connection_secrets(c)) == {"access_key_id", "secret_access_key"}
 
 
-def test_live_github_waits_for_its_lot():
-    with pytest.raises(ConnectionInputError, match="live github connections are not available yet"):
-        _new({"label": "MedSecure", "mode": "live", "settings": {"organization": "medsecure"},
-              "secrets": {"token": "ghp_x"}}, provider="github")
-
-
 def test_a_demonstration_connection_needs_no_credential():
     c = _new({"label": "MedSecure demo", "mode": "demo"})
     assert c.mode == "demo" and connection_view(c)["secrets"]["access_key_id"] == {"set": False}

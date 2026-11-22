@@ -43,7 +43,8 @@ def test_every_github_collector_has_a_rule_and_demonstration_data():
     ("GH-03", "conforme", []),
     ("GH-04", "sans_objet", []),                        # no people without Access
     ("GH-05", "conforme", []),
-    ("GH-06", "non_conforme", ["medsecure/sdk-patients-open"]),
+    ("GH-06", "non_conforme", ["medsecure/portail-patients", "medsecure/api-telesuivi", "medsecure/infra",
+                               "medsecure/sdk-patients-open"]),
     ("GH-07", "non_conforme", ["medsecure/sdk-patients-open"]),
 ])
 def test_medsecure(code, result, resources):
@@ -64,18 +65,21 @@ def test_with_the_people_of_access_a_member_who_left_or_unknown_is_caught():
         ("c-bernard", "outside collaborator linked to no person")]
 
 
-def test_without_branch_rules_on_the_plan_it_is_not_applicable_with_the_reason():
+def test_without_branch_rules_on_the_plan_a_repository_is_not_compliant_with_the_reason():
     raw = copy.deepcopy(demo_payload("GH-01", NOW)["raw"])
     for r in raw["repos"]:
         r["rules_available"] = False
     v = _run("GH-01", raw)
-    assert v["result"] == "sans_objet" and "Team or Enterprise" in v["reason"]
+    assert v["result"] == "non_conforme"
+    assert len(v["findings"]) == v["evaluated"] == 4
+    assert all("Team or Enterprise" in f["detail"] for f in v["findings"])
 
 
-def test_without_advanced_security_the_private_repositories_are_listed_not_counted():
+def test_without_advanced_security_the_private_repositories_are_findings():
     v = _run("GH-06")
-    assert v["evaluated"] == 1
-    assert v["scope"]["not_available"] == ["medsecure/portail-patients", "medsecure/api-telesuivi", "medsecure/infra"]
+    assert v["evaluated"] == 4
+    unavailable = [f["resource"] for f in v["findings"] if "Advanced Security" in f["detail"]]
+    assert unavailable == ["medsecure/portail-patients", "medsecure/api-telesuivi", "medsecure/infra"]
 
 
 def test_two_factor_not_required_is_caught():

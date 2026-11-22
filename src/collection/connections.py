@@ -6,8 +6,7 @@ the view says whether each secret is set, nothing more. On an update, a
 secret left empty keeps its value and an explicit null clears it. Unknown
 fields are refused, and so is a generated one (the AWS External ID, written
 by the suite at creation). The required fields are required of a live
-connection; a demonstration one reads nothing. Live AWS connections arrive
-with lot 1c, live GitHub ones with lot 1d.
+connection; a demonstration one reads nothing.
 """
 from __future__ import annotations
 
@@ -21,7 +20,7 @@ MODES = ("demo", "live")
 # Settings a demonstration connection may carry besides the catalog's fields:
 # the scenario the simulated provider plays (tests, demo data).
 DEMO_SETTINGS = ("scenario",)
-LIVE_PROVIDERS = ("aws",)
+LIVE_PROVIDERS = ("aws", "github")
 
 
 class ConnectionInputError(ValueError):
@@ -98,6 +97,14 @@ def apply_connection_input(conn: Any, payload: dict, creating: bool) -> None:
         try:
             aws.validate_settings(settings, live=mode == "live")
             aws.validate_secrets(secrets)
+        except ValueError as exc:
+            raise ConnectionInputError(str(exc)) from None
+    if conn.provider == "github":
+        from src.collection.providers import github
+        try:
+            github.validate_settings(settings, live=mode == "live")
+            if mode == "live":                 # a demonstration connection reads nothing
+                github.validate_secrets(secrets)
         except ValueError as exc:
             raise ConnectionInputError(str(exc)) from None
     for key, f in fields.items():

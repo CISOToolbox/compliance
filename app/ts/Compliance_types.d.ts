@@ -266,6 +266,8 @@ interface ComplianceAPIShape {
     deactivateMonitoring(id: string, reason: string): Promise<any>;
     listVersions(id: string): Promise<any[]>;
     getVersion(vid: string): Promise<any>;
+    /** the collection's JSON record, as a download link */
+    versionRecordUrl(vid: string): string;
     createExclusion(id: string, body: Record<string, unknown>): Promise<any>;
     listExclusions(): Promise<any[]>;
     revokeExclusion(eid: string, reason: string): Promise<any>;

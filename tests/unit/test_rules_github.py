@@ -86,6 +86,18 @@ def test_two_factor_not_required_is_caught():
     assert _run("GH-03", {"organization": {"login": "medsecure", "two_factor_requirement_enabled": False}})["result"] == "non_conforme"
 
 
+def test_two_factor_is_judged_person_by_person():
+    raw = copy.deepcopy(demo_payload("GH-03", NOW)["raw"])
+    assert _run("GH-03", raw)["scope"]["resources"] == ["medsecure", "a-durand", "p-leroy", "j-martin",
+                                                       "c-bernard (outside collaborator)"]
+    raw["members_2fa_disabled"], raw["outside_collaborators_2fa_disabled"] = ["j-martin"], ["c-bernard"]
+    v = _run("GH-03", raw)
+    assert v["result"] == "non_conforme"
+    assert [(f["resource"], f["detail"]) for f in v["findings"]] == [
+        ("j-martin", "two-factor authentication disabled"),
+        ("c-bernard (outside collaborator)", "two-factor authentication disabled")]
+
+
 def test_too_many_owners_or_a_token_without_expiry_is_caught():
     raw = copy.deepcopy(demo_payload("GH-05", NOW)["raw"])
     assert _run("GH-05", raw, params={"max_owners": 1})["findings"][0]["detail"] == "2 owners for at most 1"

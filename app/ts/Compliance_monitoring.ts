@@ -26,6 +26,7 @@ function _monLang(): string { return _locale === "fr" ? "fr" : "en"; }
 function _monText(obj: MonAny): string { return obj ? (obj[_monLang()] || obj.en || "") : ""; }
 
 const _MON_RESULT_COLORS: Record<string, string> = { conforme: "green", non_conforme: "red", erreur: "yellow", sans_objet: "gray" };
+const _MON_STATE_COLORS: Record<string, string> = { conforme: "green", non_conforme: "red", exclu: "gray", illisible: "yellow" };
 function _monResultBadge(result: string | null | undefined): string {
     if (!result) return _tBadge(_monT("result.none"), "gray");
     return _tBadge(_monT("result." + result), _MON_RESULT_COLORS[result] || "gray");
@@ -228,21 +229,29 @@ function renderMonitoring() {
         .then(function(r) {
             if (seq !== _monSeq) return null;
             _mon.collectors = r[0]; _mon.connections = r[1]; _mon.monitors = r[2]; _mon.exclusions = r[3];
-            if (_mon.openProof) {          // a collected proof was opened: show its monitoring
+            // A collected proof was opened: show its monitoring, on its last collection.
+            const fromProof = !!_mon.openProof;
+            if (fromProof) {
                 const held = _mon.monitors.find(function(m: MonAny) { return m.proof_id === _mon.openProof; });
                 _mon.openMonitor = held ? held.id : null;
                 _mon.openProof = null;
             }
             if (!_mon.coverageFw) _mon.coverageFw = D.referentiels_actifs[0] || "";
             const open = _mon.openMonitor;
+            const versions = open ? api.listVersions(open).catch(function() { return []; }) : Promise.resolve([]);
             return Promise.all([
-                open ? api.listVersions(open).catch(function() { return []; }) : Promise.resolve([]),
+                versions,
                 _mon.coverageFw ? api.coverage(_mon.coverageFw).catch(function() { return null; }) : Promise.resolve(null),
+                versions.then(function(vs: MonAny[]) {
+                    return fromProof && vs.length ? api.getVersion(vs[0].id).catch(function() { return null; }) : null;
+                }),
             ]);
         })
         .then(function(r) {
             if (!r || seq !== _monSeq) return;
-            _mon.versions = r[0]; _mon.coverage = r[1]; _monDraw();
+            _mon.versions = r[0]; _mon.coverage = r[1];
+            if (r[2]) { _mon.version = r[2]; _mon.excluding = null; }
+            _monDraw();
         })
         .catch(function(err) { if (seq === _monSeq) _monFail(err); });
 }
@@ -467,26 +476,27 @@ function _monVersionHtml(m: MonAny, v: MonAny): string {
     let h = "";
     h += '<div class="fs-xs text-muted ct-mb-1">' + esc(_monT("data_as_of")) + ' ' + _monDate(v.data_as_of) + '</div>';
     if (v.reason) h += '<div class="fs-xs ct-mb-1">' + esc(v.reason) + (v.missing_permission ? " — " + esc(v.missing_permission) : "") + '</div>';
-    h += '<div class="fs-xs fw-600">' + esc(_monT("findings")) + '</div>';
-    if (!(v.findings || []).length) h += '<div class="fs-xs text-muted">—</div>';
-    (v.findings || []).forEach(function(f: MonAny) {
-        h += '<div class="ct-flex ct-gap-2 ct-items-center fs-xs ct-mb-1"><span class="fw-600">' + esc(f.resource) + '</span><span class="ct-flex-1">' + esc(f.detail) + '</span>';
-        if (m.active && _mon.excluding !== f.resource) {
-            h += '<button class="ct-btn" data-write data-size="xs" data-click="_monExcludeStart" data-args=\'' + _da(f.resource) + '\'>' + esc(_monT("btn_exclude")) + '</button>';
+    const judged = v.result === "conforme" || v.result === "non_conforme";
+    h += '<div class="ct-flex ct-gap-2 ct-items-center ct-mb-1"><span class="fs-xs fw-600 ct-flex-1">'
+       + (judged ? esc(_monT("resources_counts", v.counts || {})) : "")
+       + '</span><a class="ct-btn" data-size="xs" href="' + esc(window.ComplianceAPI!.versionRecordUrl(v.id)) + '" download>'
+       + esc(_monT("btn_record")) + '</a></div>';
+    const resources: MonAny[] = v.resources || [];
+    if (!resources.length) return h + '<div class="fs-xs text-muted">' + esc(v.purged ? _monT("purged_detail") : "—") + '</div>';
+    h += '<table class="fs-xs"><thead><tr><th>' + esc(_monT("col_resource")) + '</th><th>' + esc(_monT("col_state")) + '</th><th>'
+       + esc(_monT("col_detail")) + '</th><th></th></tr></thead><tbody>';
+    resources.forEach(function(r: MonAny) {
+        let detail = esc(r.detail || "");
+        if (r.exclusion) detail += (detail ? " — " : "") + esc(r.exclusion.justification || "") + ' <span class="text-muted">(' + esc(r.exclusion.by || "") + ')</span>';
+        h += '<tr><td class="fw-600">' + esc(r.resource) + '</td><td>' + _tBadge(_monT("state." + r.state), _MON_STATE_COLORS[r.state] || "gray")
+           + '</td><td>' + detail + '</td><td>';
+        if (r.state === "non_conforme" && m.active && _mon.excluding !== r.resource) {
+            h += '<button class="ct-btn" data-write data-size="xs" data-click="_monExcludeStart" data-args=\'' + _da(r.resource) + '\'>' + esc(_monT("btn_exclude")) + '</button>';
         }
-        h += '</div>';
-        if (_mon.excluding === f.resource) h += _monExcludeForm(m, f.resource);
+        h += '</td></tr>';
+        if (_mon.excluding === r.resource) h += '<tr><td colspan="4">' + _monExcludeForm(m, r.resource) + '</td></tr>';
     });
-    if ((v.excluded || []).length) {
-        h += '<div class="fs-xs fw-600 ct-mt-1">' + esc(_monT("excluded")) + '</div>';
-        (v.excluded || []).forEach(function(x: MonAny) {
-            h += '<div class="fs-xs ct-mb-1"><span class="fw-600">' + esc(x.resource) + '</span> — ' + esc(x.justification) + ' <span class="text-muted">(' + esc(x.by || "") + ')</span></div>';
-        });
-    }
-    if ((v.unreadable || []).length) {
-        h += '<div class="fs-xs fw-600 ct-mt-1">' + esc(_monT("unreadable")) + '</div>';
-        (v.unreadable || []).forEach(function(u: MonAny) { h += '<div class="fs-xs">' + esc(u.resource) + ' — ' + esc(u.reason) + '</div>'; });
-    }
+    h += '</tbody></table>';
     return h;
 }
 

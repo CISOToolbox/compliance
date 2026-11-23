@@ -25,6 +25,19 @@ def canonical_sha256(raw: Any) -> str:
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
+def _per_resource(findings: list[dict]) -> list[dict]:
+    """One finding per resource, its details joined: a resource is counted,
+    shown and excluded once, whatever the number of issues a rule saw."""
+    merged: dict[str, dict] = {}
+    for f in findings:
+        if f["resource"] in merged:
+            m = merged[f["resource"]]
+            m["detail"] = "; ".join(d for d in (m.get("detail"), f.get("detail")) if d)
+        else:
+            merged[f["resource"]] = dict(f)
+    return list(merged.values())
+
+
 def finalize(evaluation: dict, fetched: dict, exclusions: list[dict]) -> dict:
     raw = fetched.get("raw")
     unreadable = list(fetched.get("unreadable") or [])
@@ -45,7 +58,7 @@ def finalize(evaluation: dict, fetched: dict, exclusions: list[dict]) -> dict:
         version.update(result="sans_objet", reason=evaluation.get("reason"))
         return version
     by_resource = {e["resource"]: e for e in exclusions}
-    for f in evaluation.get("findings") or []:
+    for f in _per_resource(evaluation.get("findings") or []):
         e = by_resource.get(f["resource"])
         if e is None:
             version["findings"].append(f)

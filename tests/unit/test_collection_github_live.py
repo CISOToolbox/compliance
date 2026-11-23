@@ -51,6 +51,8 @@ def _answers():
         f"{O}/members?role=member": [{"login": "j-martin"}],
         f"{O}/members": [{"login": "a-durand"}],
         f"{O}/outside_collaborators": [{"login": "c-bernard"}],
+        f"{O}/members?filter=2fa_disabled": [],
+        f"{O}/outside_collaborators?filter=2fa_disabled": [{"login": "c-bernard"}],
         "/repos/medsecure/portail-patients/branches/main/protection": UPGRADE,
         "/repos/medsecure/portail-patients/rules/branches/main": [],
         # A ruleset asks one approval; the classic protection adds stale-review dismissal.
@@ -86,8 +88,8 @@ class Api:
 
     def __call__(self, request: httpx.Request) -> httpx.Response:
         path = request.url.path
-        role = request.url.params.get("role")
-        key = f"{path}?role={role}" if role else path
+        role, only = request.url.params.get("role"), request.url.params.get("filter")
+        key = f"{path}?role={role}" if role else f"{path}?filter={only}" if only else path
         self.calls.append((request.url.host, key, dict(request.headers)))
         answer = self.answers.get(key, (404, {"message": "Not Found"}))
         status, body = answer if isinstance(answer, tuple) else (200, answer)
@@ -121,7 +123,7 @@ def _collect(code, api=None):
 EXPECTED = {
     "GH-01": ("non_conforme", ["medsecure/portail-patients", "medsecure/site"]),
     "GH-02": ("non_conforme", ["medsecure/portail-patients", "medsecure/site"]),
-    "GH-03": ("non_conforme", ["medsecure"]),
+    "GH-03": ("non_conforme", ["medsecure", "c-bernard (outside collaborator)"]),
     "GH-04": ("sans_objet", []),
     "GH-05": ("conforme", []),
     "GH-06": ("non_conforme", ["medsecure/portail-patients", "medsecure/site"]),
@@ -229,6 +231,26 @@ def test_a_hidden_two_factor_setting_names_the_permission_not_a_finding():
     answers[O] = {"login": "medsecure"}
     fetched, _ = _collect("GH-03", Api(answers))
     assert fetched["error"]["missing_permission"] == "organization_administration:read"
+
+
+def test_each_persons_two_factor_state_unseen_by_the_token_is_unreadable_not_compliant():
+    answers = _answers()
+    answers[f"{O}/members?filter=2fa_disabled"] = (422, {"message": "Only owners can use this filter."})
+    version, _ = _collect("GH-03", Api(answers))
+    assert version["evaluated"] == 1 and version["scope"]["resources"] == ["medsecure"]
+    assert version["partial"] and version["unreadable"][0]["resource"] == "members"
+    assert "Only owners can use this filter" in version["unreadable"][0]["reason"]
+    assert version["unreadable"][0]["reason"].endswith("GitHub shows it to an organisation owner only")
+
+
+def test_a_two_factor_filter_github_did_not_apply_is_unreadable_not_everyone_non_compliant():
+    answers = _answers()
+    answers[O]["two_factor_requirement_enabled"] = True
+    answers[f"{O}/members?filter=2fa_disabled"] = answers[f"{O}/members"]
+    answers[f"{O}/outside_collaborators?filter=2fa_disabled"] = answers[f"{O}/outside_collaborators"]
+    version, _ = _collect("GH-03", Api(answers))
+    assert version["result"] == "conforme" and version["scope"]["resources"] == ["medsecure"]
+    assert "the filter was not applied" in version["unreadable"][0]["reason"]
 
 
 def test_a_server_error_is_tried_again_then_said(monkeypatch):

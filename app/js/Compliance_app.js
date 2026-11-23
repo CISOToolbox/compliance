@@ -425,6 +425,11 @@ function _proofValidity(pid) {
 }
 function _proofStatusBadge(p) {
     const v = _proofValidity(p.id);
+    // A collected proof says what its last collection found, not an expiry.
+    if (p.source === "collected" && v === "valid")
+        return badgeTone(t("comp.mon.collected") + " · " + t("comp.mon.result.conforme"), "low");
+    if (p.source === "collected" && v === "invalid")
+        return badgeTone(t("comp.mon.collected") + " · " + t("comp.mon.result.non_conforme"), "critical");
     if (v === "invalid" || v === "expired")
         return badgeTone(t("comp.prv.expiree"), "critical");
     if (v === "unassessable")
@@ -433,8 +438,6 @@ function _proofStatusBadge(p) {
         return badgeTone(t("comp.mon.result.sans_objet"), "neutral");
     if (v !== "valid")
         return "—";
-    if (p.source === "collected")
-        return badgeTone(t("comp.mon.collected"), "low");
     // When a valid proof expires is a date to show, not a rule.
     return ctDateStatus(p.date_expiration || "", 90) === "soon" ? badgeTone(t("comp.prv.bientot"), "high") : badgeTone(t("comp.prv.ok"), "low");
 }

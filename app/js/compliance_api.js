@@ -94,6 +94,7 @@
         deactivateMonitoring: function (id, reason) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/deactivate", { method: "POST", body: { reason: reason } }); },
         listVersions: function (id) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/versions?limit=60"); },
         getVersion: function (vid) { return _fetch("/projects/" + _pid() + "/versions/" + vid); },
+        versionRecordUrl: function (vid) { return BASE + "/projects/" + _pid() + "/versions/" + vid + "/record"; },
         createExclusion: function (id, body) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/exclusions", { method: "POST", body: body }); },
         listExclusions: function () { return _fetch("/projects/" + _pid() + "/exclusions"); },
         revokeExclusion: function (eid, reason) { return _fetch("/projects/" + _pid() + "/exclusions/" + eid + "/revoke", { method: "POST", body: { reason: reason } }); },

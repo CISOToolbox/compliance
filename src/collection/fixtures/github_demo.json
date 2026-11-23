@@ -30,7 +30,9 @@
   "collectors": {
     "GH-01": {"raw": {"repos": "$shared.repos"}},
     "GH-02": {"raw": {"repos": "$shared.repos"}},
-    "GH-03": {"raw": {"organization": {"login": "medsecure", "two_factor_requirement_enabled": true}}},
+    "GH-03": {"raw": {"organization": {"login": "medsecure", "two_factor_requirement_enabled": true},
+                      "members": ["a-durand", "p-leroy", "j-martin"], "members_2fa_disabled": [],
+                      "outside_collaborators": ["c-bernard"], "outside_collaborators_2fa_disabled": []}},
     "GH-04": {"raw": {"members": "$shared.members", "outside_collaborators": [{"login": "c-bernard"}]}},
     "GH-05": {"raw": {"organization": {"login": "medsecure"}, "members": "$shared.members", "pat_grants": null}},
     "GH-06": {"raw": {"repos": "$shared.repos"}},

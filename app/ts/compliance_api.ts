@@ -104,6 +104,7 @@ window.ComplianceAPI = {
     deactivateMonitoring: function(id: string, reason: string) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/deactivate", { method: "POST", body: { reason: reason } }); },
     listVersions: function(id: string) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/versions?limit=60"); },
     getVersion: function(vid: string) { return _fetch("/projects/" + _pid() + "/versions/" + vid); },
+    versionRecordUrl: function(vid: string) { return BASE + "/projects/" + _pid() + "/versions/" + vid + "/record"; },
     createExclusion: function(id: string, body: Record<string, unknown>) { return _fetch("/projects/" + _pid() + "/monitors/" + id + "/exclusions", { method: "POST", body: body }); },
     listExclusions: function() { return _fetch("/projects/" + _pid() + "/exclusions"); },
     revokeExclusion: function(eid: string, reason: string) { return _fetch("/projects/" + _pid() + "/exclusions/" + eid + "/revoke", { method: "POST", body: { reason: reason } }); },

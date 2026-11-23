@@ -79,3 +79,35 @@ async def test_the_project_lists_its_monitorings_active_first(monitored_db):
     listed = await r.list_monitors(A, user=None, db=monitored_db)
     assert [(m["collector_code"], m["active"]) for m in listed] == [("AWS-02", True), ("AWS-01", False)]
     assert await r.list_monitors(B, user=None, db=monitored_db) == []
+
+
+@pytest.mark.asyncio
+async def test_a_version_gives_each_resource_its_state_and_a_json_record(monitored_db):
+    import json
+    from src.models import CollectionVersion
+    aws, _ = await _connections(monitored_db)
+    view = await _activate(monitored_db, aws)
+    vid = uuid.UUID(view["last"]["id"])
+    v = await r.get_version(A, vid, user=None, db=monitored_db)
+    states = {x["resource"]: x["state"] for x in v["resources"]}
+    assert states["j.martin"] == states["break-glass"] == "non_conforme"
+    assert "conforme" in states.values() and v["counts"]["non_conforme"] == 2
+    assert v["counts"]["conforme"] == sum(1 for s in states.values() if s == "conforme")
+    resp = await r.get_version_record(A, vid, user=None, db=monitored_db)
+    assert resp.headers["content-disposition"] == 'attachment; filename="M-1-AWS-02-1.json"'
+    record = json.loads(resp.body)
+    assert record["schema"] == "cisotoolbox.compliance.collection-record" and record["schema_version"] == 1
+    assert record["measure"] == "M-1" and record["proof"] == "P-002" and record["result"] == "non_conforme"
+    assert record["collector"]["code"] == "AWS-02" and record["connection"] == {
+        "label": "MedSecure production", "provider": "aws", "mode": "demo"}
+    assert record["resources"] == v["resources"] and record["raw_sha256"] == view["last"]["raw_sha256"]
+    assert "raw" not in record and record["purged_at"] is None
+    row = await monitored_db.get(CollectionVersion, vid)
+    row.purged_at = datetime.now(timezone.utc)
+    row.raw = row.findings = row.excluded = row.unreadable = row.scope = None
+    await monitored_db.commit()
+    record = json.loads((await r.get_version_record(A, vid, user=None, db=monitored_db)).body)
+    assert record["resources"] == [] and record["purged_at"] and record["counts"]["non_conforme"] == 2
+    with pytest.raises(HTTPException) as e:
+        await r.get_version_record(B, vid, user=None, db=monitored_db)
+    assert e.value.status_code == 404

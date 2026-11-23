@@ -8,11 +8,13 @@ access to it; creating, changing, testing or deleting one takes edit access
 """
 from __future__ import annotations
 
+import re
 import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import JSONResponse
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -175,6 +177,7 @@ async def test_connection(project_id: uuid.UUID, connection_id: uuid.UUID,
 # ── Monitoring of a measure ─────────────────────────────────────────────
 
 from src.collection import ownership  # noqa: E402
+from src.collection.evidence import collection_record, resource_states, state_counts  # noqa: E402
 from src.collection.service import collect, lock_for  # noqa: E402
 from src.models import CollectionMonitor, CollectionVersion, ProjectControl, ProjectMeasure, ProjectProof  # noqa: E402
 from src.schemas import MonitorCreate, MonitorDeactivate  # noqa: E402
@@ -518,7 +521,25 @@ async def get_version(project_id: uuid.UUID, version_id: uuid.UUID, user: Option
     v = await _version_or_404(db, project_id, version_id)
     return {**version_summary(v), "monitor_id": str(v.monitor_id), "collector_code": v.collector_code,
             "rule": v.rule_text, "connection_label": v.connection_label, "scope": v.scope,
-            "findings": v.findings or [], "excluded": v.excluded or [], "unreadable": v.unreadable or []}
+            "findings": v.findings or [], "excluded": v.excluded or [], "unreadable": v.unreadable or [],
+            "counts": state_counts(v), "resources": resource_states(v)}
+
+
+@router.get("/projects/{project_id}/versions/{version_id}/record")
+async def get_version_record(project_id: uuid.UUID, version_id: uuid.UUID,
+                             user: Optional[User] = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """The collection's record, resource by resource, as a JSON file to keep
+    or hand to an auditor (what the history shows, not the raw answer)."""
+    project = await get_project_or_404(project_id, user, db)
+    v = await _version_or_404(db, project_id, version_id)
+    monitor = await db.get(CollectionMonitor, v.monitor_id)
+    conn = await db.get(CollectionConnection, monitor.connection_id)
+    collector = load_catalog().describe(v.collector_code)
+    record = collection_record(v, project=project, monitor=monitor, collector=collector,
+                               provider=collector["provider"] or (conn.provider if conn else ""),
+                               mode=conn.mode if conn else None)
+    name = re.sub(r"[^A-Za-z0-9._-]", "_", f"{monitor.measure_id}-{v.collector_code}-{v.seq}") + ".json"
+    return JSONResponse(record, headers={"Content-Disposition": f'attachment; filename="{name}"'})
 
 
 @router.get("/projects/{project_id}/versions/{version_id}/raw")

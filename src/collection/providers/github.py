@@ -54,7 +54,7 @@ _REPOS = {"repos:list"}
 _RULES = _REPOS | {"repos:get_branch_rules", "repos:get_branch_protection"}
 READS: dict[str, set[str]] = {
     "GH-01": _RULES, "GH-02": _RULES,
-    "GH-03": {"orgs:get"},
+    "GH-03": {"orgs:get", "orgs:list_members", "orgs:list_outside_collaborators"},
     "GH-04": {"orgs:list_members", "orgs:list_outside_collaborators"},
     "GH-05": {"orgs:list_members", "orgs:list_pat_grants"},
     "GH-06": _REPOS | {"repos:get", "code_scanning:get_default_setup", "code_scanning:list_analyses"},
@@ -270,7 +270,35 @@ def _organization(c: Client) -> dict:
 
 
 def _two_factor(c: Client, now: datetime) -> tuple[dict, list]:
-    return {"organization": _organization(c)}, []
+    """The organisation's requirement, then each person's own state: GitHub
+    filters those without two-factor authentication for an owner only. When
+    that list cannot be read, the people are unreadable, never compliant.
+    With the requirement on, GitHub removes whoever lacks it: everyone
+    listed without it then means the filter was not applied."""
+    org = _organization(c)
+    raw: dict = {"organization": org}
+
+    def unreadable(reason: str) -> tuple[dict, list]:
+        return {"organization": org}, [{"resource": "members", "reason": f"each person's two-factor state: {reason}"}]
+    try:
+        for key, operation, path in (("members", "orgs:list_members", "members"),
+                                     ("outside_collaborators", "orgs:list_outside_collaborators",
+                                      "outside_collaborators")):
+            raw[key] = [m["login"] for m in c.pages(operation, f"/orgs/{c.org}/{path}")]
+            raw[f"{key}_2fa_disabled"] = [m["login"] for m in c.pages(operation, f"/orgs/{c.org}/{path}",
+                                                                      filter="2fa_disabled")]
+    except Denied as exc:
+        if exc.status not in (403, 422):
+            raise
+        why = "GitHub shows it to an organisation owner only" if exc.status == 422 else \
+            f"the token needs {exc.permission}"
+        return unreadable(f"GitHub answered {exc.status}" + (f" ({exc.message})" if exc.message else "") + f"; {why}")
+    everyone = raw["members"] + raw["outside_collaborators"]
+    if org["two_factor_requirement_enabled"] and everyone and \
+            sorted(everyone) == sorted(raw["members_2fa_disabled"] + raw["outside_collaborators_2fa_disabled"]):
+        return unreadable("GitHub listed everyone without it although the organisation requires it: "
+                          "the filter was not applied to this token")
+    return raw, []
 
 
 def _members(c: Client) -> list[dict]:

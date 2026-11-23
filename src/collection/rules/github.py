@@ -63,10 +63,20 @@ def gh_02(raw: dict, params: dict, ctx: dict) -> dict:
 
 
 def gh_03(raw: dict, params: dict, ctx: dict) -> dict:
+    """The organisation's requirement, then every member and outside
+    collaborator; without the people's own state, the organisation alone."""
     org = raw.get("organization") or {}
     login = org.get("login") or "organization"
-    ok = org.get("two_factor_requirement_enabled") is True
-    return evaluation([login], [] if ok else [finding(login, "two_factor_requirement_enabled=false")])
+    resources = [login]
+    findings = [] if org.get("two_factor_requirement_enabled") is True else \
+        [finding(login, "two_factor_requirement_enabled=false")]
+    for key, label in (("members", "{}"), ("outside_collaborators", "{} (outside collaborator)")):
+        disabled = set(raw.get(f"{key}_2fa_disabled") or [])
+        for person in raw.get(key) or []:
+            resources.append(label.format(person))
+            if person in disabled:
+                findings.append(finding(label.format(person), "two-factor authentication disabled"))
+    return evaluation(resources, findings)
 
 
 def _members(raw: dict) -> list[dict]:

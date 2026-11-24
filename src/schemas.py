@@ -313,6 +313,27 @@ class ConnectionUpdate(BaseModel):
     secrets: dict | None = None
 
 
+# The users of a project (FEAT-74): checked by src/si_users.py.
+class SiUserCreate(BaseModel):
+    email: str
+    name: str = ""
+    status: str = "present"
+    left_on: str | None = None
+    accounts: list = []
+
+
+class SiUserUpdate(BaseModel):
+    email: str | None = None
+    name: str | None = None
+    status: str | None = None
+    left_on: str | None = None
+    accounts: list | None = None
+
+
+class SiUsersImport(BaseModel):
+    csv: str = Field(max_length=1_000_000)      # si_users.MAX_CSV_BYTES, checked again in bytes
+
+
 class MonitorCreate(BaseModel):
     collector_code: str
     connection_id: uuid.UUID

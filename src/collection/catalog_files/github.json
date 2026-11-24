@@ -6,6 +6,8 @@
     "fields": [
       {"id": "organization", "secret": false, "required": true,
        "label": {"en": "Organization", "fr": "Organisation"}},
+      {"id": "accounts_perimeter", "secret": false, "required": false,
+       "label": {"en": "Perimeter of the users' accounts (the organization when empty)", "fr": "Périmètre des comptes des utilisateurs (l'organisation si vide)"}},
       {"id": "token", "secret": true, "required": true,
        "label": {"en": "Read-only fine-grained token or GitHub App token", "fr": "Jeton à granularité fine en lecture seule, ou jeton de GitHub App"}}
     ],
@@ -44,7 +46,7 @@
               "fr": "Chaque membre est rattaché à une personne active ; aucune personne partie n'a encore d'accès."},
      "reads": ["orgs:list_members", "orgs:list_outside_collaborators"],
      "permissions": ["members:read"],
-     "needs": ["people"],
+     "needs": ["users"],
      "requirements": {"iso": ["A.5.16", "A.5.18"], "anssi": ["6", "8"], "nis2": ["21.2.i"], "soc2": ["CC6.2", "CC6.3"]}},
     {"code": "GH-05", "version": 1, "retention_profile": "accounts",
      "title": {"en": "Privileged access and tokens under control", "fr": "Accès privilégiés et jetons maîtrisés"},

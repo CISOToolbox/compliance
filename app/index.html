@@ -53,6 +53,7 @@
       <button class="ct-rail-item" data-click="selectPanel" data-args='["plan"]'><span class="ct-rail-item-label" data-i18n="comp.sidebar.plan">Action plan</span></button>
       <button class="ct-rail-item" data-click="selectPanel" data-args='["controles"]'><span class="ct-rail-item-label" data-i18n="comp.sidebar.controles">Reviews</span></button>
       <button class="ct-rail-item" data-click="selectPanel" data-args='["nonconformities"]'><span class="ct-rail-item-label" data-i18n="nav.nonconformities">Non-conformities</span></button>
+      <button class="ct-rail-item" data-click="selectPanel" data-args='["users"]'><span class="ct-rail-item-label" data-i18n="comp.users.title">Users</span></button>
       <button class="ct-rail-item" data-click="selectPanel" data-args='["monitoring"]'><span class="ct-rail-item-label" data-i18n="comp.mon.title">Automated monitoring</span></button>
     </div>
 
@@ -81,6 +82,7 @@
 <div class="tab-panel" id="panel-plan"><div class="ct-panel-desc" data-i18n="comp.panel.plan_desc">All incomplete controls across all frameworks.</div><div id="plan-content"></div></div>
 <div class="tab-panel" id="panel-controles"><div class="ct-panel-desc" data-i18n="comp.panel.controles_desc">Recurring control reviews and expiring evidence.</div><div id="controles-content"></div></div>
 <div class="tab-panel" id="panel-monitoring"><div class="ct-panel-desc" data-i18n="comp.mon.panel_desc">Connections to the providers, the evidence they collect every day, exclusions and coverage of the frameworks.</div><div id="monitoring-content"></div></div>
+<div class="tab-panel" id="panel-users"><div class="ct-panel-desc" data-i18n="comp.users.desc">Who works on the project, whether they are still present, and their accounts on each perimeter. GH-04 matches the members of a GitHub organization to the accounts of the perimeter its connection names.</div><div id="users-content"></div></div>
 <div class="tab-panel" id="panel-nonconformities"><div class="ct-panel-desc" data-i18n="comp.panel.nonconformities_desc">Non-conformities observed outside a control, and derogations on requirements.</div><div id="nonconformities-content"></div></div>
 </main><!-- ct-content -->
 </div><!-- ct-body -->
@@ -145,6 +147,7 @@
 <script src="js/directory_picker.js"></script>
 <script src="js/Compliance_app.js"></script>
 <script src="js/Compliance_monitoring.js"></script>
+<script src="js/Compliance_users.js"></script>
 <script src="js/ai_common.js"></script>
 <script src="js/ct_settings.js"></script>
 <script src="js/ai_backend.js"></script>

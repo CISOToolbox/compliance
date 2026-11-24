@@ -97,6 +97,12 @@ window.ComplianceAPI = {
     updateConnection: function(cid: string, body: Record<string, unknown>) { return _fetch("/projects/" + _pid() + "/connections/" + cid, { method: "PATCH", body: body }); },
     deleteConnection: function(cid: string) { return _fetch("/projects/" + _pid() + "/connections/" + cid, { method: "DELETE" }); },
     testConnection: function(cid: string) { return _fetch("/projects/" + _pid() + "/connections/" + cid + "/test", { method: "POST" }); },
+    // ── The users of the project (FEAT-74) ──
+    listSiUsers: function() { return _fetch("/projects/" + _pid() + "/si-users"); },
+    createSiUser: function(body: Record<string, unknown>) { return _fetch("/projects/" + _pid() + "/si-users", { method: "POST", body: body }); },
+    updateSiUser: function(id: string, body: Record<string, unknown>) { return _fetch("/projects/" + _pid() + "/si-users/" + id, { method: "PATCH", body: body }); },
+    deleteSiUser: function(id: string) { return _fetch("/projects/" + _pid() + "/si-users/" + id, { method: "DELETE" }); },
+    importSiUsers: function(csv: string) { return _fetch("/projects/" + _pid() + "/si-users/import", { method: "POST", body: { csv: csv } }); },
     measureMonitoring: function(mid: string) { return _fetch("/projects/" + _pid() + "/measures/" + encodeURIComponent(mid) + "/monitoring"); },
     activateMonitoring: function(mid: string, body: Record<string, unknown>) { return _fetch("/projects/" + _pid() + "/measures/" + encodeURIComponent(mid) + "/monitors", { method: "POST", body: body }); },
     listMonitors: function() { return _fetch("/projects/" + _pid() + "/monitors"); },

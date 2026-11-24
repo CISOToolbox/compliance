@@ -4,7 +4,8 @@ Same contract as the AWS rules. A repository on which the plan does not
 offer the check (branch rules on a private repository without Team, code
 scanning without Advanced Security) is not protected: it is a finding that
 says why, never left out of the count.
-GH-04 needs a directory of the people: without one, "sans objet".
+GH-04 needs the users of the project, through their accounts on the perimeter
+its connection names: without users, "sans objet".
 """
 from __future__ import annotations
 
@@ -85,19 +86,18 @@ def _members(raw: dict) -> list[dict]:
 
 
 def gh_04(raw: dict, params: dict, ctx: dict) -> dict:
-    people = ctx.get("people")
-    if people is None:
-        return evaluation([], [], outcome="feature_absent",
-                           reason="no directory of the people is available")
-    by_login = {str(p.get("github") or "").lower(): p for p in people if p.get("github")}
+    accounts = ctx.get("users")
+    if accounts is None:
+        return evaluation([], [], outcome="feature_absent", reason="the project lists no users")
+    by_login = {str(a.get("login") or "").lower(): a for a in accounts if a.get("login")}
     members = _members(raw)
     findings = []
     for m in members:
-        person = by_login.get(m["login"].lower())
-        if person is None:
-            findings.append(finding(m["login"], f"{m['kind']} linked to no person"))
-        elif not person.get("active"):
-            findings.append(finding(m["login"], f"{m['kind']} of a person who left ({person.get('name', '')})"))
+        account = by_login.get(m["login"].lower())
+        if account is None:
+            findings.append(finding(m["login"], f"{m['kind']} linked to no user"))
+        elif not account.get("active"):
+            findings.append(finding(m["login"], f"{m['kind']} of a user who left ({account.get('name', '')})"))
     return evaluation([m["login"] for m in members], findings)
 
 

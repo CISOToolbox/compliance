@@ -585,6 +585,7 @@ function selectPanel(panelId: string) {
         else if (panelId === "controles") renderControles();
         else if (panelId === "nonconformities") renderNonconformities();
         else if (panelId === "monitoring") renderMonitoring();
+        else if (panelId === "users") renderUsers();
     }
 
     renderSidebar();
@@ -729,6 +730,7 @@ function renderAll() {
     else if (_currentPanel === "controles") renderControles();
     else if (_currentPanel === "nonconformities") renderNonconformities();
     else if (_currentPanel === "monitoring") renderMonitoring();
+    else if (_currentPanel === "users") renderUsers();
     else if (_currentPanel.startsWith("fw:") && _currentFw) _renderFwView(_currentFw, _currentSubview);
     // Update the undo/redo buttons
     _updateUndoButtons();

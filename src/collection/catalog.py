@@ -16,10 +16,9 @@ from typing import Any
 CATALOG_DIR = Path(__file__).resolve().parent / "catalog_files"
 FRAMEWORKS = ("iso", "anssi", "nis2", "soc2")
 # What a collector may need besides its connection, and why it cannot run
-# without it. The module holds no people directory: a collector that needs
-# one is neither proposed nor activated.
-NEEDS = {"people": "it needs a directory of the people, which this module does not hold"}
-PROVIDED: frozenset[str] = frozenset()
+# without it: a project that does not provide it is neither proposed nor
+# lets activate the collector (service.provided).
+NEEDS = {"users": "it needs the users of the project, and the project lists none"}
 
 
 class CatalogError(ValueError):
@@ -34,9 +33,9 @@ class Catalog:
     def collectors(self, provider: str | None = None) -> list[dict]:
         return [c for c in self._collectors.values() if provider is None or c["provider"] == provider]
 
-    def available(self) -> list[dict]:
-        """The collectors whose needs the module meets: the ones it proposes."""
-        return [c for c in self._collectors.values() if unavailable(c) is None]
+    def available(self, provided: frozenset[str] = frozenset()) -> list[dict]:
+        """The collectors whose needs the project meets: the ones it proposes."""
+        return [c for c in self._collectors.values() if unavailable(c, provided) is None]
 
     def collector(self, code: str) -> dict:
         try:
@@ -55,9 +54,9 @@ class Catalog:
                 "retention": {"daily_days": 3650, "weekly_days": 3650, "monthly_days": 3650}, "requirement_keys": []}
 
 
-def unavailable(collector: dict) -> str | None:
-    """Why the module cannot run the collector, or None."""
-    missing = [n for n in collector.get("needs", []) if n not in PROVIDED]
+def unavailable(collector: dict, provided: frozenset[str] = frozenset()) -> str | None:
+    """Why a project that provides `provided` cannot run the collector, or None."""
+    missing = [n for n in collector.get("needs", []) if n not in provided]
     return NEEDS[missing[0]] if missing else None
 
 

@@ -417,6 +417,28 @@ class CollectionSuggestionDecision(Base):
     decided_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
 
 
+# The users of one project (FEAT-74): who works there, whether they are
+# still present, and their accounts — on a perimeter (GitHub organization,
+# application…), an account name and an optional role, as in Access. GH-04
+# matches the members of an organization to the accounts of the perimeter
+# its connection names. Entered by hand or imported from a CSV file; the
+# email is the key, unique within the project.
+class SiUser(Base):
+    __tablename__ = "si_users"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    email = Column(String(255), nullable=False)                 # lower case
+    name = Column(String(255), nullable=False, default="", server_default=text("''"))
+    status = Column(String(10), nullable=False, default="present", server_default=text("'present'"))  # present | left
+    left_on = Column(String(10), nullable=True)                 # ISO date, when left
+    accounts = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))  # [{perimeter, account, role}]
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
+    __table_args__ = (
+        Index("uq_si_users_email", "project_id", "email", unique=True),
+    )
+
+
 # ── Append-only server-side write journal (FEAT-30 P1.6) ──────────────
 # Created by Base.metadata.create_all at startup (no migration needed for
 # a new table). Written via src.audit.log_write — see audit_common.

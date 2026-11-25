@@ -4,8 +4,8 @@ Same contract as the AWS rules. A repository on which the plan does not
 offer the check (branch rules on a private repository without Team, code
 scanning without Advanced Security) is not protected: it is a finding that
 says why, never left out of the count.
-GH-04 needs the users of the project, through their accounts on the perimeter
-its connection names: without users, "sans objet".
+GH-04 needs the users of the project, through their accounts on the GitHub
+perimeter: without users, "sans objet".
 """
 from __future__ import annotations
 
@@ -86,7 +86,7 @@ def _members(raw: dict) -> list[dict]:
 
 
 def gh_04(raw: dict, params: dict, ctx: dict) -> dict:
-    accounts = ctx.get("users")
+    accounts = ctx.get("accounts")
     if accounts is None:
         return evaluation([], [], outcome="feature_absent", reason="the project lists no users")
     by_login = {str(a.get("login") or "").lower(): a for a in accounts if a.get("login")}

@@ -37,7 +37,10 @@ function _monFail(err: MonAny) { if (typeof ct_changeFailed === "function") ct_c
 function _monFormFail(slot: string) {
     return function(err: MonAny) {
         const el = document.getElementById(slot);
-        if (el) el.textContent = String((err && err.detail) || t("chrome.save_failed")).substring(0, 300);
+        // A validation error of the API carries its reasons as a list.
+        const detail = err && err.detail;
+        const text = Array.isArray(detail) ? detail.map(function(d: MonAny) { return (d && d.msg) || ""; }).join("; ") : detail;
+        if (el) el.textContent = String(text || t("chrome.save_failed")).substring(0, 300);
         else _monFail(err);
     };
 }

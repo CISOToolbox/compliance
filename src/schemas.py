@@ -316,18 +316,20 @@ class ConnectionUpdate(BaseModel):
 # The users of a project (FEAT-74): checked by src/si_users.py.
 class SiUserCreate(BaseModel):
     email: str
-    name: str = ""
-    status: str = "present"
-    left_on: str | None = None
-    accounts: list = []
+    nom: str = ""
+    prenom: str = ""
+    statut: str = "actif"
+    date_depart: str | None = None
+    comptes: list = []
 
 
 class SiUserUpdate(BaseModel):
     email: str | None = None
-    name: str | None = None
-    status: str | None = None
-    left_on: str | None = None
-    accounts: list | None = None
+    nom: str | None = None
+    prenom: str | None = None
+    statut: str | None = None
+    date_depart: str | None = None
+    comptes: list | None = None
 
 
 class SiUsersImport(BaseModel):

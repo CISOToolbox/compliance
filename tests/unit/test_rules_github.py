@@ -26,7 +26,7 @@ ACCOUNTS = [{"name": "Anne Durand", "login": "a-durand", "active": True},
 def _run(code, raw=None, params=None, users=None):
     raw = raw if raw is not None else demo_payload(code, NOW)["raw"]
     defaults = {p["id"]: p["default"] for p in load_catalog().collector(code).get("params", [])}
-    ev = EVALUATORS[code](raw, params or defaults, {"now": NOW, "users": users})
+    ev = EVALUATORS[code](raw, params or defaults, {"now": NOW, "accounts": users})
     return finalize(ev, {"raw": raw, "data_as_of": NOW, "unreadable": [], "error": None}, [])
 
 

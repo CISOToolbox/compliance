@@ -167,7 +167,7 @@ def _collect(code, answers=MEDSECURE, settings=None):
     fetched = provider.fetch_sync(_conn(), KEYS, collector, NOW)
     evaluation = {} if fetched["error"] else evaluators()[code](fetched["raw"], {p["id"]: p["default"] for p in
                                                                                 collector.get("params", [])},
-                                                                {"now": NOW, "users": None})
+                                                                {"now": NOW, "accounts": None})
     return finalize(evaluation, fetched, []), session
 
 

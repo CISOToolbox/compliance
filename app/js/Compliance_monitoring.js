@@ -28,8 +28,11 @@ function _monFail(err) { if (typeof ct_changeFailed === "function")
 function _monFormFail(slot) {
     return function (err) {
         const el = document.getElementById(slot);
+        // A validation error of the API carries its reasons as a list.
+        const detail = err && err.detail;
+        const text = Array.isArray(detail) ? detail.map(function (d) { return (d && d.msg) || ""; }).join("; ") : detail;
         if (el)
-            el.textContent = String((err && err.detail) || t("chrome.save_failed")).substring(0, 300);
+            el.textContent = String(text || t("chrome.save_failed")).substring(0, 300);
         else
             _monFail(err);
     };

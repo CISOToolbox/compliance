@@ -1,5 +1,6 @@
 """FEAT-74 lot 1 — the users of a project: entered, imported, and their
-accounts (perimeter, account name, optional role)."""
+accounts (perimeter, account name, optional role); identity fields as in
+Pilot's directory (nom, prenom, email, statut)."""
 import os
 import sys
 import uuid
@@ -13,26 +14,31 @@ from src.routes import si_users as ru  # noqa: E402
 from src.schemas import SiUserCreate, SiUsersImport, SiUserUpdate  # noqa: E402
 from src.si_users import UserError, checked_user, merge_accounts, parse_users_csv  # noqa: E402
 
-GH = {"perimeter": "medsecure", "role": ""}
+GH = {"perimetre": "GitHub", "role": ""}
 
 
 # ── What an entry may hold ──────────────────────────────────────────────
 
 def test_an_entry_is_normalised():
-    assert checked_user({"email": " A.Durand@MedSecure.example ", "name": "Alice Durand",
-                         "accounts": [{"perimeter": " medsecure ", "account": "a-durand", "role": "admin"}]}) == {
-        "email": "a.durand@medsecure.example", "name": "Alice Durand", "status": "present", "left_on": None,
-        "accounts": [{"perimeter": "medsecure", "account": "a-durand", "role": "admin"}]}
+    assert checked_user({"email": " A.Durand@MedSecure.example ", "nom": "Durand", "prenom": " Alice ",
+                         "comptes": [{"perimetre": " GitHub ", "compte": "a-durand", "role": "admin"}]}) == {
+        "email": "a.durand@medsecure.example", "nom": "Durand", "prenom": "Alice", "statut": "actif", "date_depart": None,
+        "comptes": [{"perimetre": "GitHub", "compte": "a-durand", "role": "admin"}]}
 
 
 @pytest.mark.parametrize("given, message", [
     ({"email": "not-an-email"}, "invalid email"),
-    ({"email": "a@b.example", "status": "gone"}, "present or left"),
-    ({"email": "a@b.example", "left_on": "2026-10-01"}, "present has no date of departure"),
-    ({"email": "a@b.example", "status": "left", "left_on": "01/10/2026"}, "YYYY-MM-DD"),
-    ({"email": "a@b.example", "name": "two\nlines"}, "one line"),
-    ({"email": "a@b.example", "accounts": [{"perimeter": "medsecure"}]}, "a perimeter and an account name"),
-    ({"email": "a@b.example", "accounts": [{"perimeter": "ERP", "account": "ad"}, {"perimeter": "erp", "account": "AD"}]},
+    ({"email": "a@b.example", "statut": "gone"}, "one of actif, inactif, externe, not gone"),
+    ({"email": "a@b.example", "date_depart": "2026-10-01"}, "only an inactif user has a date of departure"),
+    ({"email": "a@b.example", "statut": "externe", "date_depart": "2026-10-01"}, "only an inactif user"),
+    ({"email": "a@b.example", "statut": "inactif", "date_depart": "01/10/2026"}, "YYYY-MM-DD"),
+    ({"email": "a@b.example", "nom": "two\nlines"}, "one line"),
+    ({"email": "a@b.example", "statut": "inactif", "date_depart": "20261031"}, "YYYY-MM-DD"),
+    ({"email": "a@b.example", "statut": "inactif", "date_depart": "2026-W44-1"}, "YYYY-MM-DD"),
+    ({"email": "a@b.example", "comptes": [{"perimetre": "ERP - Finance", "compte": "x"}]}, "neither a comma"),
+    ({"email": "a@b.example", "comptes": [{"perimetre": "R&D, Lab", "compte": "x"}]}, "neither a comma"),
+    ({"email": "a@b.example", "comptes": [{"perimetre": "GitHub"}]}, "a perimeter and an account name"),
+    ({"email": "a@b.example", "comptes": [{"perimetre": "ERP", "compte": "ad"}, {"perimetre": "erp", "compte": "AD"}]},
      "listed twice"),
 ])
 def test_a_faulty_entry_is_refused(given, message):
@@ -41,41 +47,41 @@ def test_a_faulty_entry_is_refused(given, message):
 
 
 def test_a_user_back_loses_the_date_of_departure():
-    left = checked_user({"email": "a@b.example", "status": "left", "left_on": "2026-10-01"})
-    assert checked_user({"status": "present"}, left)["left_on"] is None
+    left = checked_user({"email": "a@b.example", "statut": "inactif", "date_depart": "2026-10-01"})
+    assert checked_user({"statut": "actif"}, left)["date_depart"] is None
 
 
 def test_added_accounts_keep_the_others_and_update_the_role_only_when_given():
-    current = [{"perimeter": "ERP", "account": "adurand", "role": "reader"},
-               {"perimeter": "medsecure", "account": "a-durand", "role": "owner"}]
-    assert merge_accounts(current, [{"perimeter": "erp", "account": "ADURAND", "role": "admin"},
-                                    {"perimeter": "MedSecure", "account": "a-durand", "role": ""},
-                                    {"perimeter": "VPN", "account": "adurand", "role": ""}]) == [
-        {"perimeter": "ERP", "account": "adurand", "role": "admin"},
-        {"perimeter": "medsecure", "account": "a-durand", "role": "owner"},          # no role in the file: kept
-        {"perimeter": "VPN", "account": "adurand", "role": ""}]
+    current = [{"perimetre": "ERP", "compte": "adurand", "role": "reader"},
+               {"perimetre": "GitHub", "compte": "a-durand", "role": "owner"}]
+    assert merge_accounts(current, [{"perimetre": "erp", "compte": "ADURAND", "role": "admin"},
+                                    {"perimetre": "github", "compte": "a-durand", "role": ""},
+                                    {"perimetre": "VPN", "compte": "adurand", "role": ""}]) == [
+        {"perimetre": "ERP", "compte": "adurand", "role": "admin"},
+        {"perimetre": "GitHub", "compte": "a-durand", "role": "owner"},          # no role in the file: kept
+        {"perimetre": "VPN", "compte": "adurand", "role": ""}]
 
 
 def test_a_csv_file_takes_one_line_per_account_in_any_order_with_either_separator():
-    users = parse_users_csv("﻿Email;Status;Perimeter;Account;Role\n"
-                            "j.martin@medsecure.example;left;medsecure;j-martin;\n"
-                            "j.martin@medsecure.example;Left;ERP;jmartin;admin\n\n"
-                            "p.leroy@medsecure.example;present;;;\n")
+    users = parse_users_csv("﻿Email;Statut;Perimetre;Compte;Role\n"
+                            "j.martin@medsecure.example;inactif;GitHub;j-martin;\n"
+                            "j.martin@medsecure.example;Inactif;ERP;jmartin;admin\n\n"
+                            "p.leroy@medsecure.example;externe;;;\n")
     assert users == [
-        {"email": "j.martin@medsecure.example", "line": 2, "given": {"status": "left"},
-         "accounts": [{"perimeter": "medsecure", "account": "j-martin", "role": ""},
-                      {"perimeter": "ERP", "account": "jmartin", "role": "admin"}]},
-        {"email": "p.leroy@medsecure.example", "line": 5, "given": {"status": "present"}, "accounts": []}]
+        {"email": "j.martin@medsecure.example", "line": 2, "given": {"statut": "inactif"},
+         "comptes": [{"perimetre": "GitHub", "compte": "j-martin", "role": ""},
+                      {"perimetre": "ERP", "compte": "jmartin", "role": "admin"}]},
+        {"email": "p.leroy@medsecure.example", "line": 5, "given": {"statut": "externe"}, "comptes": []}]
 
 
 @pytest.mark.parametrize("text, message", [
-    ("name,account\nAlice,a-durand\n", "at least email"),
+    ("nom,compte\nDurand,a-durand\n", "at least email"),
     ("email,team\na@b.example,IT\n", "unknown columns: team"),
-    ("email,status\na@b.example,gone\nb@b.example,present\nnope,present\n", "line 2: .*line 4: invalid email"),
-    ("email,status\na@b.example,present\nA@b.example,left\n", "line 3: status differs from line 2"),
-    ("email,left_on\na@b.example,31/10/2026\n", "line 2: left_on must be a date"),
-    ("email,perimeter,account\na@b.example,ERP,\n", "line 2: an account needs a perimeter and an account name"),
-    ("email,perimeter,account\na@b.example,ERP,ad\na@b.example,erp,AD\n", "line 3: .*listed twice"),
+    ("email,statut\na@b.example,gone\nb@b.example,actif\nnope,actif\n", "line 2: .*line 4: invalid email"),
+    ("email,statut\na@b.example,actif\nA@b.example,inactif\n", "line 3: statut differs from line 2"),
+    ("email,date_depart\na@b.example,31/10/2026\n", "line 2: date_depart must be a date"),
+    ("email,perimetre,compte\na@b.example,ERP,\n", "line 2: an account needs a perimeter and an account name"),
+    ("email,perimetre,compte\na@b.example,ERP,ad\na@b.example,erp,AD\n", "line 3: .*listed twice"),
 ])
 def test_a_faulty_csv_file_is_refused_as_a_whole(text, message):
     with pytest.raises(UserError, match=message):
@@ -90,16 +96,16 @@ async def _add(db, project=A, **kw):
 
 @pytest.mark.asyncio
 async def test_users_are_listed_changed_and_deleted_within_their_project(monitored_db):
-    alice = await _add(monitored_db, email="a.durand@medsecure.example", name="Alice Durand",
-                       accounts=[dict(GH, account="a-durand")])
+    alice = await _add(monitored_db, email="a.durand@medsecure.example", nom="Durand", prenom="Alice",
+                       comptes=[dict(GH, compte="a-durand")])
     await _add(monitored_db, project=B, email="other@b.example")
     assert [u["email"] for u in await ru.list_si_users(A, user=None, db=monitored_db)] == ["a.durand@medsecure.example"]
     uid = uuid.UUID(alice["id"])
-    changed = await ru.update_si_user(A, uid, SiUserUpdate(status="left", left_on="2026-11-01"), _req(),
+    changed = await ru.update_si_user(A, uid, SiUserUpdate(statut="inactif", date_depart="2026-11-01"), _req(),
                                       user=None, db=monitored_db)
-    assert changed["status"] == "left" and changed["accounts"] == [dict(GH, account="a-durand")]
+    assert changed["statut"] == "inactif" and changed["comptes"] == [dict(GH, compte="a-durand")]
     with pytest.raises(HTTPException) as e:
-        await ru.update_si_user(B, uid, SiUserUpdate(name="x"), _req(), user=None, db=monitored_db)
+        await ru.update_si_user(B, uid, SiUserUpdate(nom="x"), _req(), user=None, db=monitored_db)
     assert e.value.status_code == 404
     await ru.delete_si_user(A, uid, _req(), user=None, db=monitored_db)
     assert await ru.list_si_users(A, user=None, db=monitored_db) == []
@@ -107,75 +113,75 @@ async def test_users_are_listed_changed_and_deleted_within_their_project(monitor
 
 @pytest.mark.asyncio
 async def test_an_email_or_an_account_belongs_to_one_user_of_the_project(monitored_db):
-    await _add(monitored_db, email="a.durand@medsecure.example", accounts=[dict(GH, account="a-durand")])
+    await _add(monitored_db, email="a.durand@medsecure.example", comptes=[dict(GH, compte="a-durand")])
     for kw in ({"email": "A.Durand@medsecure.example"},
-               {"email": "p.leroy@medsecure.example", "accounts": [{"perimeter": "MEDSECURE", "account": "A-DURAND"}]}):
+               {"email": "p.leroy@medsecure.example", "comptes": [{"perimetre": "GITHUB", "compte": "A-DURAND"}]}):
         with pytest.raises(HTTPException) as e:
             await _add(monitored_db, **kw)
         assert e.value.status_code == 409
     # the same name on another perimeter is another account; another project is another directory
-    await _add(monitored_db, email="p.leroy@medsecure.example", accounts=[{"perimeter": "ERP", "account": "a-durand"}])
-    await _add(monitored_db, project=B, email="a.durand@medsecure.example", accounts=[dict(GH, account="a-durand")])
+    await _add(monitored_db, email="p.leroy@medsecure.example", comptes=[{"perimetre": "ERP", "compte": "a-durand"}])
+    await _add(monitored_db, project=B, email="a.durand@medsecure.example", comptes=[dict(GH, compte="a-durand")])
 
 
 @pytest.mark.asyncio
 async def test_an_import_adds_and_updates_with_the_columns_it_holds_and_removes_nobody(monitored_db):
-    await _add(monitored_db, email="a.durand@medsecure.example", name="Alice Durand",
-               accounts=[dict(GH, account="a-durand")])
-    await _add(monitored_db, email="c.bernard@partner.example", name="Claire Bernard")
-    res = await ru.import_si_users(A, SiUsersImport(csv="email,status,left_on,perimeter,account,role\n"
-                                                        "a.durand@medsecure.example,left,2026-11-01,ERP,adurand,admin\n"
-                                                        "p.leroy@medsecure.example,present,,,,\n"),
+    await _add(monitored_db, email="a.durand@medsecure.example", nom="Durand", prenom="Alice",
+               comptes=[dict(GH, compte="a-durand")])
+    await _add(monitored_db, email="c.bernard@partner.example", nom="Bernard", prenom="Claire")
+    res = await ru.import_si_users(A, SiUsersImport(csv="email,statut,date_depart,perimetre,compte,role\n"
+                                                        "a.durand@medsecure.example,inactif,2026-11-01,ERP,adurand,admin\n"
+                                                        "p.leroy@medsecure.example,actif,,,,\n"),
                                    _req(), user=None, db=monitored_db)
     assert res == {"created": 1, "updated": 1, "unchanged": 0}
     users = {u["email"]: u for u in await ru.list_si_users(A, user=None, db=monitored_db)}
     assert sorted(users) == ["a.durand@medsecure.example", "c.bernard@partner.example", "p.leroy@medsecure.example"]
     alice = users["a.durand@medsecure.example"]
-    assert alice["status"] == "left" and alice["name"] == "Alice Durand"            # no name column: kept
-    assert alice["accounts"] == [dict(GH, account="a-durand"), {"perimeter": "ERP", "account": "adurand", "role": "admin"}]
+    assert (alice["statut"], alice["nom"], alice["prenom"]) == ("inactif", "Durand", "Alice")   # no name column: kept
+    assert alice["comptes"] == [dict(GH, compte="a-durand"), {"perimetre": "ERP", "compte": "adurand", "role": "admin"}]
 
 
 @pytest.mark.asyncio
 async def test_an_import_leaves_what_its_empty_cells_do_not_say(monitored_db):
-    await _add(monitored_db, email="p.leroy@medsecure.example", name="Paul Leroy", status="left", left_on="2026-10-31",
-               accounts=[{"perimeter": "ERP", "account": "pl", "role": "admin"}])
-    res = await ru.import_si_users(A, SiUsersImport(csv="email,name,status,left_on,perimeter,account,role\n"
-                                                        "p.leroy@medsecure.example,,,,ERP,pl,\n"
-                                                        "p.leroy@medsecure.example,,,,medsecure,p-leroy,\n"),
+    await _add(monitored_db, email="p.leroy@medsecure.example", nom="Leroy", prenom="Paul", statut="inactif", date_depart="2026-10-31",
+               comptes=[{"perimetre": "ERP", "compte": "pl", "role": "admin"}])
+    res = await ru.import_si_users(A, SiUsersImport(csv="email,nom,prenom,statut,date_depart,perimetre,compte,role\n"
+                                                        "p.leroy@medsecure.example,,,,,ERP,pl,\n"
+                                                        "p.leroy@medsecure.example,,,,,GitHub,p-leroy,\n"),
                                    _req(), user=None, db=monitored_db)
     assert res == {"created": 0, "updated": 1, "unchanged": 0}
     paul = (await ru.list_si_users(A, user=None, db=monitored_db))[0]
-    assert (paul["name"], paul["status"], paul["left_on"]) == ("Paul Leroy", "left", "2026-10-31")
-    assert paul["accounts"] == [{"perimeter": "ERP", "account": "pl", "role": "admin"},
-                                {"perimeter": "medsecure", "account": "p-leroy", "role": ""}]
+    assert (paul["nom"], paul["prenom"], paul["statut"], paul["date_depart"]) == ("Leroy", "Paul", "inactif", "2026-10-31")
+    assert paul["comptes"] == [{"perimetre": "ERP", "compte": "pl", "role": "admin"},
+                                {"perimetre": "GitHub", "compte": "p-leroy", "role": ""}]
 
 
 @pytest.mark.asyncio
 async def test_an_import_checks_the_status_and_the_date_against_the_project(monitored_db):
     await _add(monitored_db, email="a.durand@medsecure.example")
     with pytest.raises(HTTPException) as e:
-        await ru.import_si_users(A, SiUsersImport(csv="email,left_on\na.durand@medsecure.example,2026-11-01\n"),
+        await ru.import_si_users(A, SiUsersImport(csv="email,date_depart\na.durand@medsecure.example,2026-11-01\n"),
                                  _req(), user=None, db=monitored_db)
-    assert e.value.status_code == 422 and "line 2 (a.durand@medsecure.example): a user who is present" in e.value.detail
+    assert e.value.status_code == 422 and "line 2 (a.durand@medsecure.example): only an inactif user" in e.value.detail
 
 
 @pytest.mark.asyncio
 async def test_a_change_ignores_what_it_sends_as_null_but_the_date(monitored_db):
-    paul = await _add(monitored_db, email="p.leroy@medsecure.example", status="left", left_on="2026-10-31",
-                      accounts=[dict(GH, account="p-leroy")])
+    paul = await _add(monitored_db, email="p.leroy@medsecure.example", statut="inactif", date_depart="2026-10-31",
+                      comptes=[dict(GH, compte="p-leroy")])
     uid = uuid.UUID(paul["id"])
-    same = await ru.update_si_user(A, uid, SiUserUpdate(status=None, accounts=None, name="Paul"), _req(),
+    same = await ru.update_si_user(A, uid, SiUserUpdate(statut=None, comptes=None, prenom="Paul"), _req(),
                                    user=None, db=monitored_db)
-    assert (same["status"], same["left_on"], same["accounts"]) == ("left", "2026-10-31", [dict(GH, account="p-leroy")])
-    cleared = await ru.update_si_user(A, uid, SiUserUpdate(left_on=None), _req(), user=None, db=monitored_db)
-    assert cleared["status"] == "left" and cleared["left_on"] is None
+    assert (same["statut"], same["date_depart"], same["comptes"]) == ("inactif", "2026-10-31", [dict(GH, compte="p-leroy")])
+    cleared = await ru.update_si_user(A, uid, SiUserUpdate(date_depart=None), _req(), user=None, db=monitored_db)
+    assert cleared["statut"] == "inactif" and cleared["date_depart"] is None
 
 
 @pytest.mark.asyncio
 async def test_an_email_written_meanwhile_is_a_conflict_not_an_error(monitored_db):
     from src.models import SiUser
     await _add(monitored_db, email="a.durand@medsecure.example")
-    monitored_db.add(SiUser(id=uuid.uuid4(), project_id=A, email="p.leroy@medsecure.example", accounts=[]))
+    monitored_db.add(SiUser(id=uuid.uuid4(), project_id=A, email="p.leroy@medsecure.example", comptes=[]))
     original = ru._users
 
     async def stale(db, project_id):            # the list as read before the other write landed
@@ -191,10 +197,25 @@ async def test_an_email_written_meanwhile_is_a_conflict_not_an_error(monitored_d
 
 @pytest.mark.asyncio
 async def test_an_import_giving_an_account_to_two_users_writes_nothing(monitored_db):
-    await _add(monitored_db, email="a.durand@medsecure.example", accounts=[dict(GH, account="a-durand")])
+    await _add(monitored_db, email="a.durand@medsecure.example", comptes=[dict(GH, compte="a-durand")])
     with pytest.raises(HTTPException) as e:
-        await ru.import_si_users(A, SiUsersImport(csv="email,perimeter,account\np.leroy@medsecure.example,medsecure,a-durand\n"),
+        await ru.import_si_users(A, SiUsersImport(csv="email,perimetre,compte\np.leroy@medsecure.example,GitHub,a-durand\n"),
                                  _req(), user=None, db=monitored_db)
     assert e.value.status_code == 409
     monitored_db.expunge_all()
     assert [u["email"] for u in await ru.list_si_users(A, user=None, db=monitored_db)] == ["a.durand@medsecure.example"]
+
+
+def test_a_change_cannot_empty_the_statut():
+    with pytest.raises(UserError, match="statut cannot be empty"):
+        checked_user({"statut": ""}, checked_user({"email": "a@b.example", "statut": "inactif"}))
+
+
+@pytest.mark.asyncio
+async def test_a_change_to_another_users_email_is_a_conflict(monitored_db):
+    await _add(monitored_db, email="a.durand@medsecure.example")
+    paul = await _add(monitored_db, email="p.leroy@medsecure.example")
+    with pytest.raises(HTTPException) as e:
+        await ru.update_si_user(A, uuid.UUID(paul["id"]), SiUserUpdate(email="A.Durand@medsecure.example"), _req(),
+                                user=None, db=monitored_db)
+    assert e.value.status_code == 409

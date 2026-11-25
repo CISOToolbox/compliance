@@ -46,7 +46,7 @@ async def list_collectors(user: Optional[User] = Depends(get_current_user)):
     collector is proposed or activated (service.provided)."""
     cat = load_catalog()
     keep = ("code", "provider", "version", "title", "rule", "reads", "permissions", "retention_profile",
-            "retention", "params", "requirements", "requirement_keys")
+            "retention", "params", "requirements", "requirement_keys", "needs")
     from src.collection.connections import LIVE_PROVIDERS
     return {"providers": [dict(p, live=p["provider"] in LIVE_PROVIDERS) for p in cat.providers.values()],
             "collectors": [{**{k: c[k] for k in keep if k in c}, "unavailable": unavailable(c)} for c in cat.collectors()]}

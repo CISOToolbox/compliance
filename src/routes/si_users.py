@@ -2,7 +2,7 @@
 
 Reading them takes read access to the project; adding, changing, importing
 or deleting takes edit access. A deletion is for a mistake: a user who
-leaves is marked `left`, and GH-04 then finds the access they still have.
+leaves is marked `inactif`, and GH-04 then finds the access they still have.
 """
 from __future__ import annotations
 
@@ -25,20 +25,21 @@ from src.si_users import UserError, account_conflict, checked_user, merge_accoun
 
 router = APIRouter(prefix="/api", tags=["si-users"])
 
-_FIELDS = ("email", "name", "status", "left_on", "accounts")
+_FIELDS = ("email", "nom", "prenom", "statut", "date_depart", "comptes")
 
 
 def _entry(u: SiUser) -> dict:
-    return {k: getattr(u, k) if k != "accounts" else list(u.accounts or []) for k in _FIELDS}
+    return {k: getattr(u, k) if k != "comptes" else list(u.comptes or []) for k in _FIELDS}
 
 
 def si_user_view(u: SiUser) -> dict:
-    return {"id": str(u.id), **_entry(u), "updated_at": u.updated_at.isoformat() if u.updated_at else None}
+    return {"id": str(u.id), **_entry(u), "sync_source": u.sync_source or "",
+            "updated_at": u.updated_at.isoformat() if u.updated_at else None}
 
 
 async def _users(db: AsyncSession, project_id: uuid.UUID) -> list[SiUser]:
     return list((await db.execute(select(SiUser).where(SiUser.project_id == project_id)
-                                  .order_by(SiUser.name, SiUser.email))).scalars().all())
+                                  .order_by(SiUser.nom, SiUser.prenom, SiUser.email))).scalars().all())
 
 
 def _checked(given: dict, current: Optional[dict] = None) -> dict:
@@ -57,7 +58,7 @@ def _unique(final: list[dict]) -> None:
     clash = account_conflict(final)
     if clash:
         a, first, second = clash
-        raise HTTPException(status_code=409, detail=f"the account {a['account']} on {a['perimeter']} "
+        raise HTTPException(status_code=409, detail=f"the account {a['compte']} on {a['perimetre']} "
                                                     f"cannot be both {first}'s and {second}'s")
 
 
@@ -101,7 +102,7 @@ async def create_si_user(project_id: uuid.UUID, body: SiUserCreate, request: Req
     await _flush(db)
     from src.audit import log_write
     await log_write(db, user, request, "si_user.create", entity_type="si_user", entity_id=str(si_user.id),
-                    target=si_user.email, details={"status": si_user.status, "accounts": len(si_user.accounts)})
+                    target=si_user.email, details={"statut": si_user.statut, "comptes": len(si_user.comptes)})
     await db.commit()
     return si_user_view(si_user)
 
@@ -120,7 +121,7 @@ async def update_si_user(project_id: uuid.UUID, si_user_id: uuid.UUID, body: SiU
     await _lock(db, project_id)
     si_user = await _si_user_or_404(db, project_id, si_user_id)
     # null means "not sent", except for the date of departure, which it clears
-    given = {k: v for k, v in body.model_dump(exclude_unset=True).items() if v is not None or k == "left_on"}
+    given = {k: v for k, v in body.model_dump(exclude_unset=True).items() if v is not None or k == "date_depart"}
     entry = _checked(given, _entry(si_user))
     _unique([_entry(u) for u in await _users(db, project_id) if u.id != si_user.id] + [entry])
     changed = _write(si_user, entry)
@@ -137,6 +138,7 @@ async def update_si_user(project_id: uuid.UUID, si_user_id: uuid.UUID, body: SiU
 async def delete_si_user(project_id: uuid.UUID, si_user_id: uuid.UUID, request: Request,
                          user: Optional[User] = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     await get_project_or_404(project_id, user, db, require_perm="edit")
+    await _lock(db, project_id)
     si_user = await _si_user_or_404(db, project_id, si_user_id)
     from src.audit import log_write
     await log_write(db, user, request, "si_user.delete", entity_type="si_user", entity_id=str(si_user.id),
@@ -164,7 +166,7 @@ async def import_si_users(project_id: uuid.UUID, body: SiUsersImport, request: R
     for row in rows:
         current = after.get(row["email"])
         given = {"email": row["email"], **row["given"],
-                 "accounts": merge_accounts(current["accounts"] if current else [], row["accounts"])}
+                 "comptes": merge_accounts(current["comptes"] if current else [], row["comptes"])}
         try:
             after[row["email"]] = checked_user(given, current)
         except UserError as exc:

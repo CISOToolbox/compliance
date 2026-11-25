@@ -6,8 +6,6 @@
     "fields": [
       {"id": "organization", "secret": false, "required": true,
        "label": {"en": "Organization", "fr": "Organisation"}},
-      {"id": "accounts_perimeter", "secret": false, "required": false,
-       "label": {"en": "Perimeter of the users' accounts (the organization when empty)", "fr": "Périmètre des comptes des utilisateurs (l'organisation si vide)"}},
       {"id": "token", "secret": true, "required": true,
        "label": {"en": "Read-only fine-grained token or GitHub App token", "fr": "Jeton à granularité fine en lecture seule, ou jeton de GitHub App"}}
     ],
@@ -42,8 +40,8 @@
      "requirements": {"iso": ["A.8.5"], "anssi": ["13"], "nis2": ["21.2.j"], "soc2": ["CC6.1"]}},
     {"code": "GH-04", "version": 1, "retention_profile": "accounts",
      "title": {"en": "Members known and up to date", "fr": "Membres connus et à jour"},
-     "rule": {"en": "Every member is linked to an active person; no person who left still has access.",
-              "fr": "Chaque membre est rattaché à une personne active ; aucune personne partie n'a encore d'accès."},
+     "rule": {"en": "Every member is an account of an active or external user; no user who left still has access.",
+              "fr": "Chaque membre est le compte d'un utilisateur actif ou externe ; aucun utilisateur parti n'a encore d'accès."},
      "reads": ["orgs:list_members", "orgs:list_outside_collaborators"],
      "permissions": ["members:read"],
      "needs": ["users"],

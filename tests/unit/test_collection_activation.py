@@ -76,8 +76,9 @@ async def test_a_collector_needing_the_users_is_neither_proposed_nor_activated_w
     coverage = await r.framework_coverage(A, "iso", user=None, db=monitored_db)
     row = next(x for x in coverage["requirements"] if x["ref"] == "A.5.18")
     assert "GH-04" not in [c["code"] for c in row["collectors"]]
-    listed = {c["code"]: c["unavailable"] for c in (await r.list_collectors(user=None))["collectors"]}
-    assert "users of the project" in listed["GH-04"] and listed["GH-03"] is None
+    catalog = {c["code"]: c for c in (await r.list_collectors(user=None))["collectors"]}
+    assert "users of the project" in catalog["GH-04"]["unavailable"] and catalog["GH-03"]["unavailable"] is None
+    assert catalog["GH-04"]["needs"] == ["users"]           # the users' screen offers its provider as a perimeter
 
 
 @pytest.mark.asyncio

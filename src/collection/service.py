@@ -62,29 +62,28 @@ async def active_exclusions(db: AsyncSession, connection_id: Any, code: str) -> 
 RETIRED_REASON = "collector no longer in the catalog"
 
 
-async def _users(db: AsyncSession, project_id: Any) -> list[dict]:
-    from src.models import SiUser
-    rows = (await db.execute(select(SiUser).where(SiUser.project_id == project_id))).scalars().all()
-    return [{"email": u.email, "name": u.name, "status": u.status, "accounts": list(u.accounts or [])} for u in rows]
-
-
-def perimeter_logins(users: list[dict], perimeter: str) -> list[dict]:
-    """The accounts on `perimeter` (any case), one entry per account, with
-    whether their user is present: what GH-04 matches the members to."""
-    p = perimeter.strip().lower()
-    return [{"login": a["account"], "name": u.get("name") or u["email"], "active": u["status"] == "present"}
-            for u in users for a in u.get("accounts") or [] if a["perimeter"].lower() == p]
+def perimeter_logins(users: list[dict], perimetre: str) -> list[dict]:
+    """The accounts on `perimetre` (any case), one entry per account, with
+    whether their user is still there (`externe` is): what GH-04 matches the
+    members to."""
+    p = perimetre.strip().lower()
+    return [{"login": a["compte"], "active": u["statut"] != "inactif",
+             "name": " ".join(x for x in (u.get("prenom"), u.get("nom")) if x) or u["email"]}
+            for u in users for a in u.get("comptes") or [] if a["perimetre"].lower() == p]
 
 
 async def _accounts(db: AsyncSession, conn: CollectionConnection) -> list[dict] | None:
-    """The accounts GH-04 matches the members to: those on the perimeter the
-    connection names (by default its organization); None while the project
-    lists no user (the collector then has nothing to judge)."""
-    users = await _users(db, conn.project_id)
-    if not users:
+    """The accounts GH-04 matches the members to: those of the project's
+    users on the perimeter named after the connection's provider ("GitHub");
+    the organization is the connection's. None while the project lists no
+    user (the collector then has nothing to judge)."""
+    from src.models import SiUser
+    rows = (await db.execute(select(SiUser).where(SiUser.project_id == conn.project_id))).scalars().all()
+    if not rows:
         return None
-    settings = conn.settings or {}
-    return perimeter_logins(users, settings.get("accounts_perimeter") or settings.get("organization") or "")
+    users = [{"email": u.email, "nom": u.nom, "prenom": u.prenom, "statut": u.statut, "comptes": list(u.comptes or [])}
+             for u in rows]
+    return perimeter_logins(users, load_catalog().providers[conn.provider]["label"]["en"])
 
 
 async def provided(db: AsyncSession, project_id: Any) -> frozenset[str]:
@@ -106,7 +105,7 @@ async def collect(db: AsyncSession, monitor: CollectionMonitor, trigger: str,
             raise LookupError(RETIRED_REASON)
         fetched = await (provider or provider_for(conn)).fetch(conn, connection_secrets(conn), collector, params, now)
         evaluation = {} if fetched.get("error") else evaluators()[collector["code"]](
-            fetched["raw"], params, {"now": now, "users": await _accounts(db, conn)})
+            fetched["raw"], params, {"now": now, "accounts": await _accounts(db, conn)})
         draft = finalize(evaluation, fetched, await active_exclusions(db, conn.id, collector["code"]))
     except Exception as exc:  # noqa: BLE001 — a failed collection is recorded, never lost
         if not collector.get("retired"):

@@ -417,21 +417,24 @@ class CollectionSuggestionDecision(Base):
     decided_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
 
 
-# The users of one project (FEAT-74): who works there, whether they are
-# still present, and their accounts — on a perimeter (GitHub organization,
-# application…), an account name and an optional role, as in Access. GH-04
-# matches the members of an organization to the accounts of the perimeter
-# its connection names. Entered by hand or imported from a CSV file; the
-# email is the key, unique within the project.
+# The users of one project (FEAT-74), with the fields of Pilot's directory
+# (nom, prenom, email, statut actif | inactif | externe) so that a sync maps
+# them one to one, and their accounts as in Access: a perimeter (GitHub, an
+# application…), an account name on it and an optional role. GH-04 reads the
+# accounts on the GitHub perimeter. Entered by hand or imported from a CSV
+# file; the email is the key, unique within the project. `sync_source` says
+# where the identity comes from: "" (entered here) or "pilot".
 class SiUser(Base):
     __tablename__ = "si_users"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
     project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
     email = Column(String(255), nullable=False)                 # lower case
-    name = Column(String(255), nullable=False, default="", server_default=text("''"))
-    status = Column(String(10), nullable=False, default="present", server_default=text("'present'"))  # present | left
-    left_on = Column(String(10), nullable=True)                 # ISO date, when left
-    accounts = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))  # [{perimeter, account, role}]
+    nom = Column(String(255), nullable=False, default="", server_default=text("''"))
+    prenom = Column(String(255), nullable=False, default="", server_default=text("''"))
+    statut = Column(String(20), nullable=False, default="actif", server_default=text("'actif'"))  # actif | inactif | externe
+    date_depart = Column(String(10), nullable=True)             # ISO date, when inactif
+    comptes = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))  # [{perimetre, compte, role}]
+    sync_source = Column(String(20), nullable=False, default="", server_default=text("''"))
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
     __table_args__ = (

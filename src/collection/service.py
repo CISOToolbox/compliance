@@ -62,10 +62,37 @@ async def active_exclusions(db: AsyncSession, connection_id: Any, code: str) -> 
 RETIRED_REASON = "collector no longer in the catalog"
 
 
-async def _people(db: AsyncSession) -> list[dict] | None:
-    """The people GH-04 matches the members to. The module holds no directory
-    of them yet (catalog.PROVIDED): none, and GH-04 is not activated."""
-    return None
+async def _users(db: AsyncSession, project_id: Any) -> list[dict]:
+    from src.models import SiUser
+    rows = (await db.execute(select(SiUser).where(SiUser.project_id == project_id))).scalars().all()
+    return [{"email": u.email, "name": u.name, "status": u.status, "accounts": list(u.accounts or [])} for u in rows]
+
+
+def perimeter_logins(users: list[dict], perimeter: str) -> list[dict]:
+    """The accounts on `perimeter` (any case), one entry per account, with
+    whether their user is present: what GH-04 matches the members to."""
+    p = perimeter.strip().lower()
+    return [{"login": a["account"], "name": u.get("name") or u["email"], "active": u["status"] == "present"}
+            for u in users for a in u.get("accounts") or [] if a["perimeter"].lower() == p]
+
+
+async def _accounts(db: AsyncSession, conn: CollectionConnection) -> list[dict] | None:
+    """The accounts GH-04 matches the members to: those on the perimeter the
+    connection names (by default its organization); None while the project
+    lists no user (the collector then has nothing to judge)."""
+    users = await _users(db, conn.project_id)
+    if not users:
+        return None
+    settings = conn.settings or {}
+    return perimeter_logins(users, settings.get("accounts_perimeter") or settings.get("organization") or "")
+
+
+async def provided(db: AsyncSession, project_id: Any) -> frozenset[str]:
+    """What the project provides to the collectors that need more than a
+    connection (catalog.NEEDS)."""
+    from src.models import SiUser
+    has_users = (await db.execute(select(SiUser.id).where(SiUser.project_id == project_id).limit(1))).first() is not None
+    return frozenset({"users"} if has_users else ())
 
 
 async def collect(db: AsyncSession, monitor: CollectionMonitor, trigger: str,
@@ -79,7 +106,7 @@ async def collect(db: AsyncSession, monitor: CollectionMonitor, trigger: str,
             raise LookupError(RETIRED_REASON)
         fetched = await (provider or provider_for(conn)).fetch(conn, connection_secrets(conn), collector, params, now)
         evaluation = {} if fetched.get("error") else evaluators()[collector["code"]](
-            fetched["raw"], params, {"now": now, "people": await _people(db)})
+            fetched["raw"], params, {"now": now, "users": await _accounts(db, conn)})
         draft = finalize(evaluation, fetched, await active_exclusions(db, conn.id, collector["code"]))
     except Exception as exc:  # noqa: BLE001 — a failed collection is recorded, never lost
         if not collector.get("retired"):

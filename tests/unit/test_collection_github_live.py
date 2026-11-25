@@ -116,7 +116,7 @@ def _collect(code, api=None):
     if fetched["error"]:
         return fetched, api
     evaluation = evaluators()[code](fetched["raw"], {p["id"]: p["default"] for p in collector.get("params", [])},
-                                    {"now": NOW, "people": None})
+                                    {"now": NOW, "users": None})
     return finalize(evaluation, fetched, []), api
 
 

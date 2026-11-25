@@ -20,5 +20,7 @@ _ctDeclareHandlers([
     "_monExcludeCancel", "_monExcludeKind", "_monExcludeSave", "_monExcludeStart",
     "_monNewConnection", "_monOpenFromMeasure", "_monOpenMonitor", "_monOpenVersion",
     "_monPickMode", "_monPickProvider", "_monRevokeExclusion", "_monRunFromMeasure", "_monRunFromPanel", "_monSaveConnection",
-    "_monStopCancel", "_monStopSave", "_monStopStart", "_monSuggestion", "_monTestConnection"
+    "_monStopCancel", "_monStopSave", "_monStopStart", "_monSuggestion", "_monTestConnection",
+    // FEAT-74 — the users of the project (Compliance_users.ts)
+    "_usrAccountAdd", "_usrAccountRemove", "_usrAdd", "_usrCancel", "_usrDelete", "_usrEdit", "_usrImport", "_usrSave"
 ]);

@@ -18,15 +18,15 @@ from src.collection.fixtures import demo_payload  # noqa: E402
 from src.collection.rules.github import EVALUATORS  # noqa: E402
 
 NOW = datetime(2026, 11, 17, 3, 0, tzinfo=timezone.utc)
-PEOPLE = [{"name": "Anne Durand", "github": "a-durand", "active": True},
-          {"name": "Paul Leroy", "github": "p-leroy", "active": True},
-          {"name": "Jean Martin", "github": "j-martin", "active": False}]
+ACCOUNTS = [{"name": "Anne Durand", "login": "a-durand", "active": True},
+            {"name": "Paul Leroy", "login": "p-leroy", "active": True},
+            {"name": "Jean Martin", "login": "j-martin", "active": False}]
 
 
-def _run(code, raw=None, params=None, people=None):
+def _run(code, raw=None, params=None, users=None):
     raw = raw if raw is not None else demo_payload(code, NOW)["raw"]
     defaults = {p["id"]: p["default"] for p in load_catalog().collector(code).get("params", [])}
-    ev = EVALUATORS[code](raw, params or defaults, {"now": NOW, "people": people})
+    ev = EVALUATORS[code](raw, params or defaults, {"now": NOW, "users": users})
     return finalize(ev, {"raw": raw, "data_as_of": NOW, "unreadable": [], "error": None}, [])
 
 
@@ -41,7 +41,7 @@ def test_every_github_collector_has_a_rule_and_demonstration_data():
     ("GH-01", "non_conforme", ["medsecure/portail-patients", "medsecure/api-telesuivi"]),
     ("GH-02", "non_conforme", ["medsecure/api-telesuivi"]),
     ("GH-03", "conforme", []),
-    ("GH-04", "sans_objet", []),                        # no directory of the people
+    ("GH-04", "sans_objet", []),                        # the project lists no users
     ("GH-05", "conforme", []),
     ("GH-06", "non_conforme", ["medsecure/portail-patients", "medsecure/api-telesuivi", "medsecure/infra",
                                "medsecure/sdk-patients-open"]),
@@ -57,12 +57,12 @@ def test_an_archived_repository_is_out_of_scope():
     assert "medsecure/archives-ancien-site" not in _run("GH-07")["scope"]["resources"]
 
 
-def test_with_a_directory_of_the_people_a_member_who_left_or_unknown_is_caught():
-    v = _run("GH-04", people=PEOPLE)
+def test_with_the_users_accounts_a_member_who_left_or_unknown_is_caught():
+    v = _run("GH-04", users=ACCOUNTS)
     assert v["result"] == "non_conforme"
     assert [(f["resource"], f["detail"]) for f in v["findings"]] == [
-        ("j-martin", "member of a person who left (Jean Martin)"),
-        ("c-bernard", "outside collaborator linked to no person")]
+        ("j-martin", "member of a user who left (Jean Martin)"),
+        ("c-bernard", "outside collaborator linked to no user")]
 
 
 def test_without_branch_rules_on_the_plan_a_repository_is_not_compliant_with_the_reason():

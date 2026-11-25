@@ -259,6 +259,11 @@ interface ComplianceAPIShape {
     updateConnection(cid: string, body: Record<string, unknown>): Promise<any>;
     deleteConnection(cid: string): Promise<null>;
     testConnection(cid: string): Promise<any>;
+    listSiUsers(): Promise<any[]>;
+    createSiUser(body: Record<string, unknown>): Promise<any>;
+    updateSiUser(id: string, body: Record<string, unknown>): Promise<any>;
+    deleteSiUser(id: string): Promise<null>;
+    importSiUsers(csv: string): Promise<any>;
     measureMonitoring(mid: string): Promise<any>;
     activateMonitoring(mid: string, body: Record<string, unknown>): Promise<any>;
     listMonitors(): Promise<any[]>;

@@ -14,6 +14,7 @@ from src.models import Base, Project
 from src.routes.ai import router as ai_router
 from src.routes.auth import router as auth_router
 from src.routes.collection import router as collection_router  # FEAT-73
+from src.routes.si_users import router as si_users_router  # FEAT-74
 from src.routes.controls import router as controls_router
 from src.routes.directory_proxy import router as directory_router
 from src.routes.frameworks import router as frameworks_router
@@ -86,6 +87,7 @@ app.include_router(auth_router)
 app.include_router(projects_router)
 app.include_router(controls_router)
 app.include_router(collection_router)
+app.include_router(si_users_router)
 app.include_router(measures_router)
 app.include_router(nonconformities_router)
 app.include_router(nonconformities_internal_router)

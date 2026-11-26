@@ -7,10 +7,12 @@
 // of the connection's GitHub organization to the accounts on the GitHub
 // perimeter. Entered by hand or imported from a CSV file; the server checks
 // every entry. A user who leaves is marked "inactif"; deleting is for a
-// mistake.
+// mistake. In the suite, a project can follow Pilot's directory: the users
+// Pilot sends keep its identity (read-only here) and only their accounts
+// change in this tab.
 // The user being entered in the window: its id when it exists, and its
 // accounts as they stand in the window (saved with the user).
-var _usr = { list: [], editing: null, accounts: [] };
+var _usr = { list: [], editing: null, accounts: [], source: null, syncing: false };
 var _usrSeq = 0;
 function _usrT(key, params) { return t("comp.users." + key, params); }
 function renderUsers() {
@@ -18,11 +20,13 @@ function renderUsers() {
         return;
     const seq = ++_usrSeq;
     const api = window.ComplianceAPI;
-    Promise.all([api.listSiUsers(), _mon.collectors ? Promise.resolve(_mon.collectors) : api.collectors()]).then(function (r) {
+    Promise.all([api.listSiUsers(), _mon.collectors ? Promise.resolve(_mon.collectors) : api.collectors(),
+        api.siUsersSource().catch(function () { return null; })]).then(function (r) {
         if (seq !== _usrSeq)
             return;
         _usr.list = r[0];
         _mon.collectors = r[1];
+        _usr.source = r[2];
         _usrDraw();
     }).catch(function (err) { if (seq === _usrSeq)
         _monFail(err); });
@@ -37,8 +41,27 @@ function _usrAccountLabel(a) {
     return '<span class="fw-600">' + esc(a.perimetre) + '</span> <span class="ct-mono">' + esc(a.compte) + '</span>'
         + (a.role ? ' <span class="text-muted">· ' + esc(a.role) + '</span>' : '');
 }
+function _usrFromPilot(u) { return !!u && u.sync_source === "pilot"; }
+/** In the suite: whether the project follows Pilot's directory, and the
+ *  actions on it. Nothing in standalone. */
+function _usrSourceHtml() {
+    const src = _usr.source;
+    if (!src || !src.pilot_available)
+        return "";
+    let h = '<div class="ct-synth-card ct-mb-3" id="users-source"><div class="ct-flex ct-gap-2 ct-items-center">'
+        + '<span class="ct-flex-1">' + esc(_usrT(src.pilot_sync ? "pilot_on" : "pilot_off")) + '</span>';
+    if (src.pilot_sync) {
+        h += '<button class="ct-btn" data-write data-size="sm" data-click="_usrSyncNow"' + (_usr.syncing ? " disabled" : "") + '>'
+            + esc(_usr.syncing ? _usrT("syncing") : _usrT("btn_sync_now")) + '</button>'
+            + '<button class="ct-btn" data-write data-size="sm" data-click="_usrFollowPilot" data-args=\'' + _da(false) + '\'>' + esc(_usrT("btn_unfollow")) + '</button>';
+    }
+    else {
+        h += '<button class="ct-btn" data-write data-variant="primary" data-size="sm" data-click="_usrFollowPilot" data-args=\'' + _da(true) + '\'>' + esc(_usrT("btn_follow")) + '</button>';
+    }
+    return h + '</div><p class="fs-xs text-muted ct-mt-1">' + esc(_usrT("pilot_hint")) + '</p>' + _monErrorSlot("users-source-error") + '</div>';
+}
 function _usrHtml() {
-    let h = '<div class="ct-synth-card ct-mb-3">';
+    let h = _usrSourceHtml() + '<div class="ct-synth-card ct-mb-3">';
     if (_usr.list.length) {
         h += '<table class="ct-w-full"><thead><tr><th>' + esc(_usrT("col_nom")) + '</th><th>' + esc(_usrT("col_prenom")) + '</th><th>' + esc(_usrT("col_email")) + '</th><th>'
             + esc(_usrT("col_status")) + '</th><th>' + esc(_usrT("col_accounts")) + '</th><th></th></tr></thead><tbody>';
@@ -46,10 +69,13 @@ function _usrHtml() {
             const status = _tBadge(_usrT("statut." + u.statut), u.statut === "inactif" ? "gray" : (u.statut === "externe" ? "blue" : "green"))
                 + (u.date_depart ? ' <span class="fs-xs text-muted">' + esc(_usrT("left_on_date", { date: u.date_depart })) + '</span>' : '');
             const accounts = (u.comptes || []).map(function (a) { return '<div class="fs-xs">' + _usrAccountLabel(a) + '</div>'; }).join("") || "—";
-            h += '<tr data-si-user="' + esc(u.email) + '"><td>' + esc(u.nom || "—") + '</td><td>' + esc(u.prenom || "—") + '</td><td>' + esc(u.email) + '</td><td>' + status
+            const pilot = _usrFromPilot(u);
+            h += '<tr data-si-user="' + esc(u.email) + '"><td>' + esc(u.nom || "—") + '</td><td>' + esc(u.prenom || "—") + '</td><td>' + esc(u.email)
+                + (pilot ? ' ' + _tBadge(_usrT("badge_pilot"), "blue") : '') + '</td><td>' + status
                 + '</td><td>' + accounts + '</td><td class="ct-ta-r ct-nowrap">'
-                + '<button class="ct-btn" data-write data-size="xs" data-click="_usrEdit" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_edit")) + '</button> '
-                + '<button class="ct-btn" data-write data-variant="danger" data-size="xs" data-click="_usrDelete" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_delete")) + '</button></td></tr>';
+                + '<button class="ct-btn" data-write data-size="xs" data-click="_usrEdit" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_edit")) + '</button>'
+                + (pilot ? '' : ' <button class="ct-btn" data-write data-variant="danger" data-size="xs" data-click="_usrDelete" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_delete")) + '</button>')
+                + '</td></tr>';
         });
         h += '</tbody></table>';
     }
@@ -65,14 +91,16 @@ function _usrHtml() {
 /** The window's body: the user's fields, their accounts, and a line to add one. */
 function _usrFormHtml(u) {
     const v = u || { email: "", nom: "", prenom: "", statut: "actif", date_depart: "" };
-    return '<div class="ct-form-grid">'
-        + '<label class="fs-xs ct-col-span-2">' + esc(_usrT("col_email")) + ' *<input type="email" id="users-email" class="ct-w-full" value="' + esc(v.email) + '" autocomplete="off" /></label>'
-        + '<label class="fs-xs">' + esc(_usrT("col_nom")) + '<input type="text" id="users-nom" class="ct-w-full" value="' + esc(v.nom) + '" /></label>'
-        + '<label class="fs-xs">' + esc(_usrT("col_prenom")) + '<input type="text" id="users-prenom" class="ct-w-full" value="' + esc(v.prenom) + '" /></label>'
-        + '<label class="fs-xs">' + esc(_usrT("col_status")) + '<select id="users-statut" class="ct-w-full">'
+    const ro = _usrFromPilot(u) ? " disabled" : ""; // Pilot's identity: read-only here
+    return (ro ? '<p class="fs-xs text-muted">' + esc(_usrT("from_pilot_hint")) + '</p>' : '')
+        + '<div class="ct-form-grid">'
+        + '<label class="fs-xs ct-col-span-2">' + esc(_usrT("col_email")) + ' *<input type="email" id="users-email" class="ct-w-full" value="' + esc(v.email) + '" autocomplete="off"' + ro + ' /></label>'
+        + '<label class="fs-xs">' + esc(_usrT("col_nom")) + '<input type="text" id="users-nom" class="ct-w-full" value="' + esc(v.nom) + '"' + ro + ' /></label>'
+        + '<label class="fs-xs">' + esc(_usrT("col_prenom")) + '<input type="text" id="users-prenom" class="ct-w-full" value="' + esc(v.prenom) + '"' + ro + ' /></label>'
+        + '<label class="fs-xs">' + esc(_usrT("col_status")) + '<select id="users-statut" class="ct-w-full"' + ro + '>'
         + ["actif", "externe", "inactif"].map(function (s) { return '<option value="' + s + '"' + (s === v.statut ? " selected" : "") + '>' + esc(_usrT("statut." + s)) + '</option>'; }).join("")
         + '</select></label>'
-        + '<label class="fs-xs">' + esc(_usrT("col_left_on")) + '<input type="date" id="users-date-depart" class="ct-w-full" value="' + esc(v.date_depart || "") + '" /></label>'
+        + '<label class="fs-xs">' + esc(_usrT("col_left_on")) + '<input type="date" id="users-date-depart" class="ct-w-full" value="' + esc(v.date_depart || "") + '"' + ro + ' /></label>'
         + '</div>'
         + '<h4 class="ct-mt-3">' + esc(_usrT("col_accounts")) + '</h4>'
         + '<div id="users-accounts">' + _usrAccountsHtml() + '</div>'
@@ -242,9 +270,12 @@ function _usrSave() {
     if (!_usrAccountAdd())
         return;
     const statut = _usrValue("users-statut");
-    const body = { email: _usrValue("users-email"), nom: _usrValue("users-nom"), prenom: _usrValue("users-prenom"), statut: statut,
-        date_depart: statut === "inactif" ? (_usrValue("users-date-depart") || null) : null,
-        comptes: _usr.accounts };
+    const current = _usr.list.find(function (x) { return x.id === _usr.editing; });
+    // A user from Pilot sends its accounts only: the rest is Pilot's.
+    const body = _usrFromPilot(current) ? { comptes: _usr.accounts } : {
+        email: _usrValue("users-email"), nom: _usrValue("users-nom"), prenom: _usrValue("users-prenom"), statut: statut,
+        date_depart: statut === "inactif" ? (_usrValue("users-date-depart") || null) : null, comptes: _usr.accounts
+    };
     const api = window.ComplianceAPI;
     const done = _usr.editing ? api.updateSiUser(_usr.editing, body) : api.createSiUser(body);
     done.then(function () {
@@ -282,4 +313,38 @@ function _usrImport() {
         reader.readAsText(fi.files[0]);
     };
     fi.click();
+}
+/** Follow Pilot's directory (read at once), or stop following it (its users
+ *  stay, as the project's own). */
+function _usrFollowPilot(on) {
+    if (!confirm(_usrT(on ? "confirm_follow" : "confirm_unfollow")))
+        return;
+    window.ComplianceAPI.setSiUsersSource(on).then(function (res) {
+        if (on && res.counts)
+            showStatus(_usrT("synced", _usrCounts(res.counts)) + _usrRefused(res.counts));
+        renderUsers();
+    }).catch(_monFormFail("users-source-error"));
+}
+function _usrCounts(c) {
+    return { created: c.created || 0, updated: c.updated || 0, deleted: c.deleted || 0 };
+}
+/** The people of Pilot the project could not take, said after the counts. */
+function _usrRefused(c) {
+    const n = (c.invalid || 0) + (c.skipped || 0);
+    return n ? " — " + _usrT("sync_refused", { n: n }) : "";
+}
+function _usrSyncNow() {
+    if (_usr.syncing)
+        return;
+    _usr.syncing = true;
+    _usrDraw();
+    window.ComplianceAPI.syncSiUsers().then(function (c) {
+        _usr.syncing = false;
+        showStatus(_usrT("synced", _usrCounts(c)) + _usrRefused(c));
+        renderUsers();
+    }).catch(function (err) {
+        _usr.syncing = false;
+        _usrDraw(); // redrawn first: the reason stays shown
+        _monFormFail("users-source-error")(err);
+    });
 }

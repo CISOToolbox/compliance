@@ -332,6 +332,10 @@ class SiUserUpdate(BaseModel):
     comptes: list | None = None
 
 
+class SiUsersSource(BaseModel):
+    pilot_sync: bool
+
+
 class SiUsersImport(BaseModel):
     csv: str = Field(max_length=1_000_000)      # si_users.MAX_CSV_BYTES, checked again in bytes
 

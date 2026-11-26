@@ -108,6 +108,26 @@ def checked_user(given: dict, current: dict | None = None) -> dict:
             "statut": statut, "date_depart": date_depart, "comptes": checked_accounts(merged.get("comptes") or [])}
 
 
+IDENTITY = ("email", "nom", "prenom", "statut", "date_depart")
+
+
+def pilot_identity(person: dict) -> dict:
+    """A person of Pilot's directory as the identity of a user: Pilot's
+    fields one to one, checked like an entry typed here."""
+    if not isinstance(person, dict):
+        raise UserError("personnel must be an object")
+    statut = str(person.get("statut") or "actif").strip().lower()
+    entry = checked_user({"email": person.get("email"), "nom": person.get("nom"), "prenom": person.get("prenom"),
+                          "statut": statut, "date_depart": person.get("date_depart") if statut == "inactif" else None})
+    return {k: entry[k] for k in IDENTITY}
+
+
+def identity_changes(given: dict, current: dict) -> list[str]:
+    """The identity fields `given` would change on `current`: what a user
+    who comes from Pilot cannot have changed here."""
+    after = checked_user(given, current)
+    return [k for k in IDENTITY if after[k] != current.get(k)]
+
 def merge_accounts(current: list[dict], added: list[dict]) -> list[dict]:
     """`current` with `added`: an account already there (same perimeter and
     name, in any case) takes the new role when one is given, and keeps its

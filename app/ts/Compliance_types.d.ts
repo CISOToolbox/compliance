@@ -263,6 +263,9 @@ interface ComplianceAPIShape {
     createSiUser(body: Record<string, unknown>): Promise<any>;
     updateSiUser(id: string, body: Record<string, unknown>): Promise<any>;
     deleteSiUser(id: string): Promise<null>;
+    siUsersSource(): Promise<any>;
+    setSiUsersSource(on: boolean): Promise<any>;
+    syncSiUsers(): Promise<any>;
     importSiUsers(csv: string): Promise<any>;
     measureMonitoring(mid: string): Promise<any>;
     activateMonitoring(mid: string, body: Record<string, unknown>): Promise<any>;

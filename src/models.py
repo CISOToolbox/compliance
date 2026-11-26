@@ -55,6 +55,10 @@ class Project(Base):
     # FEAT-33 — bumped ONLY by server-initiated writers (Pilot write-back,
     # restore, schedulers). Guards the blob PUT against stale-tab overwrite.
     server_rev = Column(Integer, nullable=False, default=0, server_default=text("0"))
+    # FEAT-74 — the project's users follow Pilot's directory: Pilot's changes
+    # are applied here, and the users it sends are read-only but for their
+    # accounts. Off by default; set from the Users tab, never by a project save.
+    users_pilot_sync = Column(Boolean, nullable=False, default=False, server_default=text("false"))
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), server_default=text("NOW()"))
 

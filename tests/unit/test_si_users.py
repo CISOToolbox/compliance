@@ -22,15 +22,18 @@ GH = {"perimetre": "GitHub", "role": ""}
 def test_an_entry_is_normalised():
     assert checked_user({"email": " A.Durand@MedSecure.example ", "nom": "Durand", "prenom": " Alice ",
                          "comptes": [{"perimetre": " GitHub ", "compte": "a-durand", "role": "admin"}]}) == {
-        "email": "a.durand@medsecure.example", "nom": "Durand", "prenom": "Alice", "statut": "actif", "date_depart": None,
+        "email": "a.durand@medsecure.example", "nom": "Durand", "prenom": "Alice", "statut": "actif", "type_contrat": "interne",
+        "date_depart": None,
         "comptes": [{"perimetre": "GitHub", "compte": "a-durand", "role": "admin"}]}
 
 
 @pytest.mark.parametrize("given, message", [
     ({"email": "not-an-email"}, "invalid email"),
-    ({"email": "a@b.example", "statut": "gone"}, "one of actif, inactif, externe, not gone"),
+    ({"email": "a@b.example", "statut": "gone"}, "one of recrutement, actif, inactif, not gone"),
+    ({"email": "a@b.example", "statut": "externe"}, "statut must be one of"),          # a contract, not a status
+    ({"email": "a@b.example", "type_contrat": "salarie"}, "type_contrat must be one of interne, externe, alternant, stagiaire"),
     ({"email": "a@b.example", "date_depart": "2026-10-01"}, "only an inactif user has a date of departure"),
-    ({"email": "a@b.example", "statut": "externe", "date_depart": "2026-10-01"}, "only an inactif user"),
+    ({"email": "a@b.example", "statut": "recrutement", "date_depart": "2026-10-01"}, "only an inactif user"),
     ({"email": "a@b.example", "statut": "inactif", "date_depart": "01/10/2026"}, "YYYY-MM-DD"),
     ({"email": "a@b.example", "nom": "two\nlines"}, "one line"),
     ({"email": "a@b.example", "statut": "inactif", "date_depart": "20261031"}, "YYYY-MM-DD"),
@@ -66,12 +69,12 @@ def test_a_csv_file_takes_one_line_per_account_in_any_order_with_either_separato
     users = parse_users_csv("﻿Email;Statut;Perimetre;Compte;Role\n"
                             "j.martin@medsecure.example;inactif;GitHub;j-martin;\n"
                             "j.martin@medsecure.example;Inactif;ERP;jmartin;admin\n\n"
-                            "p.leroy@medsecure.example;externe;;;\n")
+                            "p.leroy@medsecure.example;recrutement;;;\n")
     assert users == [
         {"email": "j.martin@medsecure.example", "line": 2, "given": {"statut": "inactif"},
          "comptes": [{"perimetre": "GitHub", "compte": "j-martin", "role": ""},
                       {"perimetre": "ERP", "compte": "jmartin", "role": "admin"}]},
-        {"email": "p.leroy@medsecure.example", "line": 5, "given": {"statut": "externe"}, "comptes": []}]
+        {"email": "p.leroy@medsecure.example", "line": 5, "given": {"statut": "recrutement"}, "comptes": []}]
 
 
 @pytest.mark.parametrize("text, message", [

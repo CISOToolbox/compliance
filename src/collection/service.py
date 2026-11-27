@@ -64,8 +64,8 @@ RETIRED_REASON = "collector no longer in the catalog"
 
 def perimeter_logins(users: list[dict], perimetre: str) -> list[dict]:
     """The accounts on `perimetre` (any case), one entry per account, with
-    whether their user is still there (`externe` is): what GH-04 matches the
-    members to."""
+    whether their user is there (`actif` or `recrutement`, whatever the
+    contract): what GH-04 matches the members to."""
     p = perimetre.strip().lower()
     return [{"login": a["compte"], "active": u["statut"] != "inactif",
              "name": " ".join(x for x in (u.get("prenom"), u.get("nom")) if x) or u["email"]}

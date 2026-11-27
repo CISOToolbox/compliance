@@ -319,6 +319,7 @@ class SiUserCreate(BaseModel):
     nom: str = ""
     prenom: str = ""
     statut: str = "actif"
+    type_contrat: str = "interne"
     date_depart: str | None = None
     comptes: list = []
 
@@ -328,6 +329,7 @@ class SiUserUpdate(BaseModel):
     nom: str | None = None
     prenom: str | None = None
     statut: str | None = None
+    type_contrat: str | None = None
     date_depart: str | None = None
     comptes: list | None = None
 

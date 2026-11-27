@@ -45,11 +45,12 @@ async def _change(db, **body):
 
 def test_a_person_of_pilot_maps_one_to_one():
     assert pilot_identity(ALICE) == {"email": "a.durand@medsecure.example", "nom": "Durand", "prenom": "Alice",
-                                     "statut": "actif", "date_depart": None}
+                                     "statut": "actif", "type_contrat": "interne", "date_depart": None}
+    assert pilot_identity({**ALICE, "statut": "recrutement", "type_contrat": "externe"})["type_contrat"] == "externe"
     assert pilot_identity(PAUL)["date_depart"] == "2026-10-31"
     assert pilot_identity({**PAUL, "statut": "actif"})["date_depart"] is None       # back: no departure
     with pytest.raises(UserError):
-        pilot_identity({**ALICE, "statut": "recrutement"})
+        pilot_identity({**ALICE, "statut": "ancien"})
 
 
 # ── The changes Pilot broadcasts ────────────────────────────────────────
@@ -200,7 +201,7 @@ async def test_reading_again_deletes_who_left_the_directory_and_keeps_the_rest(m
     pilot["directory"] = [ALICE, PAUL]
     await ru.set_si_users_source(A, SiUsersSource(pilot_sync=True), _req(), user=None, db=monitored_db)
     await ru.create_si_user(A, SiUserCreate(email="svc-ci@medsecure.example"), _req(), user=None, db=monitored_db)
-    pilot["directory"] = [{**ALICE, "statut": "recrutement"}]                 # not valid here: left as it is
+    pilot["directory"] = [{**ALICE, "statut": "ancien"}]                      # not valid here: left as it is
     res = await ru.sync_si_users(A, _req(), user=None, db=monitored_db)
     assert (res["deleted"], res["invalid"]) == (1, 1)
     assert sorted(await _users(monitored_db)) == ["a.durand@medsecure.example", "svc-ci@medsecure.example"]
@@ -330,3 +331,8 @@ async def test_the_directory_is_read_up_to_its_cap(monkeypatch):
         await sync.fetch_directory()
     monkeypatch.setattr(sync, "MAX_DIRECTORY_BYTES", 1000)
     assert await sync.fetch_directory() == [{"email": "a@b.example"}]
+
+
+def test_a_pilot_not_yet_updated_sends_external_as_a_status():
+    assert pilot_identity({**ALICE, "statut": "externe"})[("statut")] == "actif"
+    assert pilot_identity({**ALICE, "statut": "externe"})["type_contrat"] == "externe"

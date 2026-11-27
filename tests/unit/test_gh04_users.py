@@ -20,7 +20,7 @@ def test_gh04_reads_the_accounts_of_one_perimeter_in_any_case():
     users = [{"email": "a@m.example", "prenom": "Alice", "nom": "Durand", "statut": "actif",
               "comptes": [{"perimetre": "GitHub", "compte": "a-durand", "role": ""},
                           {"perimetre": "ERP", "compte": "adurand", "role": ""}]},
-             {"email": "c@m.example", "prenom": "", "nom": "Bernard", "statut": "externe",
+             {"email": "c@m.example", "prenom": "", "nom": "Bernard", "statut": "recrutement", "type_contrat": "externe",
               "comptes": [{"perimetre": "github", "compte": "c-bernard", "role": ""}]},
              {"email": "p@m.example", "prenom": "", "nom": "", "statut": "inactif",
               "comptes": [{"perimetre": "GITHUB", "compte": "p-leroy", "role": ""}]}]
@@ -33,11 +33,12 @@ async def _add(db, project=A, **kw):
     return await ru.create_si_user(project, SiUserCreate(**kw), _req(), user=None, db=db)
 
 
-CSV = ("email,nom,prenom,statut,date_depart,perimetre,compte,role\n"
-       "a.durand@medsecure.example,Durand,Alice,actif,,GitHub,a-durand,\n"
-       "p.leroy@medsecure.example,Leroy,Paul,inactif,2026-10-31,GitHub,p-leroy,\n"
-       "p.leroy@medsecure.example,,,,,medsecure,j-martin,\n"     # j-martin, but on another perimeter
-       "c.bernard@partner.example,Bernard,Claire,externe,,GitHub,c-bernard,\n")
+CSV = ("email,nom,prenom,statut,type_contrat,date_depart,perimetre,compte,role\n"
+       "a.durand@medsecure.example,Durand,Alice,actif,interne,,GitHub,a-durand,\n"
+       "p.leroy@medsecure.example,Leroy,Paul,inactif,interne,2026-10-31,GitHub,p-leroy,\n"
+       "p.leroy@medsecure.example,,,,,,medsecure,j-martin,\n"     # j-martin, but on another perimeter
+       "c.bernard@partner.example,Bernard,Claire,recrutement,externe,,GitHub,c-bernard,\n")   # not arrived yet: there
+
 
 
 def _states(version):

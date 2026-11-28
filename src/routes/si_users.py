@@ -29,7 +29,7 @@ from src.si_users_sync import PILOT, fetch_directory, lock_project, pilot_availa
 
 router = APIRouter(prefix="/api", tags=["si-users"])
 
-_FIELDS = ("email", "nom", "prenom", "statut", "date_depart", "comptes")
+_FIELDS = ("email", "nom", "prenom", "statut", "type_contrat", "date_depart", "comptes")
 
 
 def _entry(u: SiUser) -> dict:

@@ -21,7 +21,7 @@ Correspondence table (KEEP IN SYNC — the fixture test enforces it):
     compliance  2     1→2 proofs get source=manual    1→2 proofs get source=manual
     audit       1     —                               —
     asset       1     —                               —
-    access      1     —                               —
+    access      2     1→2 status/contract words       1→2 status/contract words
     vendor      3     1→2 _migrateAssessmentToV2,     1→2 no-op passthrough*,
                       2→3 classification 0→null       2→3 classification 0→null
 
@@ -49,7 +49,7 @@ MODULE_REVS: dict[str, int] = {
     "compliance": 2,
     "audit": 1,
     "asset": 1,
-    "access": 1,
+    "access": 2,
     "vendor": 3,
 }
 
@@ -127,9 +127,30 @@ def _compliance_1_to_2(data: dict) -> None:
             p["source"] = "manual"
 
 
+_ACCESS_STATUT = {"ancien": "inactif"}
+_ACCESS_TYPE = {"salarie": "interne", "prestataire": "externe"}
+
+
+def _access_1_to_2(data: dict) -> None:
+    """FEAT-74. A user's status and contract type take the words of Pilot's
+    directory: statut `ancien` → `inactif`, type_compte `salarie` →
+    `interne`, `prestataire` → `externe`. This reshapes the ``si_users`` key
+    (declared in RESHAPED_KEYS); the database is migrated by alembic 024."""
+    for u in data.get("si_users") or []:
+        if not isinstance(u, dict):
+            continue
+        # Only a former word is replaced: an absent key stays absent, an
+        # unexpected value is left for the import's own checks.
+        for key, words in (("statut", _ACCESS_STATUT), ("type_compte", _ACCESS_TYPE)):
+            value = u.get(key)
+            if isinstance(value, str) and value in words:
+                u[key] = words[value]
+
+
 MODULE_MIGRATIONS: dict[str, dict[int, Callable[[dict], None]]] = {
     "vendor": {1: _vendor_1_to_2, 2: _vendor_2_to_3},
     "compliance": {1: _compliance_1_to_2},
+    "access": {1: _access_1_to_2},
 }
 
 # Keys a module's migration chain is allowed to RESHAPE in place. The fixture
@@ -138,6 +159,7 @@ MODULE_MIGRATIONS: dict[str, dict[int, Callable[[dict], None]]] = {
 RESHAPED_KEYS: dict[str, set[str]] = {
     "vendor": {"vendors"},  # FEAT-54 2→3 coerces classification 0 -> null
     "compliance": {"preuves"},  # FEAT-73 1→2 gives each proof its source
+    "access": {"si_users"},  # FEAT-74 1→2 status and contract words
 }
 
 

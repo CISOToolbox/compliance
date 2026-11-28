@@ -422,7 +422,8 @@ class CollectionSuggestionDecision(Base):
 
 
 # The users of one project (FEAT-74), with the fields of Pilot's directory
-# (nom, prenom, email, statut actif | inactif | externe) so that a sync maps
+# (nom, prenom, email, statut recrutement | actif | inactif, type de contrat
+# interne | externe | alternant | stagiaire) so that a sync maps
 # them one to one, and their accounts as in Access: a perimeter (GitHub, an
 # application…), an account name on it and an optional role. GH-04 reads the
 # accounts on the GitHub perimeter. Entered by hand or imported from a CSV
@@ -435,7 +436,8 @@ class SiUser(Base):
     email = Column(String(255), nullable=False)                 # lower case
     nom = Column(String(255), nullable=False, default="", server_default=text("''"))
     prenom = Column(String(255), nullable=False, default="", server_default=text("''"))
-    statut = Column(String(20), nullable=False, default="actif", server_default=text("'actif'"))  # actif | inactif | externe
+    statut = Column(String(20), nullable=False, default="actif", server_default=text("'actif'"))  # recrutement | actif | inactif
+    type_contrat = Column(String(20), nullable=False, default="interne", server_default=text("'interne'"))  # interne | externe | alternant | stagiaire
     date_depart = Column(String(10), nullable=True)             # ISO date, when inactif
     comptes = Column(JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb"))  # [{perimetre, compte, role}]
     sync_source = Column(String(20), nullable=False, default="", server_default=text("''"))

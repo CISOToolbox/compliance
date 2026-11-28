@@ -1,8 +1,9 @@
 // FEAT-74 — the users of the project, on screen.
 //
 // A first-level tab of the module: who works on the project, with the fields
-// of Pilot's directory (nom, prénom, email, statut actif | inactif |
-// externe), and their accounts — a perimeter (GitHub, an application…), an
+// of Pilot's directory (nom, prénom, email, statut recrutement | actif |
+// inactif, type de contrat interne | externe | alternant | stagiaire), and
+// their accounts — a perimeter (GitHub, an application…), an
 // account name and an optional role, as in Access. GH-04 matches the members
 // of the connection's GitHub organization to the accounts on the GitHub
 // perimeter. Entered by hand or imported from a CSV file; the server checks
@@ -68,15 +69,15 @@ function _usrHtml(): string {
     let h = _usrSourceHtml() + '<div class="ct-synth-card ct-mb-3">';
     if (_usr.list.length) {
         h += '<table class="ct-w-full"><thead><tr><th>' + esc(_usrT("col_nom")) + '</th><th>' + esc(_usrT("col_prenom")) + '</th><th>' + esc(_usrT("col_email")) + '</th><th>'
-           + esc(_usrT("col_status")) + '</th><th>' + esc(_usrT("col_accounts")) + '</th><th></th></tr></thead><tbody>';
+           + esc(_usrT("col_status")) + '</th><th>' + esc(_usrT("col_contract")) + '</th><th>' + esc(_usrT("col_accounts")) + '</th><th></th></tr></thead><tbody>';
         _usr.list.forEach(function(u: MonAny) {
-            const status = _tBadge(_usrT("statut." + u.statut), u.statut === "inactif" ? "gray" : (u.statut === "externe" ? "blue" : "green"))
+            const status = _tBadge(_usrT("statut." + u.statut), u.statut === "inactif" ? "gray" : (u.statut === "recrutement" ? "blue" : "green"))
                          + (u.date_depart ? ' <span class="fs-xs text-muted">' + esc(_usrT("left_on_date", { date: u.date_depart })) + '</span>' : '');
             const accounts = (u.comptes || []).map(function(a: UsrAccount) { return '<div class="fs-xs">' + _usrAccountLabel(a) + '</div>'; }).join("") || "—";
             const pilot = _usrFromPilot(u);
             h += '<tr data-si-user="' + esc(u.email) + '"><td>' + esc(u.nom || "—") + '</td><td>' + esc(u.prenom || "—") + '</td><td>' + esc(u.email)
                + (pilot ? ' ' + _tBadge(_usrT("badge_pilot"), "blue") : '') + '</td><td>' + status
-               + '</td><td>' + accounts + '</td><td class="ct-ta-r ct-nowrap">'
+               + '</td><td>' + esc(_usrT("contrat." + (u.type_contrat || "interne"))) + '</td><td>' + accounts + '</td><td class="ct-ta-r ct-nowrap">'
                + '<button class="ct-btn" data-write data-size="xs" data-click="_usrEdit" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_edit")) + '</button>'
                + (pilot ? '' : ' <button class="ct-btn" data-write data-variant="danger" data-size="xs" data-click="_usrDelete" data-args=\'' + _da(u.id) + '\'>' + esc(_monT("btn_delete")) + '</button>')
                + '</td></tr>';
@@ -94,7 +95,7 @@ function _usrHtml(): string {
 
 /** The window's body: the user's fields, their accounts, and a line to add one. */
 function _usrFormHtml(u: MonAny | null): string {
-    const v = u || { email: "", nom: "", prenom: "", statut: "actif", date_depart: "" };
+    const v = u || { email: "", nom: "", prenom: "", statut: "actif", type_contrat: "interne", date_depart: "" };
     const ro = _usrFromPilot(u) ? " disabled" : "";             // Pilot's identity: read-only here
     return (ro ? '<p class="fs-xs text-muted">' + esc(_usrT("from_pilot_hint")) + '</p>' : '')
         + '<div class="ct-form-grid">'
@@ -102,7 +103,10 @@ function _usrFormHtml(u: MonAny | null): string {
         + '<label class="fs-xs">' + esc(_usrT("col_nom")) + '<input type="text" id="users-nom" class="ct-w-full" value="' + esc(v.nom) + '"' + ro + ' /></label>'
         + '<label class="fs-xs">' + esc(_usrT("col_prenom")) + '<input type="text" id="users-prenom" class="ct-w-full" value="' + esc(v.prenom) + '"' + ro + ' /></label>'
         + '<label class="fs-xs">' + esc(_usrT("col_status")) + '<select id="users-statut" class="ct-w-full"' + ro + '>'
-        + ["actif", "externe", "inactif"].map(function(s) { return '<option value="' + s + '"' + (s === v.statut ? " selected" : "") + '>' + esc(_usrT("statut." + s)) + '</option>'; }).join("")
+        + ["recrutement", "actif", "inactif"].map(function(s) { return '<option value="' + s + '"' + (s === v.statut ? " selected" : "") + '>' + esc(_usrT("statut." + s)) + '</option>'; }).join("")
+        + '</select></label>'
+        + '<label class="fs-xs">' + esc(_usrT("col_contract")) + '<select id="users-type-contrat" class="ct-w-full"' + ro + '>'
+        + ["interne", "externe", "alternant", "stagiaire"].map(function(c) { return '<option value="' + c + '"' + (c === (v.type_contrat || "interne") ? " selected" : "") + '>' + esc(_usrT("contrat." + c)) + '</option>'; }).join("")
         + '</select></label>'
         + '<label class="fs-xs">' + esc(_usrT("col_left_on")) + '<input type="date" id="users-date-depart" class="ct-w-full" value="' + esc(v.date_depart || "") + '"' + ro + ' /></label>'
         + '</div>'
@@ -268,6 +272,7 @@ function _usrSave() {
     // A user from Pilot sends its accounts only: the rest is Pilot's.
     const body: Record<string, unknown> = _usrFromPilot(current) ? { comptes: _usr.accounts } : {
         email: _usrValue("users-email"), nom: _usrValue("users-nom"), prenom: _usrValue("users-prenom"), statut: statut,
+        type_contrat: _usrValue("users-type-contrat"),
         date_depart: statut === "inactif" ? (_usrValue("users-date-depart") || null) : null, comptes: _usr.accounts };
     const api = window.ComplianceAPI!;
     const done = _usr.editing ? api.updateSiUser(_usr.editing, body) : api.createSiUser(body);

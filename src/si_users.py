@@ -3,8 +3,8 @@
 Pure functions, no database: the routes (src/routes/si_users.py) check every
 entry here, typed in the form or read from a CSV file, before writing it.
 The identity fields are those of Pilot's directory (nom, prenom, email,
-statut actif | inactif | externe), so that a sync from Pilot maps them one
-to one. The accounts are those of Access: a perimeter (GitHub, an
+statut recrutement | actif | inactif, type de contrat interne | externe |
+alternant | stagiaire), so that a sync from Pilot maps them one to one. The accounts are those of Access: a perimeter (GitHub, an
 application…), an account name on it, and an optional role.
 """
 from __future__ import annotations
@@ -14,8 +14,9 @@ import io
 import re
 from datetime import date
 
-STATUTS = ("actif", "inactif", "externe")
-USER_FIELDS = ("email", "nom", "prenom", "statut", "date_depart")
+STATUTS = ("recrutement", "actif", "inactif")
+CONTRATS = ("interne", "externe", "alternant", "stagiaire")
+USER_FIELDS = ("email", "nom", "prenom", "statut", "type_contrat", "date_depart")
 ACCOUNT_FIELDS = ("perimetre", "compte", "role")
 CSV_COLUMNS = USER_FIELDS + ACCOUNT_FIELDS
 MAX_CSV_BYTES = 1_000_000
@@ -97,6 +98,11 @@ def checked_user(given: dict, current: dict | None = None) -> dict:
     statut = _line(merged.get("statut"), "statut", 20).lower() or "actif"
     if statut not in STATUTS:
         raise UserError(f"statut must be one of {', '.join(STATUTS)}, not {statut}")
+    if "type_contrat" in given and not _line(given.get("type_contrat"), "type_contrat", 20):
+        raise UserError("type_contrat cannot be empty")
+    type_contrat = _line(merged.get("type_contrat"), "type_contrat", 20).lower() or "interne"
+    if type_contrat not in CONTRATS:
+        raise UserError(f"type_contrat must be one of {', '.join(CONTRATS)}, not {type_contrat}")
     date_depart = _line(merged.get("date_depart"), "date_depart", 10) or None
     if statut != "inactif" and "date_depart" not in given:
         date_depart = None                              # back: the old date of departure goes
@@ -105,10 +111,11 @@ def checked_user(given: dict, current: dict | None = None) -> dict:
             raise UserError("only an inactif user has a date of departure")
         date_depart = _checked_date(date_depart, "date_depart")
     return {"email": email, "nom": _line(merged.get("nom"), "nom", 255), "prenom": _line(merged.get("prenom"), "prenom", 255),
-            "statut": statut, "date_depart": date_depart, "comptes": checked_accounts(merged.get("comptes") or [])}
+            "statut": statut, "type_contrat": type_contrat, "date_depart": date_depart,
+            "comptes": checked_accounts(merged.get("comptes") or [])}
 
 
-IDENTITY = ("email", "nom", "prenom", "statut", "date_depart")
+IDENTITY = ("email", "nom", "prenom", "statut", "type_contrat", "date_depart")
 
 
 def pilot_identity(person: dict) -> dict:
@@ -117,8 +124,12 @@ def pilot_identity(person: dict) -> dict:
     if not isinstance(person, dict):
         raise UserError("personnel must be an object")
     statut = str(person.get("statut") or "actif").strip().lower()
+    contrat = str(person.get("type_contrat") or "").strip().lower()
+    if statut == "externe":                             # a Pilot not yet updated: an active external contract
+        statut, contrat = "actif", contrat or "externe"
     entry = checked_user({"email": person.get("email"), "nom": person.get("nom"), "prenom": person.get("prenom"),
-                          "statut": statut, "date_depart": person.get("date_depart") if statut == "inactif" else None})
+                          "statut": statut, "type_contrat": contrat or "interne",
+                          "date_depart": person.get("date_depart") if statut == "inactif" else None})
     return {k: entry[k] for k in IDENTITY}
 
 
@@ -152,6 +163,10 @@ def _cell(field: str, value: str) -> str:
         value = value.lower()
         if value not in STATUTS:
             raise UserError(f"statut must be one of {', '.join(STATUTS)}, not {value}")
+    elif field == "type_contrat":
+        value = value.lower()
+        if value not in CONTRATS:
+            raise UserError(f"type_contrat must be one of {', '.join(CONTRATS)}, not {value}")
     elif field == "date_depart":
         value = _checked_date(value, "date_depart")
     return value
@@ -163,7 +178,7 @@ def parse_users_csv(text: str) -> list[dict]:
     each checked.
 
     The first line names the columns: `email` required; `nom`, `prenom`,
-    `statut`, `date_depart`, and `perimetre`, `compte`, `role` for an
+    `statut`, `type_contrat`, `date_depart`, and `perimetre`, `compte`, `role` for an
     account, in any order. A user with several accounts takes one line per account; the user
     cells of those lines agree, or are left empty. Refused as a whole, with
     every faulty line, if one is wrong: an import is all or nothing."""
